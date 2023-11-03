@@ -25,7 +25,7 @@ namespace rehome.Models
 
         public IList<日誌表示>? Nissi { get; set; }
 
-       
+        public List<見積>? Quotes { get; set; }
 
         public IList<DropDownListModel>? 担当DropDownList { get; set; }
 
