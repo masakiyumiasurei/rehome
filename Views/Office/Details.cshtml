@@ -1,0 +1,104 @@
+﻿@using rehome.Enums;
+@model OfficeDetailModel
+@using System.Security.Claims;
+<link rel="stylesheet" href="~/css/tab.css" />
+
+ @{
+    switch (Model.Mode)
+    {
+        case ViewMode.New:
+            ViewData["Title"] = "営業所登録";
+            break;
+        case ViewMode.Edit:
+            ViewData["Title"] = "営業所編集";
+            break;
+        default:
+            ViewData["Title"] = "営業所情報";
+            break;
+    }
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>@ViewBag.OperationMessage</p>
+</div>
+
+@using (@Html.BeginForm("Details", "Office", FormMethod.Post, new { id = "OfficeEditForm" }))
+{
+    @Html.HiddenFor(model => model.Mode)
+    @Html.HiddenFor(model => model.BackUrl)
+    @*@Html.AntiForgeryToken()*@
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+
+
+    <div class="form-group">
+        <div class="col-xs-offset-1 col-xs-11">
+            <div class="row">
+                @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                {
+                    <div class="col-5 col-sm-2">
+                        <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
+                    </div>
+                
+                @if (Model.Mode == ViewMode.Edit){
+
+                    <div class="col-5 col-sm-2">
+                        <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2">削除</button>
+                    </div>
+                }
+                }
+            </div>
+            
+
+        </div>
+    </div>
+    <br>
+    @if (Model.Office == null)
+    {
+        <div class="text-danger">営業所情報が見つかりませんでした</div>
+    }
+    else
+    {
+    @await Html.PartialAsync("_Office")
+
+    }
+           @* <div class="row">
+                <div class="col-5 col-sm-2" >
+                    <a href="@Url.Action("Index", "Client")" class="custom-btn btn-2">戻る</a>
+                </div>
+            </div>*@
+}
+
+@section Scripts{
+    <script>
+
+
+
+        
+
+        $(function() {
+
+             $('#btnSubmit').on('click', function() {
+
+                    
+            });
+
+            //削除
+            $('#btnDelete').on('click', function() {
+                var result = window.confirm('営業所情報を削除しますか？');
+                if (result == false) {
+                    return false;
+                }
+            });
+        });
+
+        
+    </script>
+
+}
+
+                        

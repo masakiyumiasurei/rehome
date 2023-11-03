@@ -1,0 +1,225 @@
+﻿@using rehome.Enums;
+@model TantouDetailModel
+@using System.Security.Claims;
+<link rel="stylesheet" href="~/css/tab.css" />
+
+ @{
+    switch (Model.Mode)
+    {
+        case ViewMode.New:
+            ViewData["Title"] = "担当登録";
+            break;
+        case ViewMode.Edit:
+            ViewData["Title"] = "担当編集";
+            break;
+        default:
+            ViewData["Title"] = "担当情報";
+            break;
+    }
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>@ViewBag.OperationMessage</p>
+</div>
+
+@using (@Html.BeginForm("Details", "Tantou", FormMethod.Post, new { id = "TantouEditForm" }))
+{
+    @Html.HiddenFor(model => model.Mode)
+    @Html.HiddenFor(model => model.BackUrl)
+    @*@Html.AntiForgeryToken()*@
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+
+
+        <div class="form-group">
+        <div class="col-xs-offset-1 col-xs-11">
+            <div class="row">
+                @if(Model.Mode == ViewMode.New || Model.Tantou.担当ID == Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value) || User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                {
+                    <div class="col-5 col-sm-2">
+                    <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
+                </div>
+                }
+                @if (Model.Mode == ViewMode.Edit && (Model.Tantou.担当ID == Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value) || User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")){
+
+                    @*<div class="col-5 col-sm-2">
+                        <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2">削除</button>
+                    </div>*@
+                }
+            </div>
+            
+
+        </div>
+    </div>
+    <br>
+    @if (Model.Tantou == null)
+    {
+        <div class="text-danger">担当情報が見つかりませんでした</div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-6 col-md-11 col-sm-11 col-xs-11">
+                @await Html.PartialAsync("_Tantou")
+            </div>
+            @if (Model.Tantou.auth == true || Model.Tantou.assistant == true)
+            {
+                <div class="col-lg-6 col-md-11 col-sm-11 col-xs-11">
+                <section class="typeA">
+
+                    <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" checked="checked">
+                    <label class="tabLabel" for="TAB-A01">担当営業所</label>
+                    <div class="content">
+                        <p>
+                            @await Html.PartialAsync("_TantouOffice")
+                        </p>
+                    </div>
+                </section>
+                
+            </div>
+            }
+            
+
+        </div>
+
+    }
+           @* <div class="row">
+                <div class="col-5 col-sm-2" >
+                    <a href="@Url.Action("Index", "Client")" class="custom-btn btn-2">戻る</a>
+                </div>
+            </div>*@
+}
+
+@section Scripts{
+    <script>
+
+        var TantouCount = @Model.担当営業所数; 
+
+        function new_pass(){
+
+            var add_html = '<div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div class="tile-box"><label for="name" class="col-xs-1 tile-label2">新しいパスワード</label><input id="new_pass1" class="form-control" id="Tantou_pass" name="Tantou.new_pass" type="password" ></div></div></div><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><div class="tile-box"><label for="name" class="col-xs-1 tile-label2">新しいパスワード(再確認)</label><input id="new_pass2" class="form-control" id="Tantou_pass" name="Tantou.new_pass" type="password" ></div></div></div>'
+
+            $('#password').after(add_html);
+            $('#btn_pass').remove();
+
+        }
+
+
+        
+
+        $(function() {
+
+             $('#btnSubmit').on('click', function() {
+
+                    if ($('#new_pass1').val() == "" || $('#new_pass2').val() == "") {
+                        alert('新しいパスワードを入力してください。');
+                        return false;
+                    }
+
+                    if ($('#new_pass1').val() != $('#new_pass2').val()) {
+                        alert('入力されたパスワードが異なっています。');
+                        return false;
+                    }
+
+                    
+
+                    
+                });
+
+            //削除
+            $('#btnDelete').on('click', function() {
+                var result = window.confirm('担当情報を削除しますか？');
+                if (result == false) {
+                    return false;
+                }
+            });
+        });
+
+        
+
+
+function addTantou() {
+
+   
+
+    var TantouID = $('[name="担当営業所ID新規"]').val();
+
+    const selectElement = document.getElementById("TantouOffice");
+
+    const selectedIndex = selectElement.selectedIndex;
+
+    const OfficeID = selectElement.options[selectedIndex].value;
+
+    const OfficeName = selectElement.options[selectedIndex].text;
+
+    var nullcheck = 0;
+
+    if (OfficeID == "") {
+        nullcheck = 1;
+    }
+
+
+
+    var TantouIdList = document.querySelectorAll('#担当営業所ID');
+
+    var duplicate = 0;
+
+    
+
+    TantouIdList.forEach((elm) => {
+        console.log("OfficeID:" + OfficeID);
+        console.log("elm:" + elm.value);
+        if (OfficeID == elm.value) {
+            alert("既に追加済の営業所です。");
+            duplicate = 1;
+        }
+    })
+
+    if (duplicate == 0 && nullcheck == 0) {
+        var addhtml = '<tr id="担当営業所[' + TantouCount + ']"><input name="担当営業所リスト[' + TantouCount + '].担当ID" type="hidden" value="' + TantouID + '" /><input name="担当営業所リスト[' + TantouCount + '].営業所ID" type="hidden" id="担当営業所ID" value="' + OfficeID + '" /><td class="col-4 col-sm-5">' + OfficeName + '</td><td class="col-3 col-sm-2"><input type="button" value="削除" onclick="delTantou(' + TantouCount + ');" class="custom-btn btn-2 btn-sm" /></td></tr>'
+
+        $('#TantouOffices').append(addhtml);
+
+        $('[name="担当営業所ID新規"]').val("");
+
+        TantouCount++;
+    }
+    
+
+}
+
+    function delTantou(i) {
+        let node = document.getElementById("担当営業所[" + i + "]");
+        node.remove();
+        TantouCount--;
+        Renumber(0);
+        Renumber(1);
+
+    }
+
+    function Renumber(td_num){
+        console.log('called Renumber');
+       $('table#TantouTable tbody tr').each(function(){
+            var idx=$(this).prop('rowIndex')-1;
+            console.log('each');
+            var name = $(this).children().eq(td_num).attr('name');
+            console.log(name);
+            var rowStr = name.substr(name.indexOf('[') );
+            rowStr=rowStr.substr(0, rowStr.indexOf(']')+ 1);
+            console.log('rowStr:'+rowStr);
+            console.log('idx:'+idx);
+            var newname=name.replace(rowStr,'['+String(idx)+']');
+            $(this).children().eq(td_num).attr('name',newname);
+            console.log(newname);
+       });
+     }
+
+    </script>
+
+}
+
+                        

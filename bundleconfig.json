@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/js/samples.min.js",
+    "inputFiles": [
+      "wwwroot/js/samples.js"
+    ]
+  }
+]

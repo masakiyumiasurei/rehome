@@ -1,0 +1,90 @@
+﻿@using rehome.Enums;
+@model HouzinDetailModel
+@using System.Security.Claims;
+ @{
+    switch (Model.Mode)
+    {
+        case ViewMode.New:
+            ViewData["Title"] = "法人登録";
+            break;
+        case ViewMode.Edit:
+            ViewData["Title"] = "法人編集";
+            break;
+        default:
+            ViewData["Title"] = "法人情報";
+            break;
+    }
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <p>@ViewBag.OperationMessage</p>
+</div>
+
+@using (@Html.BeginForm("Details", "Houzin", FormMethod.Post, new { id = "HouzinEditForm" }))
+{
+    @Html.HiddenFor(model => model.Mode)
+    @Html.HiddenFor(model => model.BackUrl)
+
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+
+
+    <div class="form-group">
+        <div class="col-xs-offset-1 col-xs-11">
+            <div class="row">
+                @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                {
+                    <div class="col-5 col-sm-2">
+                        <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
+                    </div>
+                }
+
+            </div>
+            
+
+        </div>
+    </div>
+    <br>
+    @if (Model.Houzin == null)
+    {
+        <div class="text-danger">法人情報が見つかりませんでした</div>
+    }
+    else
+    {
+    @await Html.PartialAsync("_Houzin")
+
+    }
+           @* <div class="row">
+                <div class="col-5 col-sm-2" >
+                    <a href="@Url.Action("Index", "Client")" class="custom-btn btn-2">戻る</a>
+                </div>
+            </div>*@
+}
+
+@section Scripts{
+    <script>
+
+
+
+        
+
+        $(function() {
+
+             $('#btnSubmit').on('click', function() {
+
+                    
+            });
+
+           
+        });
+
+        
+    </script>
+
+}
+
+                        

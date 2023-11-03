@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PrintDefine>
+<PrintSetting Name="レポート定義ファイル" Ver="9.2.0" >
+<PrintAttrs>
+<FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
+<FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="11.25" />
+<FontAttr AttrName="Font3" Name="ＭＳ 明朝" Size="12" />
+<FontAttr AttrName="Font4" Name="ＭＳ 明朝" Size="15" />
+<FontAttr AttrName="Font5" Name="ＭＳ 明朝" Size="6" />
+<FontAttr AttrName="Font6" Name="ＭＳ 明朝" Size="8" />
+<FontAttr AttrName="Font7" Name="ＭＳ 明朝" Size="10" />
+<LineAttr AttrName="Line1" Width="0.3" />
+<LineAttr AttrName="Line2" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line3" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line4" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line5" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line6" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line7" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line8" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line9" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line10" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line11" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line12" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line13" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line14" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line15" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line16" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line17" Color="Transparent" Width="0" />
+</PrintAttrs>
+<Paper Size="A4" Direction="False" />
+<Design FontAttr="Font1" LineAttr="Line1" GridWidth="2" DesignScale="100" GridFit="True" ObjLock="False" X="0" Y="0" Width="210" Height="297" DisplayRepeatObject="False" RepeatObjectColor="Silver" ImageSizeType="Clip" />
+</PrintSetting>
+<PrintObjects>
+<Line Name="Line4" StartX="20" StartY="170" EndX="190" EndY="170" LineAttr="Line1" />
+<Line Name="Line5" StartX="20" StartY="120" EndX="190" EndY="120" LineAttr="Line1" />
+<Line Name="Line7" StartX="238" StartY="82" EndX="226" EndY="82" LineAttr="Line1" />
+<Text Name="Text14" X="20" Y="114" Width="22" Height="6" Text="件 名" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="Text15" X="20" Y="164" Width="22" Height="6" Text="作業期間" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="作業期間" X="42" Y="164" Width="148" Height="6" Text="*作業期間*" Align="Left" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="件名" X="42" Y="114" Width="148" Height="6" Text="*件名*" Align="Left" VAlign="Bottom" FontAttr="Font2" />
+<Line Name="Line11" StartX="120" StartY="30" EndX="10" EndY="30" LineAttr="Line1" />
+<Text Name="顧客名" X="10" Y="22" Width="94" Height="8" Text="*顧客名*" Align="Center" VAlign="Middle" FontAttr="Font3" />
+<Text Name="Text40" X="10" Y="60" Width="190" Height="10" Text="作 業 完 了 報 告 書" Align="Center" VAlign="Middle" FontAttr="Font4" />
+<Text Name="見積番号" X="162" Y="4" Width="38" Height="6" Text="*見積番号*" Align="Right" VAlign="Middle" FontAttr="Font1" />
+<Text Name="作成日" X="162" Y="10" Width="38" Height="6" Text="*作成日*" Align="Right" VAlign="Middle" FontAttr="Font1" />
+<Text Name="オフィス" X="130" Y="274" Width="70" Height="6" Text="*オフィス*" Align="Left" VAlign="Middle" FontAttr="Font5" />
+<Text Name="TEL" X="130" Y="268" Width="70" Height="6" Text="*TEL*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="住所" X="130" Y="262" Width="70" Height="6" Text="*住所*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="郵便番号" X="130" Y="256" Width="70" Height="6" Text="*郵便番号*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="代表名" X="130" Y="250" Width="70" Height="6" Text="*代表名*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="社名" X="130" Y="244" Width="70" Height="6" Text="*社名*" Align="Left" VAlign="Middle" FontAttr="Font7" />
+<Text Name="敬称" X="104" Y="22" Width="18" Height="8" Text="*敬称*" Align="Center" VAlign="Middle" FontAttr="Font3" />
+<Text Name="Text38" X="20" Y="170" Width="22" Height="6" Text="(履行期限)" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+</PrintObjects>
+</PrintDefine>

@@ -1,0 +1,266 @@
+﻿<link rel="stylesheet" href="~/css/tab.css" />
+@{
+    ViewData["Title"] = "売上状況表";
+}
+@model QuoteSalesStatusModel
+
+<div>
+	<p>@ViewBag.OperationMessage</p>
+</div>
+
+<div class="text-center">
+    <h2>売上状況表</h2>
+
+   @* @Html.HiddenFor(a => a.start_date)
+    @Html.HiddenFor(a => a.end_date)*@
+
+<div class="row">
+    <div class="col-lg-2 col-sm-3">
+        <label>計上期間始</label>
+        @Html.EditorFor(a => a.start_date,new { htmlAttributes =new{ @type="date" ,@class="form-control",@id="select_start",@min="1900/1/1", @max="9999/12/31" }})
+    </div>
+    <div class="col-auto my-2">
+    <span>～</span>
+    </div>
+    <div class="col-lg-2 col-sm-3">
+        <label>計上期間至</label>
+        @Html.EditorFor(a => a.end_date,new { htmlAttributes =new{ @type="date" ,@class="form-control",@id="select_end",@min="1900/1/1", @max="9999/12/31" }})
+    </div>
+
+
+@*    <div class="col-lg-1 col-sm-3">
+        <label>計上終了日付</label>
+        @Html.DropDownListFor(m => m.月, QuoteSalesStatusModel.月items(), "", new { @class = "form-control",@id="select_Month" })
+    </div>
+*@
+    <div class="col-lg-1 col-sm-3">
+        <label>期</label>
+        @Html.TextBoxFor(a => a.期,new{ @type="number" ,@class="form-control",@id="select_Period"})
+    </div>
+
+    <div class="col-lg-1 col-sm-3 my-4">
+        <a href="#" onclick="searchList()" class="custom-btn btn-1" >集計</a>
+    </div>
+</div>
+
+      <section class="typeA">
+                    <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" checked="checked">
+        <label class="tabLabel" for="TAB-A01"><strong>@Html.DisplayFor(a => a.期)期</strong>オフィス別累計（受注率50%以上）</label>
+                    <div class="content">
+                        <p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped table-hover table-sm ">
+                                    <thead>
+                                        <tr>
+                                            <th>オフィス名</th>
+                                            <th>売上</th>
+                                            <th>原価</th>
+                                            <th>粗利益</th>
+                                            <th>粗利率</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if(Model.期オフィス別累計50 != null)
+                                    {
+                                         @foreach (var item in Model.期オフィス別累計50)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.名称)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.売上)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.原価)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利益)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利率)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+
+
+                    <input class="tabRadio" id="TAB-A02" type="radio" name="TAB-A">
+                    <label class="tabLabel" for="TAB-A02"><strong>@Html.DisplayFor(a => a.期)期</strong>オフィス別累計（受注率49%以下）</label>
+                    <div class="content">
+                        <p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped table-hover table-sm ">
+                                    <thead>
+                                        <tr>
+                                            <th>オフィス名</th>
+                                            <th>売上</th>
+                                            <th>原価</th>
+                                            <th>粗利益</th>
+                                            <th>粗利率</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if(Model.期オフィス別累計49 != null)
+                                    {
+                                         @foreach (var item in Model.期オフィス別累計49)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.名称)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.売上)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.原価)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利益)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利率)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+
+                    <input class="tabRadio" id="TAB-A03" type="radio" name="TAB-A">
+                    <label class="tabLabel" for="TAB-A03">期間別オフィス別累計（受注率50%以上）</label>
+                    <div class="content">
+                        <p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped table-hover table-sm ">
+                                    <thead>
+                                        <tr>
+                                            <th>オフィス名</th>
+                                            <th>売上</th>
+                                            <th>原価</th>
+                                            <th>粗利益</th>
+                                            <th>粗利率</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if(Model.期間オフィス別累計 != null)
+                                    {
+                                         @foreach (var item in Model.期間オフィス別累計)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.名称)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.売上)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.原価)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利益)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利率)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+
+                    <input class="tabRadio" id="TAB-A04" type="radio" name="TAB-A">
+        <label class="tabLabel" for="TAB-A04"><strong>@Html.DisplayFor(a => a.期)期</strong>個人別累計（受注率50%以上）</label>
+                    <div class="content">
+                        <p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped table-hover table-sm ">
+                                    <thead>
+                                        <tr>
+                                            <th>個人名</th>
+                                            <th>売上</th>
+                                            <th>原価</th>
+                                            <th>粗利益</th>
+                                            <th>粗利率</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if(Model.期個人別累計 != null)
+                                    {
+                                         @foreach (var item in Model.期個人別累計)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.名称)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.売上)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.原価)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利益)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利率)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+
+                    <input class="tabRadio" id="TAB-A05" type="radio" name="TAB-A">
+                    <label class="tabLabel" for="TAB-A05">期間別個人別累計（受注率50%以上）</label>
+                    <div class="content">
+                        <p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-striped table-hover table-sm ">
+                                    <thead>
+                                        <tr>
+                                            <th>個人名</th>
+                                            <th>売上</th>
+                                            <th>原価</th>
+                                            <th>粗利益</th>
+                                            <th>粗利率</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if(Model.期間個人別累計 != null)
+                                    {
+                                         @foreach (var item in Model.期間個人別累計)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.名称)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.売上)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.原価)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利益)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.粗利率)</td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+
+
+                 </section>
+
+</div>
+
+@section Scripts{
+
+    <script>
+        //window.onload = function() {
+        //    document.getElementById("select_start").value = document.getElementsByName("start_date").value;
+        //    document.getElementById("select_end").value = document.getElementsByName("end_date").value;
+
+        //};
+
+        function searchList() {
+        var start_date = document.getElementById("select_start").value;       
+        var end_date = document.getElementById("select_end").value;
+        var period = document.getElementById("select_Period").value;
+
+        //if (start_date == "" && end_date == "" && period == "") {
+        //    alert("売上状況を計上する条件を入力してください");
+        //    return false;
+        //else if (start_date == "" || end_date == "" && period == ""){
+        //    alert("売上状況を計上する、期間の開始日と終了日を条件を入力してください");
+        //    return false;
+        //}
+
+        var url = "@Url.Action("SalesStatus", "Quote")?period=" + period + "&start_date=" + start_date + "&end_date=" + end_date;
+        window.location.href = url;
+    }
+
+
+        //function chenge_box(boxno){
+        //var start_date = document.getElementById("select_start").value;
+        //var end_date = document.getElementById("select_end").value;
+        //var period = document.getElementById("select_Period").value;
+
+        //    if (boxno==1){
+        //        document.getElementById("select_Period").value = "";
+        //    }
+        //    else{
+        //        document.getElementById("select_start").value = "";
+        //        document.getElementById("end_start").value = "";
+        //    }
+        //}
+
+
+    </script>
+}

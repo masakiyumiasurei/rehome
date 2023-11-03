@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "一覧表印刷";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6">
+        <label>年</label>
+        <input type="number" value="@DateTime.Today.Year"  class="form-control" id="select_Year" min="1900" max="9999" />
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <label>月</label>
+        <select class="form-control" id="select_Month">
+            @for (int i = 1; i <= 12; i++) {
+                if(DateTime.Now.Month == i)
+                {
+                    <option value="@i" selected>@i</option>    
+                }else{
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<br>
+
+ <div class="form-group">
+    <div class="col-xs-offset-1 col-xs-11">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <a href="#" onclick="printList()" class="custom-btn btn-1" >一覧表印刷</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function printList() {
+        var year = document.getElementById("select_Year").value;
+        var month = document.getElementById("select_Month").value;
+
+        if (year == "" || month == "") {
+            alert("年と月を入力してください");
+            return false;
+        }
+
+        var url = "@Url.Action("支援一覧表", "Nissi")?年度=" + year + "&月度=" + month;
+        window.open(url, "_blank");
+    }
+</script>

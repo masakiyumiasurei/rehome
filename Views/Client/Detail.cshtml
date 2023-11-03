@@ -1,0 +1,455 @@
+﻿@{
+    ViewData["Title"] = "顧客";
+}
+@model ClientDetailModel
+@using rehome.Enums;
+@using rehome.Models.Client;
+
+<link rel="stylesheet" href="~/css/tab.css" />
+          
+@using (Html.BeginForm("", "Client", FormMethod.Post,new {@enctype="multipart/form-data" }))
+{
+    @*<h2>顧客登録</h2>*@
+        <p>@ViewBag.OperationMessage</p>
+<div class="text-danger">
+        @if(ViewBag.errorMessage != null)
+        {
+            <p>@Html.Raw(ViewBag.errorMessage.Replace("\n", "<br>"))</p>
+        }
+</div>
+
+             <div class="form-group">
+                <div class="col-xs-11">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-2 col-sm-3 col-xs-3">
+                            <input type="submit" formaction="Detail" formmethod="post" id="submit"  class="custom-btn btn-1" value="登録" />
+                        </div>
+                        @if (Model.Mode == ViewMode.Edit){
+
+                            @*いったん削除ボタンは未使用にする。後日変わるかも？？*@
+@*                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 offset-xs-1">
+                                <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2" >削除</button>
+                            </div>*@
+                        }
+                    </div>            
+
+                </div>
+            </div>
+
+
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+    <hr />
+   
+   
+    @if (Model.Client == null)
+    {
+        <div class="text-danger">顧客情報が見つかりませんでした</div>
+    }
+    else
+    {
+    <div class="row">
+        <div class="col-lg-4 col-md-11 col-sm-11 col-xs-11">
+
+
+            @await Html.PartialAsync("_Client")
+
+         </div>
+
+         <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <section class="typeA">
+
+                <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" checked="checked">
+                <label class="tabLabel" for="TAB-A01">顧客詳細</label>
+                <div class="content">
+                    <p>
+                        @await Html.PartialAsync("_ClientEx")
+                    </p>
+                </div>
+                               
+
+                <input class="tabRadio" id="TAB-A04" type="radio" name="TAB-A">
+                <label class="tabLabel" for="TAB-A04">見積</label>
+                <div class="content">
+                    <p>
+                        @await Html.PartialAsync("_ClientSodan")
+                    </p>
+                </div>                
+
+                 @if(Model.Mode != ViewMode.New)
+                    {
+                        <input class="tabRadio" id="TAB-A02" type="radio" name="TAB-A">
+                <label class="tabLabel" for="TAB-A02">日誌</label>
+                <div class="content">
+                    <p>
+                        @await Html.PartialAsync("_ClientNissi")
+                    </p>
+                </div>
+                    }
+
+                   @* <input class="tabRadio" id="TAB-A05" type="radio" name="TAB-A">
+                <label class="tabLabel" for="TAB-A05">ファイル</label>
+                <div class="content">
+                    <p>
+                        @await Html.PartialAsync("_ClientFiles")
+                    </p>
+                </div>*@
+
+            </section>
+        </div>
+
+    </div>
+
+    }
+        
+}
+
+@section Scripts{
+    <script>
+
+        var TantouCount = @Model.顧客担当者数; 
+        var SodanCount = @Model.相談者数;
+
+        function deleteURL(num){
+            $('[name="Client.URL' + num + '"]').val('');
+            $('[name="Client.URL' + num + '名称"]').val('');
+
+            const targetElement = document.getElementById("URL" + num);
+            while (targetElement.firstChild) {
+              targetElement.removeChild(targetElement.firstChild);
+            }
+        }
+
+        function addURL(){
+            var add_url = $('#add_url').val();
+            var add_url_name = $('#add_url_name').val();
+
+            var url1 = $('[name="Client.URL1"]').val();
+            var url2 = $('[name="Client.URL2"]').val();
+            var url3 = $('[name="Client.URL3"]').val();
+
+
+            if (add_url != "") {
+
+                var add_html = '<div class="col-9">' + add_url_name + ' <a href="' + add_url + '" target="_blank">' + add_url + '</a></div><div class="col-3">'
+
+                if (url1 == "") {
+                    $('[name="Client.URL1"]').val(add_url);
+                    $('[name="Client.URL1名称"]').val(add_url_name);
+                    add_html += '<input type="button" onclick="deleteURL(1);" value="削除" class="custom-btn btn-2 btn-sm btn-size-min-inner btn-red btn-size-min"></div>'
+                    $('#URL1').html(add_html);
+                    $('#add_url').val('');
+                    $('#add_url_name').val('');
+
+                } else if (url2 == "") {
+                    $('[name="Client.URL2"]').val(add_url);
+                    $('[name="Client.URL2名称"]').val(add_url_name);
+                    add_html += '<input type="button" onclick="deleteURL(2);" value="削除" class="custom-btn btn-2 btn-sm btn-size-min-inner btn-red btn-size-min"></div>'
+                    $('#URL2').html(add_html);
+                    $('#add_url').val('');
+                    $('#add_url_name').val('');
+
+                }else if(url3 == ""){
+                    $('[name="Client.URL3"]').val(add_url);
+                    $('[name="Client.URL3名称"]').val(add_url_name);
+                    add_html += '<input type="button" onclick="deleteURL(3);" value="削除" class="custom-btn btn-2 btn-sm btn-size-min-inner btn-red btn-size-min"></div>'
+                    $('#URL3').html(add_html);
+                    $('#add_url').val('');
+                    $('#add_url_name').val('');
+
+                }else{
+                    alert("URLは3つまでしか登録できません。");
+                }
+
+            }
+
+        }
+
+function addTantou() {
+
+   
+
+    var ClientID = $('[name="Client.顧客ID"]').val();
+
+    var TantouSyu = $('[name="顧客担当新規.担当種別"]').val();
+
+    const selectElement = document.getElementById("ClientTantou");
+
+    const selectedIndex = selectElement.selectedIndex;
+
+    const TantouID = selectElement.options[selectedIndex].value;
+
+    const TantouName = selectElement.options[selectedIndex].text;
+
+    var nullcheck = 0;
+
+    if (TantouID == "") {
+        nullcheck = 1;
+    }
+
+
+    var TantouIdList = document.querySelectorAll('#顧客担当ID');
+
+    var duplicate = 0;
+
+    TantouIdList.forEach((elm) => {
+        if (TantouID == elm.value) {
+            alert("既に追加済の担当者です。");
+            duplicate = 1;
+        }
+    })
+
+    if (duplicate == 0 && nullcheck == 0) {
+        var addhtml = '<tr id="顧客担当[' + TantouCount + ']"><input name="顧客担当リスト[' + TantouCount + '].顧客ID" type="hidden" value="' + ClientID + '"><input name="顧客担当リスト[' + TantouCount + '].担当ID" type="hidden" id="顧客担当ID" value="' + TantouID + '"><td class="col-4 col-sm-5"><select class="form-control" name="顧客担当リスト[' + TantouCount + '].担当種別">';
+    
+        if (TantouSyu == "メイン") {
+            addhtml += '<option value=""></option><option selected="selected" value="メイン">メイン</option><option value="サブ">サブ</option>'
+        } else if (TantouSyu == "サブ") {
+            addhtml += '<option value=""></option><option value="メイン">メイン</option><option selected="selected" value="サブ">サブ</option>'
+        }else{
+            addhtml += '<option  selected="selected" value=""></option><option value="メイン">メイン</option><option value="サブ">サブ</option>'
+        }
+
+    addhtml += '</select></td><td class="col-4 col-sm-5">' + TantouName + '</td><td class="col-3 col-sm-2"><input type="button" value="削除" onclick="delTantou(' + TantouCount + ');" class="custom-btn btn-2 btn-sm"></td></tr>'
+
+        $('#ClientTantous').append(addhtml);
+
+        $('[name="顧客担当新規.担当種別"]').val("");
+        $('[name="顧客担当新規.担当ID"]').val("");
+
+        TantouCount++;
+    }
+    
+
+}
+
+    function delTantou(i) {
+        let node = document.getElementById("顧客担当[" + i + "]");
+        node.remove();
+        TantouCount--;
+        Renumber(0);
+        Renumber(1);
+        Renumber(2);
+        Renumber(3);
+    }
+
+
+    function Renumber(td_num){
+        console.log('called Renumber');
+       $('table#TantouTable tbody tr').each(function(){
+            var idx=$(this).prop('rowIndex')-1;
+            console.log('each');
+
+           var name = "";
+           if(td_num <= 1) {
+               name = $(this).children().eq(td_num).attr('name');
+           }else{
+               name = $(this).children().eq(td_num).children().attr('name');
+           }
+            console.log(name);
+            var rowStr = name.substr(name.indexOf('[') );
+            rowStr=rowStr.substr(0, rowStr.indexOf(']')+ 1);
+            console.log('rowStr:'+rowStr);
+            console.log('idx:'+idx);
+            var newname=name.replace(rowStr,'['+String(idx)+']');
+            if(td_num <= 1){
+                $(this).children().eq(td_num).attr('name',newname);
+            }else{
+                $(this).children().eq(td_num).children().attr('name',newname);
+            }
+            console.log(newname);
+
+
+
+       });
+     }
+
+
+    function addSodan(){
+
+        var ClientID = $('[name="Client.顧客ID"]').val();
+
+        var SodanName = $('[name="相談者新規.相談者名"]').val();
+
+        var SodanJob = $('[name="相談者新規.職名"]').val();
+
+        var SodanTel = $('[name="相談者新規.tel"]').val();
+
+        var SodanMail = $('[name="相談者新規.mail"]').val();
+
+
+        if (SodanName != "") {
+             var addhtml = '<tr id="相談者[' + SodanCount + ']"><input  name="相談者リスト[' + SodanCount + '].顧客ID" type="hidden" value="' + ClientID + '"><input  name="相談者リスト[' + SodanCount + '].相談者ID" type="hidden" value=""><td class="col-2 col-sm2"><input class="form-control" name="相談者リスト[' + SodanCount + '].相談者名" type="text" value="' + SodanName + '"></td><td class="col-2 col-sm2"><input class="form-control" name="相談者リスト[' + SodanCount + '].職名" type="text" value="' + SodanJob + '"></td><td class="col-2 col-sm2"><input class="form-control" name="相談者リスト[' + SodanCount + '].tel" type="text" value="' + SodanTel + '"></td><td class="col-2 col-sm2"><input class="form-control" name="相談者リスト[' + SodanCount + '].mail" type="email"  value="' + SodanMail + '"></td><td class="col-2 col-sm2"><input type="button" value="削除" onclick="delSodan(' + SodanCount + ');" class="custom-btn btn-2 btn-sm"></td><input name="相談者リスト[' + SodanCount +'].削除FLG" type="hidden" value="False"></tr>';
+          
+
+            $('#ClientSodan').append(addhtml);
+
+            $('[name="相談者新規.相談者名"]').val("");
+
+            $('[name="相談者新規.職名"]').val("");
+
+            $('[name="相談者新規.tel"]').val("");
+
+            $('[name="相談者新規.mail"]').val("");
+
+            SodanCount++;
+        }
+        else{
+            alert("相談者名を入力してください")
+        }
+       
+    }
+
+
+    function delSodan(i){
+        let node = document.getElementById("相談者[" + i + "]");
+        //node.remove();
+
+        $('[name="相談者リスト[' + i + '].削除FLG"]').val(true);
+        node.style.display = 'none';
+
+        
+    }
+
+
+
+    function NissiFilter() {
+
+        console.log("FilterStart");
+
+        var input, filter, table, tr, td, txtValue;
+        table = document.getElementById("Nissis");
+        tr = table.getElementsByTagName("tr");
+
+        for (var row = 1; row < tr.length; row++) {
+            var disp = true;
+
+            for (col = 1; col < 6; col++) { 
+                input = document.getElementById("NissiFilter[" + col + "]");
+                if(input.tagName == "SELECT"){
+                    filter = input.options[input.selectedIndex].text.toUpperCase();
+                }else if(input.tagName == "INPUT" && input.type == "text"){
+                    filter = input.value.toUpperCase();
+                }
+                td = tr[row].getElementsByTagName("td")[col];
+                if (td) {
+                    txtValue = td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) <= -1) {
+                        disp = false;
+                    }
+                }   
+            }
+
+            if (disp) {
+                tr[row].style.display = "";
+            } else {
+                tr[row].style.display = "none";
+            }
+            
+        }
+      
+    }
+
+
+
+    function getIryoken() {
+
+        const zipcode = $("#zipcode").val(); // 対象の郵便番号
+        const zip3 = zipcode.substring(0,3);
+        const zip4 = zipcode.substring(zipcode.length - 4);
+        const apiUrl = `https://madefor.github.io/postal-code-api/api/v1/${zip3}/${zip4}.json`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const city = data.data[0].ja.address1;
+                var iryoken = checkIryoken(city);
+                $("#iryoken").val(iryoken);
+                
+            })
+            .catch(error => {
+                console.error(`エラーが発生しました: ${error}`);
+            });
+    }
+
+    
+
+    function checkIryoken(city) {
+
+        var param = {
+            city: city
+        };
+        var url = '/Client/GetIryoken';
+        return jQuery.ajax({
+            method: "POST",
+            url: url,
+            data: param,
+            dataType: 'json',
+            async: false
+        }).done(function (data) {
+            // 通信成功時の処理
+            var data_stringify = JSON.stringify(data);
+            console.log("data_stringify : " + data_stringify);
+
+            console.log("URL : " + url);
+            console.log("data : " + data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            // 通信失敗時の処理
+            console.log("ajax通信に失敗しました");
+            console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+            console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+            console.log("errorThrown    : " + errorThrown.message); // 例外情報
+            console.log("URL            : " + url);
+            return null;
+        }).always(function (data) {
+            // 処理終了時
+        })
+            .responseJSON;//Ajax実行返り値の中のresponseJSONにJSONデータが格納されている　
+    }
+
+
+
+        $(function() {
+
+            //登録
+            $('#submit').on('click', function() {
+
+                var table = document.getElementById("TantouTable");
+                var tr = table.getElementsByTagName("tr");
+                var count = 0;
+                for (var row = 1; row < tr.length; row++) {
+
+                    var td = tr[row].getElementsByTagName("td")[0];
+                    if (td) {
+                        var selectElement = td.querySelector('select');
+                        var txtValue = selectElement.options[selectElement.selectedIndex].text;
+                        if (txtValue == "メイン") {
+                            count++;
+                        }
+                    }
+                }
+                if (count > 1) {
+                    alert("メイン担当者は複数登録できません。");
+                    event.preventDefault();
+                }
+
+            });
+
+            //削除
+            $('#btnDelete').on('click', function() {
+                var result = window.confirm('顧客情報を削除しますか？');
+                if (result == false) {
+                    event.preventDefault();
+                }
+            });
+
+
+        });
+    </script>
+
+}
+
+
+                            
+  

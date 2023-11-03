@@ -1,0 +1,58 @@
+﻿
+@model QuoteCreateModel
+@using rehome.Models.DB;
+@using rehome.Models.Quote;
+
+<div class="modal fade" id="QuoteTab_cost" tabindex="-1" role="dialog"   >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >集計する分類と掛率を入力してください</h4> 
+            </div>
+            <div>
+                <p class="errmess">自由項目を追加した場合は先に保存してください</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @for(var i = 1; i <= Model.分類DropDownList.Count(); ++i)
+                {
+                    <div>
+                        <input id="cost_bunrui[@Model.分類DropDownList[i-1].Value]" type="checkbox" >
+                        <lable>@Model.分類DropDownList[i-1].Display</lable>
+                    </div>               
+                }
+                @if(Model.自由分類DropDownList != null){
+                    @for(var i = 1; i <= Model.自由分類DropDownList.Count(); ++i)
+                    {
+                        <div>
+                            <input id="cost_bunrui[@Model.自由分類DropDownList[i-1].Value]" type="checkbox" >
+                            <lable>@Model.自由分類DropDownList[i-1].Display</lable>
+                        </div>               
+                    }
+                }
+                
+                <br>
+                <input type="hidden" id="cost_id" />
+                <div>
+                    <label>商品名</label>
+                    <input type="text" class="form-control" id="cost_name" />
+                </div>
+                <div>
+                    <label>掛率（％）</label>
+                    <input type="number" class="form-control" id="cost_ritu" />
+                </div>
+                <div>
+                    <label>割り戻し（％）※0.8で割る場合は80としてください</label>
+                    <input type="number" class="form-control" id="cost_wari" />
+                </div>
+                <br>
+                <input type="button" value="追加" class="custom-btn btn-2 btn-2-sm" onclick="addTabCost();"/>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+

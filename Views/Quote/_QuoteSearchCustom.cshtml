@@ -1,0 +1,99 @@
+﻿@using rehome.Enums
+
+<div class="modal fade" id="ModalWindow" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>見積検索項目設定</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_見積ID" onclick="SwitchOnOff()">ON</button>見積ID
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_顧客ID" onclick="SwitchOnOff()">ON</button>顧客ID
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_顧客名" onclick="SwitchOnOff()">ON</button>顧客名
+                    </div>
+                   @* <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_社員名" onclick="SwitchOnOff()">ON</button>社員名
+                    </div>*@
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_日付" onclick="SwitchOnOff()">ON</button>日付
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_納品日" onclick="SwitchOnOff()">ON</button>納品日
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_納期" onclick="SwitchOnOff()">ON</button>納期
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_納品場所" onclick="SwitchOnOff()">ON</button>納品場所
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_支払条件" onclick="SwitchOnOff()">ON</button>支払条件
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_有効期限" onclick="SwitchOnOff()">ON</button>有効期限
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_支払区分" onclick="SwitchOnOff()">ON</button>支払区分
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_支払回数" onclick="SwitchOnOff()">ON</button>支払回数
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_リース料率" onclick="SwitchOnOff()">ON</button>リース料率
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_備考" onclick="SwitchOnOff()">ON</button>備考
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_メモ" onclick="SwitchOnOff()">ON</button>メモ
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_金額" onclick="SwitchOnOff()">ON</button>金額
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_仕入金額" onclick="SwitchOnOff()">ON</button>仕入金額
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_粗利金額" onclick="SwitchOnOff()">ON</button>粗利金額
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_登録日" onclick="SwitchOnOff()">ON</button>登録日
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_ステータス" onclick="SwitchOnOff()">ON</button>ステータス
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_件名" onclick="SwitchOnOff()">ON</button>件名
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_見積明細_案件名" onclick="SwitchOnOff()">ON</button>見積明細_案件名
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_SearchCustom_Quote_見積明細_商品名" onclick="SwitchOnOff()">ON</button>見積明細_商品名
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-1" type="button" onclick="UserCustom_Save('SearchCustom','/Quote/Clear')">設定</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-2" type="button" onclick="Reset_UserCustom('SearchCustom','/Quote/Clear')">リセット</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

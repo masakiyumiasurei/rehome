@@ -1,0 +1,52 @@
+﻿@model OfficeIndexModel
+@using rehome.Models.DB;
+
+<div class="row">
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="営業所名" class="surround-label">営業所名</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.営業所名, new {@class = "form-control"})
+    </div>
+
+     <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="郵便番号" class="surround-label">郵便番号</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.郵便番号, new {@class = "form-control"})
+    </div>
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="住所" class="surround-label">住所</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.住所, new {@class = "form-control"})
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="肩書" class="surround-label">肩書</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.肩書, new {@class = "form-control"})
+    </div>
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="TEL" class="surround-label">TEL</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.TEL, new {@class = "form-control", @type="tel"})
+    </div>
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="FAX" class="surround-label">FAX</label>
+        @Html.TextBoxFor(m=>m.OfficeSearchConditions.FAX, new {@class = "form-control", @type="tel"})
+    </div>
+
+  
+
+
+</div>
+
+
+
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-1" type="submit">検索</button>
+                        <a href="/Office/Clear" class="custom-btn btn-2" type="button">クリア</a>
+                    </div>
+                </div>

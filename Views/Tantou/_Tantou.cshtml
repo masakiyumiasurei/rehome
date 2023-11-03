@@ -1,0 +1,153 @@
+﻿@using rehome.Enums;
+@using rehome.Models.DB;
+@using System.Security.Claims;
+@model TantouDetailModel
+<div class="row">
+
+  
+
+    @Html.HiddenFor(m => m.Tantou.担当ID)
+            <div class="row">
+             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">担当名</label>
+                    @Html.TextBoxFor(m => m.Tantou.氏名, new { @class = "form-control" })
+
+                </div>
+               </div>
+               </div>
+
+               <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">イニシャル</label>
+                    @Html.TextBoxFor(m => m.Tantou.イニシャル, new { @class = "form-control" })
+
+                </div>
+               </div>
+               </div>
+
+                <div class="row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">営業所</label>
+                    @Html.DropDownListFor(m => m.Tantou.営業所ID,new SelectList(Model.営業所DropDownList, "Value", "Display"),  "",  new { @class ="form-control"} )
+
+                </div>
+               </div>
+               </div>
+
+                <div class="row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">TEL</label>
+                    @Html.TextBoxFor(m => m.Tantou.tel, new { @class = "form-control", @type="tel"})
+
+                </div>
+               </div>
+               </div>
+
+
+           
+
+               <div class="row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">ログインID</label>
+                    @Html.TextBoxFor(m => m.Tantou.loginID, new { @class = "form-control" })
+
+                </div>
+               </div>
+               </div>
+
+               <div class="row" id="password">
+                @if(Model.Mode == ViewMode.New)
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tile-box">
+                            <label for="name" class="col-xs-1 tile-label2">パスワード</label>
+                            @Html.TextBoxFor(m => m.Tantou.pass, new { @class = "form-control" ,type="password" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tile-box">
+                            <label for="name" class="col-xs-1 tile-label">パスワード</label>
+                            @Html.TextBoxFor(m => m.Tantou.pass, new { @class = "tile-text",tabindex="-1" ,type="password" })
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="btn_pass">
+                        <button type="button" onclick="new_pass();" class="custom-btn btn-2 btn-size-lg">パスワード変更</button>
+                    </div>
+                }
+                
+               </div>
+
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="tile-box">
+                            <label for="name" class="col-xs-1 tile-label2">退職日</label>
+                            @Html.EditorFor(m => m.Tantou.del_date,  new { htmlAttributes =new { @class = "form-control"  }})
+                        </div>
+                    </div>
+            
+                 <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="tile-box">
+                            <label for="name" class="col-xs-1 tile-label2">見積閲覧権限</label>
+                            <div>
+                                @if(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                                {
+                                    @Html.CheckBoxFor(m => m.Tantou.auth)
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(m => m.Tantou.auth,new{@class = "enable-false",tabindex="-1"})
+                                } 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="tile-box">
+                            <label for="name" class="col-xs-1 tile-label2">管理者権限</label>
+                            <div>
+                                @if(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                                {
+                                    @Html.CheckBoxFor(m => m.Tantou.admin)
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(m => m.Tantou.admin,new{@class = "enable-false",tabindex="-1"})
+                                } 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="tile-box">
+                <label for="assistant" class="col-xs-1 tile-label2">営業アシスタント権限</label>
+                <div>
+                    @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                    {
+                        @Html.CheckBoxFor(m => m.Tantou.assistant)
+                    }
+                    else
+                    {
+                        @Html.CheckBoxFor(m => m.Tantou.assistant,new{@class = "enable-false",tabindex="-1"})
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>@Html.HiddenFor(a => a.Mode)</div>
+     @Html.HiddenFor(a => a.BackUrl)
+</div>

@@ -1,0 +1,57 @@
+﻿@using rehome.Enums;
+@using rehome.Models.DB;
+@model BunruiDetailModel
+<div class="row">
+
+    @Html.HiddenFor(m => m.Bunrui.分類ID)
+
+            <div class="row">
+             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">分類名</label>
+                    @Html.TextBoxFor(m => m.Bunrui.分類名, new { @class = "form-control" })
+
+                </div>
+               </div></div>
+
+
+              
+
+
+             <div class="row">
+             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">理化学医療区分</label>
+                    @Html.DropDownListFor(m => m.Bunrui.理化学医療区分, 分類.理化学医療区分items(), "", new { @class = "form-control" })
+
+                </div>
+               </div></div>
+
+
+               <div class="row">
+             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="tile-box">
+                <label for="name" class="col-xs-1 tile-label2">表示順</label>
+                    @Html.TextBoxFor(m => m.Bunrui.ソート, new { @class = "form-control",@type="number" })
+
+                </div>
+               </div></div>
+           
+
+               </div>
+
+
+
+
+
+           
+
+  
+
+
+
+
+              
+    <div>@Html.HiddenFor(a => a.Mode)</div>
+     @Html.HiddenFor(a => a.BackUrl)
+</div>

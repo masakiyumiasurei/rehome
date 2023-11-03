@@ -1,0 +1,16 @@
+﻿/* overflow:hidden、heightは必ず指定する */
+/* 長すぎる文字列を縮小して表示 */
+.textOverflow {
+    /*overflow: hidden;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*max-width: 0;*/
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    width: 30px;
+    max-width: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

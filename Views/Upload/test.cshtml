@@ -1,0 +1,38 @@
+﻿<div id="mytable"></div>
+
+<input type="button" onclick="GetData()" value="GetData">
+<p>↓DataJson</p>
+      <textarea id='saveData' style='width:800px;height:100px;'></textarea>
+
+
+
+@section Scripts {
+
+<script>
+var data = [
+  ['', 'Ford', 'Tesla', 'Toyota', 'Honda'],
+  ['2017', 10, 11, 12, 13],
+  ['2018', 20, 11, 14, 13],
+  ['2019', 30, 15, 12, 13]
+];
+var columns = [
+        { title:'Model', width:300 },
+        { title:'Price', width:80 },
+        { title:'Model', width:100 }
+    ];
+
+const table = document.getElementById('mytable');
+jexcel(table, {
+    columns: columns,
+    data: data
+
+})
+
+    function GetData(){
+      document.getElementById('saveData').value =JSON.stringify(document.getElementById('mytable').jexcel.getJson());
+      var GetDataJson=JSON.stringify(document.getElementById('mytable').jexcel.getJson());
+      console.log(GetDataJson);
+    }
+
+</script>
+}

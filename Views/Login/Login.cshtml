@@ -1,0 +1,39 @@
+﻿@model Login
+
+
+@using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "LoginForm",  @class="login_form login_card" }))
+{
+
+    <div class="text-danger">
+    @Html.ValidationSummary(false)
+    <p>@ViewBag.OperationMessage</p>
+    </div>
+
+  <div class="login_card_header">
+
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"></path>
+
+    <h1 class="login_form_heading">Sign in</h1>
+  </div>
+
+      <div class="login_field">
+
+        <label for="username">ログインID</label>
+        @Html.TextBoxFor(m => m.ログインID, new {  @class="login_input" ,@type="text" ,@placeholder="ログインIDを入力してください" ,@id="username" })
+      </div>
+      <div class="login_field">
+
+        <label for="password">パスワード</label>                             
+        @Html.TextBoxFor(m => m.Pass, new { @class="login_input" ,@type="password", @placeholder="パスワードを入力してください", @id="password" })
+      </div>
+      <br>
+      <div class="login_field">
+        <button class="custom-btn btn-1" type = "submit" name="Login">Sign in</button>
+      </div>
+  
+  }
+
+@section Scripts{
+
+    }

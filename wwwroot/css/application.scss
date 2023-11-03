@@ -1,0 +1,250 @@
+﻿
+
+input[type="month"] {
+    border: solid 1px;
+    /*border-color: $border-color;*/
+    border-radius: 2rem;
+    background-color: var(--standard-bg);
+}
+
+
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+a, button, input[type="submit"] {
+    margin: 5px;
+}
+
+.align_right {
+    text-align: right;
+}
+
+.align_center {
+    text-align: center;
+}
+
+
+
+/*サブタイトル*/
+h5 {
+    caption-side: top;
+    text-align: center;
+    color: #fbfbfb;
+    background: #7e99ed;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 20px;
+}
+
+
+
+/*チェックボックス*/
+input[type="checkbox"] {
+    margin-top: 15px;
+    transform: scale(1.5);
+}
+
+/*ナビゲーションバー*/
+.fixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 0px;
+}
+
+.navigation-var {
+    background-color: #5e79cc !important;
+    color: #fbfbfb !important;
+}
+
+.nav-active {
+    background-color: #6ba7ff;
+}
+
+.nav-item:hover {
+    background-color: #6ba7ff;
+}
+
+/*ボタン、リンク*/
+.custom-btn {
+    /*width: 110px;*/
+    /*font-size: 14px;*/
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /*position: relative;*/
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+
+.btn-1 {
+    background: rgb(96,9,240);
+    background: linear-gradient(0deg, #5e79cc 0%, #5e79cc 100%);
+    border: none;
+}
+
+.btn-1-sm {
+    background: rgb(96,9,240);
+    background: linear-gradient(0deg, #5e79cc 0%, #5e79cc 100%);
+    border: none;
+    padding: 10px 10px;
+}
+
+.btn-1:before {
+    height: 0%;
+    width: 2px;
+}
+
+.btn-1:hover {
+    box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5), -4px -4px 6px 0 rgba(116, 125, 136, .5), inset -4px -4px 6px 0 rgba(255,255,255,.2), inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.btn-2 {
+    background: rgb(96,9,240);
+    background: linear-gradient(0deg, rgb(0 0 0 / 39%) 0%, rgb(0 0 0 / 39%) 100%);
+    border: none;
+}
+
+.btn-1:before {
+    height: 0%;
+    width: 2px;
+}
+
+.btn-1:hover {
+    box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5), -4px -4px 6px 0 rgba(116, 125, 136, .5), inset -4px -4px 6px 0 rgba(255,255,255,.2), inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+a.nav-link, a.navbar-brand, a.custom-btn {
+    color: #fbfbfb !important;
+    text-decoration: none;
+}
+
+/*勤怠申請画面 ボタン用*/
+.comment {
+    width: 40%;
+    padding-left: 35px;
+    margin-bottom: 10px;
+}
+
+.syonin {
+    width: 25%;
+    margin-top: 20px;
+    /*font-size:14px;*/
+}
+
+.syonin-long {
+    width: 30%;
+    margin-top: 20px;
+    /*font-size: 12px;*/
+}
+
+
+
+/*ログイン画面*/
+.login_card {
+    width: 300px;
+    /*height: 450px;*/
+    background: #F4F6FB;
+    border: 1px solid white;
+    box-shadow: 10px 10px 64px 0px rgba(180, 180, 207, 0.75);
+    -webkit-box-shadow: 10px 10px 64px 0px rgba(186, 186, 202, 0.75);
+    -moz-box-shadow: 10px 10px 64px 0px rgba(208, 208, 231, 0.75);
+}
+
+.login_form {
+    padding: 25px;
+}
+
+.login_card_header {
+    display: flex;
+    align-items: center;
+}
+
+.login_card svg {
+    color: #7878bd;
+    margin-bottom: 20px;
+    margin-right: 5px;
+}
+
+.login_form_heading {
+    padding-bottom: 20px;
+    font-size: 21px;
+    color: #4747bf;
+}
+
+.login_field {
+    padding-bottom: 10px;
+}
+
+.login_input {
+    border-radius: 5px;
+    background-color: #e9e9f7;
+    padding: 5px;
+    width: 100%;
+    color: #7a7ab3;
+    border: 1px solid #dadaf7
+}
+
+.login_input:focus-visible {
+    outline: 1px solid #aeaed6;
+}
+
+.login_input::placeholder {
+    color: #bcbcdf;
+}
+
+login_label {
+    color: #B2BAC8;
+    font-size: 14px;
+    display: block;
+    padding-bottom: 4px;
+}
+
+
+/*テーブル関係*/
+table {
+    border-collapse: separate;
+    border-spacing: 5px;
+    width: 100%;
+    overflow: auto;
+}
+
+table th {
+    z-index: 9999 !important;
+    white-space: nowrap;
+    border-radius: 5px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #6a88e2 !important;
+    font-weight: bold;
+    padding: 10px 5px;
+    border: solid 1px #6a88e2;
+    /*box-shadow: 0px 3px 3px 3px #3b5bc4;*/
+    /*margin-bottom: 3px;*/
+    /*text-shadow: 0px 0px 7px #a072ea;*/
+}
+
+table td.center {
+    text-align: center;
+}
+
+.scroll {
+    height: 800px;
+    overflow-y: scroll;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+}

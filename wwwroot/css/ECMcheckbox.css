@@ -1,0 +1,127 @@
+.ECM_CheckboxInput {
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ECM_CheckboxInput-Input {
+    margin: 0;
+    width: 0;
+    opacity: 0;
+}
+
+.ECM_CheckboxInput:hover {
+    background: rgba(0,0,0,.05) !important;
+}
+
+    .ECM_CheckboxInput:hover > .ECM_CheckboxInput-DummyInput {
+        transform: scale(1.1);
+    }
+
+.ECM_CheckboxInput-Input:focus + .ECM_CheckboxInput-DummyInput {
+    transform: scale(1.1);
+}
+
+.ECM_CheckboxInput-Input:checked + .ECM_CheckboxInput-DummyInput {
+    background: rgba(107, 26, 250, 1);
+}
+
+    .ECM_CheckboxInput-Input:checked + .ECM_CheckboxInput-DummyInput::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 35%;
+        height: 4px;
+        border-radius: 2px;
+        transform: translate(-6px, 5px) rotateZ(-135deg);
+        transform-origin: 2px 2px;
+        background: #FFFFFF;
+    }
+
+    .ECM_CheckboxInput-Input:checked + .ECM_CheckboxInput-DummyInput::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        height: 4px;
+        border-radius: 2px;
+        transform: translate(-6px, 5px) rotateZ(-45deg);
+        transform-origin: 2px 2px;
+        background: #FFFFFF;
+    }
+
+.ECM_CheckboxInput-DummyInput {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: solid 2px transparent;
+    background: rgba(0, 0, 0, .15);
+    border-radius: 50%;
+    transition: all .15s linear;
+    pointer-events: none;
+}
+
+.ECM_CheckboxInput-LabelText {
+    margin-left: 12px;
+    display: block;
+    /*font-size: 18px;*/
+    font-weight: 550;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+/*border-radius: 5px;
+color: #ffffff;
+background-color: #5e79cc;
+font-weight: 550;
+padding: 0px 15px;
+box-shadow: 0px 3px 3px 3px #5e79cc;
+margin-bottom: 8px;
+*/
+
+
+
+
+
+
+
+
+.checkbox_label {
+    color: #675f5f; /* 文字色を黒に */
+    /*font-size: 14px;*/ /* 文字サイズを14pxに */
+    border: 2px solid #5e79cc; /* 淵の線を指定 */
+    border-style: dashed;
+    padding: 0.5rem;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-weight: 550;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.checkbox_label_on {
+    border: 2px solid #3257c8;
+    color: #ffffff;
+    background-color: #5e79cc;
+    font-weight: 550;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-image: linear-gradient( to right, #667eea, #6b8dd6, #4864e0);
+    font-size: 19px;
+    font-weight: 500;
+    cursor: pointer;
+    /*box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);*/
+    /*box-shadow: 3px 3px 3px 3px #5e79cc;*/
+}

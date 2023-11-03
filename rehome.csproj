@@ -1,0 +1,221 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-rehome-0221486B-A50A-49FB-AB74-4B6241FBFE70</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Houjin\**" />
+    <Content Remove="Views\Houjin\**" />
+    <EmbeddedResource Remove="Views\Houjin\**" />
+    <None Remove="Views\Houjin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="pdf\TextFile.txt" />
+    <None Remove="pdf\見積書2304241345.pdf" />
+    <None Remove="pdf\見積書2304250925.pdf" />
+    <None Remove="pdf\見積書2304250931.pdf" />
+    <None Remove="pdf\見積書2304250936.pdf" />
+    <None Remove="Reports\売上表.prepd" />
+    <None Remove="Reports\完了報告書.prepd" />
+    <None Remove="Reports\注文書.prepd" />
+    <None Remove="Reports\見積明細書.prepd" />
+    <None Remove="Reports\見積書.prepd" />
+    <None Remove="Reports\請求書.prepd" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <Content Include="pdf\TextFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="Reports\売上表.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\完了報告書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\注文書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\見積明細書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\請求書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\見積書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Calendar\Calendar.cshtml" />
+    <None Include="Views\Client\Detail.cshtml" />
+    <None Include="Views\Client\Index.cshtml" />
+    <None Include="Views\Client\_Client.cshtml" />
+    <None Include="Views\Client\_ClientEx.cshtml" />
+    <None Include="Views\Client\_ClientNissi.cshtml" />
+    <None Include="Views\Client\_ClientSearch.cshtml" />
+    <None Include="Views\Client\_ClientSodan.cshtml" />
+    <None Include="Views\Nissi\Details.cshtml" />
+    <None Include="Views\Nissi\Index.cshtml" />
+    <None Include="Views\Nissi\Output.cshtml" />
+    <None Include="Views\Nissi\_NissiIndexCustom.cshtml" />
+    <None Include="Views\Nissi\_NissiSearch.cshtml" />
+    <None Include="Views\Nissi\_NissiSearchCustom.cshtml" />
+    <None Include="wwwroot\fullcalendar\examples\js\theme-chooser.js" />
+    <None Include="wwwroot\fullcalendar\examples\php\get-events.php" />
+    <None Include="wwwroot\fullcalendar\examples\php\get-time-zones.php" />
+    <None Include="wwwroot\fullcalendar\examples\php\utils.php" />
+    <None Include="wwwroot\fullcalendar\lib\locales-all.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales-all.min.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\af.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-dz.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-kw.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-ly.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-ma.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-sa.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar-tn.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ar.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\az.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\bg.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\bn.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\bs.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ca.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\cs.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\cy.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\da.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\de-at.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\de.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\el.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\en-au.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\en-gb.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\en-nz.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\eo.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\es-us.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\es.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\et.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\eu.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\fa.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\fi.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\fr-ca.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\fr-ch.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\fr.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\gl.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\he.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\hi.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\hr.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\hu.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\hy-am.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\id.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\is.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\it.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ja.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ka.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\kk.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\km.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ko.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ku.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\lb.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\lt.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\lv.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\mk.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ms.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\nb.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ne.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\nl.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\nn.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\pl.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\pt-br.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\pt.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ro.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ru.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\si-lk.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sk.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sl.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sm.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sq.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sr-cyrl.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sr.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\sv.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ta-in.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\th.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\tr.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\ug.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\uk.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\uz.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\vi.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\zh-cn.js" />
+    <None Include="wwwroot\fullcalendar\lib\locales\zh-tw.js" />
+    <None Include="wwwroot\fullcalendar\lib\main.js" />
+    <None Include="wwwroot\fullcalendar\lib\main.min.js" />
+    <None Include="wwwroot\fullcalendar\README.md" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap.chosen" Version="1.0.0" />
+    <PackageReference Include="bootstrap.sass" Version="5.1.3" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Castle.Windsor" Version="5.1.2" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.57.0.2759" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2746" />
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.57.0.1869" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="MigraDocCore.Rendering" Version="1.3.32" />
+    <PackageReference Include="MimeMapping" Version="1.0.1.37" />
+    <PackageReference Include="PdfSharpCore" Version="1.3.32" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="Twitter.Bootstrap" Version="3.0.1.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Pao.Reports.Linux">
+      <HintPath>lib\Pao.Reports.Linux.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="pdf\見積書2304250951.pdf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" wwwroot_4lib_4bootstrap-datepicker-1_19_10_4dist_4css_4bootstrap-datepicker_1css_1map__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

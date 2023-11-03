@@ -1,0 +1,41 @@
+﻿
+@model QuoteCreateModel
+@using rehome.Models.DB;
+@using rehome.Models.Quote;
+
+
+
+
+<div class="modal fade" id="QuoteSingle_cost" tabindex="-1" role="dialog"   >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >集計の掛率を入力してください</h4>  
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+                <div>
+                    <label>商品名</label>
+                    <input type="text" class="form-control" id="cost_name" />
+                </div>
+                <div>
+                    <label>掛率（％）</label>
+                    <input type="number" class="form-control" id="cost_ritu" />
+                </div>
+                <div>
+                    <label>割り戻し（％）※0.8で割る場合は80としてください</label>
+                    <input type="number" class="form-control" id="cost_wari" />
+                </div>
+
+                <br>
+                <input type="button" value="追加" class="custom-btn btn-2 btn-2-sm" onclick="addSingleCost();"/>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+

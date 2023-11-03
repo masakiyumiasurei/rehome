@@ -1,0 +1,205 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using rehome.Enums;
+
+namespace rehome.Models.DB
+{
+    
+    public class 見積
+    {
+        [Key]
+        public int 見積ID { get; set; }
+        [Key]
+        public int 履歴番号 { get; set; } = 1;
+        [Required(ErrorMessage = "{0}を入力してください。")]
+        public string? 見積番号 { get; set; }
+        public bool? 最新FLG { get; set; } = true;
+        public int 担当ID { get; set; }
+
+        public string? 担当者名 { get; set; }
+
+        public int? 営業所ID { get; set; }
+
+        public string? 営業所名 { get; set; }
+
+        public string? 顧客名 { get; set; }
+
+        public string? 敬称 { get; set; }
+
+        public static IList<SelectListItem> 敬称items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "御中", Value = "御中" });
+            tmplist.Add(new SelectListItem() { Text = "様", Value = "様" });
+            return tmplist;
+        }
+        [Required(ErrorMessage = "{0}を入力してください。")]
+        public string? 件名 { get; set; }
+
+        public string? 納期 { get; set; }
+
+        public string? 項目 { get; set; }
+
+        public static IList<SelectListItem> 項目items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "移設", Value = "移設" });
+            tmplist.Add(new SelectListItem() { Text = "工事", Value = "工事" });
+            tmplist.Add(new SelectListItem() { Text = "物販", Value = "物販" });
+            return tmplist;
+        }
+
+        public string? 見積区分 { get; set; }
+        public static IList<SelectListItem> 見積区分items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "概算", Value = "概算" });
+            tmplist.Add(new SelectListItem() { Text = "参考", Value = "参考" });
+            tmplist.Add(new SelectListItem() { Text = "本見積", Value = "本見積" });
+            return tmplist;
+        }
+
+        public string? 受渡場所 { get; set; }
+
+        public string? 支払条件 { get; set; }
+        public static IList<SelectListItem> 支払条件items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "従来通り", Value = "従来通り" });
+            return tmplist;
+        }
+
+        public string? 有効期限 { get; set; }
+
+        public static IList<SelectListItem> 有効期限items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "60日間", Value = "60日間" });
+            tmplist.Add(new SelectListItem() { Text = "90日間", Value = "90日間" });
+            return tmplist;
+        }
+
+        public string? 理化学医療区分 { get; set; }
+
+        public static IList<SelectListItem> 理化学医療区分items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "理化学", Value = "理化学" });
+            tmplist.Add(new SelectListItem() { Text = "医療", Value = "医療" });
+            tmplist.Add(new SelectListItem() { Text = "両方", Value = "両方" });
+            return tmplist;
+        }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 見積金額 { get; set; }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 原価 { get; set; }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 見込原価 { get; set; }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 利益 { get; set; }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 見込利益 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:0.0%}", ApplyFormatInEditMode = true)]
+        public string? 粗利率 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:0.0%}", ApplyFormatInEditMode = true)]
+        public string? 見込粗利率 { get; set; }
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0}", ApplyFormatInEditMode = true)]
+        public int? 売上 { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 作成日 { get; set; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 完了予定日 { get; set; }
+
+        [Required(ErrorMessage = "{0}を入力してください。")]
+        public string? 受注確度 { get; set; }
+        public static IList<SelectListItem> 受注確度items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "100%", Value = "100%" });
+            tmplist.Add(new SelectListItem() { Text = "99%", Value = "99%" });
+            tmplist.Add(new SelectListItem() { Text = "70%", Value = "70%" });
+            tmplist.Add(new SelectListItem() { Text = "50%", Value = "50%" });
+            tmplist.Add(new SelectListItem() { Text = "49%以下", Value = "49%以下" });
+            return tmplist;
+        }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? time_stamp { get; set; }
+
+
+        public string? 非課税名称 { get; set; }
+
+        public decimal? 非課税額 { get; set; }
+
+        public string? 値引名称 { get; set; }
+
+        public decimal? 値引額 { get; set; }
+
+        public string? 備考 { get; set; }
+
+        public bool single { get; set; } = false;
+
+
+        public string? 入金種別 { get; set; }
+        public static IList<SelectListItem> 入金種別items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "現金", Value = "現金" });
+            tmplist.Add(new SelectListItem() { Text = "カード", Value = "カード" });
+            tmplist.Add(new SelectListItem() { Text = "小切手", Value = "小切手" });
+            tmplist.Add(new SelectListItem() { Text = "手形", Value = "手形" });
+            return tmplist;
+        }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 入金日 { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 入金締日 { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 取引年月日 { get; set; }
+
+        public string? 見積ステータス { get; set; }
+
+        public static IList<SelectListItem> 見積ステータスitems()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "有望", Value = "有望" });
+            tmplist.Add(new SelectListItem() { Text = "見積", Value = "見積" });
+            tmplist.Add(new SelectListItem() { Text = "内定", Value = "内定" });
+            tmplist.Add(new SelectListItem() { Text = "失注", Value = "失注" });
+            return tmplist;
+        }
+
+
+        public int? 期 { get; set; }
+
+        public string? 注文摘要 { get; set; }
+
+        public List<見積明細>? 見積明細リスト { get; set; }
+
+        public List<見積分類表示順>? 見積分類表示順リスト { get; set; }
+
+        
+    }
+}

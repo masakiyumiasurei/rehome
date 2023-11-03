@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/*========= ���C�A�E�g�̂��߂�CSS ===============*/
+
+/*========= wave��`�悷��G���A�ݒ� ===============*/
+
+.wave {
+    position: relative;
+    width: 100%;
+}
+
+    .wave canvas {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }

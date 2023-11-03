@@ -1,0 +1,71 @@
+﻿@{
+       ViewData["Title"] = "ホーム";
+
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>@ViewData["Title"] </title>
+
+    <link href='~/fullcalendar/lib/main.css' rel='stylesheet' />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        
+</head>
+
+<body>
+ 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src='~/fullcalendar/lib/main.js'></script>
+     <script src='~/fullcalendar/lib/locales/ja.js'></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+            left: 'prev,next,prevYear,nextYear today',
+            center: 'title',
+            right: 'dayGridMonth,listMonth,'},
+            navLinks: true,
+            businessHours: true,
+            editable: true,
+            locale: 'ja',            
+            initialView: 
+            'dayGridMonth',
+            selectable:true,
+            contentHeight:'auto',  //スクロールバーを消す
+            nowIndicator:true,
+            eventDisplay:'block', //'list-item', //イベントを四角枠
+            firstDay:1,  //1:月曜日
+            dayMaxEvents:true,  //枠の高さを超えるイベントは表示しない　テキストリンクが表示される
+            dayCellContent: function (e) {e.dayNumberText = e.dayNumberText.replace('日', '');},
+            events: '@Url.Action("GetAllEvents")',
+            displayEventTime: false,
+            height: window.innerHeight - 50,
+            windowResize: function () { 
+            $('#calendar').fullCalendar('option', 'height', window.innerHeight - 50)
+            },
+
+            eventClick: function (e) {
+                 //window.open(e.event.url); //別ページ
+                    window.location.href = e.event.url; //同一ページ　//+ id;
+                 
+             }
+            //,eventSources: [
+            //  { googleCalendarApiKey: '祝日を表示したい場合はここにAPIキーが入ります',
+            //    googleCalendarId: 'japanese__ja@holiday.calendar.google.com',
+            //    display: 'background'
+            //  }
+            //              ]
+            });
+        calendar.render();
+      });
+
+    </script>
+
+    @*ここにカレンダーが表示*@
+    <div id='calendar'></div>
+  
+</body>
+</html>

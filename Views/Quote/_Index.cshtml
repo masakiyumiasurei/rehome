@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "見積書";
+}
+@model QuoteIndexModel
+
+@*<div class="text-center">
+    <h2>見積書一覧</h2>
+
+    <div>
+        @if (Model.Quotes.Count > 0)
+        {
+            <p><asp:Button text="表示" onclick="SubmitBtn_Click" /></p>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                <th></th>
+                <th scope="col">見積ID</th>
+                <th scope="col">顧客名</th>
+                <th scope="col">金額</th>
+                <th scope="col">納期</th>
+                </thead>
+                <tbody>
+                    @foreach (var quote in Model.Quotes)
+                    {
+                        <tr>
+                            <th scope="row"></th>
+                            <td onclick="SubmitBtn_Click">@quote.見積ID</td>
+                            <td>@quote.表示顧客名1</td>
+                            <td>@quote.金額</td>
+                            <td>@quote.納期</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="message">対象のデータがありません。</p>
+        }
+
+    </div>
+</div>*@
+
+
+@section Scripts{
+    <script runat="server">
+        void SubmitBtn_Click(Object sender, EventArgs e) 
+          {
+             Message.Text="Hello World!!";
+          }
+    </script>
+}

@@ -1,0 +1,86 @@
+﻿
+@model ChumonIndexModel
+@using rehome.Models.DB;
+
+        <div class="row m-3">
+              <div class="row">
+
+                  @Html.HiddenFor(a => a.Quote.見積ID)
+                  @Html.HiddenFor(a => a.Quote.履歴番号)                  
+                  @Html.HiddenFor(a => a.Quote.最新FLG)
+                  @Html.HiddenFor(a => a.Quote.担当ID)
+                  @Html.HiddenFor(a => a.Quote.営業所ID)
+
+                  <div class="col-12 col-sm-2">
+                    <label>見積番号</label>
+            @Html.TextBoxFor(a => a.Quote.見積番号, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+                  </div>
+                  <div class="col-12 col-sm-2">
+                    <label>作成日</label>
+            @Html.EditorFor(a => a.Quote.作成日, new {htmlAttributes =new { @class = "form-control enable-false form-control-sm",tabindex="-1"  ,@type = "date" }})
+                  </div>
+
+                  <div class="col-12 col-sm-2">
+                    <label>理化学医療区分</label>
+            @Html.TextBoxFor(a => a.Quote.理化学医療区分, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-col-12 col-sm-4">
+                    <label>案件名</label>
+            @Html.TextBoxFor(a => a.Quote.件名, new { @class = "form-control  enable-false form-control-sm",tabindex="-1" })
+                  </div>
+
+                  <div class="col-12 col-sm-2">
+                    <label>受注確度</label>
+            @Html.DropDownListFor(m => m.Quote.受注確度, 見積.受注確度items(), "", new { @class = "form-control form-control-sm enable-false",tabindex="-1" })
+                  </div>
+            　</div>
+
+              <div class="row">
+
+                  <div class="col-col-12 col-sm-4">
+                    <label>顧客名</label>
+            @Html.TextBoxFor(a => a.Quote.顧客名, new { @class = "form-control form-control-sm enable-false",tabindex="-1" })
+                  </div>
+                  <div class="col-12 col-sm-2">
+                    <label>敬称</label>
+            @Html.DropDownListFor(m => m.Quote.敬称, 見積.敬称items(), "", new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+                  </div>
+                  <div class="col-12 col-sm-2">
+                    <label>完了予定日</label>
+            @Html.EditorFor(a => a.Quote.完了予定日, new {htmlAttributes =new { @class = "form-control enable-false form-control-sm",tabindex="-1"  ,@type = "date" }})
+                  </div>
+              </div>
+
+               <div class="row">
+        <div class="col-col-12 col-sm-4">
+            <label>摘要(売上収入)</label>
+            @Html.TextBoxFor(a => a.Quote.注文摘要, new { @class = "form-control form-control-sm" })
+        </div>
+                  <div class="col-12 col-sm-2">
+                    <label>納期</label>
+            @Html.TextBoxFor(a => a.Quote.納期, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+                  </div>
+
+                  <div class="col-12 col-sm-2">
+                    <label>金額計</label>
+            @Html.TextBoxFor(a => a.金額計, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+                  </div>                   
+@*                  <div class="col-12 col-sm-2">
+                    <label>原価計</label>
+                        @Html.TextBoxFor(a => a.原価計, new {@class = "form-control enable-false",tabindex="-1"})
+                  </div>
+                  <div class="col-12 col-sm-2">
+                    <label>見込原価計</label>
+                        @Html.TextBoxFor(a => a.見込原価計,new { @class = "form-control enable-false",tabindex="-1"})
+                  </div>*@
+              </div>
+                       @Html.HiddenFor(a => a.BackUrl)
+        </div>
+
+
+
+
+            

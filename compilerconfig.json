@@ -1,0 +1,12 @@
+[
+  {
+    //"inputFile": "wwwroot/css/sample.scss",
+    //"inputFile": "wwwroot/css/bootstrap-test.scss",
+    //"inputFile": "wwwroot/css/application.scss",
+    "inputFile": "wwwroot/css/samples.scss",
+    "outputFile": "wwwroot/css/samples.css"
+    //"outputFile": "wwwroot/css/bootstrap-test.css",
+    //"outputFile": "wwwroot/css/application.css"
+    //"outputFile": "wwwroot/css/samples.css"
+  }
+]

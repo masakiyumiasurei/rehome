@@ -1,0 +1,55 @@
+﻿/* table without vertical scrollbar */
+.table_novscroll thead th {
+  /*@extend .background-color-3;*/
+  border-top: 2px solid va(--primary-color);
+  border-bottom: 2px solid va(--primary-color); }
+
+/* table with vertical scrollbar */
+.table_vscroll {
+  overflow-y: auto;
+  max-height: calc(100vh - 300px); }
+
+.table_vscroll::-webkit-scrollbar {
+  width: 10px; }
+
+.table_vscroll::-webkit-scrollbar-track {
+  background: #eee; }
+
+.table_vscroll::-webkit-scrollbar-thumb {
+  /*@extend .background-color-5;*/
+  border: none; }
+
+.table_vscroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  /*@extend .background-color-3;*/ }
+  .table_vscroll thead th:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-bottom: 2px solid va(--primary-color); }
+  .table_vscroll thead th:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-bottom: 2px solid va(--primary-color); }
+
+/* table with horizontal scrollbar (smartphone, tablet) */
+@media screen and (max-width: 991px) {
+  .table_hscroll {
+    overflow-x: auto;
+    white-space: nowrap; }
+  .table_hscroll::-webkit-scrollbar {
+    height: 10px; }
+  .table_hscroll::-webkit-scrollbar-track {
+    background: #eee; }
+  .table_hscroll::-webkit-scrollbar-thumb {
+    /*background-color: rgb(calc($primary-r * 0.5 + 255 * 0.5), calc($primary-g * 0.5 + 255 * 0.5), calc($primary-b * 0.5 + 255 * 0.5));*/
+    border: none; } }

@@ -1,0 +1,32 @@
+﻿@model TantouIndexModel
+@using rehome.Models.DB;
+
+
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="担当名" class="surround-label">担当名</label>
+        @Html.TextBoxFor(m=>m.TantouSearchConditions.氏名, new {@class = "form-control"})
+    </div>
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="営業所" class="surround-label">営業所</label>
+        @Html.DropDownListFor(m => m.TantouSearchConditions.営業所ID,new SelectList(Model.営業所DropDownList, "Value", "Display"),  "",  new { @class ="form-control"} )
+    </div>
+
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box" >
+        <label for="TEL" class="surround-label">TEL</label>
+        @Html.TextBoxFor(m=>m.TantouSearchConditions.tel, new {@class = "form-control"})
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 align-items-start surround-box" >
+        <label for="退職者検索" class="surround-label">退職者を含める</label>
+        @Html.CheckBoxFor(m=>m.TantouSearchConditions.退職者検索)
+    </div>
+
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-1" type="submit">検索</button>
+                        <a href="/Tantou/Clear" class="custom-btn btn-2" type="button">クリア</a>
+                    </div>
+                </div>

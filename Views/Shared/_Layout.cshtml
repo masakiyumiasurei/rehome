@@ -1,0 +1,200 @@
+﻿@using System.Security.Claims;
+@using rehome.Enums;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Language" content="ja">@*この二行で自動翻訳ポップアップを出させない*@
+    <meta name="google" content="notranslate">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - rehome</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker-1.9.0/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="~/css/loading.css" />
+    <link rel="stylesheet" href="~/css/quote.css" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">*@
+    <link rel="stylesheet" href="~/css/application.css" />
+    <link rel="stylesheet" href="~/css/Tile.css" />
+    <link rel="stylesheet" href="~/css/upd.css" />
+    <link rel="stylesheet" href="~/css/mystyle.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mytable.css" />
+    <link rel="stylesheet" href="~/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <link href="~/lib/bootstrap4-toggle.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/jquery/dist/jquery-ui.css" />
+    @*<link href="~/lib/chosen/chosen.min.css" rel="stylesheet" />*@
+    <link href="~/lib/chosen/component-chosen.min.css" rel="stylesheet" />
+    <link href="~/css/ecmcheckbox.css" rel="stylesheet" />
+   
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navigation-var fixed ">*@
+        @*<div class="container-fluid">*@
+        @if (User.Identity.IsAuthenticated)
+        {
+            @*    <a class="navbar-brand" asp-area="" asp-controller="Client" asp-action="Index">SAMURAI for web</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                @if (User.Identity.IsAuthenticated)
+                {
+                @*<li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Login" asp-action="Logout">ログアウト</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " id="nav-Client" asp-area="" asp-controller="Client" asp-action="Index">顧客検索</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link " id="nav-Quote" asp-area="" asp-controller="Quote" asp-action="Index">見積検索</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link " id="nav-Dounyu" asp-area="" asp-controller="Dounyu" asp-action="Index">導入検索</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " id="nav-Renraku" asp-area="" asp-controller="Renraku" asp-action="Index">連絡帳検索</a>
+                </li>
+
+
+
+
+                <li class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLinkNissi" role="button" data-bs-toggle="dropdown" aria-expanded="false">日誌管理</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropDownMenuLinkNissi" style="background-color: #5e79cc; border: none;">
+                <li class="nav-item" id="nav-Nissi-New">
+                <a class="nav-link " asp-area="" asp-controller="Nissi" asp-action="New">新規登録</a>
+                </li>
+                <li class="nav-item" id="nav-Nissi-Index">
+                <a class="nav-link " asp-area="" asp-controller="Nissi" asp-action="Index">日誌一覧</a>
+                </li>
+                </ul>
+                </li>
+                @*<li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Syouhin" asp-action="Index">商品マスタ</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Upload" asp-action="Index">アップロード(仮)</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="GoogleCalendar" asp-action="Index">GoogleCalendar</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="GoogleDrive" asp-action="Index">GoogleDrive</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Pdf" asp-action="Index">PDF</a>
+                </li>
+                }
+                <li class="nav-item align_right">
+                <input class="TopBtn"type="button" value="上に移動" id="TopBtn" onclick=" MoveToTop();" />
+                </li>
+                </ul>
+                <h6 class="align_right">
+                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value
+                </h6>
+                @*<li>
+                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Locality).Value
+                </li>
+                <h6 class="nav-item">
+                <a class="nav-link " asp-area="" asp-controller="Login" asp-action="Logout">Sign out</a>
+                </h6>
+                </div>*@
+        }
+        else
+        {
+            @*<a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Login">rehome for web</a>*@
+        }
+        @*</div>*@
+        @*</nav>*@
+    </header>
+
+    @*<br><br><br>*@
+    
+     <div class="container-flex">
+        @* <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary  fixed-top">*@
+        @*<section class="row mb-5 pb-md-4 d-flex">*@
+        @*<div class="col-md-4">*@
+        <div>
+              @await Html.PartialAsync("_Sidebar")
+           
+        </div>
+        @*</div>*@
+        @*</section>*@
+        @*</nav>  *@
+        @*<div class="container-fluid px-4">*@
+        <div style="flex:1;">
+            <main class="pb-3 ">
+                <div id="ModalHere"></div>@*ポップアップ表示用div共用化*@
+                <div class="px-3" >
+                    @RenderBody()
+     
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    @*    <footer class="border-top footer text-muted">
+        <div class="container">
+        &copy; 2022 - 株式会社阪南ビジネスマシン
+        </div>
+        </footer>*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>    
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker-1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker-1.9.0/dist/locales/bootstrap-datepicker.ja.min.js"></script>
+    <script src="~/js/PopupSearch.js" asp-append-version="true"></script>
+    <script src="~/js/ReturnRecordJson.js" asp-append-version="true"></script>    
+    <script src="~/js/UserCustom.js" asp-append-version="true"></script>
+    <script src="~/js/UserCustom_Default.js" asp-append-version="true"></script>
+    <script src="~/js/upd.js" asp-append-version="true"></script>
+    <script src="~/lib/ajaxzip3.js"></script>
+    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script src="~/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="~/lib/bootstrap4-toggle.min.js"></script>
+    <script src="~/js/TableOperation.js" asp-append-version="true"></script>
+    <script src="~/js/Common.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery-ui.min.js"></script> @*datatables.min.jsより下に記載しないとautocompletが効かない！*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script type="module"
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+            src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        const list = document.querySelectorAll(".list");
+        console.log(list);
+
+        function activeLink() {
+          list.forEach((item) =>
+            // console.log(item);
+            item.classList.remove("active")
+          );
+          this.classList.add("active");
+        }
+
+        list.forEach((item) => {
+          item.addEventListener("click", activeLink);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

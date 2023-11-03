@@ -1,0 +1,64 @@
+﻿@using rehome.Enums
+
+<div class="modal fade" id="ModalWindow" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>日誌一覧表示項目設定</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                 @*  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                    <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_日誌ID" onclick="SwitchOnOff()">ON</button>日誌ID
+                    </div>*@
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_顧客名" onclick="SwitchOnOff()">ON</button>顧客名
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_担当名" onclick="SwitchOnOff()">ON</button>担当名
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談者名" onclick="SwitchOnOff()">ON</button>相談者名
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談手段" onclick="SwitchOnOff()">ON</button>相談手段
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談内容_運営状況" onclick="SwitchOnOff()">ON</button>相談経緯(背景)
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談内容区分1" onclick="SwitchOnOff()">ON</button>相談内容区分1
+                    </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談内容区分2" onclick="SwitchOnOff()">ON</button>相談内容区分2
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_対応日" onclick="SwitchOnOff()">ON</button>対応日
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_相談内容_質問内容" onclick="SwitchOnOff()">ON</button>相談内容(質問内容)
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_対応内容" onclick="SwitchOnOff()">ON</button>対応内容
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                        <button class="custom-btn btn-1" type="button" id="b_IndexCustom_Nissi_支援区分" onclick="SwitchOnOff()">ON</button>支援区分
+                    </div> 
+                </div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-1" type="button" onclick="UserCustom_Save('IndexCustom')">設定</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="custom-btn btn-2" type="button" onclick="Reset_UserCustom('IndexCustom')">リセット</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

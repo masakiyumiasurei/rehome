@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PrintDefine>
+<PrintSetting Name="レポート定義ファイル" Ver="9.2.0" >
+<PrintAttrs>
+<FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
+<FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="10" />
+<FontAttr AttrName="Font3" Name="ＭＳ 明朝" Size="15" />
+<FontAttr AttrName="Font4" Name="ＭＳ 明朝" Size="12" />
+<FontAttr AttrName="Font5" Name="ＭＳ 明朝" Size="14" />
+<FontAttr AttrName="Font6" Name="ＭＳ 明朝" Size="8" />
+<LineAttr AttrName="Line1" Width="0.3" />
+<LineAttr AttrName="Line2" Color="White" Width="0.1" />
+<LineAttr AttrName="Line3" Color="White" Width="0.1" />
+<LineAttr AttrName="Line4" Color="White" Width="0.1" />
+<LineAttr AttrName="Line5" Color="White" Width="0.1" />
+<LineAttr AttrName="Line6" Color="White" Width="0.1" />
+<LineAttr AttrName="Line7" Color="White" Width="0.1" />
+<LineAttr AttrName="Line8" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line9" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line10" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line11" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line12" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line13" Width="0.1" />
+<LineAttr AttrName="Line14" Width="0.1" />
+<LineAttr AttrName="Line15" Width="0.1" />
+<LineAttr AttrName="Line16" Width="0.1" />
+<LineAttr AttrName="Line17" Width="0.1" />
+<LineAttr AttrName="Line18" Width="0.1" />
+<LineAttr AttrName="Line19" Width="0.1" />
+<LineAttr AttrName="Line20" Width="0.1" />
+<LineAttr AttrName="Line21" Width="0.1" />
+<LineAttr AttrName="Line22" Width="0.1" />
+<LineAttr AttrName="Line23" Width="0.1" />
+<LineAttr AttrName="Line24" Width="0.1" />
+<LineAttr AttrName="Line25" Width="0.1" />
+<LineAttr AttrName="Line26" Width="0.1" />
+<LineAttr AttrName="Line27" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line28" Width="0.1" />
+<LineAttr AttrName="Line29" Width="0.1" />
+<LineAttr AttrName="Line30" Width="0.1" />
+<LineAttr AttrName="Line31" Width="0.1" />
+<LineAttr AttrName="Line32" Width="0.1" />
+<LineAttr AttrName="Line33" Width="0.1" />
+<LineAttr AttrName="Line34" Width="0.1" />
+<LineAttr AttrName="Line35" Width="0.1" />
+<LineAttr AttrName="Line36" Width="0.1" />
+<LineAttr AttrName="Line37" Width="0.1" />
+<LineAttr AttrName="Line38" Width="0.1" />
+<LineAttr AttrName="Line39" Width="0.1" />
+<LineAttr AttrName="Line40" Width="0.1" />
+<LineAttr AttrName="Line41" Width="0.1" />
+<LineAttr AttrName="Line42" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line43" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line44" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line45" Color="Transparent" Width="0" />
+</PrintAttrs>
+<Paper Size="A4" Direction="False" />
+<Design FontAttr="Font1" LineAttr="Line1" GridWidth="2" DesignScale="100" GridFit="True" ObjLock="False" X="0" Y="0" Width="210" Height="297" DisplayRepeatObject="False" RepeatObjectColor="Silver" ImageSizeType="Clip" />
+</PrintSetting>
+<PrintObjects>
+<Text Name="B合計税別" X="140" Y="242" Width="22" Height="6" Text="*B合計税別*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line2" />
+<Text Name="B合計税込" X="178" Y="242" Width="22" Height="6" Text="*B合計税込*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line3" />
+<Text Name="C合計税込" X="178" Y="250" Width="22" Height="6" Text="*C合計税込*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line4" />
+<Text Name="C合計税別" X="140" Y="250" Width="22" Height="6" Text="*C合計税別*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line5" />
+<Text Name="A合計税込" X="140" Y="74" Width="22" Height="6" Text="*A合計税込*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line6" />
+<Text Name="A合計税別" X="118" Y="74" Width="22" Height="6" Text="*A合計税別*" Align="Right" VAlign="Bottom" FontAttr="Font2" LineAttr="Line7" />
+<Text Name="表題" X="44" Y="10" Width="122" Height="6" Text="*表題*" Align="Center" VAlign="Top" FontAttr="Font3" />
+<Text Name="見積番号" X="150" Y="20" Width="50" Height="6" Text="*見積番号*" Align="Right" VAlign="Top" FontAttr="Font4" />
+<Text Name="完了日" X="150" Y="30" Width="50" Height="6" Text="*完了日*" Align="Right" VAlign="Top" FontAttr="Font4" />
+<Text Name="件名" X="24" Y="30" Width="96" Height="6" Text="*件名*" Align="Left" VAlign="Middle" FontAttr="Font1" />
+<Text Name="Text6" X="10" Y="30" Width="14" Height="6" Text="件名" Align="Center" VAlign="Bottom" FontAttr="Font4" />
+<Line Name="Line1" StartX="10" StartY="36" EndX="150" EndY="36" LineAttr="Line1" />
+<Text Name="Text7" X="10" Y="44" Width="190" Height="6" Text="売上収入" Align="Center" VAlign="Middle" FontAttr="Font5" LineAttr="Line13" />
+<Text Name="Text8" X="180" Y="50" Width="20" Height="10" Text="収入日" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line14" />
+<Text Name="Text9" X="160" Y="50" Width="20" Height="10" Text="〆日" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line15" />
+<Text Name="Text10" X="120" Y="50" Width="40" Height="10" Text="収入金額(税抜き)" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line16" />
+<Text Name="Text11" X="70" Y="50" Width="50" Height="10" Text="摘要" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line17" />
+<Text Name="Text12" X="26" Y="50" Width="44" Height="10" Text="受注先" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line18" />
+<Text Name="Text13" X="10" Y="50" Width="16" Height="10" Text="項目" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line19" />
+<Text Name="収入日" X="180" Y="60" Width="20" Height="10" Text="*収入日*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line20" />
+<Text Name="収入締日" X="160" Y="60" Width="20" Height="10" Text="*収入締日*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line21" />
+<Text Name="税抜収入" X="120" Y="60" Width="20" Height="10" Text="*税抜収入*" PdfAutoCrInsertText="True" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line22" />
+<Text Name="収入摘要" X="70" Y="60" Width="50" Height="10" Text="*収入摘要*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line23" />
+<Text Name="受注先" X="26" Y="60" Width="44" Height="10" Text="*受注先*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line24" />
+<Text Name="項目" X="10" Y="60" Width="16" Height="10" Text="*項目*" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line25" />
+<Text Name="税込収入" X="140" Y="60" Width="20" Height="10" Text="*税込収入*" PdfAutoCrInsertText="True" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line26" />
+<Line Name="Line2" StartX="86" StartY="80" EndX="162" EndY="80" LineAttr="Line1" />
+<Text Name="Text22" X="86" Y="74" Width="32" Height="6" Text="(A)合計金額 ￥" Align="Center" VAlign="Bottom" FontAttr="Font4" />
+<Text Name="Text26" X="10" Y="84" Width="190" Height="6" Text="売上支出" Align="Center" VAlign="Middle" FontAttr="Font5" LineAttr="Line28" />
+<Text Name="Text27" X="180" Y="90" Width="20" Height="10" Text="支払日" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line29" />
+<Text Name="Text28" X="160" Y="90" Width="20" Height="10" Text="〆日" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line30" />
+<Text Name="Text29" X="120" Y="90" Width="40" Height="10" Text="支出金額(税抜き)" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line31" />
+<Text Name="Text30" X="70" Y="90" Width="50" Height="10" Text="摘要" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line32" />
+<Text Name="Text31" X="26" Y="90" Width="44" Height="10" Text="支出先" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line33" />
+<Text Name="Text32" X="10" Y="90" Width="16" Height="10" Text="枝番" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line34" />
+<Text Name="支払日" X="180" Y="100" Width="20" Height="7" Text="*支払日*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line35" IntervalY="7" Repeat="20" />
+<Text Name="支出締日" X="160" Y="100" Width="20" Height="7" Text="*支出締日*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line36" IntervalY="7" Repeat="20" />
+<Text Name="税抜支出" X="120" Y="100" Width="20" Height="7" Text="*税抜支出*" PdfAutoCrInsertText="True" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line37" IntervalY="7" Repeat="20" />
+<Text Name="支出摘要" X="70" Y="100" Width="50" Height="7" Text="*支出摘要*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font6" LineAttr="Line38" IntervalY="7" Repeat="20" />
+<Text Name="支出先" X="26" Y="100" Width="44" Height="7" Text="*支出先*" PdfAutoCrInsertText="True" Align="Center" VAlign="Middle" FontAttr="Font6" LineAttr="Line39" IntervalY="7" Repeat="20" />
+<Text Name="枝番" X="10" Y="100" Width="16" Height="7" Text="*枝番*" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line40" IntervalY="7" Repeat="20" />
+<Text Name="税込支出" X="140" Y="100" Width="20" Height="7" Text="*税込支出*" PdfAutoCrInsertText="True" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line41" IntervalY="7" Repeat="20" />
+<Square Name="Square1" X="184" Y="270" Width="16" Height="16" LineAttr="Line1" R="0" >
+</Square>
+<Square Name="Square2" X="168" Y="270" Width="16" Height="16" LineAttr="Line1" R="0" >
+</Square>
+<Square Name="Square3" X="152" Y="270" Width="16" Height="16" LineAttr="Line1" R="0" >
+</Square>
+<Text Name="Text42" X="88" Y="250" Width="52" Height="6" Text="(A) - (B) = (C) 差引合計金額 \" Align="Right" VAlign="Bottom" FontAttr="Font1" />
+<Line Name="Line5" StartX="140" StartY="264" EndX="200" EndY="264" LineAttr="Line1" />
+<Line Name="Line6" StartX="90" StartY="256" EndX="200" EndY="256" LineAttr="Line1" />
+<Line Name="Line7" StartX="116" StartY="248" EndX="200" EndY="248" LineAttr="Line1" />
+<Text Name="Text43" X="116" Y="242" Width="24" Height="6" Text="(B)合計金額 \" Align="Right" VAlign="Bottom" FontAttr="Font1" />
+<Text Name="Text44" X="140" Y="258" Width="20" Height="6" Text="粗利益率" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="粗利益率" X="160" Y="258" Width="40" Height="6" Text="*粗利益率*" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+</PrintObjects>
+</PrintDefine>

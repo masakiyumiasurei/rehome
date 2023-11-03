@@ -1,0 +1,81 @@
+﻿@model rehome.Models.UploadModel
+ 
+@{
+    ViewData["Title"] = "Upload";
+}
+ 
+<h1>Upload</h1>
+ 
+                <a href="/Upload/test" class="btn btn-secondary">test</a>
+<hr />
+<div class="row">
+  <div class="col-md-4">
+    <form method="post" enctype="multipart/form-data"
+        asp-controller="Upload" asp-action="Index">
+      <div class="form-group">
+        <div class="col-md-10">
+          <p>Upload file using this form:</p>
+          @* name 属性はモデルのクラスのプロパティ名と同じ
+             にしないとサーバー側でモデルバインディングさ
+             れないので注意。大文字小文字は区別しない。*@
+          <input type="file" name="postedfile" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-10">
+          <input type="submit" value="Upload by Submit"
+                 class="custom-btn btn-1" />
+          <div>@ViewBag.Result</div>
+        </div>
+      </div>
+    </form>
+    
+          <input type="text" id="postedfilename" name="postedfilename" />
+ 
+    <div class="form-group">
+      <div class="col-md-10">
+        <input type="button" id="ajaxUpload"
+            value="Ajax Upload" class="custom-btn btn-1" />
+        <div id="result"></div>
+      </div>
+    </div>
+   <div class="form-group">
+     <div class="col-md-10">
+          <button type="button" onclick="history.back()" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i>戻る</button>
+     </div>
+   </div>
+  </div>
+</div>
+ 
+@section Scripts {
+<script type="text/javascript">
+  //<![CDATA[
+  $(function () {
+    $('#ajaxUpload').on('click', function (e) {
+      // FormData オブジェクトの利用
+      var fd = new FormData(document.querySelector("form"));
+ 
+      // 追加データを以下のようにして送信できる。フォーム
+      // データの一番最後に追加されて送信される
+      fd.append("CustomField", "This is some extra data");
+ 
+      $.ajax({
+        url: '/fileupload',
+        method: 'post',
+        data: fd,
+        processData: false, // jQuery にデータを処理させない
+        contentType: false  // contentType を設定させない
+        }).done(function(response) {
+          $("#result").empty;
+          $("#result").text(response);
+        }).fail(function( jqXHR, textStatus, errorThrown ) {
+          $("#result").empty;
+          $("#result").text('textStatus: ' + textStatus +
+                          ', errorThrown: ' + errorThrown);
+          $("#postedfilename").text(fd);
+        });
+    });
+  });
+  //]]>
+</script>
+}

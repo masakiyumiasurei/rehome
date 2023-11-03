@@ -1,0 +1,283 @@
+﻿@{
+    ViewData["Title"] = "仕入注文登録";
+}
+@model ChumonCreateModel
+@using rehome.Enums;
+
+<link rel="stylesheet" href="~/css/tab.css" />
+          
+@using (Html.BeginForm("Create", "Chumon", FormMethod.Post))
+{
+   @* <h2>見積登録</h2>*@
+<div>
+	<p>@ViewBag.OperationMessage</p>
+</div>
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div> 
+
+    <div class="form-group">
+        <div class="col-xs-offset-1 col-xs-12">
+            <div class="row">
+                @if (Model.Mode == ViewMode.New)
+                {
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                        <input type="submit" formaction="Create" formmethod="post" id="submit"  class="custom-btn btn-1 btn-size" value="登録" />
+                </div>
+                }
+                else
+                {
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                        <input type="submit" formaction="Create" formmethod="post" id="submit"  class="custom-btn btn-1 btn-size" value="更新" />
+                </div>
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                        <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn  btn-size btn-red btn-2 ">削除</button>
+                </div>
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                        <a href="@Url.Action("注文書印刷", "Chumon",new{注文ID = Model.Chumon.注文ID})" target="_blank" class="custom-btn btn-2 btn-size" >注文書印刷</a>
+                </div>
+                }
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                    <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" class="btn custom-btn btn-2 btn-size" >戻る</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr />
+   
+        @await Html.PartialAsync("_ChumonCreateHeader")
+
+         <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                    @await Html.PartialAsync("_ChumonMeisai")
+            </div>
+        </div>
+
+}
+
+@section Scripts{
+    <script>
+
+        //登録時のチェック
+    $(function() {
+      $('form').submit(function() {
+                
+        //var summaryCount = $('[name^="ChumonMeisai"][name$=".摘要"]').length; // ChumonMeisaiで始まり摘要で終わるname属性を持つ行の数を取得
+        var emptySummaryCount = $('[name^="ChumonMeisai"][name$=".摘要"]').filter(function() {
+          return !$(this).val(); // 入力されていない行の数を取得
+        }).length;
+
+        var emptyItemNameCount = $('[name^="ChumonMeisai"][name$=".件名"]').filter(function() {
+          return !$(this).val(); 
+        }).length;
+        
+       
+        if ( emptySummaryCount>0 || emptyItemNameCount>0 ) {
+          alert('件名と摘要（品名）を入力していない注文明細があります。件名と摘要を登録してください。');
+          return false; // submitイベントをキャンセル
+        }
+                if ($('[name="Chumon.仕入先ID"]').val() == "" && $('[name="Chumon.自由仕入先名"]').val() == "") {
+            alert('仕入先を入力してください。');
+            return false; 
+        }
+
+                var elements = $('[name^="ChumonMeisai"][name$=".件名"]');
+
+                elements.each(function () {
+                    var text = $(this).val(); 
+                    var newlineCount = (text.match(/\n/g) || []).length; // 改行コードの数を数える
+                    
+                    if (newlineCount >= 5) {
+                        // 5個以上の改行コードが含まれている場合の処理
+                        alert('件名は5行までしか登録できません');
+                        return false;
+                    }
+                });
+
+                var elements = $('[name^="ChumonMeisai"][name$=".摘要"]');
+
+                elements.each(function () {
+                    var text = $(this).val();
+                    var newlineCount = (text.match(/\n/g) || []).length; // 改行コードの数を数える
+
+                    if (newlineCount >= 5) {
+                        // 5個以上の改行コードが含まれている場合の処理
+                        alert('摘要は5行までしか登録できません');
+                        return false;
+                    }
+                });
+
+      });
+    });
+
+        //ページ遷移時の明細行数
+        var rowCount = @Model.RowCount;
+       
+        //明細追加
+        function addRow(){            
+
+            var add_html = '<tr> <input type="hidden" name="ChumonMeisai[' + rowCount + '].枝番" value=' + (rowCount+1) + '>' +
+            '<td><textarea class="form-control" name="ChumonMeisai[' + rowCount + '].件名"></textarea></td>' +
+            '<td><textarea class="form-control" name="ChumonMeisai[' + rowCount + '].摘要"></textarea></td>' +
+            '<td><input class="form-control" name="ChumonMeisai[' + rowCount + '].数量" type="number" value="1" onchange="calc();" ></td>' +
+            '<td><input class="form-control" name="ChumonMeisai[' + rowCount + '].単価" type="money" onchange="calc();"></td>' +
+            '<td><input class="form-control enable-false" , type="money",tabindex="-1" name="ChumonMeisai[' + rowCount + '].金額計" value="0" ></td>' +
+            '<td><button type="button" name="delete[' + rowCount + ']" onclick="deleteRow(this);" class="btn btn-secondary btn-lg align_center" style="margin-top: 12px; "><i class="fa-solid fa-trash-can"></i></button></td></tr>'
+
+            $('[name="body[0]"]').append(add_html);
+
+            rowCount++;
+
+        }
+
+        ////明細削除
+        function deleteRow(elm) {
+
+            $(elm).closest('tr').remove();
+            rowCount--;
+            for (let i = 0; i < 10; i++) {
+                Renumber(i);
+            }
+            calc();
+        }
+
+        function Renumber(td_num){
+            console.log('called Renumber');
+           $('table#ChumonTable tbody tr').each(function(){
+                var idx=$(this).prop('rowIndex')-1;
+                console.log('each');
+               var name = "";
+               if (td_num == 0) {
+                   name = $(this).children().eq(td_num).attr('name');
+               }else{
+                   name = $(this).children().eq(td_num).children().attr('name');
+               }
+                console.log(name);
+                var rowStr = name.substr(name.indexOf('[') );
+                rowStr=rowStr.substr(0, rowStr.indexOf(']')+ 1);
+                console.log('rowStr:'+rowStr);
+                console.log('idx:'+idx);
+                var newname=name.replace(rowStr,'['+String(idx)+']');
+                if (td_num == 0) {
+                   $(this).children().eq(td_num).attr('name',newname);
+               }else{
+                   $(this).children().eq(td_num).children().attr('name',newname);
+               }
+                console.log(newname);
+           });
+        }
+
+
+        ////金額計算
+        function calc(){
+            
+
+            var amount_money = 0;
+            var amount_genka = 0;
+            var amount_mikomigenka=0;
+
+            for (var n = 0; n < rowCount; n++) {
+
+            //金額計算
+            var kingaku = (Number($('[name="ChumonMeisai[' + n + '].単価"]').val())) * (Number($('[name="ChumonMeisai[' + n + '].数量"]').val()));
+            
+            $('[name="ChumonMeisai[' + n + '].金額計"]').val(kingaku);
+            
+
+            //原価計算
+            //var genka = (Number($('[name="ChumonMeisai[' + n + '].原価"]').val())) * (Number($('[name="ChumonMeisai[' + n + '].数量"]').val()));
+            
+            //$('[name="ChumonMeisai[' + n + '].原価計"]').val(genka);
+            
+            ////見込原価計算
+            //var mikomigenka = (Number($('[name="ChumonMeisai[' + n + '].見込原価"]').val())) * (Number($('[name="ChumonMeisai[' + n + '].数量"]').val()));
+
+            // $('[name="ChumonMeisai[' + n + '].見込原価計"]').val(mikomigenka);
+             
+            //全体総計計算
+            if( !isNaN(kingaku)){
+                amount_money += kingaku;
+                }                
+            
+
+            //全体原価計算 
+            //if( !isNaN(genka)){
+            //    amount_genka += genka;
+            //    }                
+            
+
+            ////全体見込原価計算 
+            //if( !isNaN(mikomigenka)){
+            //    amount_mikomigenka += mikomigenka;
+            //    }                
+        
+            }    
+
+            $("#chumon_kingaku").val(amount_money);
+            //$("#chumon_genka").val(amount_genka);
+            //$("#chumon_mikomigenka").val(amount_mikomigenka);
+        }
+
+        window.onload = calc()
+
+  
+
+        //function getQuoteNumber() {
+
+        //    var 営業所ID = $('[name="Quote.営業所ID"]').val()
+        //    var 担当ID = $('[name="Quote.担当ID"]').val()
+
+        //    var param = {
+        //        営業所ID: 営業所ID,
+        //        担当ID: 担当ID
+        //    };
+        //    var url = '/Quote/GetQuoteNumber';
+        //    return jQuery.ajax({
+        //        method: "POST",
+        //        url: url,
+        //        data: param,
+        //        dataType: 'json',
+        //        async: false
+        //    }).done(function (data) {
+        //        // 通信成功時の処理
+        //        var data_stringify = JSON.stringify(data);
+        //        console.log("data_stringify : " + data_stringify);
+
+        //        console.log("URL : " + url);
+        //        console.log("data : " + data);
+
+        //        $('[name="Quote.見積番号"]').val(data);
+
+        //    }).fail(function (jqXHR, textStatus, errorThrown) {
+        //        // 通信失敗時の処理
+        //        console.log("ajax通信に失敗しました");
+        //        console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+        //        console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+        //        console.log("errorThrown    : " + errorThrown.message); // 例外情報
+        //        console.log("URL            : " + url);
+        //        return null;
+        //    }).always(function (data) {
+        //        // 処理終了時
+        //    })
+        //        .responseJSON;//Ajax実行返り値の中のresponseJSONにJSONデータが格納されている　
+
+        //}
+
+        //$(function() {
+            
+        //    //削除
+        //    $('#btnDelete').on('click', function() {
+        //        var result = window.confirm('見積情報を削除しますか？');
+        //        if (result == false) {
+        //            event.preventDefault();
+        //        }
+        //    });
+        //});
+
+    </script>
+
+}
+
+    
+    

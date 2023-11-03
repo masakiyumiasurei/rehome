@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "顧客検索";
+}
+@model ClientIndexModel
+
+<div>
+    <p>@ViewBag.OperationMessage</p>
+</div>
+
+<div class="text-center">
+    <h2>顧客一覧</h2>
+    <button type="button" class="custom-btn btn-1" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
+
+    <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
+
+        <div id="Search-Area" name="hide" style="display: none;"><br>
+            @using (Html.BeginForm("Search", "Client", FormMethod.Get, new { @class = "row g-3" }))
+            {
+                @await Html.PartialAsync("_ClientSearch")
+
+                @if (Model.Clients != null)
+                {
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-md-4">
+
+
+                                            <button class="custom-btn btn-2" type="submit" formaction="CsvDownload" formmethod="get"  >CSV出力</button>
+                                        </div>
+                                    </div>
+                }
+
+            }
+        </div>
+</div>
+<div style="text-align:right">
+    <a href="@Url.Action("Detail", "Client")" class="custom-btn btn-1"><i class="fa fa-plus-square" aria-hidden="true"></i> 新規</a>
+</div>
+
+<br>
+
+<b@*utton type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Client/_ClientIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>*@
+<input type="hidden" value="IndexCustom" id="UserCustom_FunctionName">
+
+    @*    <div class="container">*@
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table id="myTable" class="table table-striped table-hover table-sm "  style="width:100%">
+                <thead>
+                <tr>
+                    <th class="column5" >詳細</th>
+                    <th>顧客名</th>
+                    <th>カナ</th>
+                    <th>郵便番号</th>
+                    <th>住所1</th>
+                    <th>住所2</th>
+                    <th>TEL</th>
+                </tr>
+                </thead>
+
+            @foreach (var item in Model.Clients)
+            {
+                    <tr>
+                        <td><div class="text-center">
+                          <a href="@Url.Action("Detail", "Client", new { 顧客ID = @item.顧客ID })")" class="custom-btn btn-1"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.顧客名)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.カナ)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.郵便番号)
+                        </td>
+                        <td>
+                    @Html.DisplayFor(modelItem => item.住所1)
+                        </td>
+                        <td>
+                    @Html.DisplayFor(modelItem => item.住所2)
+                        </td>
+                        <td>
+                            <a href="tel:@item.TEL"> @item.TEL</a>
+                        </td>
+
+                    </tr>
+            }
+
+        </table>
+
+   </div>
+
+    @section  Scripts {
+            <script>
+        window.onload = function () {
+            var actv;
+            localStorage.setItem("myKey", "Client");
+            $('#bar-Client').addClass('active');
+        }
+
+        </script>
+}

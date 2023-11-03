@@ -1,0 +1,67 @@
+﻿
+@model ChumonCreateModel
+@using rehome.Models.DB;
+
+<div class="content">
+     <input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow();" />
+        <table id="ChumonTable">
+            <thead>
+                <tr>
+                    <th>件名(現場名)</th>
+                    <th>摘要(品名)</th>
+                    <th class="column5">数量</th>
+                <th >単価</th>
+                    <th>金額計</th>
+                @*    <th>原価</th>
+                    <th>原価計</th>
+                    <th>見込原価</th>
+                    <th>見込原価計</th>*@
+                <th class="column5">削除</th>
+                </tr>
+            </thead>
+
+            <tbody name="body[0]">
+                
+            @if (Model.ChumonMeisai != null)
+            {
+                    @for (var j = 0; j < Model.ChumonMeisai.Count(); j++)
+                    {
+                        <tr>    
+                            @Html.HiddenFor(a => a.ChumonMeisai[j].枝番)
+                            <td>
+                            @Html.TextAreaFor(a => a.ChumonMeisai[j].件名 , new {@class="form-control"})
+                            </td>
+                            <td>
+                            @Html.TextAreaFor(a => a.ChumonMeisai[j].摘要 , new {@class="form-control"})
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].数量 , new {@class="form-control", @type="number", @value="1" ,onchange="calc();"})
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].単価 , new {@class="form-control", @type="money",onchange="calc();"})
+                            </td>
+                            <td>
+                            @Html.TextBoxFor(a => a.ChumonMeisai[j].金額計 , new {@class="form-control enable-false", @type="money",tabindex="-1"})
+                            </td>
+             @*               <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].原価 , new {@class="form-control", @type="number",onchange="calc();"})
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].原価計 , new {@class="form-control enable-false",tabindex="-1"})
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].見込原価 , new {@class="form-control", @type="number",onchange="calc();"})
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(a => a.ChumonMeisai[j].見込原価計 , new {@class="form-control enable-false",tabindex="-1"})
+                            </td>
+             *@               <td>
+                                <button type="button" name="delete[@j]" onclick="deleteRow(this);" class="btn btn-secondary btn-lg align_center" style="margin-top: 12px; ">
+                                    <i class="fa-solid fa-trash-can"></i></button>
+                            </td>
+                        </tr>
+                    }                                    
+             }
+           </tbody>
+        </table>
+    </div>
