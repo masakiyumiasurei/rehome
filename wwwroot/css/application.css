@@ -324,16 +324,15 @@ tbody .min-line {
 .omit_text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    width: 200px;
+    -webkit-line-clamp: 3;
+    width: 500px;
     word-wrap: break-word;
     overflow: hidden;
-    /*   text-overflow: ellipsis;
-    white-space: nowrap;*/
     transition: 0.5s;
 }
+
 .omit_text_full {
-    width: 200px;
+    width: 500px;
     /*position: absolute;*/
     top: 0;
     transition: 0.5s;
@@ -347,3 +346,136 @@ tbody .min-line {
     margin-left: 15px;
 }
 
+.warning-text {
+    color: red !important;
+    font-weight: bold;
+}
+
+.fc-col-header-cell-cushion {
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+
+/*入力ボックス関連*/
+.input-container {
+    position: relative;
+    margin: 22px auto;
+    width: 95%;
+}
+
+    .input-container input[type="text"],
+    .input-container input[type="date"],
+    .input-container input[type="number"],
+    .input-container input[type="tel"],
+    .input-container select,
+    .input-container textarea {
+        font-size: 20px;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid gray;
+        padding: 5px 0;
+        background-color: transparent;
+        outline: none;
+        background-color: white;
+    }
+
+    .input-container .tile-text {
+        background-color: lightgray !important;
+    }
+
+
+    /*form-control-chosen用*/
+    .input-container span {
+        color: dimgray;
+        font-size: 20px;
+    }
+
+    /*textareaは枠線を付ける*/
+    .input-container textarea {
+        border: solid;
+        border-color: #ccc;
+        border-width: 2px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    /*checkboxの位置調整*/
+    .input-container input[type="checkbox"] {
+        margin-left: 30px;
+        margin-bottom: 15px;
+    }
+
+    /*dateにデフォルトで表示される年/月/日は灰色に*/
+    /*selectのplaceholderは灰色に*/
+    .input-container input[type="date"]:invalid,
+    .input-container select:invalid {
+        color: #ccc;
+    }
+
+    /*selectの選択リストは黒色に*/
+    .input-container select:focus {
+        color: black;
+    }
+
+
+    .input-container .label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: black;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        top: -20px;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    /*値があるor入力中はラベルを青色に*/
+    .input-container input[type="text"]:focus ~ .label,
+    .input-container input[type="text"]:not(:placeholder-shown) ~ .label,
+    .input-container input[type="number"]:focus ~ .label,
+    .input-container input[type="number"]:not(:placeholder-shown) ~ .label,
+    .input-container input[type="tel"]:focus ~ .label,
+    .input-container input[type="tel"]:not(:placeholder-shown) ~ .label,
+    .input-container input[type="date"]:focus ~ .label,
+    /*.input-container input[type="date"]:not(:placeholder-shown) ~ .label,*/
+    .input-container input[type="checkbox"]:checked ~ .label,
+    .input-container select:focus ~ .label,
+    /*.input-container select:not(:placeholder-shown) ~ .label,*/
+    .input-container textarea:focus ~ .label,
+    .input-container textarea:not(:placeholder-shown) ~ .label {
+        color: #092a8e;
+    }
+
+
+    .input-container .underline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background-color: #5e79cc;
+        transform: scaleX(0);
+        transition: all 0.3s ease;
+    }
+
+    /*値があるor入力中は下線を青色に*/
+    .input-container input[type="text"]:focus ~ .underline,
+    .input-container input[type="text"]:not(:placeholder-shown) ~ .underline,
+    .input-container input[type="number"]:focus ~ .underline,
+    .input-container input[type="number"]:not(:placeholder-shown) ~ .underline,
+    .input-container input[type="tel"]:focus ~ .underline,
+    .input-container input[type="tel"]:not(:placeholder-shown) ~ .underline,
+    .input-container input[type="date"]:focus ~ .underline,
+    /*.input-container input[type="date"]:not(:placeholder-shown) ~ .underline,*/
+    .input-container select:focus ~ .underline {
+        /*.input-container select:not(:placeholder-shown) ~ .underline {*/
+        transform: scaleX(1);
+    }
+
+    /*値があるor入力中は枠線を青色に*/
+    .input-container textarea:focus,
+    .input-container textarea:not(:placeholder-shown) {
+        border-color: #5e79cc;
+    }

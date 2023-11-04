@@ -29,6 +29,7 @@ builder.Services.AddAuthentication("rehomeAuthenticationScheme")
     });
 
 builder.Services.AddTransient<IQuoteService, QuoteService>();
+builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IDropDownListService, DropDownListService>();
 builder.Services.AddTransient<ITantouService, TantouService>();
 builder.Services.AddTransient<IChumonService, ChumonService>();
@@ -36,6 +37,9 @@ builder.Services.AddTransient<ISiireService, SiireService>();
 builder.Services.AddTransient<IHouzinService, HouzinService>();
 builder.Services.AddTransient<IBunruiService, BunruiService>();
 builder.Services.AddTransient<IOfficeService, OfficeService>();
+builder.Services.AddTransient<INissiService, NissiService>();
+builder.Services.AddTransient<ICalendarService, CalendarService>();
+
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "rehome";
@@ -73,9 +77,9 @@ app.MapControllerRoute(
 
 name: "default",
 //pattern: "{controller=Client}/{action=Index}");
-//pattern: "{controller=Client}/{action=Index}");
+pattern: "{controller=Client}/{action=Index}");
 //name: "default",
-pattern: "{controller=Quote}/{action=Clear}");
+//pattern: "{controller=Quote}/{action=Clear}");
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
 

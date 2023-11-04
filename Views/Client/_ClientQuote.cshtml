@@ -3,7 +3,62 @@
 @using rehome.Models.DB;
 @using rehome.Enums;
 
+<div style="text-align:right">
+    <label>明細なし　</label><input type="checkbox" id="single">    
+    <a href="#" class="custom-btn btn-1" onclick="create_quote();"><i class="fa fa-plus-square" aria-hidden="true" id="rika"></i>新規</a>
+</div>
 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <table id="myTable" class="table table-striped table-hover " style="width:100%">
+        <thead>
+            <tr>
+                <th>詳細</th>
+                <th>案件名</th>  
+                <th>見積金額</th>
+                <th>原価</th>
+                               
+
+            </tr>
+        </thead>
+        @if (Model.Quotes != null)
+        {
+            @foreach (var item in Model.Quotes)
+            {
+                <tr>
+                    <td>
+                        <div class="text-center">
+                            <a href="@Url.Action("Create", "Quote", new { 見積ID = @item.見積ID, 履歴番号 = @item.履歴番号 })" )" class="custom-btn btn-size-min btn-1"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.件名)
+                    </td>                   
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.見積金額)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.原価)
+                    </td>                   
+
+                    @*<td>
+                     <a href="/Quote/Delete/@item.顧客ID" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>*@
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
+@section Scripts{
+    function create_quote(){
+                var checkboxValue = document.querySelector('#single').checked;
+                var url = '/Quote/Create?single=' + checkboxValue;
+                window.location.href = url;
+            }
+
+}
 
 @*<div class="row">
         <div class="col-4 col-sm-4">
@@ -80,12 +135,9 @@
                             @*<td class="col-2 col-sm2">
                                 <a href="@Url.Action("New", "Nissi",new{顧客ID = Model.相談者リスト[idx].顧客ID,相談者ID = Model.相談者リスト[idx].相談者ID})" class="custom-btn btn-1 btn-sm"><i class="fa fa-plus-square" aria-hidden="true"></i>日誌</a>
                             </td>*@
-                        </tr>
+                        @*</tr>
                     }
                 }
                 </tbody>
                 </table>
-            </div>
-@section Scripts{
-  
-}
+            </div>*@

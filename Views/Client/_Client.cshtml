@@ -2,8 +2,7 @@
 @model ClientDetailModel
 @using rehome.Models.DB;
 
- @*<div class="container">*@
-        <div class="row">
+ @*<div class="container">*@        
 
             @Html.HiddenFor(m => m.Client.顧客ID)
             
@@ -30,13 +29,15 @@
                 <div class="underline"></div>                    
              </div>
         </div>
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="col-12 col-lg-8 col-md-8 col-sm-8">
             <div class="input-container">
                   @Html.TextBoxFor(m => m.Client.住所1, new { @class = " " ,@id="address" ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">住所1</label>
                 <div class="underline"></div>                    
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-12 col-lg-2 col-md-2 col-sm-2">
             <div class="input-container">
                 @Html.TextBoxFor(m => m.Client.住所2, new { @class = " " ,@id="address" ,placeholder=" "})
@@ -51,22 +52,22 @@
                  <div class="underline"></div>                    
             </div>
         </div>
-   </div>
-    <div class="row">
         <div class="col-12 col-lg-2 col-md-2 col-sm-2">
             <div class="input-container">
-                @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = "tile-text",tabindex="-1"  ,@type = "date" }})
+                @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = "tile-text"  ,@type = "text" }})
                 <label for="name" class="col-xs-1 label">紹介者</label>
                 <div class="underline"></div>
             </div>
         </div>
         <div class="col-12 col-lg-2 col-md-2 col-sm-2">
             <div class="input-container">
-                @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = "tile-text",tabindex="-1"  ,@type = "text"  }})
-                <label for="name" class="col-xs-1 label">登録者</label>
+                @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = "tile-text"  ,@type = "text"  }})
+                <label for="name" class="col-xs-1 label">メールアドレス</label>
                 <div class="underline"></div>
             </div>
-        </div>    
+        </div>   
+    </div>
+    <div class="row">
         <div class="col-12">
             <div class="input-container">
                     @Html.TextAreaFor(m => m.Client.備考, 3, 300, new { @class = " ",placeholder=" " })
@@ -74,7 +75,7 @@
                     <div class="underline"></div>                           
                 </div>
         </div>
-    </div>           
-              <div>@Html.HiddenFor(a => a.Mode)</div>
+    </div>
+    <div>@Html.HiddenFor(a => a.Mode)</div>
                    @Html.HiddenFor(a => a.BackUrl)
        

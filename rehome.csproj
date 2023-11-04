@@ -62,7 +62,7 @@
     <None Include="Views\Client\_ClientEx.cshtml" />
     <None Include="Views\Client\_ClientNissi.cshtml" />
     <None Include="Views\Client\_ClientSearch.cshtml" />
-    <None Include="Views\Client\_ClientSodan.cshtml" />
+    <None Include="Views\Client\_ClientQuote.cshtml" />
     <None Include="Views\Nissi\Details.cshtml" />
     <None Include="Views\Nissi\Index.cshtml" />
     <None Include="Views\Nissi\Output.cshtml" />
