@@ -11,14 +11,15 @@ namespace rehome.Models.DB
         public int? 日誌ID { get; set; }
         public int? 顧客ID { get; set; }
         
+        int? 担当ID { get; set; }
         public List<int>? 相談者ID { get; set; }
 
-        public List<int>? 担当ID { get; set; }
+        [StringLength(2000)]
+        public string? 内容 { get; set; }
 
-        
-        [StringLength(50)]
-        public string? 相談手段 { get; set; }
+        public string? 日誌区分 { get; set; }
 
+        public string? 担当名 { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         [DataType(DataType.Date)]
@@ -70,6 +71,9 @@ namespace rehome.Models.DB
             return tmplist;
         }
         public string? 備考 { get; set; }
+
+        [StringLength(50)]
+        public string? 相談手段 { get; set; }
 
         //public static IList<SelectListItem> 相談手段items()
         //{

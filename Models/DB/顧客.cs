@@ -49,20 +49,20 @@ namespace rehome.Models.DB
         public　string? 工事検討 { get; set; }
         public bool 玄関FLG { get; set; }
 
-        public bool? リビングFLG { get; set; }
+        public bool リビングFLG { get; set; }
 
-        public bool? キッチンFLG { get; set; }
-        public bool? トイレFLG { get; set; }
-        public bool? 洗面所FLG { get; set; }
-        public bool? 風呂FLG { get; set; }
-        public bool? 居室FLG { get; set; }
-        public bool? 建具FLG { get; set; }
+        public bool キッチンFLG { get; set; }
+        public bool トイレFLG { get; set; }
+        public bool 洗面所FLG { get; set; }
+        public bool 風呂FLG { get; set; }
+        public bool 居室FLG { get; set; }
+        public bool 建具FLG { get; set; }
+            
+        public bool 窓FLG { get; set; }
 
-        public bool? 窓FLG { get; set; }
-
-        public bool? 内装FLG { get; set; }
-        public bool? 外壁FLG { get; set; }
-        public bool? 屋根FLG { get; set; }
+        public bool 内装FLG { get; set; }
+        public bool 外壁FLG { get; set; }
+        public bool 屋根FLG { get; set; }
         public string? その他 { get; set; }
 
         public static IList<SelectListItem> yesnoitems()

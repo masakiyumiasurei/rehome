@@ -10,6 +10,7 @@ namespace rehome.Models
         public string? BackUrl { get; set; }
         public ViewMode Mode { get; set; } = ViewMode.View;
         public 顧客 Client { get; set; }
+        
         public ClientSearchConditions AjaxSearchConditions { get; set; } = new ClientSearchConditions();
 
         public object GetHtmlAtt(string idName)
@@ -24,7 +25,7 @@ namespace rehome.Models
             }
         }
 
-        public IList<日誌表示>? Nissi { get; set; }
+        public IList<日誌>? Nissi { get; set; }
 
         public List<見積>? Quotes { get; set; }
 

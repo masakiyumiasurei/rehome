@@ -22,7 +22,6 @@ using System.Globalization;
 
 namespace rehome.Controllers
 {
-    //注意　開発中は認証機能をはずす
     [Authorize]
     public class NissiController : Controller
     {
@@ -54,20 +53,16 @@ namespace rehome.Controllers
         //**************************************************** 相談日誌 ***********************************************************************
 
         [HttpGet]
-        public IActionResult New(int? 顧客ID, int? 相談者ID)
+        public IActionResult New(int? 顧客ID)
         {
             var viewModel = new NissiDetailModel();
             viewModel.Mode = ViewMode.New;
             viewModel.Nissi = new 日誌();
-            //viewModel.相談者DropDownList = _DropDownListService.Get相談者DropDownLists(顧客ID);
-            //viewModel.相談内容DropDownList = _DropDownListService.Get相談内容DropDownLists();
-            //viewModel.担当DropDownList = _DropDownListService.Get顧客担当DropDownLists(顧客ID);
+            viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             viewModel.Nissi.登録日 = DateTime.Today;
-            //viewModel.顧客DropDownList = _DropDownListService.Get顧客DropDownLists();
             viewModel.Nissi.顧客ID = 顧客ID ?? null;
             var Client = _ClientService.GetClient(顧客ID ?? -1);
             viewModel.Nissi.顧客名 = Client.顧客名;
-
 
             if (Request.Headers["Referer"].Any())
             {
@@ -83,11 +78,10 @@ namespace rehome.Controllers
             var viewModel = new NissiDetailModel();
 
             viewModel = _NissiService.GetNissi(日誌ID);
-            //viewModel.相談者DropDownList = _DropDownListService.Get相談者DropDownLists(viewModel.Nissi.顧客ID);
-            //viewModel.担当DropDownList = _DropDownListService.Get顧客担当DropDownLists(viewModel.Nissi.顧客ID);
+            viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             //viewModel.相談内容DropDownList = _DropDownListService.Get相談内容DropDownLists();
             viewModel.Mode = ViewMode.Edit;
-            //viewModel.顧客DropDownList = _DropDownListService.Get顧客DropDownLists();
+            
 
             if (BackUrl != null)
             {

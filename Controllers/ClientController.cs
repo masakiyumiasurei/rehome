@@ -14,7 +14,6 @@ using System.Text;
 
 namespace rehome.Controllers
 {
-    //テスト時はコメントアウト
     [Authorize]
     public class ClientController : Controller
     {
@@ -29,8 +28,7 @@ namespace rehome.Controllers
 
         public ClientController(ILogger<ClientController> logger, IConfiguration configuration, IClientService ClientService, IDropDownListService dropDownListService,INissiService NissiService, ITantouService TantouService)
         {
-            _logger = logger;
-            // appsettings.jsonファイルから接続文字列を取得
+            _logger = logger;            
             _connectionString = configuration.GetConnectionString("DefaultConnection");
             _ClientService = ClientService;
             _NissiService = NissiService;
@@ -94,10 +92,7 @@ namespace rehome.Controllers
                 //    model.相談者数 = 0;
                 //}
             }
-
             return View(model);
-
-
         }
 
         [HttpPost]
@@ -132,8 +127,7 @@ namespace rehome.Controllers
                 ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
 
                 TempData["error"] = (ex.Message).ToString();
-                return RedirectToAction("Detail", "Client", new { 顧客ID = viewModel.Client.顧客ID });
-                //return View(model);
+                return RedirectToAction("Detail", "Client", new { 顧客ID = viewModel.Client.顧客ID });                
             }
 
         }
@@ -209,9 +203,6 @@ namespace rehome.Controllers
                 return View("Index", viewModel);
         }
 
-
-
-
         [HttpPost]
         public ActionResult GetIryoken(string city)
         {
@@ -223,9 +214,7 @@ namespace rehome.Controllers
                     result = item.Value;
                 }
             }
-
-            return Json(result);
-            
+            return Json(result);            
         }
 
 

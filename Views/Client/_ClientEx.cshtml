@@ -19,14 +19,14 @@
 <div class="row">
     <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
         <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.知った理由,  new { data_options = anylist.知った理由items ,@class="free_dropdown " ,placeholder=" "})
+            @Html.TextBoxFor(m => m.Client.知った理由,  new { data_options = anylist.知った理由items ,@class="free_dropdown form-control form-control-sm" ,placeholder=" "})
             <label for="name" class="col-xs-2 label">Q1.知った理由</label>
             <div class="underline"></div>
         </div>
     </div>
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
-            @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = ""  ,@type = "text" }})
+            @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "text" }})
             <label for="name" class="col-xs-1 label">紹介者</label>
             <div class="underline"></div>
         </div>
@@ -34,7 +34,7 @@
 
     <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
         <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.依頼理由,  new { data_options = anylist.依頼理由items ,@class="free_dropdown " ,placeholder=" "})
+            @Html.TextBoxFor(m => m.Client.依頼理由,  new { data_options = anylist.依頼理由items ,@class="free_dropdown form-control form-control-sm" ,placeholder=" "})
             <label for="name" class="col-xs-2 label">Q2.工事を依頼した理由</label>
             <div class="underline"></div>
         </div>
@@ -47,80 +47,65 @@
             <div class="underline"></div>
         </div>
     </div>
+</div>
 
-    <div class="col-lg-2  col-md-2 col-sm-6 col-xs-6">       
+<div class="row">
+    <label>Q3ではいと答えた方の気になる箇所</label>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">       
         <label for="玄関FLG" class="col-xs-2 label">玄関</label>
         @Html.CheckBoxFor(a => a.Client.玄関FLG, new {@class="my-specific-check", @type="checkbox"})            
     </div>
-
-
-    
-
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="リビングFLG" class="col-xs-2 label">リビング</label>
+        @Html.CheckBoxFor(a => a.Client.リビングFLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="キッチンFLG" class="col-xs-2 label">キッチン</label>
+        @Html.CheckBoxFor(a => a.Client.キッチンFLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="トイレFLG" class="col-xs-2 label">トイレ</label>
+        @Html.CheckBoxFor(a => a.Client.トイレFLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="洗面所FLG" class="col-xs-2 label">洗面所</label>
+        @Html.CheckBoxFor(a => a.Client.洗面所FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="風呂FLG" class="col-xs-2 label">風呂</label>
+        @Html.CheckBoxFor(a => a.Client.風呂FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
 </div>
-
-@*                <div class="row">
-                 <div class="col-4">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL1名称, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL1名称</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-              <div class="col-8">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL1, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL1</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-              <div class="col-4">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL2名称, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL2名称</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-              <div class="col-8">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL2, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL2</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-              <div class="col-4">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL3名称, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL3名称</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-              <div class="col-8">
-              <div class="input-container">
-                   @Html.TextBoxFor(m => m.Client.URL3, new { @class = " "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">URL3</label>
-                 <div class="underline"></div>
-
-
-                </div>
-             </div>
-
-             </div>
-*@
-
-
-
+<div class="row">
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="居室FLG" class="col-xs-2 label">居室</label>
+        @Html.CheckBoxFor(a => a.Client.居室FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="建具FLG" class="col-xs-2 label">建具</label>
+        @Html.CheckBoxFor(a => a.Client.建具FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="窓FLG" class="col-xs-2 label">窓</label>
+        @Html.CheckBoxFor(a => a.Client.窓FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="内装FLG" class="col-xs-2 label">内装</label>
+        @Html.CheckBoxFor(a => a.Client.内装FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="外壁FLG" class="col-xs-2 label">外壁</label>
+        @Html.CheckBoxFor(a => a.Client.外壁FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+    <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+        <label for="屋根FLG" class="col-xs-2 label">屋根</label>
+        @Html.CheckBoxFor(a => a.Client.屋根FLG, new {@class="my-specific-check", @type="checkbox"})
+    </div>
+     </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.EditorFor(m => m.Client.その他,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "text" }})
+            <label for="name" class="col-xs-1 label">その他</label>
+            <div class="underline"></div>
+        </div>
+    </div>
