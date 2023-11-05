@@ -56,8 +56,8 @@ namespace rehome.Controllers
                 model.Client = new ();
                 model.Mode = ViewMode.New;
                 model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
-                model.顧客担当者数 = 0;
-                model.相談者数 = 0;
+                //model.顧客担当者数 = 0;
+                //model.相談者数 = 0;
               //  model.Client.登録担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
                 //var Tantou = _TantouService.GetTantou((int)model.Client.登録担当ID);
                 //model.Client.登録担当者名 = Tantou.担当名;

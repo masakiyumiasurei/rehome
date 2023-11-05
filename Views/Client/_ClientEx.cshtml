@@ -1,5 +1,4 @@
-﻿
-@model ClientDetailModel
+﻿@model ClientDetailModel
 @using rehome.Models.DB;
 @using rehome.Enums;
 @using rehome.Models.Client
@@ -7,107 +6,57 @@
 <div class="row">
 
     @*<div class="col-12 col-sm-6">
-        <div class="input-container">
-            @Html.DropDownListFor(m => m.Client.医療圏, 医療圏リスト.医療圏items(), "", new { @class = " ",@id="iryoken" })
-            <label for="name" class="col-xs-1 label">医療圏</label>
-             <div class="underline"></div>
-            
-        </div>
+    <div class="input-container">
+            @Html.DropDownListFor(m => m.Client.知った理由, 医療圏リスト.医療圏items(), "", new { @class = " ",@id="iryoken" })
+    <label for="name" class="col-xs-1 label">医療圏</label>
+    <div class="underline"></div>
+
+    </div>
     </div>*@
 
- </div>
+</div>
 
- <div class="table-responsive class col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <table  class="table table-striped table-hover table-sm " >
-                    <tr>
-                       <th>職員数</th>
-                       <th>医師</th>
-                       <th>看護師</th> 
-                       <th>医療技術職</th>
-                       <th>事務職</th> 
-                    </tr>
-                    <tr>
-                        <td>常勤</td>
- @*                      <td>
-                           @Html.EditorFor(m => m.Client.常勤医師, new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}} )
-                       </td>                     
-                       <td>                        
-                           @Html.EditorFor(m => m.Client.常勤看護師,  new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}} )
-                       </td>
-                      <td>
-                           @Html.EditorFor(m => m.Client.常勤技術職,  new { htmlAttributes =  new { @class = "form-control  no-spin"  ,@type="number",@min="0"}} )
-                       </td>                     
-                       <td>                        
-                           @Html.EditorFor(m => m.Client.常勤事務職,  new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}} )
-                       </td>
-                    </tr>
-                    <tr>
-                        <td>非常勤</td>
-                       <td>
-                           @Html.EditorFor(m => m.Client.非常勤医師,   new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}}  )
-                       </td>                     
-                       <td>                        
-                           @Html.EditorFor(m => m.Client.非常勤看護師,   new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}} )
-                       </td>
-                      <td>
-                           @Html.EditorFor(m => m.Client.非常勤技術職,   new { htmlAttributes = new { @class = "form-control  no-spin"  ,@type="number",@min="0"}}  )
-                       </td>                     
-                       <td>                        
-                           @Html.EditorFor(m => m.Client.非常勤事務職,   new { htmlAttributes = new { @class = " form-control no-spin"  ,@type="number",@min="0"}}  )
-                       </td>
-                    </tr>
-                </table>
-                </div>
+<div class="row">
+    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.知った理由,  new { data_options = anylist.知った理由items ,@class="free_dropdown " ,placeholder=" "})
+            <label for="name" class="col-xs-2 label">Q1.知った理由</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = ""  ,@type = "text" }})
+            <label for="name" class="col-xs-1 label">紹介者</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.依頼理由,  new { data_options = anylist.依頼理由items ,@class="free_dropdown " ,placeholder=" "})
+            <label for="name" class="col-xs-2 label">Q2.工事を依頼した理由</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
+        <div class="input-container">
+            @Html.DropDownListFor(m => m.Client.工事検討, ClientDetailModel.yesnoitems(), "",  new { @class ="form-control form-control-sm"} )
+            <label for="name" class="col-xs-2 label">Q3.今後の工事を検討するか</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-2  col-md-2 col-sm-6 col-xs-6">       
+        <label for="玄関FLG" class="col-xs-2 label">玄関</label>
+        @Html.CheckBoxFor(a => a.Client.玄関FLG, new {@class="my-specific-check", @type="checkbox"})            
+    </div>
 
 
-               
-                    
-                <div class="row"> 
-                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
-                        <div class="input-container">
-                            @Html.EditorFor(m => m.Client.病床数,  new { htmlAttributes =new { @class = "  no-spin"  ,@type="number",@min="0" ,placeholder=" "}})
-                            <label for="name" class="col-xs-2 label">病床数</label>
-                             <div class="underline"></div>                            
-                        </div>
-                    </div>   
+    
 
-
-                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
-                        <div class="input-container">
-                              @Html.EditorFor(m => m.Client.時間外患者数,  new { htmlAttributes =new { @class = "  no-spin"  ,@type = "number",@min="0",placeholder=" " }})
-                            <label for="name" class=" col-xs-2 label">時間外患者数/日</label>
-                             <div class="underline"></div>                          
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
-                        <div class="input-container">
-                             @Html.EditorFor(m => m.Client.救急搬送件数,  new { htmlAttributes =new { @class = "  no-spin"  ,@type = "number",@min="0",placeholder=" " }})
-                            <label for="name" class=" col-xs-2 label">救急搬送件数/月</label>
-                             <div class="underline"></div>                           
-                        </div>
-                    </div>   
-
-
-                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
-                        <div class="input-container">
-                             @Html.EditorFor(m => m.Client.手術件数,  new { htmlAttributes =new { @class = "  no-spin"  ,@type = "number",@min="0" ,placeholder=" "}})
-                            <label for="name" class=" col-xs-2 label">手術件数/月</label>
-                             <div class="underline"></div>                           
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
-                        <div class="input-container">
-                            @Html.EditorFor(m => m.Client.分娩件数,  new { htmlAttributes =new { @class = "  no-spin"  ,@type = "number",@min="0" ,placeholder=" "}})
-                            <label for="name" class="col-xs-2 label">分娩件数/年</label>
-                             <div class="underline"></div>                            
-                        </div>
-                    </div>*@
-               
-                </div>
+</div>
 
 @*                <div class="row">
                  <div class="col-4">
@@ -115,7 +64,7 @@
                    @Html.TextBoxFor(m => m.Client.URL1名称, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL1名称</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
@@ -125,7 +74,7 @@
                    @Html.TextBoxFor(m => m.Client.URL1, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL1</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
@@ -135,7 +84,7 @@
                    @Html.TextBoxFor(m => m.Client.URL2名称, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL2名称</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
@@ -145,7 +94,7 @@
                    @Html.TextBoxFor(m => m.Client.URL2, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL2</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
@@ -155,7 +104,7 @@
                    @Html.TextBoxFor(m => m.Client.URL3名称, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL3名称</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
@@ -165,14 +114,13 @@
                    @Html.TextBoxFor(m => m.Client.URL3, new { @class = " "  ,placeholder=" "})
                 <label for="name" class="col-xs-1 label">URL3</label>
                  <div class="underline"></div>
-                   
+
 
                 </div>
              </div>
 
              </div>
-*@             
+*@
 
-                     
-              
-           
+
+

@@ -52,16 +52,10 @@
                  <div class="underline"></div>                    
             </div>
         </div>
+        
         <div class="col-12 col-lg-2 col-md-2 col-sm-2">
             <div class="input-container">
-                @Html.EditorFor(m => m.Client.紹介者,  new { htmlAttributes =new { @class = "tile-text"  ,@type = "text" }})
-                <label for="name" class="col-xs-1 label">紹介者</label>
-                <div class="underline"></div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-            <div class="input-container">
-                @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = "tile-text"  ,@type = "text"  }})
+                @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = ""  ,@type = "text"  }})
                 <label for="name" class="col-xs-1 label">メールアドレス</label>
                 <div class="underline"></div>
             </div>

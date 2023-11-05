@@ -199,7 +199,7 @@
 
 
         //自由入力用の分類番号の初期値
-        var tabCount = 1000000 + @Model.RowCount;
+        var tabCount = 1000000 + @Model.自由分類DropDownList.Count();
 
         //ページ遷移時の明細行数
         var rowCount = @Model.RowCount;
@@ -222,10 +222,15 @@
         //タブ追加
         function addTab(){
 
-            var add_html = '<input class="tabRadio" id="TAB-A[' + tabCount + ']" type="radio" name="TAB-A" checked="checked"><label class="tabLabel" for="TAB-A[' + tabCount + ']">'
+            var add_html =
+                    var add_html = '<input name="Quote.見積分類表示順リスト[' + quote_tab + '].分類ID" type="hidden" value="' + tabCount + '">'
+                          +'<input name="Quote.見積分類表示順リスト[' + quote_tab + '].表示順" type="hidden" value="' + (quote_tab + 1) + '">'
+                          +'<input class="tabRadio" id="TAB-A[' + tabCount + ']" type="radio" name="TAB-A" checked="checked">'
+                          +'<label class="tabLabel" for="TAB-A[' + tabCount + ']">'
                           +'<input name="free_tab[' + tabCount + ']" onclick="selectTab(' + tabCount + ');" onchange="changeName(this);" />'
-                          +'</label><div class="content"><input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(' + tabCount + ');">'
-                          +' <input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(' + tabCount + ');">'
+                          +'</label><div class="content">'
+                          +'<input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(' + tabCount + ');">'
+                          +'<input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(' + tabCount + ');">'
                           +'<table><thead><tr><th style="opacity:0"></th><th>商品名</th><th>詳細数</th><th>詳細単位</th><th>詳細期間</th><th>詳細期間単位</th><th>数量</th><th>単位</th><th>単価</th><th>金額</th><th>見込原価</th></tr></thead>' 
                           +'<tbody name="body[' + tabCount + ']" id="body[' + tabCount + ']"></tbody></table></div>'
 

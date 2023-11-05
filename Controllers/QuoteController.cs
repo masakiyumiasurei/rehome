@@ -105,7 +105,7 @@ namespace rehome.Controllers
             }
 
             model.分類DropDownList = _DropDownListService.Get分類DropDownLists(model.Quote.理化学医療区分);
-            model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+            //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 
             return View(model);
@@ -222,7 +222,7 @@ namespace rehome.Controllers
             //開発中はコメント
             viewModel.QuoteSearchConditions.LoginID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             //viewModel.Quotes = _QuoteService.SearchQuotes(viewModel.QuoteSearchConditions);
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+           // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 
             return View("Index", viewModel);
@@ -256,7 +256,7 @@ namespace rehome.Controllers
 
            // viewModel.QuoteSearchConditions.LoginID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             viewModel.Quotes = _QuoteService.SearchQuotes(viewModel.QuoteSearchConditions);
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+           // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             return View("Index", viewModel);
     }

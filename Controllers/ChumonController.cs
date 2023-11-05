@@ -79,7 +79,7 @@ namespace rehome.Controllers
 
             IList<string> 注文担当リスト = (IList<string>)_DropDownListService.Get注文担当DropDownLists();
             string[] 注文担当itemsArray = 注文担当リスト.ToArray();
-            anylist.注文担当items = string.Join(",", 注文担当itemsArray);
+           // anylist.注文担当items = string.Join(",", 注文担当itemsArray);
 
             model.Mode = ViewMode.New;
                 model.RowCount = 0;
@@ -110,7 +110,7 @@ namespace rehome.Controllers
             string[] 注文担当itemsArray = 注文担当リスト.ToArray();
             
             // 配列をカンマ区切りの文字列に変換して、相談手段itemsに代入
-            anylist.注文担当items = string.Join(",", 注文担当itemsArray);
+            //anylist.注文担当items = string.Join(",", 注文担当itemsArray);
 
             model.Mode = ViewMode.Edit;
 

@@ -9,6 +9,13 @@
         "電話,来所,事業所訪問,センター架電,メール";
 
 
-        public static string 注文担当items { get; set; }
+        public static string 知った理由items { get; set; } =
+            "インターネット,チラシ,紹介";
+
+        public static string 依頼理由items { get; set; } =
+            "金額,信頼感,紹介業者,HPが解りやすい";
+
+        
+
     }
 }

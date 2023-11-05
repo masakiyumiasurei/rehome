@@ -41,7 +41,7 @@
     <div class="text-danger">
         @Html.ValidationSummary(false)
     </div>
-    <hr />
+    
 
 
     @if (Model.Client == null)
@@ -61,7 +61,7 @@
 
         <div class="row">            
 
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section class="typeA">
 
                     <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" checked="checked">
@@ -72,8 +72,8 @@
                         </p>
                     </div>
 
-                    @if (Model.Mode != ViewMode.New)
-                    {
+                    @*@if (Model.Mode != ViewMode.New)
+                    {*@
                         <input class="tabRadio" id="TAB-A04" type="radio" name="TAB-A">
                         <label class="tabLabel" for="TAB-A04">見積</label>
                         <div class="content">
@@ -81,10 +81,10 @@
                             @await Html.PartialAsync("_ClientQuote")
                         </p>
                     </div>
-                    }
+                    @*}*@
 
-                    @if (Model.Mode != ViewMode.New)
-                    {
+                    @*@if (Model.Mode != ViewMode.New)
+                    {*@
                         <input class="tabRadio" id="TAB-A02" type="radio" name="TAB-A">
                         <label class="tabLabel" for="TAB-A02">日誌</label>
                         <div class="content">
@@ -92,7 +92,7 @@
                                 @await Html.PartialAsync("_ClientNissi")
                             </p>
                         </div>
-                    }
+                    @*}*@
 
                     @* <input class="tabRadio" id="TAB-A05" type="radio" name="TAB-A">
             <label class="tabLabel" for="TAB-A05">ファイル</label>
@@ -114,8 +114,7 @@
 @section Scripts{
     <script>
 
-        var TantouCount = @Model.顧客担当者数;
-        var SodanCount = @Model.相談者数;
+        
 
         function deleteURL(num) {
             $('[name="Client.URL' + num + '"]').val('');

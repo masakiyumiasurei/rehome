@@ -42,7 +42,7 @@ namespace rehome.Controllers
             var viewModel = new TantouDetailModel();
             viewModel.Mode = ViewMode.New;
             viewModel.Tantou = new 担当();
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+         //   viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.担当営業所数 = 0;
             if (Request.Headers["Referer"].Any())
             {
@@ -59,7 +59,7 @@ namespace rehome.Controllers
             ViewBag.OperationMessage = TempData["Tantou"];
 
             var viewModel = new TantouDetailModel();
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+            //viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.Mode = ViewMode.Edit;
             viewModel.Tantou = _TantouService.GetTantou(担当ID);
             viewModel.担当営業所リスト = _TantouService.GetTantouOffice(担当ID);
@@ -110,7 +110,7 @@ namespace rehome.Controllers
                     //ViewBag.OperationMessage = string.Format("重複しているIDがあります。IDを修正してください");
                     if (model.Mode == ViewMode.New)
                     {
-                        model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+                        //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
                         return View(model);
                     }
                     else
@@ -176,7 +176,7 @@ namespace rehome.Controllers
             }
             ModelState.Clear();
 
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+           // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
 
             HttpContext.Session.SetObject(SessionKeys.Tantou_SEARCH_CONDITIONS, viewModel.TantouSearchConditions);
 
@@ -207,7 +207,7 @@ namespace rehome.Controllers
 
             HttpContext.Session.SetObject(SessionKeys.Tantou_SEARCH_CONDITIONS, viewModel.TantouSearchConditions);
 
-            viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+           // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
 
             viewModel.Tantous = _TantouService.SearchTantous(viewModel.TantouSearchConditions);
 
