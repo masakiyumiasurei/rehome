@@ -10,8 +10,8 @@ namespace rehome.Models.DB
         [Key]
         public int? 日誌ID { get; set; }
         public int? 顧客ID { get; set; }
-        
-        int? 担当ID { get; set; }
+
+        public int?  担当ID { get; set; }
         public List<int>? 相談者ID { get; set; }
 
         [StringLength(2000)]
@@ -52,21 +52,13 @@ namespace rehome.Models.DB
         public string? 業務区分 { get; set; } = "相談対応業務";
 
         public string? 顧客名 { get; set; }
-        public static IList<SelectListItem> 支援種別items()
-        {
-            var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "来所相談", Value = "来所相談" });
-            tmplist.Add(new SelectListItem() { Text = "特別支援", Value = "特別支援" });
-            tmplist.Add(new SelectListItem() { Text = "同行支援", Value = "同行支援" });
-            tmplist.Add(new SelectListItem() { Text = "個別支援", Value = "個別支援" });
-            return tmplist;
-        }
+       
 
         public static IList<SelectListItem> 業務区分items()
         {
             var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "相談対応業務", Value = "相談対応業務" });
-            tmplist.Add(new SelectListItem() { Text = "利用勧奨業務", Value = "利用勧奨業務" });
+            tmplist.Add(new SelectListItem() { Text = "サッシ", Value = "サッシ" });
+            tmplist.Add(new SelectListItem() { Text = "営業", Value = "営業" });
             
             return tmplist;
         }

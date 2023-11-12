@@ -25,7 +25,7 @@ namespace rehome.Models
             }
         }
 
-        public IList<日誌>? Nissi { get; set; }
+        public IList<日誌>? Nissis { get; set; }
 
         public List<見積>? Quotes { get; set; }
 

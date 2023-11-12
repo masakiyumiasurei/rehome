@@ -5,6 +5,7 @@ using rehome.Models;
 using rehome.Models.DB;
 using X.PagedList;
 using System.Data;
+using System.Collections.Generic;
 
 namespace rehome.Services
 {
@@ -12,6 +13,7 @@ namespace rehome.Services
     {
         public IList<見積> SearchQuotes(QuoteSearchConditions conditions);
 
+        List<見積> GetQuote(int 顧客ID);
         見積 GetQuote(int 見積ID, int 履歴番号);
 
         見積 RegistQuote(QuoteCreateModel model);
@@ -188,6 +190,24 @@ namespace rehome.Services
                 return model;
             }
         }
+        public List<見積> GetQuote(int 顧客ID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var builder = new SqlBuilder();
+                var template = builder.AddTemplate("SELECT T_見積.*, T_担当.氏名 as 担当者名, RT_顧客.顧客名 FROM T_見積 " +
+                    "left join T_担当 on T_見積.担当ID = T_担当.担当ID " +
+                    "left join RT_顧客 on T_見積.顧客ID = RT_顧客.顧客ID " +
+                    "/**where**/");
+
+                builder.Where("T_見積.顧客ID = @顧客ID ", new { 顧客ID = @顧客ID});
+
+                var result = connection.Query<見積>(template.RawSql, template.Parameters).ToList();
+
+                return result;
+            }           
+        }
 
         public 見積 GetQuote(int 見積ID, int 履歴番号)
         {
@@ -195,9 +215,9 @@ namespace rehome.Services
             {
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_見積.*, T_担当.氏名 as 担当者名, T_営業所.営業所名 FROM T_見積 " +
+                var template = builder.AddTemplate("SELECT T_見積.*, T_担当.氏名 as 担当者名, RT_顧客.顧客名 FROM T_見積 " +
                     "left join T_担当 on T_見積.担当ID = T_担当.担当ID " +
-                    "left join T_営業所 on T_見積.営業所ID = T_営業所.営業所ID " +
+                    "left join RT_顧客 on T_見積.顧客ID = RT_顧客.顧客ID " +
                     "/**where**/");
            
                 builder.Where("見積ID = @見積ID and 履歴番号=@履歴番号", new { 見積ID = 見積ID, 履歴番号 = @履歴番号 });
@@ -321,7 +341,7 @@ namespace rehome.Services
                         if (model.Mode == ViewMode.New)
                         {
                             //新規
-                            sql = "SELECT (MAX(見積ID) + 1) as 見積ID FROM T_見積 ";
+                            sql = "SELECT (isnull(MAX(見積ID),0) + 1) as 見積ID FROM T_見積 ";
 
                             var result = connection.QuerySingle(sql, null, tx);
 
@@ -331,16 +351,16 @@ namespace rehome.Services
                             処理後見積ID = model.Quote.見積ID;
                             処理後履歴番号 = model.Quote.履歴番号;
 
-                            var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID," +
-                                "営業所ID,顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
-                                "理化学医療区分,見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
+                            var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID,顧客ID," +
+                                "顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
+                                "見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
                                 "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
-                                "入金日,入金締日,見積ステータス,期,注文摘要,取引年月日) " +
-                           "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID," +
-                           "@営業所ID,@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
-                           "@理化学医療区分,@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
+                                "入金日,入金締日,見積ステータス,取引年月日) " +
+                           "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID,@顧客ID," +
+                           "@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
+                           "@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
                            "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
-                           "@入金日,@入金締日,@見積ステータス,@期,@注文摘要,@取引年月日)";
+                           "@入金日,@入金締日,@見積ステータス,@取引年月日)";
 
                             var insert = connection.Execute(queryInsert, model.Quote, tx);
 
@@ -349,13 +369,13 @@ namespace rehome.Services
                         {
                             //更新
                             var queryUpdate = "UPDATE T_見積 SET 見積番号=@見積番号,最新FLG=@最新FLG,担当ID=@担当ID," +
-                                "営業所ID=@営業所ID,顧客名=@顧客名,敬称=@敬称,件名=@件名,納期=@納期,項目=@項目," +
-                                "見積区分=@見積区分, 受渡場所=@受渡場所,支払条件=@支払条件,有効期限=@有効期限," +
-                                "理化学医療区分=@理化学医療区分,見積金額=@見積金額,見込原価=@見込原価,見込利益=@見込利益," +
+                                "顧客ID=@顧客ID,顧客名=@顧客名,敬称=@敬称,件名=@件名,納期=@納期,項目=@項目," +
+                                "見積区分=@見積区分, 支払条件=@支払条件,有効期限=@有効期限," +
+                                "見積金額=@見積金額,見込原価=@見込原価,見込利益=@見込利益," +
                                 "作成日=@作成日,完了予定日=@完了予定日,受注確度=@受注確度,time_stamp=@time_stamp, " +
                                 "非課税名称=@非課税名称,非課税額=@非課税額,値引名称=@値引名称,値引額=@値引額," +
                                 "備考=@備考,single=@single,入金種別=@入金種別,入金日=@入金日,入金締日=@入金締日," +
-                                "見積ステータス=@見積ステータス,期=@期,注文摘要=@注文摘要,取引年月日=@取引年月日 " +
+                                "見積ステータス=@見積ステータス,取引年月日=@取引年月日 " +
                                 " WHERE 見積ID = @見積ID and 履歴番号 =@履歴番号";
 
                             var result = connection.Execute(queryUpdate, model.Quote, tx);

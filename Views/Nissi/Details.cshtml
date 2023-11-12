@@ -9,18 +9,18 @@
     switch (Model.Mode)
     {
         case ViewMode.New:
-            ViewData["Title"] = "相談日誌登録";
+            ViewData["Title"] = "日誌登録";
             break;
         case ViewMode.Edit:
-            ViewData["Title"] = "相談日誌編集";
+            ViewData["Title"] = "日誌編集";
             break;
         default:
-            ViewData["Title"] = "相談日誌情報";
+            ViewData["Title"] = "日誌情報";
             break;
     }
 }
 
-<h2>@ViewData["Title"]</h2>
+<h4>@ViewData["Title"]</h4>
 
 <div>
     <p>@Html.Raw(ViewBag.OperationMessage)</p>
@@ -29,7 +29,7 @@
 
 @if (Model.Nissi == null)
 {
-    <div class="text-danger">相談日誌が見つかりませんでした</div>
+    <div class="text-danger">日誌が見つかりませんでした</div>
 }
 else
 {
@@ -37,22 +37,19 @@ else
         
          if (Model.Mode != ViewMode.New)
         {
-            <input class="custom-btn btn-1 " type="submit" id="submit" formaction="Details" formmethod="post" value="更新" name="Edit" />
-            <a href="@Url.Action("アドバイザー相談票", "Nissi",new{日誌ID = Model.Nissi.日誌ID})" target="_blank" class="custom-btn btn-2" >印刷</a>
+            <input class="custom-btn btn-1 " type="submit" id="submit" formaction="Details" formmethod="post" value="更新" name="Edit" />            
             <a class="custom-btn btn-2 btn-red" id="btnDelete" href="@Url.Action("DeleteNissi", "Nissi", new { deleteID = Model.Nissi.日誌ID,BackUrl=Model.BackUrl,ClientID = Model.Nissi.顧客ID})">削除</a>
         }
         else
         {
             <input class="custom-btn btn-1 " type="submit" id="submit" formaction="Details" formmethod="post" value="登録" name="Edit" />
         }
-
-
-
+        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
         @Html.HiddenFor(model => model.Mode)
         @Html.HiddenFor(model => model.BackUrl)
         @*@Html.AntiForgeryToken()*@
         <div class="text-danger">
-            @Html.ValidationSummary(false)
+        @Html.ValidationSummary(false)
         </div>
         <hr />
 
@@ -64,31 +61,28 @@ else
             @*@Html.HiddenFor(a => a.Nissi.担当ID)*@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                
-                <div class="row"> 
-                   @* <div class="col-lg-1 col-sm-12 ">
+                <div class="row">
+                    <div class="col-lg-2 col-md-4 col-sm-12 ">
                         <div class="input-container">
                             <label for="name" class="col-xs-1 label">登録日</label>
-                            @Html.EditorFor(m => m.Nissi.登録日,  new { htmlAttributes =new { @class = " "  ,@type = "text" }})
+                            @Html.EditorFor(m => m.Nissi.登録日,  new { htmlAttributes =new { @class = " "  ,@type = "date" ,tabindex="-1" }})
                         </div>
-                    </div>*@
-               <div class="col-lg-4 col-sm-12">
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
                         <div class="input-container">
                             @Html.EditorFor(m => m.Nissi.顧客名,  new { htmlAttributes =new { @class = "tile-text ",tabindex="-1"  ,@type = "text" ,placeholder=" "}})
                             <label for="name" class="col-xs-1 label">顧客名</label>
-                            <div class="underline"></div>
-                            
+                            <div class="underline"></div>                            
                         </div>
-                    </div>  
-                    
+                    </div> 
 
                   <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start " >
                       <div class="input-container">
-                       @Html.DropDownListFor(m => m.Nissi.業務区分, 日誌.業務区分items(),  "選択してください",  new {@class = " "} )
-                        <label for="業務区分" class="label">業務区分</label>
+                       @Html.DropDownListFor(m => m.Nissi.日誌区分, 日誌.業務区分items(),  "選択してください",  new {@class = " "} )
+                        <label for="日誌区分" class="label">日誌区分</label>
                         <div class="underline"></div>
                        </div> 
-                    </div>   
-                    
+                    </div>                       
 
                     <div class="col-lg-2 col-sm-12">
                         <div class="input-container">
@@ -99,23 +93,14 @@ else
                         </div>
                     </div>
 
-
-                    @*<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start  " id="SearchCustom_Nissi_担当">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start  " id="SearchCustom_Nissi_担当">
                          <div class="input-container">
-                             @Html.ListBoxFor(m => m.Nissi.担当ID,new SelectList(Model.担当DropDownList, "Value", "Display"),  new { @class = " "} )
-                        <label for="担当ID" class="label ">担当(Ctrlで複数選択)</label>
+                            @Html.DropDownListFor(m => m.Nissi.担当ID,new SelectList(Model.担当DropDownList, "Value", "Display"),  new { @class = " "} )
+                        <label for="担当ID" class="label ">担当者)</label>
                         <div class="underline"></div>
                          </div>
-                    </div>*@
-
-
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start  " id="SearchCustom_Nissi_相談者">
-                         <div class="input-container">
-                               @Html.ListBoxFor(m => m.Nissi.相談者ID,new SelectList(Model.相談者DropDownList, "Value", "Display"),  new { @class = " "} )
-                        <label for="相談者ID" class="label ">相談者(Ctrlで複数選択)</label>
-                        <div class="underline"></div>
-                       </div>
                     </div>
+                    
                 </div>
 
 
@@ -125,63 +110,27 @@ else
                         @Html.DropDownListFor(m => m.Nissi.支援種別, 日誌.支援種別items(),  "選択してください",  new { @class = "label"} )
                     </div>*@
                 
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Nissi_相談手段">
+                    @*<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Nissi_相談手段">
                           <div class="input-container">
                                @Html.TextBoxFor(m => m.Nissi.相談手段, new { data_options = 日誌リスト.相談手段items ,@class="free_dropdown  " ,placeholder=" "})
                         <label for="相談手段" class="label">相談手段</label>      
-                        <div class="underline"></div>
-                    
+                        <div class="underline"></div>                    
                     </div>  
-                    </div>      
-
+                    </div>*@
               </div>               
             </div>
         </div>
-
-
-
             <div class="col-12 col-sm-10">
                 <div class="input-container">
-                     @Html.TextAreaFor(m => m.Nissi.相談内容_運営状況, 10, 500, new { @class = " " ,placeholder=" "})
-                    <label for="name" class="label">相談経緯(背景)</label>
+                     @Html.TextAreaFor(m => m.Nissi.内容, 10, 500, new { @class = " " ,placeholder=" "})
+                    <label for="name" class="label">内容</label>
                     <div class="underline"></div>
                    
                 </div>
             </div>
 
 
-            <div class="col-12 col-sm-10">
-                <div class="input-container">
-                    @Html.TextAreaFor(m => m.Nissi.相談内容_質問内容, 10, 500, new { @class = " " ,placeholder=" "})
-                    <label for="name" class="label">相談内容(質問内容)</label>
-                    <div class="underline"></div>
-                    
-                </div>
-            </div>
-
-
-            <div class="col-12 col-sm-10">
-                <div class="input-container">
-                    @Html.TextAreaFor(m => m.Nissi.対応内容, 10, 500, new { @class = " " ,placeholder=" "})
-                    <label for="name" class="label">対応内容</label>
-                    <div class="underline"></div>
-                    
-                </div>
-            </div>
-
-
-            <div class="col-12 col-sm-10">
-                <div class="input-container">
-                     @Html.TextAreaFor(m => m.Nissi.備考, 10, 300, new { @class = " " ,placeholder=" "})
-                    <label for="name" class="label">備考　※帳票には表示されません</label>
-                    <div class="underline"></div>
-                   
-                </div>
-            </div>
-
-
-
-       if (Model.Mode != ViewMode.New)
+       @*if (Model.Mode != ViewMode.New)
         {
             <input class="custom-btn btn-1 " type="submit" id="submit" formaction="Details" formmethod="post" value="更新" name="Edit" />
             <a class="custom-btn btn-2 btn-red" id="btnDelete" href="@Url.Action("DeleteNissi", "Nissi", new { deleteID = Model.Nissi.日誌ID,BackUrl=Model.BackUrl,ClientID = Model.Nissi.顧客ID})">削除</a>
@@ -190,9 +139,8 @@ else
         {
             <input class="custom-btn btn-1 " type="submit" id="submit" formaction="Details" formmethod="post" value="登録" name="Edit" />
         }
-        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
+        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>*@
     }
-
   
 }
 
@@ -210,8 +158,6 @@ else
         });
 
   });
-
-
 
     </script>
 }

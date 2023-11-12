@@ -9,8 +9,8 @@
         @Html.HiddenFor(a => a.Quote.見積ID)
         @Html.HiddenFor(a => a.Quote.最新FLG)
         @Html.HiddenFor(a => a.Quote.担当ID)
-        @Html.HiddenFor(a => a.Quote.営業所ID)
-        @Html.HiddenFor(a => a.Quote.期)
+        @Html.HiddenFor(a => a.Quote.顧客ID)
+        @*@Html.HiddenFor(a => a.Quote.期)*@
 
         @*   <div class="col-8 col-sm-2">
         <label>見積番号</label>
@@ -23,11 +23,11 @@
         </div>*@
 
 
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>見積番号</label>
             @Html.TextBoxFor(a => a.Quote.見積番号, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
-            @*<input type="button" onclick="getQuoteNumber();" value="自動付番" class="custom-btn btn-2 btn-sm" />*@
-        </div>
+            <input type="button" onclick="getQuoteNumber();" value="自動付番" class="custom-btn btn-2 btn-sm" />
+        </div>*@
 
 
         <div class="col-12 col-sm-2">
@@ -35,17 +35,15 @@
             @Html.TextBoxFor(a => a.Quote.履歴番号, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
         </div>
 
+       @* <div class="col-12 col-sm-2">
+            <label>顧客名</label>
+            @Html.TextBoxFor(a => a.Quote.顧客名, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
+        </div>*@
 
-
-        <div class="col-12 col-sm-2">
-            <label>理化学医療区分</label>
-            @Html.TextBoxFor(a => a.Quote.理化学医療区分, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
-        </div>
-
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>営業所</label>
             @Html.DropDownListFor(m => m.Quote.営業所ID,new SelectList(Model.営業所DropDownList, "Value", "Display"),"",  new { @class ="form-control enable-false form-control-sm",tabindex="-1"} )
-        </div>
+        </div>*@
 
         <div class="col-12 col-sm-2">
             <label>担当者</label>
@@ -80,13 +78,13 @@
 
         <div class="col-12 col-sm-2">
             <label>見積ステータス</label>
-            @Html.DropDownListFor(m => m.Quote.見積ステータス, 見積.見積ステータスitems(), "", new { @class = "form-control form-control-sm" })
+            @Html.DropDownListFor(m => m.Quote.見積ステータス, 見積.見積ステータスitems(), "見積", new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>項目</label>
             @Html.DropDownListFor(m => m.Quote.項目, 見積.項目items(), "", new { @class = "form-control form-control-sm" })
-        </div>
+        </div>*@
 
         <div class="col-12 col-sm-2">
             <label>完了予定日</label>
@@ -142,15 +140,15 @@
             @Html.DropDownListFor(m => m.Quote.支払条件, 見積.支払条件items(), "", new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>受渡場所</label>
             @Html.TextBoxFor(a => a.Quote.受渡場所, new { @class = "form-control form-control-sm"})
-        </div>
+        </div>*@
 
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>見積区分</label>
             @Html.DropDownListFor(m => m.Quote.見積区分, 見積.見積区分items(), "", new { @class = "form-control form-control-sm" })
-        </div>
+        </div>*@
         <div class="col-12 col-sm-2">
             <label>取引年月日</label>
             @Html.EditorFor(a => a.Quote.取引年月日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})

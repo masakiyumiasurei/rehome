@@ -20,9 +20,7 @@ namespace rehome.Models
 
         public IList<DropDownListModel>? 担当DropDownList { get; set; }
 
-        public IList<DropDownListModel>? 営業所DropDownList { get; set; }
-
-        
+        public IList<DropDownListModel>? 営業所DropDownList { get; set; }        
 
     }
 }

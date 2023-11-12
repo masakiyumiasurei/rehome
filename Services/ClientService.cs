@@ -122,12 +122,12 @@ public 顧客 RegistClient(ClientDetailModel model)
                         if (model.Client.顧客ID == 0)
                         {
                             //新規
-                            var queryInsert = "INSERT INTO RT_顧客 (顧客名,郵便番号,住所1,住所2,TEL,建物種別,電話番号1,電話番号2,FAX,メールアドレス,紹介者,備考," +
+                            var queryInsert = "INSERT INTO RT_顧客 (顧客名,郵便番号,住所1,住所2,建物種別,電話番号1,電話番号2,FAX,メールアドレス,紹介者,備考," +
                                             "宛名印刷FLG,依頼者種別,ブラックリストFLG,知った理由,依頼理由,工事検討,玄関flg,リビングflg,キッチンflg,トイレflg,洗面所flg," +
                                             "風呂flg,居室flg,建具flg,窓flg,内装flg,外壁flg,屋根flg,その他,カナ) " +
-                                            " VALUES (@顧客名,@郵便番号,@住所1,@住所2,@TEL,@建物種別,@電話番号1,@電話番号2,@FAX,@メールアドレス,@紹介者,@備考," +
+                                            " VALUES (@顧客名,@郵便番号,@住所1,@住所2,@建物種別,@電話番号1,@電話番号2,@FAX,@メールアドレス,@紹介者,@備考," +
                                             "@宛名印刷FLG,@依頼者種別,@ブラックリストFLG,@知った理由,@依頼理由,@工事検討,@玄関flg,@リビングflg,@キッチンflg,@トイレflg,@洗面所flg," +
-                                            "@風呂flg,@居室flg,@建具flg,窓flg,@内装flg,@外壁flg,@屋根flg,@その他,@カナ)";
+                                            "@風呂flg,@居室flg,@建具flg,@窓flg,@内装flg,@外壁flg,@屋根flg,@その他,@カナ)";
 
                             var insert = connection.Execute(queryInsert, model.Client, tx);
 
@@ -139,7 +139,7 @@ public 顧客 RegistClient(ClientDetailModel model)
                         else
                         {
                             //更新
-                            var queryUpdate = "UPDATE RT_顧客 SET 顧客名=@顧客名,郵便番号=@郵便番号,住所1=@住所1,住所2=@住所2,TEL=@TEL,建物種別=@建物種別,"+
+                            var queryUpdate = "UPDATE RT_顧客 SET 顧客名=@顧客名,郵便番号=@郵便番号,住所1=@住所1,住所2=@住所2,建物種別=@建物種別,"+
                                             "電話番号1=@電話番号1,電話番号2=@電話番号2,FAX = @FAX,メールアドレス=@メールアドレス," +
                                               "紹介者=@紹介者,宛名印刷FLG=@宛名印刷FLG,依頼者種別=@依頼者種別,ブラックリストFLG=@ブラックリストFLG," +
                                               "知った理由=@知った理由,依頼理由=@依頼理由,工事検討=@工事検討,玄関flg=@玄関flg," +

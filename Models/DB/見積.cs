@@ -18,6 +18,8 @@ namespace rehome.Models.DB
         public bool? 最新FLG { get; set; } = true;
         public int 担当ID { get; set; }
 
+        public int 顧客ID { get; set; }
+
         public string? 担当者名 { get; set; }
 
         public int? 営業所ID { get; set; }
@@ -184,9 +186,9 @@ namespace rehome.Models.DB
         public static IList<SelectListItem> 見積ステータスitems()
         {
             var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "有望", Value = "有望" });
-            tmplist.Add(new SelectListItem() { Text = "見積", Value = "見積" });
-            tmplist.Add(new SelectListItem() { Text = "内定", Value = "内定" });
+            tmplist.Add(new SelectListItem() { Text = "請求", Value = "請求" });
+            tmplist.Add(new SelectListItem() { Text = "確定", Value = "確定" });
+            tmplist.Add(new SelectListItem() { Text = "見積", Value = "見積" });            
             tmplist.Add(new SelectListItem() { Text = "失注", Value = "失注" });
             return tmplist;
         }

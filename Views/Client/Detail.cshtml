@@ -26,7 +26,6 @@
                 </div>
                 @if (Model.Mode == ViewMode.Edit)
                 {
-
                     @*いったん削除ボタンは未使用にする。後日変わるかも？？*@
                     @*                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 offset-xs-1">
             <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2" >削除</button>
@@ -52,7 +51,7 @@
     {
         <details open>
             <summary>
-                顧客
+                顧客非表示
             </summary>
             @await Html.PartialAsync("_Client")
         </details>
@@ -105,7 +104,12 @@
 
 @section Scripts{
     <script>
-
+        function create_quote() {
+            var checkboxValue = document.querySelector('#single').checked;
+            var kokyakuid = $('[name="Client.顧客ID"]').val();
+            var url = '/Quote/Create?single=' + checkboxValue + "&顧客ID=" + kokyakuid;
+            window.location.href = url;
+        }
         
 
         function deleteURL(num) {

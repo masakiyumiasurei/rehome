@@ -13,17 +13,14 @@ namespace rehome.Services
     public interface INissiService
     {
         //IPagedList<日誌> IdListSearchNissis(NissiSearchConditions conditions, int page_size);
-        IList<日誌表示> GetNissis(int? 顧客ID);
-
-        List<日誌表示> GetNissis_Month(int? 年度,int? 月度);        
+        IList<日誌> GetNissis(int? 顧客ID);
+                
         NissiIndexModel SearchNissis(NissiSearchConditions conditions);
 
 
         NissiDetailModel GetNissi(int? NissiID);    
         int RegistNissi(NissiDetailModel model);
-
-        void RegistNissiSodan(NissiDetailModel model);
-        void RegistNissiTantou(NissiDetailModel model);
+                
         void DeleteNissi(int NissiID);
 
       //  NissiKobetuDetailModel GetNissiKobetu(int? NissiID);
@@ -59,68 +56,26 @@ namespace rehome.Services
 
 //**************************************** 一覧・検索 ********************************************************************
 
-        public IList<日誌表示> GetNissis(int? 顧客ID)
+        //顧客画面の日誌一覧の取得
+        public IList<日誌> GetNissis(int? 顧客ID)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("(SELECT 日誌ID,'相談' as 支援区分,対応日,相談内容区分1,相談内容区分2,相談内容_質問内容 as 内容,備考 FROM T_日誌  /**where**/ ) " +
-                                             "UNION (SELECT 日誌ID,'個別支援' as 支援区分,対応日,相談内容区分1,相談内容区分2,訪問目的 as 内容,備考 FROM T_個別支援日誌  /**where**/ ) " +
-                                             "UNION (SELECT 日誌ID,'特別支援' as 支援区分,対応日,相談内容区分1,相談内容区分2,主な発言 as 内容,備考 FROM T_特別支援日誌  /**where**/ ) " +
-                                             "order by 対応日 desc");
+                var template = builder.AddTemplate("SELECT RT_日誌.*,T_担当.氏名 FROM RT_日誌 left join T_担当 " +
+                    "on RT_日誌.担当ID=T_担当.担当ID " +
+                    "/**where**/ " +
+                    "order by 対応日 desc");
                 builder.Where("顧客ID = @顧客ID", new { 顧客ID = 顧客ID });
 
-                var result = connection.Query<日誌表示>(template.RawSql, template.Parameters).ToList();
+                var result = connection.Query<日誌>(template.RawSql, template.Parameters).ToList();
 
-                if (result != null)
-                {
-                    foreach (var item in result)
-                    {
-                        var builder2 = new SqlBuilder();
-                        var template2 = builder2.AddTemplate("SELECT T_担当.* FROM T_日誌担当 INNER JOIN T_担当 on T_日誌担当.担当ID = T_担当.担当ID /**where**/ order by T_日誌担当.担当ID");
-                        builder2.Where("T_日誌担当.日誌ID = @日誌ID and T_日誌担当.支援区分 = @支援区分", new { 日誌ID = item.日誌ID, 支援区分 = item.支援区分 });
-                        item.担当リスト = connection.Query<担当>(template2.RawSql, template2.Parameters).ToList();
-
-                    }
-                }
-
-
+               
                 return result;
             }
         }
-
-
-        public List<日誌表示> GetNissis_Month(int? 年度,int? 月度)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                var builder = new SqlBuilder();
-                var template = builder.AddTemplate("(SELECT '1' as 連番,日誌ID,T_日誌.顧客ID,'相談' as 支援区分,対応日,相談内容区分1,相談内容区分2,相談内容_質問内容 as 内容,担当ID FROM T_日誌 left join RT_顧客担当 on T_日誌.顧客ID = RT_顧客担当.顧客ID and RT_顧客担当.担当種別 = 'メイン'  /**where**/  ) " +
-                                             "UNION (SELECT '2' as 連番,日誌ID,T_個別支援日誌.顧客ID,'個別支援' as 支援区分,対応日,相談内容区分1,相談内容区分2,訪問目的 as 内容,担当ID FROM T_個別支援日誌 left join RT_顧客担当 on T_個別支援日誌.顧客ID = RT_顧客担当.顧客ID and RT_顧客担当.担当種別 = 'メイン'  /**where**/ ) " +
-                                             "UNION (SELECT '3' as 連番,日誌ID,T_特別支援日誌.顧客ID,'特別支援' as 支援区分,対応日,相談内容区分1,相談内容区分2,主な発言 as 内容,担当ID FROM T_特別支援日誌 left join RT_顧客担当 on T_特別支援日誌.顧客ID = RT_顧客担当.顧客ID and RT_顧客担当.担当種別 = 'メイン'  /**where**/ ) " +
-                                             "order by 連番,対応日,担当ID");
-                builder.Where("DATEPART(year,対応日) = @年度 and DATEPART(month,対応日) = @月度", new { 年度 = 年度,月度 = 月度 }) ;
-
-                var result = connection.Query<日誌表示>(template.RawSql, template.Parameters).ToList();
-
-                if (result != null)
-                {
-                    foreach (var item in result)
-                    {
-                        var builder2 = new SqlBuilder();
-                        var template2 = builder2.AddTemplate("SELECT T_担当.* FROM T_日誌担当 INNER JOIN T_担当 on T_日誌担当.担当ID = T_担当.担当ID /**where**/ order by T_日誌担当.担当ID");
-                        builder2.Where("T_日誌担当.日誌ID = @日誌ID and T_日誌担当.支援区分 = @支援区分", new { 日誌ID = item.日誌ID, 支援区分 = item.支援区分 });
-                        item.担当リスト = connection.Query<担当>(template2.RawSql, template2.Parameters).ToList();
-
-                    }
-                }
-
-
-                return result;
-            }
-        }
+        
 
         public NissiIndexModel SearchNissis(NissiSearchConditions conditions)
         {
@@ -278,7 +233,7 @@ namespace rehome.Services
         }
 
 
-        //**************************************************** 相談日誌 *************************************************************************
+        //******** 日誌詳細画面情報の取得 *******
 
         public NissiDetailModel GetNissi(int? NissiID)
         {
@@ -287,28 +242,12 @@ namespace rehome.Services
                 NissiDetailModel model =new NissiDetailModel();
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_日誌.*, RT_顧客.顧客名 FROM T_日誌 " +
-                    "left join RT_顧客 on T_日誌.顧客ID=RT_顧客.顧客ID /**where**/");
+                var template = builder.AddTemplate("SELECT RT_日誌.*, RT_顧客.顧客名 FROM RT_日誌 " +
+                    "left join RT_顧客 on RT_日誌.顧客ID=RT_顧客.顧客ID /**where**/");
                 builder.Where("日誌ID = @日誌ID", new { 日誌ID = NissiID });
 
                 model.Nissi = connection.Query<日誌>(template.RawSql, template.Parameters).FirstOrDefault();
-
-                if (model.Nissi != null)
-                {
-
-                    var builder2 = new SqlBuilder();
-                    var template2 = builder2.AddTemplate("SELECT 担当ID FROM T_日誌担当  where T_日誌担当.日誌ID = " + model.Nissi.日誌ID + " and 支援区分='相談'" );
-
-                    model.Nissi.担当ID = connection.Query<int>(template2.RawSql, template2.Parameters).ToList();
-
-
-                    var builder3 = new SqlBuilder();
-                    var template3 = builder3.AddTemplate("SELECT 相談者ID FROM T_日誌相談者  where T_日誌相談者.日誌ID = " + model.Nissi.日誌ID + " and 支援区分='相談'");
-
-                    model.Nissi.相談者ID = connection.Query<int>(template3.RawSql, template3.Parameters).ToList();
-
-                }
-
+                
                 return model;
             }
         }
@@ -327,10 +266,9 @@ namespace rehome.Services
                         var sql = "";
                         if (model.Mode != ViewMode.New)//更新モード
                         {
-                            sql = "UPDATE  T_日誌 Set 顧客ID=@顧客ID,相談手段=@相談手段," +
-                                  "対応日=@対応日,登録日=@登録日,相談内容区分1=@相談内容区分1,相談内容区分2=@相談内容区分2,対応内容=@対応内容," +
-                                  "相談内容_運営状況=@相談内容_運営状況,相談内容_質問内容=@相談内容_質問内容,支援種別=@支援種別," +
-                                  "業務区分=@業務区分,備考=@備考" +
+                            sql = "UPDATE  RT_日誌 Set 顧客ID=@顧客ID,日誌区分=@日誌区分," +
+                                  "対応日=@対応日,登録日=@登録日,内容=@内容," +
+                                  "担当ID=@担当ID " +
                                   " WHERE 日誌ID = @日誌ID";
 
                             var update = connection.Execute(sql, model.Nissi, tx);
@@ -339,10 +277,8 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO T_日誌 (顧客ID,相談手段,対応日,登録日,相談内容区分1,相談内容区分2," +
-                                "相談内容_運営状況,相談内容_質問内容,対応内容,支援種別,業務区分,備考)" +
-                                " VALUES (@顧客ID,@相談手段,@対応日,@登録日,@相談内容区分1,@相談内容区分2," +
-                                "@相談内容_運営状況,@相談内容_質問内容,@対応内容,@支援種別,@業務区分,@備考)";
+                            sql = "INSERT INTO RT_日誌 (顧客ID,日誌区分,対応日,登録日,内容,担当ID)" +
+                                " VALUES (@顧客ID,@日誌区分,@対応日,@登録日,@内容,@担当ID)";
 
                             var insert = connection.Execute(sql, model.Nissi, tx);
                             tx.Commit();
@@ -360,87 +296,7 @@ namespace rehome.Services
             }
         }
 
-
-        public void RegistNissiTantou(NissiDetailModel model)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (var tx = connection.BeginTransaction())
-                {
-                    try
-                    {
-
-                        var queryDelete = "DELETE FROM T_日誌担当 WHERE 日誌ID=" + model.Nissi.日誌ID + " and 支援区分 = '相談'";
-
-                        var delete = connection.Execute(queryDelete, null, tx);
-
-
-                        if (model.Nissi.担当ID != null)
-                        {
-                            foreach (var id in model.Nissi.担当ID)
-                            {
-                                var queryInsert2 = "INSERT INTO T_日誌担当 (日誌ID,担当ID,支援区分) VALUES (" + model.Nissi.日誌ID + "," + id + ",'相談')";
-
-                                var Insert2 = connection.Execute(queryInsert2, null, tx);
-
-
-
-                            }
-                        }
-
-                        tx.Commit();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        tx.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-
-
-        public void RegistNissiSodan(NissiDetailModel model)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (var tx = connection.BeginTransaction())
-                {
-                    try
-                    {
-
-                        var queryDelete = "DELETE FROM T_日誌相談者 WHERE 日誌ID=" + model.Nissi.日誌ID + " and 支援区分 = '相談'";
-
-                        var delete = connection.Execute(queryDelete, null, tx);
-
-
-                        if (model.Nissi.相談者ID != null)
-                        {
-                            foreach (var id in model.Nissi.相談者ID)
-                            {
-                                var queryInsert2 = "INSERT INTO T_日誌相談者 (日誌ID,相談者ID,支援区分) VALUES (" + model.Nissi.日誌ID + ", " + id + ",'相談')";
-
-                                var Insert2 = connection.Execute(queryInsert2, null, tx);
-
-
-
-                            }
-                        }
-
-                        tx.Commit();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        tx.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
+        
         public void DeleteNissi(int NissiID)
         {
             using (var connection = new SqlConnection(_connectionString))

@@ -24,9 +24,11 @@ namespace rehome.Controllers
         private INissiService _NissiService;
         private ITantouService _TantouService;
         private IDropDownListService _DropDownListService;
+        private IQuoteService _QuoteService;
         //private readonly IFileUpdate _FileUpdate;
 
-        public ClientController(ILogger<ClientController> logger, IConfiguration configuration, IClientService ClientService, IDropDownListService dropDownListService,INissiService NissiService, ITantouService TantouService)
+        public ClientController(ILogger<ClientController> logger, IConfiguration configuration, IClientService ClientService,
+            IDropDownListService dropDownListService,INissiService NissiService, ITantouService TantouService, IQuoteService QuoteService)
         {
             _logger = logger;            
             _connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -34,6 +36,7 @@ namespace rehome.Controllers
             _NissiService = NissiService;
             _TantouService = TantouService;
             _DropDownListService = dropDownListService;
+            _QuoteService = QuoteService;
         }
 
         public ActionResult Detail( int? 顧客ID)
@@ -54,9 +57,8 @@ namespace rehome.Controllers
                 model.Client = new ();
                 model.Mode = ViewMode.New;
                 model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
-                //model.顧客担当者数 = 0;
-                //model.相談者数 = 0;
-              //  model.Client.登録担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                
+              　//model.Client.登録担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
                 //var Tantou = _TantouService.GetTantou((int)model.Client.登録担当ID);
                 //model.Client.登録担当者名 = Tantou.担当名;
             }
@@ -64,33 +66,16 @@ namespace rehome.Controllers
             {//edit処理
                 model.Mode = ViewMode.Edit;
                 model.Client = _ClientService.GetClient(顧客ID ?? -1);//null許容でGetClientする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
-                //var Tantou = _TantouService.GetTantou(model.Client.登録担当ID ?? -1);
+                model.Nissis = _NissiService.GetNissis(顧客ID ?? -1);
+                model.Quotes = _QuoteService.GetQuote(顧客ID ?? -1);
+                model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
                 //if(Tantou != null)
                 //{
                 //    model.Client.登録担当者名 = Tantou.担当名;
                 //}
-                //model.Nissi = _NissiService.GetNissis(顧客ID ?? -1);
-                //model.Files = _ClientService.GetFiles(顧客ID ?? -1);
-                //model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
-                //model.相談者DropDownList = _DropDownListService.Get相談者DropDownLists(顧客ID ?? -1);
-                //model.顧客担当リスト = _ClientService.GetClientTantou(顧客ID ?? -1);
-                //if (model.顧客担当リスト != null)
-                //{
-                //    model.顧客担当者数 = model.顧客担当リスト.Count();
-                //}
-                //else
-                //{
-                //    model.顧客担当者数 = 0;
-                //}
-                //model.相談者リスト = _ClientService.GetSodan(顧客ID ?? -1);
-                //if (model.相談者リスト != null)
-                //{
-                //    model.相談者数 = model.相談者リスト.Count();
-                //}
-                //else
-                //{
-                //    model.相談者数 = 0;
-                //}
+
+
+
             }
             return View(model);
         }

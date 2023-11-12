@@ -28,7 +28,7 @@ namespace rehome.Services
         public IList<DropDownListModel> Get大分類DropDownLists();
         public IList<DropDownListModel> Getメーカー名DropDownLists();
 
-        IList<DropDownListModel> Get分類DropDownLists(string? 理化学医療区分);
+        IList<DropDownListModel> Get分類DropDownLists();
 
         IList<DropDownListModel> Get自由分類DropDownLists(int 見積ID, int 履歴番号);
     }
@@ -43,14 +43,14 @@ namespace rehome.Services
             _logger = logger;
         }
 
-        public IList<DropDownListModel> Get分類DropDownLists(string? 理化学医療区分)
+        public IList<DropDownListModel> Get分類DropDownLists()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                理化学医療区分 = 理化学医療区分 ?? "理化学','医療";
+                //理化学医療区分 = 理化学医療区分 ?? "理化学','医療";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT 分類ID as Value,分類名 as Display FROM T_分類 where 理化学医療区分 in ('" + 理化学医療区分 + "','両方') order by ソート");
+                var template = builder.AddTemplate("SELECT 分類ID as Value,分類名 as Display FROM T_分類  order by ソート");
                 var result = connection.Query<DropDownListModel>(template.RawSql, template.Parameters);
 
                 return result.ToList();

@@ -41,7 +41,7 @@ namespace rehome.Controllers
 
 
         [HttpGet]
-        public ActionResult Create(int? 見積ID, int? 履歴番号, string? 理化学医療区分, bool single)
+        public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID )
         {
             using var connection = new SqlConnection(_connectionString);
 
@@ -58,14 +58,14 @@ namespace rehome.Controllers
                 
                 model.Quote = new 見積();
                 model.Quote.single = single;
+                model.Quote.顧客ID = (int)顧客ID;
                 model.Mode = ViewMode.New;
-                model.Quote.理化学医療区分 = 理化学医療区分 ?? null;
                 //model.Quote.期 = _QuoteService.GetPeriod(DateTime.Now);
                 //開発中コメント
                 model.Quote.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                model.Quote.営業所ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid).Value);
+               // model.Quote.営業所ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid).Value);
                 model.auth= bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-                model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
+                //model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
                 model.RowCount = 0;
             }
             else
@@ -73,8 +73,7 @@ namespace rehome.Controllers
                 
                 model.Mode = ViewMode.Edit;
                 model.Quote = _QuoteService.GetQuote(見積ID ?? -1, 履歴番号 ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
-                model.自由分類DropDownList = _DropDownListService.Get自由分類DropDownLists(見積ID ?? -1, 履歴番号 ?? -1);
-
+               
                 model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
                
 
@@ -87,7 +86,7 @@ namespace rehome.Controllers
                     model.RowCount = 0;
                 }
                 ChumonIndexModel genka = _ChumonService.CalcChumon(見積ID ?? -1, 履歴番号 ?? -1);
-                if (genka != null)
+                if (genka.金額計 != null)
                 {
                     model.Quote.原価 = genka.金額計;
                     model.Quote.利益 = (model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) - (model.Quote.原価 ?? 0);
@@ -104,7 +103,8 @@ namespace rehome.Controllers
                 }
             }
 
-            model.分類DropDownList = _DropDownListService.Get分類DropDownLists(model.Quote.理化学医療区分);
+            model.自由分類DropDownList = _DropDownListService.Get自由分類DropDownLists(見積ID ?? -1, 履歴番号 ?? -1);
+            model.分類DropDownList = _DropDownListService.Get分類DropDownLists();
             //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 

@@ -21,9 +21,13 @@ namespace rehome.Models.DB
         public string? 住所1 { get; set; }
 
         public string? 住所2 { get; set; }
-        public string? 肩書 { get; set; }
 
-        public string? TEL { get; set; }
+        public string? 建物種別 { get; set; }
+        public string? 電話番号1 { get; set; }
+        public string? 電話番号2 { get; set; }
+
+        public string? 肩書 { get; set; }
+             
         public string? FAX { get; set; }
 
         [EmailAddress(ErrorMessage = "有効なメールアドレスを入力してください。")]

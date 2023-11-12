@@ -117,9 +117,7 @@ namespace rehome.Controllers
                 //model.Nissi.更新日 = DateTime.Today;
                 //// 登録成功したら日誌画面再表示
                 model.Nissi.日誌ID = _NissiService.RegistNissi(model);
-                _NissiService.RegistNissiTantou(model);
-                _NissiService.RegistNissiSodan(model);
-
+               
                 TempData["Nissi_Details"] = String.Format("日誌情報を登録しました");
 
                 ModelState.Clear();
