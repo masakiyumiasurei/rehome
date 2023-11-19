@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using rehome.Models.DB;
 using System.Security.Claims;
 using Pao.Reports;
+using rehome.Public;
 //using System.Management;
 
 namespace rehome.Controllers
@@ -110,7 +111,6 @@ namespace rehome.Controllers
 
             return View(model);
 
-
         }
 
         [HttpPost]
@@ -119,10 +119,10 @@ namespace rehome.Controllers
             var viewModel = new QuoteCreateModel();
             try
             {
-                if(model.Quote.完了予定日 != null)
-                {
-                    model.Quote.期 = _QuoteService.GetPeriod((DateTime)model.Quote.完了予定日);
-                }
+                //if(model.Quote.完了予定日 != null)
+                //{
+                //    model.Quote.期 = _QuoteService.GetPeriod((DateTime)model.Quote.完了予定日);
+                //}
                 viewModel.Quote = _QuoteService.RegistQuote(model);
                 viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
                 viewModel.Mode = ViewMode.Edit;
@@ -166,7 +166,7 @@ namespace rehome.Controllers
             try
             {
                 model.Mode = ViewMode.ReEstimate;
-                model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
+               // model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
                 viewModel.Quote = _QuoteService.RegistQuote(model);
                 viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
                 viewModel.Mode = ViewMode.Edit;
@@ -188,7 +188,7 @@ namespace rehome.Controllers
             try
             {
                 model.Mode = ViewMode.Copy;
-                model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
+               // model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
                 viewModel.Quote = _QuoteService.RegistQuote(model);
                 viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
                 viewModel.Mode = ViewMode.Edit;
@@ -279,16 +279,20 @@ namespace rehome.Controllers
             return View("SalesStatus", viewModel);
         }
 
+        public ActionResult GetQuoteStatus(int 見積ID, int 履歴番号)
+        {            
+            string strsql = "select 見積ステータス from T_見積 where 見積ID="+ 見積ID + " and 履歴番号="+ 履歴番号;
+            FunctionClass fn = new FunctionClass(_connectionString);
+            var quoteStatus = fn.GetValue<string>(strsql);
+            return Json(quoteStatus);
+        }
+
         [HttpPost]
         public ActionResult GetQuoteNumber(int 営業所ID, int 担当ID)
         {
             var QuoteNumber = _QuoteService.GetQuoteNumber(営業所ID, 担当ID, DateTime.Now);
-
             return Json(QuoteNumber);
-
         }
-
-
 
 
         [HttpGet]
@@ -334,7 +338,7 @@ namespace rehome.Controllers
             Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-            営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+           // 営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
@@ -390,9 +394,9 @@ namespace rehome.Controllers
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
-                paoRep.Write("郵便番号", "〒" + (Office.郵便番号 ?? " "));
-                paoRep.Write("住所", Office.住所 ?? " ");
-                paoRep.Write("TEL", "TEL " + (Office.TEL ?? " ") + "　FAX " + (Office.FAX ?? " "));
+                paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
+                paoRep.Write("住所", Houzin.住所 ?? " ");
+                paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
@@ -402,11 +406,6 @@ namespace rehome.Controllers
                 paoRep.Write("非課税額", string.Format("{0:#,0}", 非課税額));
                 paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額 + 非課税額)));
                 paoRep.Write("備考", Quote.備考 ?? " ");
-
-
-
-                //ボディ
-
 
                 //空の明細行を25行分用意する
                 for (int i = 0; i < 25; i++)
@@ -458,7 +457,7 @@ namespace rehome.Controllers
 
                         paoRep.Write("番号", num.ToString(), i + 1);
                         paoRep.Write("品名", Quote.見積明細リスト[CurRow].商品名 ?? " ", i + 1);
-                        paoRep.Write("内訳", utiwake, i + 1);
+                       // paoRep.Write("内訳", utiwake, i + 1);
                         paoRep.Write("数量", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].数量 ?? 0)), i + 1);
                         paoRep.Write("単位", Quote.見積明細リスト[CurRow].単位 ?? " ", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
@@ -525,7 +524,7 @@ namespace rehome.Controllers
             var QuoteBunrui = _QuoteService.GetQuoteBunrui(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-            営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+           // 営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
@@ -581,9 +580,9 @@ namespace rehome.Controllers
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
-                paoRep.Write("郵便番号", "〒" + (Office.郵便番号 ?? " "));
-                paoRep.Write("住所", Office.住所 ?? " ");
-                paoRep.Write("TEL", "TEL " + (Office.TEL ?? " ") + "　FAX " + (Office.FAX ?? " "));
+                paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
+                paoRep.Write("住所", Houzin.住所 ?? " ");
+                paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
@@ -603,7 +602,7 @@ namespace rehome.Controllers
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
-                    paoRep.Write("内訳", " ", i + 1);
+                  //  paoRep.Write("内訳", " ", i + 1);
                     paoRep.Write("数量", " ", i + 1);
                     paoRep.Write("単位", " ", i + 1);
                     paoRep.Write("単価", " ", i + 1);
@@ -625,7 +624,7 @@ namespace rehome.Controllers
                             {
                                 paoRep.Write("番号", num.ToString(), i + 1);
                                 paoRep.Write("品名", Quote.値引名称 ?? " ", i + 1);
-                                paoRep.Write("内訳", "", i + 1);
+                               // paoRep.Write("内訳", "", i + 1);
                                 paoRep.Write("数量", "1", i + 1);
                                 paoRep.Write("単位", "式", i + 1);
                                 paoRep.Write("単価", string.Format("{0:#,0}", -(Quote.値引額 ?? 0)), i + 1);
@@ -639,7 +638,7 @@ namespace rehome.Controllers
 
                         paoRep.Write("番号", num.ToString(), i + 1);
                         paoRep.Write("品名", QuoteBunrui[CurRow].分類名 ?? " ", i + 1);
-                        paoRep.Write("内訳", "", i + 1);
+                     //   paoRep.Write("内訳", "", i + 1);
                         paoRep.Write("数量", "1", i + 1);
                         paoRep.Write("単位","式", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
@@ -668,7 +667,7 @@ namespace rehome.Controllers
             var QuoteBunrui = _QuoteService.GetQuoteBunrui(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-            営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+         //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
@@ -725,9 +724,9 @@ namespace rehome.Controllers
                     : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
 
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
-                paoRep.Write("郵便番号", "〒" + (Office.郵便番号 ?? " "));
-                paoRep.Write("住所", Office.住所 ?? " ");
-                paoRep.Write("TEL", "TEL " + (Office.TEL ?? " ") + "　FAX " + (Office.FAX ?? " "));
+                paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
+                paoRep.Write("住所", Houzin.住所 ?? " ");
+                paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
@@ -745,7 +744,7 @@ namespace rehome.Controllers
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
-                    paoRep.Write("内訳", " ", i + 1);
+                 //   paoRep.Write("内訳", " ", i + 1);
                     paoRep.Write("数量", " ", i + 1);
                     paoRep.Write("単位", " ", i + 1);
                     paoRep.Write("単価", " ", i + 1);
@@ -767,7 +766,7 @@ namespace rehome.Controllers
                             {
                                 paoRep.Write("番号", num.ToString(), i + 1);
                                 paoRep.Write("品名", Quote.値引名称 ?? " ", i + 1);
-                                paoRep.Write("内訳", "", i + 1);
+                              //  paoRep.Write("内訳", "", i + 1);
                                 paoRep.Write("数量", "1", i + 1);
                                 paoRep.Write("単位", "式", i + 1);
                                 paoRep.Write("単価", string.Format("{0:#,0}", -(Quote.値引額 ?? 0)), i + 1);
@@ -780,7 +779,7 @@ namespace rehome.Controllers
 
                         paoRep.Write("番号", num.ToString(), i + 1);
                         paoRep.Write("品名", QuoteBunrui[CurRow].分類名 ?? " ", i + 1);
-                        paoRep.Write("内訳", "", i + 1);
+                     //   paoRep.Write("内訳", "", i + 1);
                         paoRep.Write("数量", "1", i + 1);
                         paoRep.Write("単位", "式", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
@@ -889,7 +888,7 @@ namespace rehome.Controllers
             Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-            営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+         //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
@@ -947,9 +946,9 @@ namespace rehome.Controllers
                     : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
 
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
-                paoRep.Write("郵便番号", "〒" + (Office.郵便番号 ?? " "));
-                paoRep.Write("住所", Office.住所 ?? " ");
-                paoRep.Write("TEL", "TEL " + (Office.TEL ?? " ") + "　FAX " + (Office.FAX ?? " "));
+                paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
+                paoRep.Write("住所", Houzin.住所 ?? " ");
+                paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
@@ -968,7 +967,7 @@ namespace rehome.Controllers
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
-                    paoRep.Write("内訳", " ", i + 1);
+                  //  paoRep.Write("内訳", " ", i + 1);
                     paoRep.Write("数量", " ", i + 1);
                     paoRep.Write("単位", " ", i + 1);
                     paoRep.Write("単価", " ", i + 1);
@@ -1013,7 +1012,7 @@ namespace rehome.Controllers
 
                         paoRep.Write("番号", num.ToString(), i + 1);
                         paoRep.Write("品名", Quote.見積明細リスト[CurRow].商品名 ?? " ", i + 1);
-                        paoRep.Write("内訳", utiwake, i + 1);
+                     //   paoRep.Write("内訳", utiwake, i + 1);
                         paoRep.Write("数量", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].数量 ?? 0)), i + 1);
                         paoRep.Write("単位", Quote.見積明細リスト[CurRow].単位 ?? " ", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
@@ -1136,7 +1135,7 @@ namespace rehome.Controllers
                     {
                         paoRep.Write("番号", " ", i + 1);
                         paoRep.Write("品名", " ", i + 1);
-                        paoRep.Write("内訳", " ", i + 1);
+                     //   paoRep.Write("内訳", " ", i + 1);
                         paoRep.Write("数量", " ", i + 1);
                         paoRep.Write("単位", " ", i + 1);
                         paoRep.Write("単価", " ", i + 1);
@@ -1168,7 +1167,7 @@ namespace rehome.Controllers
 
                             paoRep.Write("番号", num.ToString(), i + 1);
                             paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);
-                            paoRep.Write("内訳", utiwake, i + 1);
+                         //   paoRep.Write("内訳", utiwake, i + 1);
                             paoRep.Write("数量", string.Format("{0:#,0}", (QuoteMeisai[CurRow].数量 ?? 0)), i + 1);
                             paoRep.Write("単位", QuoteMeisai[CurRow].単位 ?? " ", i + 1);
                             paoRep.Write("単価", string.Format("{0:#,0}", (QuoteMeisai[CurRow].単価 ?? 0)), i + 1);
@@ -1214,7 +1213,7 @@ namespace rehome.Controllers
             見積 Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-            営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+          //  営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             //ヘッダー
             paoRep.Write("見積番号", "No." + (Quote.見積番号 ?? " "));
@@ -1232,9 +1231,9 @@ namespace rehome.Controllers
             //フッター
             paoRep.Write("社名", Houzin.社名 ?? " ");
             paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
-            paoRep.Write("郵便番号", "〒" + (Office.郵便番号 ?? " "));
-            paoRep.Write("住所", Office.住所 ?? " ");
-            paoRep.Write("TEL", "TEL " + (Office.TEL ?? " ") + "　FAX " + (Office.FAX ?? " "));
+            paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
+            paoRep.Write("住所", Houzin.住所 ?? " ");
+            paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
             paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
 

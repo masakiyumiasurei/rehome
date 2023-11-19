@@ -68,27 +68,27 @@ namespace rehome.Services
                
                 builder.OrderBy("T_見積.見積ID DESC");
 
-                if (conditions.auth == true)
-                {
-                    builder.Where("(営業所ID in (SELECT 営業所ID FROM T_担当営業所 WHERE 担当ID = @担当ID) " +
-                    "OR T_見積.担当ID= @担当ID) "
-                        , new { 担当ID = conditions.LoginID });
-                }
-                else
-                {
-                    //営業アシスタントで顧客番号の検索時のみ登録営業所すべての見積が見れる    
-                    if (conditions.assistant == true && !string.IsNullOrEmpty(conditions.見積番号))
-                    {
-                        builder.Where("(営業所ID in (SELECT 営業所ID FROM T_担当営業所 WHERE 担当ID = @担当ID) " +
-                    "OR T_見積.担当ID= @担当ID) "
-                        , new { 担当ID = conditions.LoginID });
-                    }
-                    else
-                    {
-                        //一般ユーザーと営業アシスタントで、顧客番号検索がない場合は、自分の担当見積のみ検索 
-                        builder.Where("T_見積.担当ID= @担当ID", new { 担当ID = conditions.LoginID });
-                    }
-                }
+                //if (conditions.auth == true)
+                //{
+                //    builder.Where("(営業所ID in (SELECT 営業所ID FROM T_担当営業所 WHERE 担当ID = @担当ID) " +
+                //    "OR T_見積.担当ID= @担当ID) "
+                //        , new { 担当ID = conditions.LoginID });
+                //}
+                //else
+                //{
+                //    //営業アシスタントで顧客番号の検索時のみ登録営業所すべての見積が見れる    
+                //    if (conditions.assistant == true && !string.IsNullOrEmpty(conditions.見積番号))
+                //    {
+                //        builder.Where("(営業所ID in (SELECT 営業所ID FROM T_担当営業所 WHERE 担当ID = @担当ID) " +
+                //    "OR T_見積.担当ID= @担当ID) "
+                //        , new { 担当ID = conditions.LoginID });
+                //    }
+                //    else
+                //    {
+                //        //一般ユーザーと営業アシスタントで、顧客番号検索がない場合は、自分の担当見積のみ検索 
+                //        builder.Where("T_見積.担当ID= @担当ID", new { 担当ID = conditions.LoginID });
+                //    }
+                //}
 
                 //builder.Where("T_見積.見積番号 like @見積番号", new { 見積番号 = $"%{conditions.見積番号}%" });
                 //完全一致に修正
@@ -468,19 +468,16 @@ namespace rehome.Services
                             {
                                 if (MeisaiList[idx].削除FLG == false && (MeisaiList[idx].商品名 != null || (MeisaiList[idx].数量 != null && MeisaiList[idx].数量 != 0) || (MeisaiList[idx].金額 != null && MeisaiList[idx].金額 != 0) || (MeisaiList[idx].単価 != null && MeisaiList[idx].単価 != 0) || MeisaiList[idx].単位 != null))
                                 {
-
                                     var queryDetailInsert = "INSERT INTO T_見積明細 (見積ID,履歴番号,分類ID,分類名," +
-                                        "連番,商品名,内訳数1,内訳数2,内訳単位1,内訳単位2,数量,単位,単価,金額,見込原価,備考) " +
+                                        "連番,商品名,数量,単位,単価,金額,見込原価,備考) " +
                                         "                                    VALUES (@見積ID,@履歴番号,@分類ID,@分類名," +
-                                        "@連番,@商品名,@内訳数1,@内訳数2,@内訳単位1,@内訳単位2,@数量,@単位,@単価,@金額,@見込原価,@備考)";
+                                        "@連番,@商品名,@数量,@単位,@単価,@金額,@見込原価,@備考)";
 
                                     MeisaiList[idx].見積ID = model.Quote.見積ID;
                                     MeisaiList[idx].履歴番号 = model.Quote.履歴番号;
 
                                     var insertDetail = connection.Execute(queryDetailInsert, MeisaiList[idx], tx);
-
                                     //i++;
-
                                 }
 
                             }

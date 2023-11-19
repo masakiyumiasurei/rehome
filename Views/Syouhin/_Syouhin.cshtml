@@ -1,0 +1,44 @@
+﻿@using rehome.Enums;
+@model SyouhinDetailModel
+<div class="container">
+    <div class="row">
+        <div class="col-4 col-sm-2">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => @Model.Syouhin.商品ID)</label>
+            @Html.TextBoxFor(m => m.Syouhin.商品ID, new { @class = "form-control" ,@readonly = "readonly" })
+        </div>
+      @*  <div class="col-4 col-sm-2">
+            <label for="name" class="col-xs-1 control-label">商品分類</label>
+            @Html.DropDownListFor(m => m.Syouhin.分類ID,new SelectList(Model.分類DropDownList, "Value", "Display"),"",  new { @class ="form-control "} )
+        </div>*@
+    </div>
+    <div class="row">
+        <div class="col-4 col-sm-4">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.Syouhin.商品名)</label>
+            @Html.TextBoxFor(m => m.Syouhin.商品名, new { @class = "form-control" })
+        </div>
+   
+    </div>
+    <div class="row">
+        <div class="col-4 col-sm-2">
+            <label for="name" class="col-xs-1 control-label">単価</label>
+            @Html.TextBoxFor(m => m.Syouhin.単価, new { @class = "form-control" })
+        </div>               
+        
+    </div>
+    <div class="row">
+        <div class="col-4 col-sm-2">
+            <label for="name" class="col-xs-1 control-label">@Html.DisplayNameFor(m => m.Syouhin.仕入額)</label>
+            @Html.TextBoxFor(m => m.Syouhin.仕入額, new { @class = "form-control" })
+        </div>       
+        <div class="col-4 col-sm-3">
+            <label for="name" class="col-xs-1 control-label">単位</label>
+            @Html.TextBoxFor(m => m.Syouhin.単位, new { @class = "form-control"})
+        </div>        
+    </div>
+       
+        <div class="col-4 col-sm-2">
+            <p></p>
+            <label for="name" class="col-xs-1 control-label">削除</label>
+            @Html.CheckBoxFor(a => a.Syouhin.削除フラグ, new {@class="my-specific-check", @type="checkbox"})
+        </div>    
+</div>

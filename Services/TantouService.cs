@@ -41,7 +41,7 @@ namespace rehome.Services
                 string WhereStr = " where 1=1 ";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_担当.*,T_営業所.営業所名 FROM T_担当 LEFT JOIN T_営業所 on T_担当.営業所ID = T_営業所.営業所ID " +
+                var template = builder.AddTemplate("SELECT T_担当.*, FROM T_担当 " +
                     "  /**where**/ /**orderby**/ ");
 
                 if (conditions != null)
@@ -51,12 +51,7 @@ namespace rehome.Services
                     {
                         builder.Where("氏名 like @氏名", new { 氏名 = $"%{conditions.氏名}%" });
                     }
-
-                    if (conditions.営業所ID != null)
-                    {
-                        builder.Where("T_担当.営業所ID= @営業所ID", new { 営業所ID = conditions.営業所ID });
-
-                    }
+                                       
 
                     if (!string.IsNullOrEmpty(conditions.tel))
                     {

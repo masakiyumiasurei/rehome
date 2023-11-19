@@ -47,26 +47,25 @@ namespace rehome.Controllers
 
             ViewBag.OperationMessage = (string)TempData["Chumon"];
 
+            ChumonCreateModel model = new ChumonCreateModel();            
+            model.Chumon = new 注文();
 
-            var viewModel = new ChumonIndexModel();
-            viewModel.Chumons = _ChumonService.SearchChumon(見積ID, 履歴番号);
-            
-
-            var model = new ChumonCreateModel();
-            //model.Chumon = new 注文();
+            //var viewModel = new ChumonIndexModel();
+            //viewModel.Chumons = _ChumonService.SearchChumon(見積ID, 履歴番号);
 
             //案件に既に注文レコードがある場合は最初の注文レコードと同じ値を取得する
-            if ( viewModel.Chumons.Count>0 ) {
-                int minOrderID = viewModel.Chumons.Min(a => a.注文ID);
-                        
-                model = _ChumonService.CopyChumon(minOrderID);
-                model.Chumon.枝番 = _ChumonService.GetMaxeda(見積ID, 履歴番号);
-            }
-            else
-            {
-                model.Chumon = new 注文();
-                model.Chumon.枝番 = 1;
-            }
+            //同じ注文が多いため注文レコードをコピーする（bloom仕様）
+            //if ( viewModel.Chumons.Count>0 ) {
+            //    int minOrderID = viewModel.Chumons.Min(a => a.注文ID);
+
+            //    model = _ChumonService.CopyChumon(minOrderID);
+            model.Chumon.枝番 = _ChumonService.GetMaxeda(見積ID, 履歴番号);
+            //}
+            //else
+            //{
+              //  model.Chumon = new 注文();
+              //  model.Chumon.枝番 = 1;
+            //}
             
 
             if (Request.Headers["Referer"].Any())

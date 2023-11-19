@@ -1,0 +1,28 @@
+﻿
+<div class="modal fade" id="ModalWindow" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>商品検索</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-1">
+                    <div class="col-auto"><input type="text" id="PopupSyouhinID" size="3" class="form-control" placeholder='商品ID' onchange="PopupSearch_Syouhin()"></div>
+                    <div class="col-auto"><input type="text" id="PopupSyouhinName" size="20" class="form-control" placeholder='商品名' onchange="PopupSearch_Syouhin()"></div>
+                    <div class="col-auto"><button type="button" class="btn-sm btn-primary" id="button" onclick="PopupSearch_Syouhin()">検索</button></div>
+                </div>
+                <div class="col-12 col-sm-12">
+                    <div style="text-align: center"><img src="~/icon/Ghost.gif" width="80" height="80" alt="Now Loading..." id="loading" style="display: none" /></div>
+                    <div id="PopupResultView">
+                        <br>
+                        <h6>  商品を検索してください</h6>                        
+                    </div>
+                </div>
+            </div>
+
+            <input data-val="true" id="CallerName" type="hidden">
+            <input data-val="true" id="PopupCallURL" type="hidden">
+        </div>
+    </div>
+</div>

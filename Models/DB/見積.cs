@@ -181,7 +181,7 @@ namespace rehome.Models.DB
         [Column(TypeName = "date")]
         public DateTime? 取引年月日 { get; set; }
 
-        public string? 見積ステータス { get; set; }
+        public string? 見積ステータス { get; set; } = "見積";
 
         public static IList<SelectListItem> 見積ステータスitems()
         {
@@ -189,7 +189,7 @@ namespace rehome.Models.DB
             tmplist.Add(new SelectListItem() { Text = "請求", Value = "請求" });
             tmplist.Add(new SelectListItem() { Text = "確定", Value = "確定" });
             tmplist.Add(new SelectListItem() { Text = "見積", Value = "見積" });            
-            tmplist.Add(new SelectListItem() { Text = "失注", Value = "失注" });
+            tmplist.Add(new SelectListItem() { Text = "失注", Value = "失注" });            
             return tmplist;
         }
 

@@ -20,9 +20,9 @@
     <link rel="stylesheet" href="~/css/application.css?20231104" />
     <link rel="stylesheet" href="~/css/Tile.css" />
     <link rel="stylesheet" href="~/css/upd.css" />
-    <link rel="stylesheet" href="~/css/mystyle.css" />
+    <link rel="stylesheet" href="~/css/mystyle.css?202311182" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/mytable.css" />
+    <link rel="stylesheet" href="~/css/mytable.css?20231119" />
     <link rel="stylesheet" href="~/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link href="~/lib/bootstrap4-toggle.min.css" rel="stylesheet" />
@@ -36,116 +36,33 @@
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navigation-var fixed ">*@
-        @*<div class="container-fluid">*@
+       
         @if (User.Identity.IsAuthenticated)
         {
-            @*    <a class="navbar-brand" asp-area="" asp-controller="Client" asp-action="Index">SAMURAI for web</a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                @if (User.Identity.IsAuthenticated)
-                {
-                @*<li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Login" asp-action="Logout">ログアウト</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " id="nav-Client" asp-area="" asp-controller="Client" asp-action="Index">顧客検索</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link " id="nav-Quote" asp-area="" asp-controller="Quote" asp-action="Index">見積検索</a>
-                </li>
-
-                <li class="nav-item">
-                <a class="nav-link " id="nav-Dounyu" asp-area="" asp-controller="Dounyu" asp-action="Index">導入検索</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " id="nav-Renraku" asp-area="" asp-controller="Renraku" asp-action="Index">連絡帳検索</a>
-                </li>
-
-
-
-
-                <li class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLinkNissi" role="button" data-bs-toggle="dropdown" aria-expanded="false">日誌管理</a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropDownMenuLinkNissi" style="background-color: #5e79cc; border: none;">
-                <li class="nav-item" id="nav-Nissi-New">
-                <a class="nav-link " asp-area="" asp-controller="Nissi" asp-action="New">新規登録</a>
-                </li>
-                <li class="nav-item" id="nav-Nissi-Index">
-                <a class="nav-link " asp-area="" asp-controller="Nissi" asp-action="Index">日誌一覧</a>
-                </li>
-                </ul>
-                </li>
-                @*<li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Syouhin" asp-action="Index">商品マスタ</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Upload" asp-action="Index">アップロード(仮)</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="GoogleCalendar" asp-action="Index">GoogleCalendar</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="GoogleDrive" asp-action="Index">GoogleDrive</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Pdf" asp-action="Index">PDF</a>
-                </li>
-                }
-                <li class="nav-item align_right">
-                <input class="TopBtn"type="button" value="上に移動" id="TopBtn" onclick=" MoveToTop();" />
-                </li>
-                </ul>
-                <h6 class="align_right">
-                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value
-                </h6>
-                @*<li>
-                @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Locality).Value
-                </li>
-                <h6 class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Login" asp-action="Logout">Sign out</a>
-                </h6>
-                </div>*@
+            
         }
         else
         {
             @*<a class="navbar-brand" asp-area="" asp-controller="Login" asp-action="Login">rehome for web</a>*@
         }
-        @*</div>*@
-        @*</nav>*@
+        
     </header>
 
     @*<br><br><br>*@
     
-     <div class="container-flex">
-        @* <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary  fixed-top">*@
-        @*<section class="row mb-5 pb-md-4 d-flex">*@
-        @*<div class="col-md-4">*@
+     <div class="container-flex">      
         <div>
-              @await Html.PartialAsync("_Sidebar")
-           
-        </div>
-        @*</div>*@
-        @*</section>*@
-        @*</nav>  *@
-        @*<div class="container-fluid px-4">*@
+              @await Html.PartialAsync("_Sidebar")           
+        </div>       
         <div style="flex:1;">
             <main class="pb-3 ">
                 <div id="ModalHere"></div>@*ポップアップ表示用div共用化*@
                 <div class="px-3" >
-                    @RenderBody()
-     
+                    @RenderBody()     
                 </div>
             </main>
         </div>
     </div>
-
 
     @*    <footer class="border-top footer text-muted">
         <div class="container">

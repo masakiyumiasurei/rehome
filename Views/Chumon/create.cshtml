@@ -32,9 +32,9 @@
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn  btn-size btn-red btn-2 ">削除</button>
                 </div>
-                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                @*<div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Url.Action("注文書印刷", "Chumon",new{注文ID = Model.Chumon.注文ID})" target="_blank" class="custom-btn btn-2 btn-size" >注文書印刷</a>
-                </div>
+                </div>*@
                 }
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" class="btn custom-btn btn-2 btn-size" >戻る</a>

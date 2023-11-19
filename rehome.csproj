@@ -69,6 +69,13 @@
     <None Include="Views\Nissi\_NissiIndexCustom.cshtml" />
     <None Include="Views\Nissi\_NissiSearch.cshtml" />
     <None Include="Views\Nissi\_NissiSearchCustom.cshtml" />
+    <None Include="Views\PopupSearch\_PopupSearchSyouhin.cshtml" />
+    <None Include="Views\PopupSearch\_PopupSearchSyouhinResult.cshtml" />
+    <None Include="Views\Syouhin\Details.cshtml" />
+    <None Include="Views\Syouhin\Index.cshtml" />
+    <None Include="Views\Syouhin\_SearchResult.cshtml" />
+    <None Include="Views\Syouhin\_Syouhin.cshtml" />
+    <None Include="Views\Syouhin\_SyouhinSearch.cshtml" />
     <None Include="wwwroot\fullcalendar\examples\js\theme-chooser.js" />
     <None Include="wwwroot\fullcalendar\examples\php\get-events.php" />
     <None Include="wwwroot\fullcalendar\examples\php\get-time-zones.php" />
@@ -156,6 +163,10 @@
     <None Include="wwwroot\fullcalendar\lib\main.js" />
     <None Include="wwwroot\fullcalendar\lib\main.min.js" />
     <None Include="wwwroot\fullcalendar\README.md" />
+    <None Include="wwwroot\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\webfonts\fa-v4compatibility.woff2" />
   </ItemGroup>
 
 
@@ -167,6 +178,7 @@
     <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0" />
     <PackageReference Include="Google.Apis.Calendar.v3" Version="1.57.0.2759" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2746" />
     <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.57.0.1869" />

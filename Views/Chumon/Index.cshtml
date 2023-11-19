@@ -11,7 +11,7 @@
 </div>
 
 <div class="form-group">
-    <div class="modal fade" id="my-modal" tabindex="-1" role="dialog">
+    @*<div class="modal fade" id="my-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     @using (Html.BeginForm("Create", "Quote", FormMethod.Post))
     {
@@ -39,9 +39,9 @@
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <a href="@Url.Action("create", "Quote",new{見積ID = Model.Quote.見積ID, 履歴番号= Model.Quote.履歴番号})" class="btn custom-btn btn-2 btn-size">見積へ戻る</a>
                 </div>
-                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                @*<div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <button type="button" class="custom-btn btn-2 btn-size" onclick="OpenModal()">売上表印刷</button>
-                </div>
+                </div>*@
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <input type="submit" formaction="SaveTekiyo" formmethod="post" id="submit" class="custom-btn btn-1 btn-size" value="登録" />
                     @*<a href="@Url.Action("SaveTekiyo", "Chumon",

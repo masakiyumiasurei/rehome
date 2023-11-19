@@ -1,0 +1,201 @@
+﻿@using rehome.Enums;
+@model SyouhinDetailModel
+
+<link rel="stylesheet" href="~/css/tab.css" />
+
+ @{
+    switch (Model.Mode)
+    {
+        case ViewMode.New:
+            ViewData["Title"] = "商品登録";
+            break;
+        case ViewMode.Edit:
+            ViewData["Title"] = "商品編集";
+            break;
+        default:
+            ViewData["Title"] = "商品情報";
+            break;
+    }
+}
+
+@*<h2>@ViewData["Title"]</h2>*@
+
+<div>
+    <p>@ViewBag.OperationMessage</p>
+</div>
+
+@using (@Html.BeginForm("Details", "Syouhin", FormMethod.Post, new { id = "SyouhinEditForm" }))
+{
+    @Html.HiddenFor(model => model.Mode)
+    @Html.HiddenFor(model => model.BackUrl)
+    <div class="text-danger">
+        @Html.ValidationSummary(false)
+    </div>
+
+    <div class="row">
+        <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+            @if (Model.auth) {
+                <input type="submit" value="登録" name="Edit" class="custom-btn btn-1" />
+            }
+            else
+            {
+                <input type="submit" value="登録不可" name="Edit" class="custom-btn btn-1" disabled />
+            }
+        </div>
+        <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+            <a href="@Model.BackUrl" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> 戻る</a>
+        </div>
+    </div>
+    <hr />
+
+    @await Html.PartialAsync("_Syouhin") 
+
+    @Html.HiddenFor(model => model.Syouhin.商品ID)    
+
+}
+
+@section Scripts{
+<script>
+
+    $(document).ready( function(){
+     // ページ読み込み時に実行したい処理
+     AllSelectedPaint();
+    });
+
+      function Filter(){
+        dispLoading("処理中...");
+
+                var returnStr="";
+                var param = {
+                    SyouhinID: $('#SyouhinID').val(),
+                    SyouhinName: $('#SyouhinName').val(),
+                    SyouhinMaker: $('#SyouhinMaker').val(),
+                    SyouhinNumber: $('#SyouhinNumber').val()
+                };
+                var url='@Url.Action("SearchAjax", "Syouhin")';
+                jQuery.ajax({
+                    method: "POST",
+                    url: url,
+                    data: param,
+                   dataType: 'html',
+                }).done(function (data) {
+                        // 通信成功時の処理
+                       $('#ResultView').html(data);
+                       AllSelectedPaint();
+                       alert('成功');
+
+                        console.log("URL : " + url);
+                        console.log("data : " + data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                        // 通信失敗時の処理
+                        alert('検索が失敗しました。');
+                        console.log("ajax通信に失敗しました");
+                        console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+                        console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+                        console.log("errorThrown    : " + errorThrown.message); // 例外情報
+                        console.log("URL            : " + url);
+                }) .always( function(data) {
+                 // 処理終了時
+                  // Loading 画像を消す
+                        removeLoading();
+        });
+      }
+
+      function AllSelectedPaint(){
+        console.log('called AllSelectedPaint');
+        $('table#Selected tbody tr').each(function(){
+        var 商品ID = $(this).children("td")[1].innerText;
+         $('#Syouhin_'+商品ID).closest('tr').css('background', 'yellow');
+        });
+      }
+
+       $(function(){
+       console.log('called Remove');
+       $(document).on("click", "#Remove", function(){
+        var idx=$(this).closest('tr').prop('rowIndex');
+       var 商品ID = $(this).closest('tr').children("td")[1].innerText;
+        console.log(idx);
+
+            $(this).closest('tr').css({'display':'table-row'});
+            $(this).closest('tr').remove();
+            Renumber(0);
+            Renumber(1);
+
+        console.log('Syouhin_'+商品ID);
+        //$('#Syoumouhin_'+商品ID).closest('tr').css({'display':'table-row'});
+            $('#Syouhin_'+商品ID).closest('tr').css('background', 'none');
+      });
+    });
+
+
+       $(function(){
+       $(document).on("click", "#Select", function(){
+               
+      var rows = $('#Selected')[0].rows.length-1;
+        console.log(rows);
+        console.log('called Select');
+               if($(this).closest('tr').css("background-color") !== "rgb(255, 255, 0)"){
+      //$('#Select').on('click',function(){
+        var idx=$(this).closest('tr').prop('rowIndex');
+       var 商品ID = $(this).closest('tr').children("td")[1].innerText;
+       var 商品名 = $(this).closest('tr').children("td")[2].innerText;
+       var 型番 = $(this).closest('tr').children("td")[4].innerText;
+        //console.log(idx);
+
+         var 機械商品ID = $('input[name="Syouhin.商品ID"]').val();
+         var 機械商品IDname="Syouhin.機械消耗品list["+rows+"].機械商品ID";
+         var 消耗品商品IDname="Syouhin.機械消耗品list["+rows+"].消耗品商品ID";
+         var html = '<tr>'+
+            '<td><input data-val="true" data-val-required="The 機械商品ID field is required." id="'+機械商品IDname+'" name="'+機械商品IDname+'" type="hidden" value="'+機械商品ID+'">'+機械商品ID+'</td>'+
+            '<td><input data-val="true" data-val-required="The 消耗品商品ID field is required." id="'+消耗品商品IDname+'" name="'+消耗品商品IDname+'" type="hidden" value="'+商品ID+'">'+商品ID+'</td>'+
+            '<td>'+商品名+'</td>'+
+            '<td>'+型番+'</td>'+
+            '<td><button type="button"class="btn btn-danger" id="Remove" ><i class="fas fa-arrow-right"></i></button></td>'+
+            '</tr>';
+            $('table#Selected tbody').append(html);
+
+            $(this).closest('tr').css('background', 'yellow');
+            }
+      });
+    });
+
+     function Renumber(td_num){
+        console.log('called Renumber');
+       $('table#Selected tbody tr').each(function(){
+        var idx=$(this).prop('rowIndex')-1;
+        console.log('each');
+        var name = $(this).children().eq(td_num).children().attr('name');
+        console.log(name);
+        var rowStr = name.substr(name.indexOf('[') );
+        rowStr=rowStr.substr(0, rowStr.indexOf(']')+ 1);
+        console.log('rowStr:'+rowStr);
+        console.log('idx:'+idx);
+        var newname=name.replace(rowStr,'['+String(idx)+']');
+        $(this).children().eq(td_num).children().attr('name',newname);
+        console.log(newname);
+       });
+     }
+
+    //Loading イメージ表示関数
+    function dispLoading(msg){
+      // 引数なし（メッセージなし）を許容
+      if( msg == undefined ){
+        msg = "";
+      }
+      // 画面表示メッセージ
+      var dispMsg = "<div class='loadingMsg'>" + msg + "</div>";
+      var loadingGif='<img src="~/icon/Snake.gif" width="80" height="80" alt="Now Loading..." />';
+      // ローディング画像が表示されていない場合のみ出力
+      if($("#loading").length == 0){
+        //$("body").append("<div id='loading'>" + dispMsg + "</div>");
+        //$('#Syouhins').remove();
+        //$('#ResultView').append(loadingGif);
+      }
+    }
+
+     //Loading イメージ削除関数
+    function removeLoading(){
+      $("#loading").remove();
+    }
+</script>
+    }

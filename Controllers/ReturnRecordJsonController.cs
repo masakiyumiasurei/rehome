@@ -25,9 +25,7 @@ namespace rehome.Controllers
                 connection.Open();
                 var query = "select * from " + Table + " where " + WhereSql;
                 dynamic result = connection.Query(query);
-                //var jsonString = JsonConvert.SerializeObject(result);
-                //Console.WriteLine(jsonString);
-                //return jsonString;
+                
                 return Json(result);
             }
         }

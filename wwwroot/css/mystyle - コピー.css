@@ -1,44 +1,33 @@
-
-.column40 {
-    width: 40%; /* セルの幅を大きめに指定 */
-}
-.column30 {
-    width: 30%; 
-}
-.column20 {
-    width: 20%; 
-}
-.column10 {
-    width: 10%; /* セルの幅を小さめに指定 */
-}
-.column5 {
-    width: 5%; /* セルの幅を小さめに指定 */
-}
-.column3 {
-    width: 3%; /* セルの幅を小さめに指定 */
-}
-.my-specific-check {
-    position: relative;
-    text-align: center;
-    vertical-align: middle;
-    margin-top: 1px !important;
-    margin-left: 15px !important;
-    transform: scale(2) !important;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+.container-flex {
+    display: flex;
+}
 
-/*.navigation {
+body {
+    /* display: flex;
+  justify-content: center;
+  align-items: center; */
+    height: 100vh;
+    background-color: aliceblue;
+}
+
+.navigation {
     
-    position: relative;*/
+    position: relative;
     /*height: 50px; 最初はこれ*/
-    /*height: 100vh;*/
+    height: 100vh;
     /* width: 300px; 最初はこれ*/
-    /*width: 50px;
+    width: 50px;
     background-color: #4d4c86;
     box-shadow: 5px 0 0 #c77946;
     border-left: 1px solid #4d4c86;
     overflow-x: hidden;
-    transition: all 0.5s;
+    transition: all 0.9s;
 }
 
     .navigation:hover {
@@ -85,9 +74,9 @@
                 content: "";
                 position: absolute;
                 width: 30px;
-                height: 30px;*/
+                height: 30px;
                 /* background-color: red; */
-                /*top: -30px;
+                top: -30px;
                 right: 0;
                 border-radius: 50%;
                 box-shadow: 15px 15px 0 #c77946;
@@ -97,9 +86,9 @@
                 content: "";
                 position: absolute;
                 width: 30px;
-                height: 30px;*/
+                height: 30px;
                 /* background-color: red; */
-                /*top: 60px;
+                top: 60px;
                 right: 0;
                 border-radius: 50%;
                 box-shadow: 15px -15px 0 #c77946;
@@ -122,4 +111,9 @@
                 height: 60px;
                 line-height: 60px;
                 white-space: nowrap;
-            }*/
+            }
+
+.errmess {
+    color: #ac2323;
+    font-weight: bold;
+}

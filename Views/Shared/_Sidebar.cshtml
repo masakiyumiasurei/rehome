@@ -4,17 +4,29 @@
       <ul>
         <li id="bar-Client" class="list">
             <a asp-area="" asp-controller="Client" asp-action="Index" onclick="Getnavkey('Client')">
-                <span class="icon"><ion-icon name="storefront-outline"></ion-icon></span>
+                <span class="icon"><ion-icon name="business-outline"></ion-icon></span>
                 <span class="title">顧客</span>
             </a>
         </li>
         <li id="bar-Quote"  class="list">
           <a asp-area="" asp-controller="Quote" asp-action="Clear" onclick="Getnavkey('Quote')">
-            <span class="icon"><ion-icon name="receipt-outline"></ion-icon></span>
+                <span class="icon"><i class="fas fa-light fa-lg fa-file-invoice"></i></span>
             <span class="title">見積</span>
           </a>
         </li>
-
+        <li id="bar-Syouhin" class="list">
+            <a asp-area="" asp-controller="Syouhin" asp-action="Index" onclick="Getnavkey('Syouhin')">
+                <span class="icon"><i class="fas fa-lg fa-cart-arrow-down"></i></span>
+                <span class="title">商品マスタ</span>
+            </a>
+        </li>
+        <li id="bar-Nissi" class="list">
+            <a asp-area="" asp-controller="Nissi" asp-action="Index" onclick="Getnavkey('Nissi')">
+                <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
+                
+                <span class="title">日誌</span>
+            </a>
+        </li>
         <li id="bar-SalesStatus"  class="list">
           <a asp-area="" asp-controller="Quote" asp-action="SalesStatus" onclick="Getnavkey('SalesStatus')">
             <span class="icon"
@@ -25,21 +37,23 @@
 
         <li id="bar-Tantou"  class="list">
           <a asp-area="" asp-controller="Tantou" asp-action="Index" onclick="Getnavkey('Tantou')">
-            <span class="icon"
-              ><ion-icon name="person-circle-outline"></ion-icon
-            ></span>
+                <span class="icon"><i class="fa-solid fa-lg fa-user-circle"></i></span>
             <span class="title">担当者マスタ</span>
           </a>
         </li>
 
         <li id="bar-Siire"  class="list">
          <a asp-area="" asp-controller="Siire" asp-action="Index" onclick="Getnavkey('Siire')">
-            <span class="icon"
-              ><ion-icon name="cart-outline"></ion-icon></span>
+                <span class="icon"><i class="fa-solid fa-lg fa-house-user"></i></span>
             <span class="title">仕入先マスタ</span>
           </a>
         </li>
-        
+        <li id="bar-Bunrui" class="list">
+            <a asp-area="" asp-controller="Bunrui" asp-action="Index" onclick="Getnavkey('Bunrui')">
+                <span class="icon"><i class="fas fa-lg fa-table"></i></span>
+                <span class="title">分類マスタ</span>
+            </a>
+        </li>
 
         <li id="bar-Houzin"  class="list">
           <a asp-area="" asp-controller="Houzin" asp-action="Details" onclick="Getnavkey('Houzin')">
@@ -48,24 +62,13 @@
             <span class="title">法人マスタ</span>
           </a>
         </li>
-
-
-        <li id="bar-Bunrui"  class="list">
-          <a asp-area="" asp-controller="Bunrui" asp-action="Index" onclick="Getnavkey('Bunrui')">
-            <span class="icon"
-              ><ion-icon name="grid-outline"></ion-icon></span>
-            <span class="title">分類マスタ</span>
-          </a>
-        </li>
-
-
-        <li id="bar-Office"  class="list">
+        @*  <li id="bar-Office"  class="list">
           <a asp-area="" asp-controller="Office" asp-action="Index" onclick="Getnavkey('Office')">
             <span class="icon"
               ><ion-icon name="storefront-outline"></ion-icon></span>
             <span class="title">営業所マスタ</span>
           </a>
-        </li>
+        </li>*@
 
         <li class="list">
           <a asp-area="" asp-controller="Login" asp-action="Logout" onclick="CheckOut()">

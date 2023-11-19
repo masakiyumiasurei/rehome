@@ -1,11 +1,17 @@
-﻿using rehome.Models;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using rehome.Models;
+using rehome.Models.DB;
+using rehome.Services;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace rehome.Public
 {
+     
     public static class PublicClass
     {
+        
         static readonly SHA256CryptoServiceProvider hashProvider = new SHA256CryptoServiceProvider();
 
 
@@ -23,7 +29,7 @@ namespace rehome.Public
         }
 
 
-
+       
         // 月の選択肢を取得するためのメソッドです。
         //public static IEnumerable<MonthViewModel> GetMonthOptions()
         //{

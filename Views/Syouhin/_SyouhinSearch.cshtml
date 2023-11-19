@@ -1,0 +1,22 @@
+﻿ 
+@model SyouhinIndexModel
+        @*<div class="row mb-1 align-items-center">*@
+          <div class="col-3 col-sm-2 align-self-center surround-box">
+                        <label for="商品ID" class="surround-label">商品ID</label>
+                        @Html.TextBoxFor(m=>m.SyouhinSearchConditions.商品ID, new { id = "商品ID" ,@class = "form-control" })
+          </div>
+          <div class="col-4 col-sm-3 align-self-center surround-box">
+                        <label for="商品名" class="surround-label">商品名</label>
+                        @Html.TextBoxFor(m=>m.SyouhinSearchConditions.商品名, new { id = "商品名" ,@class = "form-control"})
+          </div>
+         
+
+<div class="row justify-content-md-center">
+    <label>
+        削除した商品も表示する　
+        <p>
+            @Html.CheckBoxFor(m=>m.SyouhinSearchConditions.削除フラグ, new { @class ="my-specific-check"})
+        </p>
+    </label>
+    <button class="custom-btn btn-1" type="submit">検索</button>
+</div>

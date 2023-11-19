@@ -1,101 +1,93 @@
-﻿
-@model QuoteCreateModel
+﻿@model QuoteCreateModel
 @using rehome.Models.DB;
 @using rehome.Models.Quote;
 
-@for(var i = 1; i <= Model.自由分類DropDownList.Count(); ++i)
+@for (var i = 1; i <= Model.自由分類DropDownList.Count(); ++i)
 {
 
     var renban = 0;
-    <input class="tabRadio" id="TAB-A[@Model.自由分類DropDownList[i-1].Value]" type="radio" name="TAB-A">                     
-                            <label class="tabLabel" for="TAB-A[@Model.自由分類DropDownList[i-1].Value]">
-                                <input name="free_tab[@Model.自由分類DropDownList[i-1].Value]" onclick="selectTab(@Model.自由分類DropDownList[i-1].Value);" onchange="changeName(this);" value="@Model.自由分類DropDownList[i-1].Display" />
-                            </label>
-                            <div class="content">
+    <input class="tabRadio" id="TAB-A[@Model.自由分類DropDownList[i-1].Value]" type="radio" name="TAB-A">
+    <label class="tabLabel" for="TAB-A[@Model.自由分類DropDownList[i-1].Value]">
+        <input name="free_tab[@Model.自由分類DropDownList[i-1].Value]" onclick="selectTab(@Model.自由分類DropDownList[i-1].Value);" onchange="changeName(this);" value="@Model.自由分類DropDownList[i-1].Display" />
+    </label>
+    <div class="content">
 
-                                <input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(@Model.自由分類DropDownList[i-1].Value);"/>
-                                <input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(@Model.自由分類DropDownList[i-1].Value);" />
-      
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th style="opacity:0"></th>
+        <input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(@Model.自由分類DropDownList[i-1].Value);" />
+        @*<input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(@Model.自由分類DropDownList[i-1].Value);" />*@
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="opacity:0"></th>
+                    <th class="column3">検索</th>
                     <th>商品名</th>
-                    <th class="column5">詳細数</th>
-                    <th class="column5">詳細単位</th>
-                    <th class="column5">詳細期間</th>
-                    <th class="column5">詳細期間単位</th>
                     <th class="column5">数量</th>
                     <th class="column5">単位</th>
                     <th class="column10">単価</th>
                     <th class="column10">金額</th>
                     <th class="column10">見込原価</th>
                     <th class="column10">備考</th>
-                                        </tr>
-                                    </thead>
+                </tr>
+            </thead>
 
-                                    <tbody name="body[@Model.自由分類DropDownList[i - 1].Value]" id="body[@Model.自由分類DropDownList[i - 1].Value]">
+            <tbody name="body[@Model.自由分類DropDownList[i - 1].Value]" id="body[@Model.自由分類DropDownList[i - 1].Value]">
 
-                                    @if (Model.Quote.見積明細リスト != null)
-                                    {
-                                            @for (var j = 0; j < Model.Quote.見積明細リスト.Count(); j++)
-                                            {
-                                                @if (Model.Quote.見積明細リスト[j].分類ID == Model.自由分類DropDownList[i - 1].Value)
-                                                {
-                                                    renban++;
+                @if (Model.Quote.見積明細リスト != null)
+                {
+                    @for (var j = 0; j < Model.Quote.見積明細リスト.Count(); j++)
+                    {
+                        @if (Model.Quote.見積明細リスト[j].分類ID == Model.自由分類DropDownList[i - 1].Value)
+                        {
+                            renban++;
 
-                                                    <tr id="明細[@j]" class="min-line">
-                                                        @Html.HiddenFor(a => a.Quote.見積明細リスト[j].分類ID, new{@Value = Model.自由分類DropDownList[i - 1].Value})
-                                                        @Html.HiddenFor(a => a.Quote.見積明細リスト[j].分類名, new{@Value = Model.自由分類DropDownList[i - 1].Display,@id = Model.自由分類DropDownList[i - 1].Value})
-                                                        @Html.HiddenFor(a => a.Quote.見積明細リスト[j].削除FLG)
-                                                        @Html.Hidden("Quote.見積明細リスト[" + j + "].連番",renban)
-                                              
-                                                        <td><i class="handle fas fa-arrows-alt-v fa-2x"></i></td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].商品名 , new {@class="form-control form-control-sm"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].内訳数1 , new {@class="form-control form-control-sm", @type="number",onchange="utiwake(" + j + ");"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(m => m.Quote.見積明細リスト[j].内訳単位1, new { data_options = 見積明細単位.詳細単位items ,@class="free_dropdown form-control form-control-sm" })
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].内訳数2 , new {@class="form-control form-control-sm", @type="number",onchange="utiwake(" + j + ");"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(m => m.Quote.見積明細リスト[j].内訳単位2, new { data_options = 見積明細単位.詳細期間単位items ,@class="free_dropdown form-control form-control-sm" })
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].数量 , new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].単位 , new {@class="form-control form-control-sm"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].単価 , new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].金額 , new {@class="form-control form-control-sm enable-false",tabindex="-1", @type="number"})
-                                                        </td>
-                                                        <td>
-                                                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].見込原価, new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
-                                                        </td>
+                            <tr id="明細[@j]" class="min-line">
+                                @Html.HiddenFor(a => a.Quote.見積明細リスト[j].分類ID, new{@Value = Model.自由分類DropDownList[i - 1].Value})
+                                @Html.HiddenFor(a => a.Quote.見積明細リスト[j].分類名, new{@Value = Model.自由分類DropDownList[i - 1].Display,@id = Model.自由分類DropDownList[i - 1].Value})
+                                @Html.HiddenFor(a => a.Quote.見積明細リスト[j].削除FLG)
+                                @Html.HiddenFor(a => a.Quote.見積明細リスト[j].商品ID,new{@onchange="getSyouhinName(this)"})
+                                @Html.Hidden("Quote.見積明細リスト[" + j + "].連番",renban)
+
+                                <td><i class="handle fas fa-arrows-alt-v fa-2x"></i></td>
+                                <td>
+                                    <button type="button" name="syohin_search[@j]"
+                                            class="btn-sm btn-primary " id="button" onclick="getSyouhinID(this);">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].商品名 , new {@class="form-control form-control-sm"})
+                                </td>
+
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].数量 , new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].単位 , new {@class="form-control form-control-sm"})
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].単価 , new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].金額 , new {@class="form-control form-control-sm enable-false",tabindex="-1", @type="number"})
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].見込原価, new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
+                                </td>
                                 <td>
                                     @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].備考 , new {@class="form-control form-control-sm"})
                                 </td>
-                                                        <td>
-                                                            <button type="button" name="delete[@j]" onclick="deleteRow(@j);" class="btn btn-secondary btn-sm align_center" style="margin: 0; "><i class="fa-solid fa-trash-can"></i></button>
-                                                        </td>
-                                                   </tr>
-                                                }
+                                <td>
+                                    <button type="button" name="delete[@j]" onclick="deleteRow(@j);" class="btn btn-secondary btn-sm align_center" style="margin: 0; "><i class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                        }
 
-                                            }
-                                    
-                                        }
-                                    </tbody>
-                                </table>
-                                </div>
-                 
-             
                     }
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
