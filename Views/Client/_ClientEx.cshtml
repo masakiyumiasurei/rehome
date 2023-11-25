@@ -42,7 +42,8 @@
 
     <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
         <div class="input-container">
-            @Html.DropDownListFor(m => m.Client.工事検討, ClientDetailModel.yesnoitems(), "",  new { @class ="form-control form-control-sm"} )
+            @*@Html.DropDownListFor(m => m.Client.工事検討, ClientDetailModel.yesnoitems(), "",  new { @class ="form-control form-control-sm"} )*@
+            @Html.DropDownListFor(m => m.Client.工事検討,new SelectList(Enum.GetValues(typeof(yesno))), "",  new { @class ="form-control form-control-sm"} )
             <label for="name" class="col-xs-2 label">Q3.今後の工事を検討するか</label>
             <div class="underline"></div>
         </div>

@@ -49,8 +49,8 @@ namespace rehome.Models.DB
 
         public string? 依頼理由 { get; set; }
 
-        //public yesno 工事検討 { get; set; }
-        public　string? 工事検討 { get; set; }
+        public yesno 工事検討 { get; set; }
+        //public　string? 工事検討 { get; set; }
         public bool 玄関FLG { get; set; }
 
         public bool リビングFLG { get; set; }
@@ -73,7 +73,7 @@ namespace rehome.Models.DB
         {
             var tmplist = new List<SelectListItem>();
             tmplist.Add(new SelectListItem() { Text = "はい", Value = "はい" });
-            tmplist.Add(new SelectListItem() { Text = "いいえ", Value = "いいえ" });
+            tmplist.Add(new SelectListItem() { Text = "いいえ", Value = "いいえ" }); 
             return tmplist;
         }
 

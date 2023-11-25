@@ -193,8 +193,17 @@ namespace rehome.Models.DB
             return tmplist;
         }
 
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 請求日 { get; set; }
 
-        public int? 期 { get; set; }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 最終入金日 { get; set; }
+
+
+        public int? 入金合計 { get; set; }
 
         public string? 注文摘要 { get; set; }
 

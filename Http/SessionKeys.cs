@@ -13,5 +13,6 @@
         public const string Houzin_SEARCH_CONDITIONS = "HouzinSearchConditions";
         public const string Bunrui_SEARCH_CONDITIONS = "BunruiSearchConditions";
         public const string Office_SEARCH_CONDITIONS = "OfficeSearchConditions";
+        public const string Nyukin_SEARCH_CONDITIONS = "NyukinSearchConditions";
     }
 }

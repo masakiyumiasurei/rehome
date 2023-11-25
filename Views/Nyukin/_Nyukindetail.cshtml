@@ -1,0 +1,78 @@
+﻿
+@model NyukinIndexModel
+@using rehome.Models.DB;
+@using rehome.Models.Quote;
+@using rehome.Enums;
+
+<div class="modal fade" id="QuoteTab_sort" tabindex="-1" role="dialog"   >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" >帳票に表示する順に分類を並び変えてください</h4> 
+            </div>
+            <div>
+                <p style="color:red;">自由項目を追加した場合は先に保存してください</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <ul id="Tab_sortable">
+                   
+                        var j = 0;
+                        List<int> IdList = new List<int>();
+
+              @*          @for(var i = 1; i<= Model.Quotes.見積分類表示順リスト.Count(); ++i)
+                        {
+                            j++;
+                            <li>
+                                <lable>@Model.Quote.見積分類表示順リスト[i-1].分類名</lable>
+                                @Html.HiddenFor(a => a.Quote.見積分類表示順リスト[i-1].分類ID)
+                                @Html.HiddenFor(a => a.Quote.見積分類表示順リスト[i-1].表示順)
+                                
+                            </li>
+                            IdList.Add(Model.Quote.見積分類表示順リスト[i-1].分類ID);
+                        }
+
+                        @for(var i = 1; i <= Model.分類DropDownList.Count(); ++i)
+                        {
+                            @if (!IdList.Contains(Model.分類DropDownList[i - 1].Value))
+                            {
+                                 j++;
+                                <li>
+                                    <lable>@Model.分類DropDownList[i-1].Display</lable>
+                                    @Html.Hidden("Quote.見積分類表示順リスト[" + (j-1) + "].分類ID",Model.分類DropDownList[i-1].Value)
+                                    @Html.Hidden("Quote.見積分類表示順リスト[" + (j-1) + "].表示順",j)
+                                
+                                </li>     
+                            }
+                                     
+                        }
+
+                        @if(Model.自由分類DropDownList != null){
+                            @for(var i = 1; i <= Model.自由分類DropDownList.Count(); ++i)
+                            {
+                                @if (!IdList.Contains(Model.自由分類DropDownList[i - 1].Value))
+                                {
+                                    j++;
+                                    <li>
+                                        <lable>@Model.自由分類DropDownList[i-1].Display</lable>
+                                        @Html.Hidden("Quote.見積分類表示順リスト[" + (j-1) + "].分類ID",Model.自由分類DropDownList[i-1].Value)
+                                        @Html.Hidden("Quote.見積分類表示順リスト[" + (j-1) + "].表示順",j)
+                                    </li>        
+                                }
+                            }
+                        }*@
+
+                </ul>
+               
+                @*</br>
+                <input type="button" value="設定" class="custom-btn btn-2 btn-2-sm" onclick="TabSort();"/>*@
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+

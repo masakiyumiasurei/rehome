@@ -129,8 +129,7 @@
                 }
                 else
                 {
-                     <section class="typeA" id="QuoteTab">
-           
+                     <section class="typeA" id="QuoteTab">           
        
                         @await Html.PartialAsync("_QuoteTab_master")
 
@@ -138,17 +137,14 @@
                         {
                           @await Html.PartialAsync("_QuoteTab_free")  
                         }
-          
 
                         <button type="button" class="tabLabel" id="add_tab" onclick="addTab();" >＋</button>
-
                     </section>
                 }
                                
             </div>
         </div>
-    }
- 
+    } 
 }
 
 
@@ -405,100 +401,6 @@
             $('#cost_ritu').val('');
             $('#cost_wari').val('');
 
-        }
-
-
-        function addSingleCost() {
-            console.log('start_addSingleCost()');
-
-            var cost_name = $('#cost_name').val();
-
-            var cost_ritu = $('#cost_ritu').val();
-
-            var cost_wari = $('#cost_wari').val();
-
-            if (cost_name == '') {
-                alert('商品名を入力してください')
-                return false;
-            }
-
-            if (!cost_ritu && !cost_wari) {
-                alert('掛率か割り戻しを入力してください')
-                return false;
-            } else if (cost_ritu && cost_wari) {
-                alert('掛率か割り戻しかどちらか両方に入力があります。どちらかに入力ください')
-                return false;
-            } 
-
-            //if(cost_ritu == ''){
-            //    alert('掛率を入力してください')
-            //    return false;
-            //}
-            if(cost_ritu){
-            cost_ritu = (cost_ritu / 100);
-            }
-            else{
-            cost_wari=(cost_wari/100);
-            }
-
-            //console.log('cost_name:' + cost_name);
-            //console.log('cost_ritu:' + cost_ritu);
-
-            //集計
-            var amountMoney = 0;
-
-            for (var i = 0; i < rowCount; i++) {
-                var del_flg = $('[name="Quote.見積明細リスト[' + i + '].削除FLG"]').val();
-                var money = $('[name="Quote.見積明細リスト[' + i + '].金額"]').val();
-                console.log('money ' + money);
-                console.log('del_flg ' + del_flg);
-                //削除されていない行かつ金額が入っていれば合算する
-                if (del_flg == "False" && isNaN(money) == false) {                    
-                    if (cost_ritu) {
-                        amountMoney += (money * cost_ritu);
-                    }
-                    else {
-                        amountMoney += (money / cost_wari) - money;
-                    }                    
-                }
-                amountMoney = Math.floor(amountMoney);
-                console.log('amonutMoney ' + amountMoney);
-            }
-
-            var bodyElement = document.getElementById("body[0]");
-            var renban = bodyElement.querySelectorAll('tr').length + 1;
-
-             var add_html = '<tr id="明細[' + rowCount + ']">'+
-             '<input name="Quote.見積明細リスト[' + rowCount + '].分類ID" type="hidden" value="0">'+
-             '<input name="Quote.見積明細リスト[' + rowCount + '].分類名" type="hidden" value="">'+
-             '<input name="Quote.見積明細リスト[' + rowCount + '].削除FLG" type="hidden" value="False">'+
-             '<input name="Quote.見積明細リスト[' + rowCount + '].商品ID" type="hidden" onchange="getSyouhinName(this)" value="">' +            
-             '<td><i class="handle fas fa-arrows-alt-v fa-2x"></i></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].商品名" type="text" value="' + cost_name + '"></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].内訳数1" onchange="utiwake(' + rowCount + ');" type="number" value=""></td>'+
-             '<td><input class="free_dropdown form-control" data-options="名,台" name="Quote.見積明細リスト[' + rowCount + '].内訳単位1" type="text" value="" onclick="free_dropdown(this);" onfocus="free_dropdown(this);"></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].内訳数2" onchange="utiwake(' + rowCount + ');" type="number" value=""></td>'+
-             '<td><input class="free_dropdown form-control" data-options="日間,週間,月間" name="Quote.見積明細リスト[' + rowCount + '].内訳単位2" type="text" value="" onclick="free_dropdown(this);" onfocus="free_dropdown(this);"></td>'+
-             '<td><input class="form-control"  name="Quote.見積明細リスト[' + rowCount + '].数量" onchange="calc();" type="number" value="1"></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].単位" type="text" value="式"></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].単価" onchange="calc();" type="number" value="' + amountMoney + '"></td>'+
-             '<td><input class="form-control enable-false" tabindex="-1"  name="Quote.見積明細リスト[' + rowCount + '].金額" type="number" tabindex="-1" value="0"></td>'+
-             '<td><input class="form-control" name="Quote.見積明細リスト[' + rowCount + '].見込原価" onchange="calc();" type="number" value=""></td>'+
-             '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].備考" type="text" value=""></td>' +
-             '<td><button type="button" name="delete[' + rowCount + ']" onclick="deleteRow(' + rowCount + ');" class="btn btn-secondary btn-sm align_center" style="margin: 0; "><i class="fa-solid fa-trash-can"></i></button></td>'+
-             '</tr>'
-
-
-            $('[name="body[0]"]').append(add_html);
-
-            rowCount++;
-
-            calc();
-
-            //諸経費追加用のボックスをクリアする
-            $('#cost_name').val('');
-            $('#cost_ritu').val('');
-            $('#cost_wari').val('');
         }
 
 

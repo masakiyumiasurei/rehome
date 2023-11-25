@@ -106,7 +106,7 @@
         </div>
 
 
-        <div class="col-12 col-sm-2">
+        @*<div class="col-12 col-sm-2">
             <label>入金種別</label>
             @Html.DropDownListFor(m => m.Quote.入金種別, 見積.入金種別items(), "", new { @class = "form-control form-control-sm" })
         </div>
@@ -118,7 +118,7 @@
         <div class="col-12 col-sm-2">
             <label>入金日</label>
             @Html.EditorFor(a => a.Quote.入金日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
-        </div>
+        </div>*@
 
 
     </div>
@@ -140,15 +140,7 @@
             @Html.DropDownListFor(m => m.Quote.支払条件, 見積.支払条件items(), "", new { @class = "form-control form-control-sm" })
         </div>
 
-        @*<div class="col-12 col-sm-2">
-            <label>受渡場所</label>
-            @Html.TextBoxFor(a => a.Quote.受渡場所, new { @class = "form-control form-control-sm"})
-        </div>*@
-
-        @*<div class="col-12 col-sm-2">
-            <label>見積区分</label>
-            @Html.DropDownListFor(m => m.Quote.見積区分, 見積.見積区分items(), "", new { @class = "form-control form-control-sm" })
-        </div>*@
+        
         <div class="col-12 col-sm-2">
             <label>取引年月日</label>
             @Html.EditorFor(a => a.Quote.取引年月日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
