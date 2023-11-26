@@ -23,19 +23,17 @@ namespace rehome.Controllers
             _connectionString = configuration.GetConnectionString("DefaultConnection");            
             _SyouhinService = SyouhinService;
             
-        }
+        }       
 
         [HttpGet]
         public IActionResult Syouhin()
         {
             //商品検索ボックスを返す
             var viewModel = new PopupSearchSyouhinModel();
-
             return PartialView("_PopupSearchSyouhin", viewModel);
 
             //viewModel.SearchSyouhins = _SyouhinService.SearchAjaxSyouhins(viewModel.SearchConditions);
             //return PartialView("_PopupSearchSyouhinResult", viewModel);
-
         }
 
         [HttpPost]
@@ -50,8 +48,7 @@ namespace rehome.Controllers
 
             // if (count > 0) { viewModel.SearchSyouhins = _SyouhinService.SearchAjaxSyouhins(viewModel.SearchConditions); }
             viewModel.SearchSyouhins = _SyouhinService.SearchAjaxSyouhins(viewModel.SearchConditions);
-            return PartialView("_PopupSearchSyouhinResult", viewModel);
-           
+            return PartialView("_PopupSearchSyouhinResult", viewModel);           
         }
 
         //[HttpGet]

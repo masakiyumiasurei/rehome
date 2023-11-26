@@ -40,6 +40,7 @@ builder.Services.AddTransient<IOfficeService, OfficeService>();
 builder.Services.AddTransient<INissiService, NissiService>();
 builder.Services.AddTransient<ICalendarService, CalendarService>();
 builder.Services.AddTransient<ISyouhinService, SyouhinService>();
+builder.Services.AddTransient<INyukinService, NyukinService>();
 
 builder.Services.AddSession(options =>
 {
@@ -78,7 +79,7 @@ app.MapControllerRoute(
 
 name: "default",
 //pattern: "{controller=Client}/{action=Index}");
-pattern: "{controller=Client}/{action=Index}");
+pattern: "{controller=Nyukin}/{action=Index}");
 //name: "default",
 //pattern: "{controller=Quote}/{action=Clear}");
 app.MapRazorPages();

@@ -30,5 +30,16 @@ namespace rehome.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult ReturnRecordJsonSqlAll(string sql)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();                
+                dynamic result = connection.Query(sql);
+
+                return Json(result);
+            }
+        }
     }
 }

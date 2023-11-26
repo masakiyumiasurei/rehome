@@ -40,103 +40,132 @@ namespace rehome.Controllers
             _TantouService = TantouService;
         }
 
-
         [HttpGet]
-        public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID )
+        public IActionResult Detail(int 見積ID, int 履歴番号)
         {
-            using var connection = new SqlConnection(_connectionString);
-
-            ViewBag.OperationMessage = (string)TempData["Quote"];
-
-            var model = new QuoteCreateModel();
-            if (Request.Headers["Referer"].Any())
-            {
-                model.BackUrl = Request.Headers["Referer"].ToString();
-            }
-
-            if (見積ID == null)//new処理
-            {
-                
-                model.Quote = new 見積();
-                model.Quote.single = single;
-                model.Quote.顧客ID = (int)顧客ID;
-                model.Mode = ViewMode.New;
-                //model.Quote.期 = _QuoteService.GetPeriod(DateTime.Now);
-                //開発中コメント
-                model.Quote.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-               // model.Quote.営業所ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid).Value);
-                model.auth= bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-                //model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
-                model.RowCount = 0;
-            }
-            else
-            {//edit処理
-                
-                model.Mode = ViewMode.Edit;
-                model.Quote = _QuoteService.GetQuote(見積ID ?? -1, 履歴番号 ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
-               
-                model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-               
-
-                if (model.Quote != null)
-                {
-                    model.RowCount = model.Quote.見積明細リスト.Count();
-                }
-                else
-                {
-                    model.RowCount = 0;
-                }
-                ChumonIndexModel genka = _ChumonService.CalcChumon(見積ID ?? -1, 履歴番号 ?? -1);
-                if (genka.金額計 != null)
-                {
-                    model.Quote.原価 = genka.金額計;
-                    model.Quote.利益 = (model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) - (model.Quote.原価 ?? 0);
-                    if ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) != 0)
-                    {
-                        model.Quote.粗利率 = (model.Quote.利益 == 0 || model.Quote.利益 == null ? 0 : (Math.Round((decimal)((model.Quote.利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
-                        model.Quote.見込粗利率 = (model.Quote.見込利益 == 0 || model.Quote.見込利益 == null ? 0 : (Math.Round((decimal)((model.Quote.見込利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
-                    }
-                    else
-                    {
-                        model.Quote.粗利率 = "0%";
-                        model.Quote.見込粗利率 = "0%";
-                    }
-                }
-            }
-
-            model.自由分類DropDownList = _DropDownListService.Get自由分類DropDownLists(見積ID ?? -1, 履歴番号 ?? -1);
-            model.分類DropDownList = _DropDownListService.Get分類DropDownLists();
-            //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
-            model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
-
-            return View(model);
-
+            //入金入力ボックスを返す
+            var viewModel = new NyukinIndexModel();
+            viewModel.Nyukins = _NyukinService.GetNyukin(見積ID, 履歴番号);
+            viewModel.見積ID = 見積ID;
+            viewModel.履歴番号 = 履歴番号;
+            return PartialView("_Nyukindetail", viewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(QuoteCreateModel model)
+        public IActionResult ajaxCreate(NyukinIndexModel model)
         {
-            var viewModel = new QuoteCreateModel();
+            var viewModel = new NyukinIndexModel();
             try
             {
-                //if(model.Quote.完了予定日 != null)
-                //{
-                //    model.Quote.期 = _QuoteService.GetPeriod((DateTime)model.Quote.完了予定日);
-                //}
-                viewModel.Quote = _QuoteService.RegistQuote(model);
-                viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
-                viewModel.Mode = ViewMode.Edit;
-                TempData["Quote"] = String.Format("見積情報を登録しました");
+
+                //viewModel.Nyukins.見積ID = _QuoteService.RegistQuote(model);
+                //viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
+                //viewModel.Mode = ViewMode.Edit;
+                TempData["Nyukin"] = String.Format("消込情報を登録しました");
                 ModelState.Clear();
-                viewModel.BackUrl = model.BackUrl;
-                return RedirectToAction("Create", "Quote", new { 見積ID = viewModel.Quote.見積ID, 履歴番号 = viewModel.Quote.履歴番号 });
+                var result = _NyukinService.RegistNyukin(model);
+                if (result >= 0)
+                {
+                    if (result > 0)
+                    {
+                        TempData["Nyukin"] = "消込情報を登録しました。";
+                        //ajaxで使用するため、見積IDと履歴番号を返す
+                        return Ok(new { Message = "登録が成功しました。", 見積ID = model.見積ID, 履歴番号 = model.履歴番号 });
+                    }
+                    else
+                    {
+                        // 0の場合は登録する情報がない
+                        TempData["Nyukin"] = "登録する情報がありません。";
+                        return Ok(new { Message = "登録する情報がありません。" });
+                    }
+                }
+                else
+                {
+                    // マイナス1の場合はDBエラー
+                    TempData["Nyukin"] = "DBエラーが発生しました。";
+                    return BadRequest(new { Message = "DBエラーが発生しました。", ErrorMessage = "データベースエラーが発生しました。" });
+                }               
+               
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
-                return View(model);
+                return BadRequest(new { Message = "エラーが発生しました。", ErrorMessage = "エラーが発生しました。" });
             }
         }
+
+        //[HttpGet]
+        //public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID )
+        //{
+        //    using var connection = new SqlConnection(_connectionString);
+
+        //    ViewBag.OperationMessage = (string)TempData["Quote"];
+
+        //    var model = new QuoteCreateModel();
+        //    if (Request.Headers["Referer"].Any())
+        //    {
+        //        model.BackUrl = Request.Headers["Referer"].ToString();
+        //    }
+
+        //    if (見積ID == null)//new処理
+        //    {
+
+        //        model.Quote = new 見積();
+        //        model.Quote.single = single;
+        //        model.Quote.顧客ID = (int)顧客ID;
+        //        model.Mode = ViewMode.New;
+        //        //model.Quote.期 = _QuoteService.GetPeriod(DateTime.Now);
+        //        //開発中コメント
+        //        model.Quote.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        //       // model.Quote.営業所ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid).Value);
+        //        model.auth= bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
+        //        //model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
+        //        model.RowCount = 0;
+        //    }
+        //    else
+        //    {//edit処理
+
+        //        model.Mode = ViewMode.Edit;
+        //        model.Quote = _QuoteService.GetQuote(見積ID ?? -1, 履歴番号 ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
+
+        //        model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
+
+
+        //        if (model.Quote != null)
+        //        {
+        //            model.RowCount = model.Quote.見積明細リスト.Count();
+        //        }
+        //        else
+        //        {
+        //            model.RowCount = 0;
+        //        }
+        //        //ChumonIndexModel genka = _ChumonService.CalcChumon(見積ID ?? -1, 履歴番号 ?? -1);
+        //        //if (genka.金額計 != null)
+        //        //{
+        //        //    model.Quote.原価 = genka.金額計;
+        //        //    model.Quote.利益 = (model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) - (model.Quote.原価 ?? 0);
+        //        //    if ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) != 0)
+        //        //    {
+        //        //        model.Quote.粗利率 = (model.Quote.利益 == 0 || model.Quote.利益 == null ? 0 : (Math.Round((decimal)((model.Quote.利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
+        //        //        model.Quote.見込粗利率 = (model.Quote.見込利益 == 0 || model.Quote.見込利益 == null ? 0 : (Math.Round((decimal)((model.Quote.見込利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        model.Quote.粗利率 = "0%";
+        //        //        model.Quote.見込粗利率 = "0%";
+        //        //    }
+        //        //}
+        //    }
+
+        //    model.自由分類DropDownList = _DropDownListService.Get自由分類DropDownLists(見積ID ?? -1, 履歴番号 ?? -1);
+        //    model.分類DropDownList = _DropDownListService.Get分類DropDownLists();
+        //    //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+        //    model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
+
+        //    return View(model);
+        //}
+
+
 
 
         [HttpPost]

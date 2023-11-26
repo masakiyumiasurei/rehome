@@ -25,7 +25,7 @@ body {
 }
 
 .navigation {
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     left: 0;
     position: relative;
@@ -155,7 +155,12 @@ body {
     font-weight: bold;
 }
 
+.big-modal-dialog {
+    max-width: 800px; /* 希望する幅に調整 */
+    width: 80%; /* またはパーセンテージで指定 */
+}
+
 main {
-    margin-left: 50px; /* サイドバーの幅に加えた余白 */
+    /*margin-left: 50px;*/ /* サイドバーの幅に加えた余白 */
     /*padding: 10px;*/
 }

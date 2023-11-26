@@ -8,17 +8,18 @@ namespace rehome.Models.DB
 {
     
     public class 入金
-    {
-        
+    {        
         
         [Key]
         public int 入金ID { get; set; }
 
         public int 見積ID { get; set; }
 
+        public int 履歴番号 { get; set; }
+
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
-        public DateTime? 入金日 { get; set; } = DateTime.Now;
+        public DateTime? 入金日 { get; set; } 
 
         [Required(ErrorMessage = "{0}を入力してください。")]
         [Column(TypeName = "money")]
@@ -36,12 +37,12 @@ namespace rehome.Models.DB
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 前受金 { get; set; }
 
-        入金種別?　入金種別 { get; set; }
+        public 入金種別?　入金種別 { get; set; }
 
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
-        public DateTime? 登録日 { get; set; }        
+        public DateTime? 登録日 { get; set; } = DateTime.Now;
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
