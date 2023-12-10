@@ -14,8 +14,7 @@ namespace rehome.Models.DB
 
         [Required(ErrorMessage = "{0}を入力してください。")]
         public string? 分類名 { get; set; }
-
-        [Required(ErrorMessage = "{0}を入力してください。")]
+        
         public string? 理化学医療区分 { get; set; }
 
         public static IList<SelectListItem> 理化学医療区分items()

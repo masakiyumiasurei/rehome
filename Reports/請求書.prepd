@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <PrintDefine>
-<PrintSetting Name="レポート定義ファイル" Ver="9.2.4" >
+<PrintSetting Name="レポート定義ファイル" Ver="9.2.0" >
 <PrintAttrs>
 <FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
 <FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="12" />
@@ -66,10 +66,7 @@
 </Square>
 <Square Name="Square4" X="124" Y="88" Width="36" Height="18" LineAttr="Line1" R="0" >
 </Square>
-<Line Name="Line6" StartX="154" StartY="84" EndX="140" EndY="84" LineAttr="Line1" />
 <Line Name="Line7" StartX="238" StartY="82" EndX="226" EndY="82" LineAttr="Line1" />
-<Line Name="Line8" StartX="194" StartY="84" EndX="180" EndY="84" LineAttr="Line1" />
-<Line Name="Line9" StartX="174" StartY="84" EndX="160" EndY="84" LineAttr="Line1" />
 <Line Name="Line10" StartX="124" StartY="70" EndX="10" EndY="70" LineAttr="Line1" />
 <Text Name="Text1" X="22" Y="110" Width="88" Height="6" Text="摘 要（ 品 名 ）" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line2" />
 <Text Name="Text2" X="110" Y="110" Width="14" Height="6" Text="数 量" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line3" />
@@ -114,20 +111,18 @@
 下記の通りご請求申し上げます。" Align="Left" VAlign="Middle" FontAttr="Font1" />
 <Text Name="敬称" X="104" Y="20" Width="20" Height="10" Text="*敬称*" Align="Center" VAlign="Middle" FontAttr="Font2" />
 <Text Name="顧客名" X="10" Y="20" Width="94" Height="10" Text="*顧客名*" Align="Center" VAlign="Middle" FontAttr="Font2" />
-<Text Name="Text40" X="60" Y="10" Width="80" Height="10" Text="請  求  書（兼　納品書）" Align="Center" VAlign="Middle" FontAttr="Font3" />
+<Text Name="Text40" X="60" Y="10" Width="80" Height="10" Text="御　請  求  書" Align="Center" VAlign="Middle" FontAttr="Font3" />
 <Text Name="見積番号" X="162" Y="4" Width="38" Height="6" Text="*見積番号*" Align="Right" VAlign="Middle" FontAttr="Font1" />
 <Text Name="作成日" X="162" Y="10" Width="38" Height="6" Text="*作成日*" Align="Right" VAlign="Middle" FontAttr="Font1" />
-<Text Name="オフィス" X="130" Y="60" Width="70" Height="6" Text="*オフィス*" Align="Left" VAlign="Middle" FontAttr="Font4" />
 <Text Name="TEL" X="130" Y="54" Width="70" Height="6" Text="*TEL*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="住所" X="130" Y="48" Width="70" Height="6" Text="*住所*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="郵便番号" X="130" Y="42" Width="70" Height="6" Text="*郵便番号*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="代表名" X="130" Y="36" Width="70" Height="6" Text="*代表名*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="社名" X="130" Y="22" Width="70" Height="6" Text="*社名*" Align="Left" VAlign="Middle" FontAttr="Font6" />
 <Text Name="内訳" X="80" Y="116" Width="30" Height="6" Text="*内訳*" Align="Right" VAlign="Middle" FontAttr="Font1" IntervalY="6" Repeat="25" />
-<Text Name="Text48" X="130" Y="28" Width="70" Height="6" Text="事業者登録番号：T7-3700-0101-7925" Align="Left" VAlign="Middle" FontAttr="Font6" />
-<Text Name="Text49" X="30" Y="90" Width="80" Height="6" Text="仙台銀行　大富支店　普通　207701" Align="Left" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text50" X="10" Y="96" Width="16" Height="6" Text="口座名義" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text51" X="30" Y="96" Width="80" Height="6" Text="ブルームビルド㈱　代表取締役　小関　朋宏" Align="Left" VAlign="Middle" FontAttr="Font1" />
+<Text Name="Text48" X="130" Y="28" Width="70" Height="6" Text="事業者登録番号：T7-1200-0113-7062" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="Text49" X="30" Y="90" Width="80" Height="6" Text="関西みらい銀行　天下茶屋支店　普　0009800" Align="Left" VAlign="Middle" FontAttr="Font1" />
+<Text Name="Text51" X="30" Y="96" Width="80" Height="6" Text="㈱リホーム" Align="Left" VAlign="Middle" FontAttr="Font1" />
 <Text Name="取引年月日" X="34" Y="76" Width="90" Height="8" Text="*取引年月日*" Align="Left" VAlign="Bottom" FontAttr="Font1" />
 <Line Name="Line7" StartX="124" StartY="84" EndX="10" EndY="84" LineAttr="Line1" />
 <Text Name="Text46" X="10" Y="78" Width="22" Height="6" Text="作業完了日" Align="Center" VAlign="Bottom" FontAttr="Font1" />

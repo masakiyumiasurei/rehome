@@ -11,7 +11,7 @@ namespace rehome.Services
     {
         public IList<顧客> SearchClients(ClientSearchConditions conditions);
 
-        顧客 GetClient(int 顧客ID);
+        顧客 GetClient(int? 顧客ID);
 
         顧客 RegistClient(ClientDetailModel model);
 
@@ -20,6 +20,7 @@ namespace rehome.Services
         //void RegistClientTantou(ClientDetailModel model);
 
         void DeleteClient(int ClientID);
+        
 
         //IList<顧客担当> GetClientTantou(int 顧客ID);
 
@@ -90,7 +91,7 @@ namespace rehome.Services
             }
         }
 
-        public 顧客 GetClient(int 顧客ID)
+        public 顧客 GetClient(int? 顧客ID)
         {
             using (var connection = new SqlConnection(_connectionString))
             {

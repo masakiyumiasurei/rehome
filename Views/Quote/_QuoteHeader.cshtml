@@ -98,27 +98,22 @@
             <label>顧客名</label>
             @Html.TextBoxFor(a => a.Quote.顧客名, new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="col-12 col-sm-2">
             <label>敬称</label>
             @Html.DropDownListFor(m => m.Quote.敬称, 見積.敬称items(), "", new { @class = "form-control form-control-sm" })
         </div>
-
-
-        @*<div class="col-12 col-sm-2">
-            <label>入金種別</label>
-            @Html.DropDownListFor(m => m.Quote.入金種別, 見積.入金種別items(), "", new { @class = "form-control form-control-sm" })
+        <div class="col-12 col-sm-2">
+            <label>項目</label>
+            @Html.DropDownListFor(m => m.Quote.項目, 見積.項目items(), "", new { @class = "form-control form-control-sm" })
         </div>
         <div class="col-12 col-sm-2">
-            <label>入金締日</label>
-            @Html.EditorFor(a => a.Quote.入金締日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
+            <label>種類</label>
+            @Html.DropDownListFor(m => m.Quote.種類, 見積.種類items(), "", new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="col-12 col-sm-2">
-            <label>入金日</label>
-            @Html.EditorFor(a => a.Quote.入金日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
-        </div>*@
-
+            <label>種類2</label>
+            @Html.DropDownListFor(m => m.Quote.種類2, 見積.種類2items(), "", new { @class = "form-control form-control-sm" })
+        </div>
 
     </div>
 
@@ -128,23 +123,18 @@
             <label>納期</label>
             @Html.TextBoxFor(a => a.Quote.納期, new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="col-12 col-sm-2">
             <label>有効期限</label>
             @Html.DropDownListFor(m => m.Quote.有効期限, 見積.有効期限items(), "", new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="col-12 col-sm-2">
             <label>支払条件</label>
             @Html.DropDownListFor(m => m.Quote.支払条件, 見積.支払条件items(), "", new { @class = "form-control form-control-sm" })
-        </div>
-
-        
+        </div>        
         <div class="col-12 col-sm-2">
             <label>取引年月日</label>
             @Html.EditorFor(a => a.Quote.取引年月日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
         </div>
-
     </div>
 
     <div class="row">

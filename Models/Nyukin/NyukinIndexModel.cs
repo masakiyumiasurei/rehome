@@ -11,6 +11,7 @@ namespace rehome.Models
         public IList<DropDownListModel>? 担当DropDownList { get; set; }
 
         //Nyukindetailに渡すため
+        public int RowCount { get; set; }
         public int 見積ID { get; set; }
 
         public int 履歴番号 { get; set; }

@@ -37,7 +37,7 @@
                 <th class="column5">詳細</th>
                 <th>ログインID</th>
                 <th>担当名</th>
-                <th>営業所</th>
+                @*<th>営業所</th>*@
                 <th>TEL</th>
                 
             </tr>
@@ -58,15 +58,15 @@
                     @Html.DisplayFor(modelItem => item.氏名)
                 </td>
 
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.営業所名)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.tel)
                 </td>
             </tr>
         }          
-
+        </table>
 </div>
 
 @section Scripts{

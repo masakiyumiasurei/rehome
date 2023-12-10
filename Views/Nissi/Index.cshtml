@@ -15,15 +15,15 @@
     
     <button type="button" class="custom-btn btn-2" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
 
-    <button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Nissi/_NissiSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>
-    <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
+ @*   <button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Nissi/_NissiSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>
+*@    <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
 
         <div id="Search-Area" name="show" ><br>
             @using (Html.BeginForm("Search", "Nissi", FormMethod.Get, new { @class = "row g-3" }))
             {
                 @await Html.PartialAsync("_NissiSearch")
 
-                @if (Model.Nissis != null && Model.印刷区分 != null)
+                @*@if (Model.Nissis != null && Model.印刷区分 != null)
                 {
                     <div class="row justify-content-md-center">
                         <div class="col-md-4">
@@ -35,7 +35,7 @@
                             <button class="custom-btn btn-2" type="submit" formaction="CsvDownload" formmethod="get" name="支援区分" value="@Model.印刷区分">CSV出力</button>
                         </div>
                     </div>
-                }
+                }*@
             }
         </div>
     </div>
@@ -45,8 +45,8 @@
         @*<a href="/Nissi/New"　 class="btn btn-success"><i class="fa fa-plus-square" aria-hidden="true"></i>新規登録</a>*@
     <br>
 
-<button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Nissi/_NissiIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>
-<input type="hidden" value="IndexCustom" id="UserCustom_FunctionName">
+@*<button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Nissi/_NissiIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>
+<input type="hidden" value="IndexCustom" id="UserCustom_FunctionName">*@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <table id="myTable" class="table table-striped table-hover " style="width:100%">
@@ -54,17 +54,12 @@
                         <tr>
                 
                @* <th id="IndexCustom_Nissi_日誌ID">日誌ID</th>*@
-                <th></th>
+                <th class="column5">詳細</th>
                 <th id="IndexCustom_Nissi_顧客名">顧客名</th>
-                <th id="IndexCustom_Nissi_支援区分">支援区分</th>
+                <th id="IndexCustom_Nissi_支援区分">日誌区分</th>
                 <th id="IndexCustom_Nissi_担当名">担当名</th>
-                <th id="IndexCustom_Nissi_相談者名">相談者名</th>
-                <th id="IndexCustom_Nissi_相談手段">相談手段</th>
-                <th id="IndexCustom_Nissi_相談内容区分1">相談内容区分1</th>
-                <th id="IndexCustom_Nissi_相談内容区分2">相談内容区分2</th>
-                <th id="IndexCustom_Nissi_相談内容_運営状況">相談経緯(背景)</th>
-                <th id="IndexCustom_Nissi_相談内容_質問内容">相談内容(質問内容)</th>
-                <th id="IndexCustom_Nissi_対応内容">対応内容</th>
+                
+                <th id="IndexCustom_Nissi_対応内容">内容</th>
                 <th id="IndexCustom_Nissi_対応日">対応日</th>
                
                 
@@ -79,77 +74,24 @@
                     @Html.HiddenFor(modelItem => item.日誌ID)
 
                     <td>
-                        <div class="text-center">
-                            @if (item.支援区分 == "相談")
-                            {
+                        <div class="text-center">                            
                                 <a class="custom-btn btn-1" href="@Url.Action("Details", "Nissi", new { 日誌ID = item.日誌ID })" )"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-
-                                @if (item.備考 != null)
-                                {
-                                    <div class="warning-text">備考あり要確認</div>
-                                }
-                            }
-                            else if (item.支援区分 == "個別支援")
-                            {
-                                <a class="custom-btn btn-1" href="@Url.Action("Details_Kobetu", "Nissi", new { 日誌ID = item.日誌ID })" )"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                                @if (item.備考 != null)
-                                {
-                                    <div class="warning-text">備考あり要確認</div>
-                                }
-                            }
-                            else if (item.支援区分 == "特別支援")
-                            {
-
-                                <a class="custom-btn btn-1" href="@Url.Action("Details_Tokubetu", "Nissi", new { 日誌ID = item.日誌ID })" )"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                                @if (item.備考 != null)
-                                {
-                                    <div class="warning-text">備考あり要確認</div>
-                                }
-                            }
-
+                            
                         </div>
                     </td>
                     <td id="IndexCustom_Nissi_顧客名">
                         @Html.DisplayFor(modelItem => item.顧客名)
                     </td>
                     <td id="IndexCustom_Nissi_支援区分">
-                        @Html.DisplayFor(modelItem => item.支援区分)
+                        @Html.DisplayFor(modelItem => item.日誌区分)
                     </td>
 
-                    @*<td id="IndexCustom_Nissi_担当名">
-                        @if(item.担当リスト != null){
-                            for(var idx=0; idx < item.担当リスト.Count(); idx++)
-                            {
-                                <div>@Html.DisplayFor(modelItem => item.担当リスト[idx].担当名)</div>
-                            }
-                        }     
-                    </td>*@
-                    @*<td id="IndexCustom_Nissi_相談者名">
-                        @if(item.相談者リスト != null){
-                            for(var idx=0; idx < item.相談者リスト.Count(); idx++)
-                            {
-                                <div>@Html.DisplayFor(modelItem => item.相談者リスト[idx].相談者名)</div>
-                            }
-                        }
-                    </td>*@
-                    <td id="IndexCustom_Nissi_相談手段">
-                        @Html.DisplayFor(modelItem => item.相談手段)
+                    <td id="IndexCustom_Nissi_担当名">                       
+                        @Html.DisplayFor(modelItem => item.担当名)
                     </td>
                     
-                    <td id="IndexCustom_Nissi_相談内容区分1">
-                        @Html.DisplayFor(modelItem => item.相談内容区分1)
-                    </td>
-                    <td id="IndexCustom_Nissi_相談内容区分2">
-                        @Html.DisplayFor(modelItem => item.相談内容区分2)
-                    </td>
-                    <td id="IndexCustom_Nissi_相談内容_運営状況">
-                        <p  class="omit_text" onclick="OmitTextSwitch()">@Html.DisplayFor(modelItem => item.相談内容_運営状況)</p>
-                    </td>
-                    <td id="IndexCustom_Nissi_相談内容_質問内容">
-                        <p  class="omit_text" onclick="OmitTextSwitch()">@Html.DisplayFor(modelItem => item.内容)</p>
-                    </td>
                     <td id="IndexCustom_Nissi_対応内容">
-                        <p class="omit_text" onclick="OmitTextSwitch()">@Html.DisplayFor(modelItem => item.対応内容)</p>
+                        <p class="omit_text" onclick="OmitTextSwitch()">@Html.DisplayFor(modelItem => item.内容)</p>
                     </td>
                    
                     <td id="IndexCustom_Nissi_対応日">

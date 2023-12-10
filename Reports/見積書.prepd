@@ -129,7 +129,6 @@
 <Text Name="Text40" X="80" Y="10" Width="50" Height="10" Text="御 見 積 書" Align="Center" VAlign="Middle" FontAttr="Font3" />
 <Text Name="見積番号" X="162" Y="4" Width="38" Height="6" Text="*見積番号*" Align="Right" VAlign="Middle" FontAttr="Font1" />
 <Text Name="作成日" X="162" Y="10" Width="38" Height="6" Text="*作成日*" Align="Right" VAlign="Middle" FontAttr="Font1" />
-<Text Name="オフィス" X="130" Y="64" Width="70" Height="6" Text="*オフィス*" Align="Left" VAlign="Middle" FontAttr="Font4" />
 <Text Name="TEL" X="130" Y="58" Width="70" Height="6" Text="*TEL*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="住所" X="130" Y="52" Width="70" Height="6" Text="*住所*" Align="Left" VAlign="Middle" FontAttr="Font5" />
 <Text Name="郵便番号" X="130" Y="46" Width="70" Height="6" Text="*郵便番号*" Align="Left" VAlign="Middle" FontAttr="Font5" />

@@ -27,7 +27,7 @@ namespace rehome.Controllers
             // appsettings.jsonファイルから接続文字列を取得
             _connectionString = configuration.GetConnectionString("DefaultConnection");
             _HouzinService = HouzinService;
-            _DropDownListService = DropDownListService; 
+            _DropDownListService = DropDownListService;
             _QuoteService = QuoteService;
         }
 

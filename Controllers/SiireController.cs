@@ -147,8 +147,10 @@ namespace rehome.Controllers
 
         public IActionResult Index()
         {
-
-            ViewBag.OperationMessage = TempData["Siire_Index"];
+            if (TempData["Siire_Index"]!=null)
+            {
+                ViewBag.OperationMessage = TempData["Siire_Index"];
+            }
 
             var viewModel = new SiireIndexModel();
             if (HttpContext.Session.GetObject<SiireSearchConditions>(SessionKeys.Siire_SEARCH_CONDITIONS) != null)

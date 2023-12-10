@@ -23,6 +23,8 @@ namespace rehome.Services
 
         void DeleteNyukin(int 見積ID, int 履歴番号);
 
+        int CountNyukin(int 見積ID, int 履歴番号);
+
     }
 
     public class NyukinService : ServiceBase, INyukinService
@@ -102,6 +104,22 @@ namespace rehome.Services
             }
         }
 
+        public int CountNyukin(int 見積ID, int 履歴番号)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var builder = new SqlBuilder();
+                var template = builder.AddTemplate("SELECT * FROM T_入金 " +
+                    "/**where**/");
+                builder.Where("見積ID = @見積ID and 履歴番号=@履歴番号 ", new { 見積ID = 見積ID, 履歴番号 = 履歴番号 });
+
+                int result = connection.Query<int>(template.RawSql, template.Parameters).Count();
+
+                return result;
+            }
+        }
+
 
         public int RegistNyukin(NyukinIndexModel model)
         {
@@ -113,53 +131,69 @@ namespace rehome.Services
                 {
                     try
                     {
-                        
+
                         for (var idx = 0; idx < model.Nyukins.Count(); idx++)
                         {
                             //多分前受金か入金額のnullチェックは変更になると思われる
-                            if (model.Nyukins[idx].入金日 != null && 
-                                (model.Nyukins[idx].入金額 != null || model.Nyukins[idx].前受金 != null))
+                            if (!model.Nyukins[idx].削除FLG)
                             {
-                                var merge = "MERGE INTO T_入金 AS target " +
-                            "USING(select @入金ID as 入金ID, " +
-                            "@見積ID as 見積ID, " +
-                            "@履歴番号 as 履歴番号, " +
-                            "@入金日 as 入金日," +
-                            "@入金額 as 入金額," +
-                            "@振込手数料 as 振込手数料," +
-                            "@振込名義 as 振込名義," +
-                            "@前受金 as 前受金," +
-                            "@入金種別 as 入金種別," +                            
-                            "@備考 as 備考)　AS source " +
-                            "ON target.入金ID = source.入金ID " +
-                            "WHEN MATCHED THEN UPDATE SET " +
-                            "見積ID = source.見積ID, 履歴番号 = source.履歴番号,入金日 = source.入金日,入金額 = source.入金額,振込手数料 = source.振込手数料, " +
-                            "振込名義 = source.振込名義, 前受金 = source.前受金,入金種別 = source.入金種別,登録日 = getdate()," +
-                            "備考 = source.備考 " +
-                            "WHEN NOT MATCHED THEN " +
-                            "INSERT(見積ID, 履歴番号, 入金日,入金額, 振込手数料," +
-                            " 振込名義, 前受金,入金種別, 登録日,備考) " +
-                            "VALUES(source.見積ID, source.履歴番号, source.入金日,source.入金額, source.振込手数料," +
-                            "source.振込名義, source.前受金,source.入金種別,getdate(),source.備考) " +
-                            "WHEN NOT MATCHED BY SOURCE THEN " +
-                            "DELETE; ";
+                                if (model.Nyukins[idx].入金日 != null &&
+                                (model.Nyukins[idx].入金額 != null || model.Nyukins[idx].前受金 != null))
+                                {
+                                    var merge = "MERGE INTO T_入金 AS target " +
+                                    "USING(select @入金ID as 入金ID, " +
+                                    "@見積ID as 見積ID, " +
+                                    "@履歴番号 as 履歴番号, " +
+                                    "@入金日 as 入金日," +
+                                    "@入金額 as 入金額," +
+                                    "@振込手数料 as 振込手数料," +
+                                    "@振込名義 as 振込名義," +
+                                    "@前受金 as 前受金," +
+                                    "@入金種別 as 入金種別," +
+                                    "@備考 as 備考)　AS source " +
+                                    "ON target.入金ID = source.入金ID " +
+                                    "WHEN MATCHED THEN UPDATE SET " +
+                                    "見積ID = source.見積ID, 履歴番号 = source.履歴番号,入金日 = source.入金日,入金額 = source.入金額,振込手数料 = source.振込手数料, " +
+                                    "振込名義 = source.振込名義, 前受金 = source.前受金,入金種別 = source.入金種別,登録日 = getdate()," +
+                                    "備考 = source.備考 " +
+                                    "WHEN NOT MATCHED THEN " +
+                                    "INSERT(見積ID, 履歴番号, 入金日,入金額, 振込手数料," +
+                                    " 振込名義, 前受金,入金種別, 登録日,備考) " +
+                                    "VALUES(source.見積ID, source.履歴番号, source.入金日,source.入金額, source.振込手数料," +
+                                    "source.振込名義, source.前受金,source.入金種別,getdate(),source.備考); ";
 
-                                result = connection.Execute(merge,
+
+                                    result = connection.Execute(merge,
+                                        new
+                                        {
+                                            入金ID = model.Nyukins[idx].入金ID,
+                                            見積ID = model.見積ID,
+                                            履歴番号 = model.履歴番号,
+                                            入金日 = model.Nyukins[idx].入金日,
+                                            入金額 = model.Nyukins[idx].入金額,
+                                            振込手数料 = model.Nyukins[idx].振込手数料,
+                                            振込名義 = model.Nyukins[idx].振込名義,
+                                            前受金 = model.Nyukins[idx].前受金,
+                                            入金種別 = model.Nyukins[idx].入金種別,
+                                            備考 = model.Nyukins[idx].備考
+                                        }
+                                        , tx);
+                                }
+                            }
+
+                            if (model.Nyukins[idx].削除FLG)
+                            {
+                                var queryDelete = "DELETE FROM T_入金 WHERE 見積ID=@見積ID and 履歴番号=@履歴番号 and 入金ID=@入金ID";
+
+                                var delete = connection.Execute(queryDelete,
                                     new
                                     {
-                                        入金ID= model.Nyukins[idx].入金ID,
-                                        見積ID= model.見積ID,
-                                        履歴番号=model.履歴番号,
-                                        入金日 = model.Nyukins[idx].入金日,
-                                        入金額 = model.Nyukins[idx].入金額,
-                                        振込手数料 = model.Nyukins[idx].振込手数料,
-                                        振込名義 = model.Nyukins[idx].振込名義,
-                                        前受金 = model.Nyukins[idx].前受金,
-                                        入金種別 = model.Nyukins[idx].入金種別,
-                                        備考 = model.Nyukins[idx].備考
-                                    }                                    
-                                    , tx);
+                                        入金ID = model.Nyukins[idx].入金ID,
+                                        見積ID = model.見積ID,
+                                        履歴番号 = model.履歴番号
+                                    }, tx);
                             }
+
                         }
                         //入金の登録後に見積テーブルの更新があるかもしれない。仕様変更のために残しておく
 
@@ -183,7 +217,7 @@ namespace rehome.Services
                     }
                     catch (Exception ex)
                     {
-                        
+
                         tx.Rollback();
                         return -1;
                     }

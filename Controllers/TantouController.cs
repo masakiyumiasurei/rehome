@@ -43,7 +43,7 @@ namespace rehome.Controllers
             viewModel.Mode = ViewMode.New;
             viewModel.Tantou = new 担当();
          //   viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
-            viewModel.担当営業所数 = 0;
+            //viewModel.担当営業所数 = 0;
             if (Request.Headers["Referer"].Any())
             {
                 viewModel.BackUrl = Request.Headers["Referer"].ToString();
@@ -62,15 +62,15 @@ namespace rehome.Controllers
             //viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.Mode = ViewMode.Edit;
             viewModel.Tantou = _TantouService.GetTantou(担当ID);
-            viewModel.担当営業所リスト = _TantouService.GetTantouOffice(担当ID);
-            if (viewModel.担当営業所リスト != null)
-            {
-                viewModel.担当営業所数 = viewModel.担当営業所リスト.Count();
-            }
-            else
-            {
-                viewModel.担当営業所数 = 0;
-            }
+            //viewModel.担当営業所リスト = _TantouService.GetTantouOffice(担当ID);
+            //if (viewModel.担当営業所リスト != null)
+            //{
+            //    viewModel.担当営業所数 = viewModel.担当営業所リスト.Count();
+            //}
+            //else
+            //{
+            //    viewModel.担当営業所数 = 0;
+            //}
             if (Request.Headers["Referer"].Any())
             {
                 viewModel.BackUrl = Request.Headers["Referer"].ToString();
@@ -123,7 +123,7 @@ namespace rehome.Controllers
                 // 登録成功したら担当画面再表示
                 viewModel.Tantou = _TantouService.RegistTantou(model);
                 model.Tantou.担当ID = viewModel.Tantou.担当ID;
-                _TantouService.RegistTantouOffice(model);
+                //_TantouService.RegistTantouOffice(model);
                 viewModel.Mode = model.Mode;
                 TempData["Tantou"] = String.Format("担当情報を登録しました");
                 ModelState.Clear();

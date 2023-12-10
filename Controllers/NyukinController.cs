@@ -46,6 +46,7 @@ namespace rehome.Controllers
             //入金入力ボックスを返す
             var viewModel = new NyukinIndexModel();
             viewModel.Nyukins = _NyukinService.GetNyukin(見積ID, 履歴番号);
+            viewModel.RowCount= _NyukinService.CountNyukin(見積ID, 履歴番号);
             viewModel.見積ID = 見積ID;
             viewModel.履歴番号 = 履歴番号;
             return PartialView("_Nyukindetail", viewModel);
@@ -57,7 +58,6 @@ namespace rehome.Controllers
             var viewModel = new NyukinIndexModel();
             try
             {
-
                 //viewModel.Nyukins.見積ID = _QuoteService.RegistQuote(model);
                 //viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
                 //viewModel.Mode = ViewMode.Edit;

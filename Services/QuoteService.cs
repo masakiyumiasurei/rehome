@@ -162,30 +162,30 @@ namespace rehome.Services
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
+                //connection.Open();
 
                 var model = new QuoteSalesStatusModel();
 
-                // ストアドプロシージャ名
-                var storedProcedure = "PrcSalesStatus";
-                // パラメータ
-                var param = new DynamicParameters();
-                param.Add("@period", period);
-                param.Add("@start_date", start_date);
-                param.Add("@end_date", end_date);
+                //// ストアドプロシージャ名
+                //var storedProcedure = "PrcSalesStatus";
+                //// パラメータ
+                //var param = new DynamicParameters();
+                //param.Add("@period", period);
+                //param.Add("@start_date", start_date);
+                //param.Add("@end_date", end_date);
 
-                // ストアドプロシージャの実行
+                //// ストアドプロシージャの実行
 
-                param.Add("@req", 1);
-                model.期オフィス別累計50 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
-                param.Add("@req", 2);
-                model.期オフィス別累計49 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
-                param.Add("@req", 3);
-                model.期間オフィス別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
-                param.Add("@req", 4);
-                model.期個人別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
-                param.Add("@req", 5);
-                model.期間個人別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+                //param.Add("@req", 1);
+                //model.期オフィス別累計50 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+                //param.Add("@req", 2);
+                //model.期オフィス別累計49 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+                //param.Add("@req", 3);
+                //model.期間オフィス別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+                //param.Add("@req", 4);
+                //model.期個人別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
+                //param.Add("@req", 5);
+                //model.期間個人別累計 = connection.Query<SalesStatus>(storedProcedure, param, commandType: CommandType.StoredProcedure).ToList();
 
                 return model;
             }
@@ -329,6 +329,17 @@ namespace rehome.Services
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID,顧客ID," +
+                             "顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
+                             "見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
+                             "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
+                             "入金日,入金締日,見積ステータス,取引年月日,種類,種類2) " +
+                        "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID,@顧客ID," +
+                        "@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
+                        "@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
+                        "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
+                        "@入金日,@入金締日,@見積ステータス,@取引年月日,@種類,@種類2)";
+
                 connection.Open();
                 using (var tx = connection.BeginTransaction())
                 {
@@ -349,18 +360,7 @@ namespace rehome.Services
                             model.Quote.履歴番号 = 1;
                             model.Quote.time_stamp = DateTime.Now;
                             処理後見積ID = model.Quote.見積ID;
-                            処理後履歴番号 = model.Quote.履歴番号;
-
-                            var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID,顧客ID," +
-                                "顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
-                                "見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
-                                "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
-                                "入金日,入金締日,見積ステータス,取引年月日) " +
-                           "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID,@顧客ID," +
-                           "@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
-                           "@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
-                           "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
-                           "@入金日,@入金締日,@見積ステータス,@取引年月日)";
+                            処理後履歴番号 = model.Quote.履歴番号;                                                        
 
                             var insert = connection.Execute(queryInsert, model.Quote, tx);
 
@@ -375,7 +375,8 @@ namespace rehome.Services
                                 "作成日=@作成日,完了予定日=@完了予定日,受注確度=@受注確度,time_stamp=@time_stamp, " +
                                 "非課税名称=@非課税名称,非課税額=@非課税額,値引名称=@値引名称,値引額=@値引額," +
                                 "備考=@備考,single=@single,入金種別=@入金種別,入金日=@入金日,入金締日=@入金締日," +
-                                "見積ステータス=@見積ステータス,取引年月日=@取引年月日 " +
+                                "見積ステータス=@見積ステータス,取引年月日=@取引年月日, " +
+                                "種類=@種類,種類2=@種類2 " +
                                 " WHERE 見積ID = @見積ID and 履歴番号 =@履歴番号";
 
                             var result = connection.Execute(queryUpdate, model.Quote, tx);
@@ -414,17 +415,6 @@ namespace rehome.Services
                             処理後見積ID = model.Quote.見積ID;
                             処理後履歴番号 = model.Quote.履歴番号;
 
-                            var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID," +
-                                "営業所ID,顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
-                                "理化学医療区分,見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
-                                "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
-                                "入金日,入金締日,見積ステータス,期,注文摘要,取引年月日) " +
-                                "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID," +
-                                "@営業所ID,@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
-                                "@理化学医療区分,@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
-                                "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
-                                "@入金日,@入金締日,@見積ステータス,@期,@注文摘要,@取引年月日)";
-
                             var insert = connection.Execute(queryInsert, model.Quote, tx);
 
                         }
@@ -441,18 +431,7 @@ namespace rehome.Services
                             model.Quote.time_stamp = DateTime.Now;
                             処理後見積ID = model.Quote.見積ID;
                             処理後履歴番号 = model.Quote.履歴番号;
-
-                            var queryInsert = "INSERT INTO T_見積 (見積ID,履歴番号,見積番号,最新FLG,担当ID,営業所ID," +
-                                "顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
-                                "理化学医療区分,見積金額,見込原価,見込利益,作成日,完了予定日,受注確度," +
-                                "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
-                                "入金日,入金締日,見積ステータス,期,注文摘要,取引年月日) " +
-                                "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID,@営業所ID," +
-                                "@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
-                                "@理化学医療区分,@見積金額,@見込原価,@見込利益,@作成日,@完了予定日,@受注確度," +
-                                "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
-                                "@入金日,@入金締日,@見積ステータス,@期,@注文摘要,@取引年月日)";
-
+                                                        
                             var insert = connection.Execute(queryInsert, model.Quote, tx);
 
                         }
@@ -486,7 +465,6 @@ namespace rehome.Services
 
                         if (model.Quote.見積分類表示順リスト != null)
                         {
-
                             List<見積分類表示順> BunruiList = model.Quote.見積分類表示順リスト.OrderBy(a => a.表示順).ToList();
 
                             for (var idx = 0; idx < BunruiList.Count(); idx++)
@@ -500,12 +478,9 @@ namespace rehome.Services
                                 var insertBunrui = connection.Execute(queryBunruiInsert, BunruiList[idx], tx);
                             }
                         }
-
                         
                         tx.Commit();
-
-                        return GetQuote(処理後見積ID, 処理後履歴番号);
-                        
+                        return GetQuote(処理後見積ID, 処理後履歴番号);                        
                     }
                     catch (Exception ex)
                     {

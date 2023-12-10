@@ -89,40 +89,11 @@ namespace rehome.Services
                 var Outer_builder = new SqlBuilder();
                 //var template = builder.AddTemplate(
                 var unionQuery = builder.AddTemplate(
-     "SELECT distinct * FROM " +
-     "(SELECT T_日誌.日誌ID, '相談' as 支援区分, 対応日, 相談内容区分1, 相談内容区分2, " +
-     "相談内容_質問内容 as 内容, B.顧客名, T_日誌.備考," +
-     "業務区分,  相談手段,相談内容_運営状況, 対応内容, " +
-     "'' as 入院基本料,'' as 事前調整事項,'' as 対応者立場,'' as 対応者関係,'' as 対応者姿勢,'' as 対応者関心,'' as 訪問成果,'' as 支援課題,'' as 支援提案,'' as 個別支援特記事項, " +
-     "'' as 取組状況区分,'' as 取組状況,'' as 労働時間課題,'' as 医療機関感想,'' as その他特記事項, " +
-     "'' as 実施場所,'' as 当日議題,'' as 資料医療機関,'' as 資料勤改センター,'' as 課題対応医療機関,'' as 課題対応勤改センター,'' as 支援反応,'' as 支援成果," +
-     "'' as PDCA,'' as step1,'' as step2,'' as step3,'' as step4,'' as step5,'' as step6,'' as step7,'' as 特別支援特記事項,'' as todo医療機関,'' as todo勤改センター,'' as 相談事項,'' as その他,'' as 次回訪問 " +
-     "FROM T_日誌  left join RT_顧客 B on T_日誌.顧客ID = b.顧客ID " +
-     "left join T_日誌担当 on T_日誌担当.日誌ID = T_日誌.日誌ID and T_日誌担当.支援区分 = '相談' " +
+     "SELECT distinct 日誌ID,  日誌区分, 対応日, 内容,  B.顧客名,氏名 as 担当名 FROM " +
+     "FROM RT_日誌  left join RT_顧客 B on RT_日誌.顧客ID = b.顧客ID " +
+     "left join T_担当 on T_担当.担当ID = T_日誌.担当ID " +
      " /**where**/ " +
-
-     "UNION SELECT T_個別支援日誌.日誌ID, '個別支援' as 支援区分, 対応日, 相談内容区分1, 相談内容区分2, " +
-     "訪問目的 as 内容, B.顧客名,T_個別支援日誌.備考," +
-     "'' as 業務区分,'' as 相談手段, '' as 相談内容_運営状況, '' as 対応内容, " +
-     "入院基本料,事前調整事項,対応者立場,対応者関係,対応者姿勢,対応者関心,訪問成果,支援課題,支援提案,特記事項 as 個別支援特記事項, " +
-     "取組状況区分,取組状況,労働時間課題,医療機関感想,その他特記事項, " +
-     "'' as 実施場所,'' as 当日議題,'' as 資料医療機関,'' as 資料勤改センター,'' as 課題対応医療機関,'' as 課題対応勤改センター,'' as 支援反応,'' as 支援成果," +
-     "'' as PDCA,'' as step1,'' as step2,'' as step3,'' as step4,'' as step5,'' as step6,'' as step7,'' as 特別支援特記事項,'' as todo医療機関,'' as todo勤改センター,'' as 相談事項,'' as その他,'' as 次回訪問 " +
-     "FROM T_個別支援日誌  left join RT_顧客 B on T_個別支援日誌.顧客ID = b.顧客ID " +
-     "left join T_日誌担当 on T_日誌担当.日誌ID = T_個別支援日誌.日誌ID and T_日誌担当.支援区分 = '個別支援' " +
-     " /**where**/ " +
-
-     "UNION SELECT T_特別支援日誌.日誌ID, '特別支援' as 支援区分, 対応日, 相談内容区分1, 相談内容区分2," +
-     "主な発言 as 内容, B.顧客名, T_特別支援日誌.備考," +
-     "'' as 業務区分,'' as 相談手段, '' as 相談内容_運営状況, '' as 対応内容, " +
-     "'' as 入院基本料,'' as 事前調整事項,'' as 対応者立場,'' as 対応者関係,'' as 対応者姿勢,'' as 対応者関心,'' as 訪問成果,'' as 支援課題,'' as 支援提案,'' as 個別支援特記事項, " +
-     "'' as 取組状況区分,'' as 取組状況,'' as 労働時間課題,'' as 医療機関感想,'' as その他特記事項, " +
-     "実施場所,当日議題,資料医療機関,資料勤改センター,課題対応医療機関,課題対応勤改センター,支援反応,支援成果," +
-     "PDCA,step1,step2,step3,step4,step5,step6,step7,特記事項 as 特別支援特記事項,todo医療機関,todo勤改センター,相談事項,その他,次回訪問 " +
-     "FROM T_特別支援日誌  left join RT_顧客 B on T_特別支援日誌.顧客ID = b.顧客ID " +
-     "left join T_日誌担当 on T_日誌担当.日誌ID = T_特別支援日誌.日誌ID and T_日誌担当.支援区分 = '特別支援' " +
-     " /**where**/ " +
-     ") as T ");//order by 対応日 desc");
+     "order by 対応日 desc");
                 
                 if (conditions != null)
                 {
@@ -152,7 +123,7 @@ namespace rehome.Services
                     }
                     if (!string.IsNullOrEmpty(conditions.対応内容))
                     {
-                        builder.Where("対応内容 like @対応内容", new { 対応内容 = $"%{conditions.対応内容}%" });
+                        builder.Where("内容 like @内容", new { 内容 = $"%{conditions.対応内容}%" });
                         //WhereStr += " and (対応内容 like '%" + conditions.対応内容 + "%')";
                         joukenflg = true;
                     }            
@@ -162,11 +133,7 @@ namespace rehome.Services
                         //WhereStr += " and (顧客名 like '%" + conditions.顧客名 + "%')";
                         joukenflg = true;
                     }
-                    if (!string.IsNullOrEmpty(conditions.相談内容区分))
-                    {
-                        builder.Where("(相談内容区分1 like @相談内容区分 or 相談内容区分2 like @相談内容区分)", new { 相談内容区分 = $"%{conditions.相談内容区分}%" });
-                        joukenflg = true;
-                    }
+                    
                 }
 
                 // ストアドプロシージャの実行
@@ -182,24 +149,7 @@ namespace rehome.Services
                     //builder.Where("支援区分= @支援区分", new { 支援区分 = conditions.支援区分 });
                     WhereStr += " and 支援区分='" + conditions.支援区分 + "'";
                 }
-                if (!string.IsNullOrEmpty(conditions.相談手段))
-                {
-                    //builder.Where("相談手段= @相談手段", new { 相談手段 = conditions.相談手段 });
-                    WhereStr += " and 相談手段='" + conditions.相談手段 + "'";
-                    joukenflg = true;
-                }
-                if (!string.IsNullOrEmpty(conditions.相談内容_運営状況))
-                {
-                    //builder.Where("相談内容_運営状況 like @相談内容_運営状況", new { 相談内容_運営状況 = $"%{conditions.相談内容_運営状況}%" });
-                    WhereStr += " and (相談内容_運営状況 like '%" + conditions.相談内容_運営状況 + "%')";
-                    joukenflg = true;
-                }
-                if (!string.IsNullOrEmpty(conditions.相談内容_質問内容))
-                {
-                    //builder.Where("相談内容_質問内容 like @相談内容_質問内容", new { 相談内容_質問内容 = $"%{conditions.相談内容_質問内容}%" });
-                    WhereStr += " and (相談内容_質問内容 like '%" + conditions.相談内容_質問内容 + "%')";
-                    joukenflg = true;
-                }
+                
                 var template = builder.AddTemplate(unionQuery.RawSql + " where 1=1 " + WhereStr + " order by 対応日 desc");
 
 
@@ -209,21 +159,10 @@ namespace rehome.Services
                     return nissiIndexModel;
                 }
 
-                nissiIndexModel.Nissis = connection.Query<日誌表示>(template.RawSql, template.Parameters).ToList();
+                nissiIndexModel.Nissis = connection.Query<日誌>(template.RawSql, template.Parameters).ToList();
 
 
-                if (nissiIndexModel.Nissis.Count() >0 )
-                {
-                    foreach (var item in nissiIndexModel.Nissis)
-                    {
-                        var builder2 = new SqlBuilder();
-                        var template2 = builder2.AddTemplate("SELECT T_担当.* FROM T_日誌担当 INNER JOIN T_担当 on T_日誌担当.担当ID = T_担当.担当ID /**where**/ order by T_日誌担当.担当ID");
-                        builder2.Where("T_日誌担当.日誌ID = @日誌ID and T_日誌担当.支援区分 = @支援区分", new { 日誌ID = item.日誌ID, 支援区分 = item.支援区分 });
-                        item.担当リスト = connection.Query<担当>(template2.RawSql, template2.Parameters).ToList();
-
-                    }
-                }
-                else
+                if (nissiIndexModel.Nissis.Count() ==0 )
                 {
                     nissiIndexModel.mess = "検索の対象が見つかりませんでした";
                 }

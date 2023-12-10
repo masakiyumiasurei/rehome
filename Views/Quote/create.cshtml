@@ -70,22 +70,22 @@
                         <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"  class="btn custom-btn btn-2 btn-size" >仕入注文</a>
                         @*<button type="submit" formaction="Chumon" formmethod="get" id="btnChumon" class="custom-btn btn-2 btn-size" >仕入注文</button>*@
                     </div>
-                    <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                    @*<div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Url.Action("作業完了報告書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
                         target="_blank" class="custom-btn btn-2 btn-size-min-inner">作業完了報告書</a>
-                    </div>
+                    </div>*@
                     @if (Model.Quote.single)
                     {
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Url.Action("請求書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" 
-                        target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick()">請求書</a>
+                        target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick(event)">請求書</a>
                     </div>
                     }
                     else
                     {
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Url.Action("請求書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
-                               target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick()">請求書</a>
+                               target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick(event)">請求書</a>
                     </div>
                     }
                 }
@@ -574,9 +574,9 @@
             }
         }
 
-        function SeikyuButtonClick() {
+        function SeikyuButtonClick(event) {
            // alert("見積ステータスを請求にして登録してないと、請求書は出せません。");
-            
+            event.preventDefault();
             return jQuery.ajax({
                 method: "GET",
                 url:  '@Url.Action("GetQuoteStatus", "Quote")',
@@ -589,12 +589,13 @@
             }).done(function (result) {
                 // 通信成功時の処理
                 if (result === '請求') {
-                    // 請求書発行
-                    return true;
+                    
+                    window.location.href = '@Url.Action("請求書_1枚印刷", "Quote", new { 見積ID = Model.Quote.見積ID, 履歴番号 = Model.Quote.履歴番号 })';
+                   // return true;
                 } else {
                     // 
-                    alert("見積ステータスを請求にして登録してないと、請求書は出せません。");
-                    return false;
+                    alert("見積ステータスを請求にして登録する必要があります。請求書は出せません。");
+                   // return false;
                 }              
 
             }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -608,7 +609,7 @@
             }).always(function (result) {
                 // 処理終了時
             })
-                .responseJSON;//Ajax実行返り値の中のresponseJSONにJSONデータが格納されている　
+               
         }
 
     </script>

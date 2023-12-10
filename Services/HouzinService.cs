@@ -58,7 +58,7 @@ namespace rehome.Services
                     {
                         var sql = "";
 
-                        sql = "UPDATE  T_法人 Set 社名=@社名,代表名=@代表名,オフィス=@オフィス";
+                        sql = "UPDATE  T_法人 Set 社名=@社名,代表名=@代表名,郵便番号=@郵便番号,住所=@住所,TEL=@TEL,FAX=@FAX";
 
                         var update = connection.Execute(sql, model.Houzin, tx);
                         tx.Commit();

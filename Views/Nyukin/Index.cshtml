@@ -14,7 +14,7 @@
     <h2>請求情報一覧</h2>
     <button type="button" class="custom-btn btn-1" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
 
-    <b@*utton type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Quote/_QuoteSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>*@
+    @*<button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Quote/_QuoteSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>*@
     <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
 
         <div id="Search-Area" name="hide" style="display: none;"><br>
@@ -59,13 +59,14 @@
                     @Html.HiddenFor(modelItem=>item.履歴番号)
                     <td>
                         <button type="button" name="Nyukin_search[@i]"
-                                class="btn-size-sm custom-btn btn-1" id="button" onclick="GetNyukin(this,@item.見積ID,@item.履歴番号);">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                                class="custom-btn btn-size-min btn-1" id="button" onclick="GetNyukin(this,@item.見積ID,@item.履歴番号);">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
                         </button>
                     </td>
                     <td>
                         <div class="text-center">
-                            <a href="@Url.Action("Create", "Quote", new { 見積ID = @item.見積ID, 履歴番号 = @item.履歴番号 })"  class="custom-btn btn-size-min btn-1"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                            <a href="@Url.Action("Create", "Quote", new { 見積ID = @item.見積ID, 履歴番号 = @item.履歴番号 })" 
+                            class="custom-btn btn-size-min btn-1"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                         </div>
                     </td>
                     <td>
@@ -83,7 +84,9 @@
                     </td>
 
                     <td>
+                        <span name="Nyukin[@i]">
                         @Html.DisplayFor(modelItem => item.入金合計)
+                        </span>                    
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.最終入金日)
@@ -106,42 +109,56 @@
 
             // Ajaxリクエストを送信
             $.ajax({
-                url: '/Nyukin/ajaxCreate', // NyukinコントローラーのCreateメソッドへのURL
+                url: '/Nyukin/ajaxCreate', // NyukinコントローラーのajaxCreateメソッドへのURL 入金消込DB登録
                 type: 'POST',
                 data: formData,
-                success: function (data) {
+            })
+                .done(function (data) {
                     // 成功時の処理
                     alert('入金消込情報を登録しました。');
-                   
-                    var sql = "SELECT SUM(入金額) AS 入金合計 " +
-                        "FROM T_入金 where 見積ID=" + data.見積ID + " and 履歴番号=" + data.履歴番号
-                        console.log('データ',data);
 
-                    //var result = ReturnRecordJsonSqlAll(sql);
+                    var sql = "SELECT SUM(入金額) AS 入金合計 " +
+                        "FROM T_入金 where 見積ID=" + data.見積ID + " and 履歴番号=" + data.履歴番号;
+                    console.log('データ', data);
+
+                    //合計金額を返す
                     ReturnRecordJsonSqlAll(sql)
                         .then(function (result) {
                             console.log('結果', result);
+                            console.log('入金合計', result[0].入金合計);
+
+                            var rowNumber = $('#set_rownumber').val(); //入力する行番号をセット
+                            
+                            $('[name="Nyukin[' + rowNumber + ']"]').text(result[0].入金合計);
                         })
                         .catch(function (error) {
                             console.error('エラー', error);
                         });
-                    console.log('結果', result);
-            $('[name="Nyukin[' + rowNumber + '].見積金額"]').val(result);
-
-
-
-
-                    
-                },
-                error: function (error) {
+                })
+                .fail(function (error) {
                     // エラー時の処理
                     alert('エラーが発生しました。');
-                   
-                }
-            }).always(function () {
-                // モーダルウィンドウを閉じる                
-                $('#Nyukin-modal').modal('hide');
-            });
+                })
+                .always(function () {
+                    // モーダルウィンドウを閉じる
+                    $('#Nyukin-modal').modal('hide');
+                });
+        }
+
+        function ReturnRecordJsonSqlAll(sql) {
+    var param = {
+        sql: sql
+                };
+    var url = '/ReturnRecordJson/ReturnRecordJsonSqlAll';
+
+    // Promiseを返す
+    return jQuery.ajax({
+        method: "POST",
+        url: url,
+        data: param,
+        dataType: 'json',
+        
+                    })
         }
 
         var rowNumber;
@@ -151,9 +168,9 @@
             var name = $(elm).attr('name');
             var row = name.substr(name.indexOf('[') + 1);
             row = row.substr(0, row.indexOf(']'));
-            rowNumber=row
+
             var url = "/Nyukin/Detail?見積ID=" + 見積ID + "&履歴番号=" + 履歴番号;
-            console.log(rowNumber);
+            console.log('入金行番号', row);
 
             jQuery.ajax({
                 method: "GET",
@@ -163,7 +180,7 @@
 
                 $("#ModalHere").html(data);
                 $("#ModalHere").find('.modal').modal('show');
-                $("#set_rownumber").val(rowNumber);
+                $("#set_rownumber").val(row);
                 $("#PopupCallURL").val(URL);
 
                 //console.log("URL : " + url);
@@ -181,20 +198,50 @@
             });
         }
 
-        //function GetNyukin() {
-        //    $('#QuoteSingle_cost').modal('show');
-        //}
+        
+        //明細追加
+        function addRow() {
+            console.log('start_addRow()');
+            var rowCount = $('#set_nyukinnumber').val() //入金明細の最大行
+            var bodyElement = document.getElementById("Nyukinbody");            
 
-        //function create_quote(理化学医療区分) {
-        //    var checkboxValue = document.querySelector('#single').checked;
-        //    var url = '/Quote/Create?理化学医療区分=' + 理化学医療区分 + '&single=' + checkboxValue;
-        //    window.location.href = url;
-        //}
+            var add_html = '<tr id="明細[' + rowCount + ']">' +
+                '<input name="Nyukins[' + rowCount + '].削除FLG" type="hidden" value="False">' +
+                '<td><button type="button" name="delete[' + rowCount + ']" onclick="deleteRow(' + rowCount + ');" class="btn btn-secondary btn-sm align_center" >' +
+                '<i class="fa-solid fa-trash-can"></i></button></td>' +               
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].入金日" value="" type="date" ></td>' +
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].入金額" onchange="calc();" type="number" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].振込手数料" type="number" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].振込名義" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].前受金" type="number" value=""></td>' +
+                '<td><select class="form-control form-control-sm" name="Nyukins[' + rowCount + '].入金種別"><option value=""></option>' +
+                '<option>現金</option>'+ 
+                '<option>カード</option>'+
+                '<option>小切手</option>'+
+                '<option>手形</option>'+
+                '</select></td > ' +
+                '<td><input class="form-control form-control-sm" name="Nyukins[' + rowCount + '].備考" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm enable-false" tabindex="-1"></td>' +
+                '</tr>'
 
-        //window.onload = function () {
-        //    var actv;
-        //    localStorage.setItem("myKey", "Nyukin");
-        //    $('#bar-Nyukin').addClass('active');
-        //}
+            $('#Nyukinbody').append(add_html);
+            rowCount++;
+            $('#set_nyukinnumber').val(rowCount);
+        }
+       
+
+        function deleteRow(idx) {
+
+            var result = confirm("入金情報を削除しますか？");
+            console.log(result)
+            if (result) {
+            console.log("before_del_flg: " + $('[name="Nyukins[' + idx + '].削除FLG"]').val());
+
+            $('[name="Nyukins[' + idx + '].削除FLG"]').val(true);            
+            var node = document.getElementById("明細[" + idx + "]");
+            node.style.display = 'none';
+            //calc();
+            }
+        }
     </script>
 }

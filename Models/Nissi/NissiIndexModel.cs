@@ -8,7 +8,9 @@ namespace rehome.Models
     public class NissiIndexModel
     {
         public NissiSearchConditions NissiSearchConditions { get; set; } = new NissiSearchConditions();
-        public IList<日誌表示>? Nissis { get; set; }
+        //public IList<日誌表示>? Nissis { get; set; }
+
+        public IList<日誌>? Nissis { get; set; }
         public IList<DropDownListModel>? 担当DropDownList { get; set; }        
 
         public int PageNo { get; set; }

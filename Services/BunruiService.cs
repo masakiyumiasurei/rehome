@@ -14,7 +14,6 @@ namespace rehome.Services
     {
         IList<分類> SearchBunruis(BunruiSearchConditions conditions);
         分類 GetBunrui(int BunruiID);
-
         void DeleteBunrui(int BunruiID);
         public 分類 RegistBunrui(BunruiDetailModel model);
     }
@@ -46,14 +45,7 @@ namespace rehome.Services
                     {
                         builder.Where("分類名 like @分類名", new { 分類名 = $"%{conditions.分類名}%" });
                     }
-
-                    if (!string.IsNullOrEmpty(conditions.理化学医療区分))
-                    {
-                        builder.Where("理化学医療区分 = @理化学医療区分", new { 理化学医療区分 = conditions.理化学医療区分 });
-                    }
-
-
-
+                    
                 }
 
                 var result = connection.Query<分類>(template.RawSql, template.Parameters);
@@ -109,7 +101,7 @@ namespace rehome.Services
                         var sql = "";
                         if (model.Mode != ViewMode.New)//更新モード
                         {
-                            sql = "UPDATE  T_分類 Set 分類名=@分類名,理化学医療区分=@理化学医療区分,ソート=@ソート where 分類ID = @分類ID";
+                            sql = "UPDATE  T_分類 Set 分類名=@分類名,ソート=@ソート where 分類ID = @分類ID";
 
                             var update = connection.Execute(sql, model.Bunrui, tx);
                             tx.Commit();
@@ -117,8 +109,8 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO T_分類 (分類名,理化学医療区分,ソート)" +
-                                " VALUES (@分類名,@理化学医療区分,@ソート)";
+                            sql = "INSERT INTO T_分類 (分類名,ソート)" +
+                                " VALUES (@分類名,@ソート)";
 
                             var insert = connection.Execute(sql, model.Bunrui, tx);
                             tx.Commit();

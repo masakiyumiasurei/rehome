@@ -62,21 +62,13 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <section class="typeA">
-
-                    <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" checked="checked">
-                    <label class="tabLabel" for="TAB-A01">顧客詳細</label>
-                    <div class="content">
-                        <p>
-                            @await Html.PartialAsync("_ClientEx")
-                        </p>
-                    </div>
-
+                    
                     @*@if (Model.Mode != ViewMode.New)
                     {*@
-                        <input class="tabRadio" id="TAB-A04" type="radio" name="TAB-A">
-                        <label class="tabLabel" for="TAB-A04">見積</label>
-                        <div class="content">
-                            <p>
+                    <input class="tabRadio" id="TAB-A04" type="radio" name="TAB-A" checked="checked">
+                    <label class="tabLabel" for="TAB-A04">見積</label>
+                    <div class="content">
+                        <p>
                             @await Html.PartialAsync("_ClientQuote")
                         </p>
                     </div>
@@ -93,11 +85,17 @@
                         </div>
                     @*}*@
 
+                    <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" >
+                    <label class="tabLabel" for="TAB-A01">顧客詳細</label>
+                    <div class="content">
+                        <p>
+                            @await Html.PartialAsync("_ClientEx")
+                        </p>
+                    </div>
+
                 </section>
             </div>
-
         </div>
-
     }
 
 }

@@ -26,7 +26,6 @@ namespace rehome.Models.DB
         public string? tel { get; set; }
 
         [StringLength(3)]
-        [Required(ErrorMessage = "{0}を入力してください。")]
         public string? イニシャル { get; set; }
 
         public string? new_pass { get; set; }

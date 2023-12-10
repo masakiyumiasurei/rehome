@@ -15,20 +15,17 @@
         new SelectList(Model.担当DropDownList, "Value", "Display"),  "選択してください", 
         new { @class = "form-control",@onchange="Submit()",@id="担当ID"} )
 </div>
-<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_支援区分">
+@*<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_支援区分">
     <label for="支援区分" class="surround-label">支援区分</label>
     @Html.DropDownListFor(m => m.NissiSearchConditions.支援区分, 日誌表示.支援区分items(),  "選択してください",  new { @class = "form-control"/*,@onchange="Submit()"*/} )
 </div>
-@*<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start surround-box" id="SearchCustom_Nissi_支援種別">
-    <label for="支援種別" class="surround-label">支援種別</label>
-    @Html.DropDownListFor(m => m.NissiSearchConditions.支援種別, 日誌.支援種別items(),  "選択してください",  new { @class = "form-control",@onchange="Submit()"} )
-</div>*@
+
         
          
 <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_相談手段">
     <label for="相談手段" class="surround-label">相談手段</label>
     @Html.TextBoxFor(m => m.NissiSearchConditions.相談手段, new { data_options = 日誌リスト.相談手段items ,@class="free_dropdown form-control"/*,@onchange="Submit()"*/,@id="相談手段" })
-</div>
+</div>*@
 
 <div class="col-lg-3 col-md-5 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_対応内容">
     <label for="対応内容" class="surround-label">対応内容</label>
@@ -47,14 +44,7 @@
     <label for="顧客名" class="surround-label">顧客名</label>
     @Html.TextBoxFor(m=>m.NissiSearchConditions.顧客名, new {@class = "form-control"/*,@onchange="Submit()"*/ })
 </div>
-<div class="col-lg-3 col-md-5 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_相談内容_運営状況">
-    <label for="相談内容_運営状況" class="surround-label">相談経緯(背景)</label>
-    @Html.TextBoxFor(m=>m.NissiSearchConditions.相談内容_運営状況, new {@class = "form-control"/*,@onchange="Submit()"*/ })
-</div>
-<div class="col-lg-3 col-md-5 col-sm-12 col-xs-12 align-items-start surround-box" id="SearchCustom_Nissi_相談内容_質問内容">
-    <label for="相談内容_質問内容" class="surround-label">相談内容(質問内容)</label>
-    @Html.TextBoxFor(m=>m.NissiSearchConditions.相談内容_質問内容, new {@class = "form-control"/*,@onchange="Submit()"*/ })
-</div>
+
                 <div class="row justify-content-md-center">
                     <div class="col-md-4">
                         <button class="custom-btn btn-1" type="submit">検索</button>

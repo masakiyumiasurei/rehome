@@ -40,13 +40,11 @@ namespace rehome.Services
                                             "対応日 as [End], " +
                                             " '/Client/Detail?顧客ID=' + convert(nvarchar,顧客ID)  as url " +
                                             "from " +
-                                             "((SELECT 日誌ID,対応日,B.顧客ID,顧客名 FROM T_日誌  " +
-                                             "left join RT_顧客 B on T_日誌.顧客ID = B.顧客ID　/**where**/) " +
-                                             "UNION (SELECT 日誌ID,対応日,B.顧客ID,顧客名 FROM T_個別支援日誌  " +
-                                             "left join RT_顧客 B on T_個別支援日誌.顧客ID = B.顧客ID  /**where**/ ) " +
-                                             "UNION (SELECT 日誌ID,対応日,B.顧客ID,顧客名 FROM T_特別支援日誌 " +
-                                             "left join RT_顧客 B on T_特別支援日誌.顧客ID = B.顧客ID  /**where**/ )) as T " +
-                                             "group by 顧客名,対応日,顧客ID ");
+                                             "(SELECT 対応日,RT_日誌.顧客ID,顧客名 FROM RT_日誌  " +
+                                             "left join RT_顧客 B on RT_日誌.顧客ID = B.顧客ID　/**where**/ " +
+                                             "group by 顧客名, 対応日, RT_日誌.顧客ID) " +
+                                             " as T ");
+                                             
                 builder.Where("対応日 between @start and @end", new { start = start, end= end });
 
                 var result = connection.Query<Event>(template.RawSql, template.Parameters).ToList();                

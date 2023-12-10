@@ -50,7 +50,8 @@ namespace rehome.Models.DB
         
         public string? 備考 { get; set; }
 
-  
+        public bool 削除FLG { get; set; } = false;
+
         //public static IList<SelectListItem> 入金種別items()
         //{
         //    var tmplist = new List<SelectListItem>();
@@ -60,7 +61,7 @@ namespace rehome.Models.DB
         //    tmplist.Add(new SelectListItem() { Text = "手形", Value = "手形" });
         //    return tmplist;
         //}
- 
+
         public static IList<SelectListItem> 見積ステータスitems()
         {
             var tmplist = new List<SelectListItem>();

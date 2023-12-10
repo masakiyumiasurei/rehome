@@ -10,6 +10,8 @@ using rehome.Models.DB;
 using System.Security.Claims;
 using Pao.Reports;
 using rehome.Public;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 //using System.Management;
 
 namespace rehome.Controllers
@@ -26,8 +28,11 @@ namespace rehome.Controllers
         private IChumonService _ChumonService;
         private IOfficeService _OfficeService;
         private ITantouService _TantouService;
+        private IClientService _ClientService;
 
-        public QuoteController(ILogger<QuoteController> logger, IConfiguration configuration, IQuoteService QuoteService, IDropDownListService dropDownListService, IHouzinService HouzinService,IChumonService ChumonService, IOfficeService OfficeService,ITantouService TantouService)
+        public QuoteController(ILogger<QuoteController> logger, IConfiguration configuration, IQuoteService QuoteService, 
+            IDropDownListService dropDownListService, IHouzinService HouzinService,IChumonService ChumonService,
+            IOfficeService OfficeService,ITantouService TantouService,IClientService ClientService)
         {
             _logger = logger;
             // appsettings.jsonファイルから接続文字列を取得
@@ -38,18 +43,26 @@ namespace rehome.Controllers
             _ChumonService = ChumonService;
             _OfficeService = OfficeService;
             _TantouService = TantouService;
+            _ClientService = ClientService;
         }
 
 
         [HttpGet]
-        public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID )
+        public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID ,string? BackUrl)
         {
             using var connection = new SqlConnection(_connectionString);
 
             ViewBag.OperationMessage = (string)TempData["Quote"];
 
             var model = new QuoteCreateModel();
-            if (Request.Headers["Referer"].Any())
+
+            //postした時にRefererヘッダーが変わらない様に
+            
+            if (BackUrl != null)
+            {
+                model.BackUrl = BackUrl;
+            }
+            else if (Request.Headers["Referer"].Any())
             {
                 model.BackUrl = Request.Headers["Referer"].ToString();
             }
@@ -59,7 +72,14 @@ namespace rehome.Controllers
                 
                 model.Quote = new 見積();
                 model.Quote.single = single;
-                model.Quote.顧客ID = (int)顧客ID;
+
+                if (顧客ID != null)
+                {
+                    FunctionClass fn = new FunctionClass(_connectionString);
+                    model.Quote.顧客ID = (int)顧客ID;
+                    model.Quote.顧客名 = fn.GetValue<string>("select 顧客名 from RT_顧客 where 顧客ID=" + 顧客ID);
+                }
+
                 model.Mode = ViewMode.New;
                 //model.Quote.期 = _QuoteService.GetPeriod(DateTime.Now);
                 //開発中コメント
@@ -74,8 +94,8 @@ namespace rehome.Controllers
                 
                 model.Mode = ViewMode.Edit;
                 model.Quote = _QuoteService.GetQuote(見積ID ?? -1, 履歴番号 ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
-               
-                model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
+ 
+                 model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
                
 
                 if (model.Quote != null)
@@ -129,7 +149,8 @@ namespace rehome.Controllers
                 TempData["Quote"] = String.Format("見積情報を登録しました");
                 ModelState.Clear();
                 viewModel.BackUrl = model.BackUrl;
-                return RedirectToAction("Create", "Quote", new { 見積ID = viewModel.Quote.見積ID, 履歴番号 = viewModel.Quote.履歴番号 });
+                return RedirectToAction("Create", "Quote", new { 見積ID = viewModel.Quote.見積ID,
+                    履歴番号 = viewModel.Quote.履歴番号, BackUrl= viewModel.BackUrl });
             }
             catch (Exception ex)
             {
@@ -266,15 +287,15 @@ namespace rehome.Controllers
 
             var viewModel = new QuoteSalesStatusModel();
 
-            var 期 = _QuoteService.GetPeriod(DateTime.Now);
-            DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).Date;
-            DateTime endDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).Date;
+            //var 期 = _QuoteService.GetPeriod(DateTime.Now);
+            //DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).Date;
+            //DateTime endDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).Date;
 
-            viewModel = _QuoteService.SearchSalesStatus(period ?? 期, start_date ?? firstDayOfMonth, end_date ?? endDayOfMonth);
+            //viewModel = _QuoteService.SearchSalesStatus(period ?? 期, start_date ?? firstDayOfMonth, end_date ?? endDayOfMonth);
 
-            viewModel.start_date = start_date ?? firstDayOfMonth;            
-            viewModel.end_date = end_date ?? endDayOfMonth;
-            viewModel.期 = period ?? 期;
+            //viewModel.start_date = start_date ?? firstDayOfMonth;            
+            //viewModel.end_date = end_date ?? endDayOfMonth;
+            //viewModel.期 = period ?? 期;
 
             return View("SalesStatus", viewModel);
         }
@@ -397,7 +418,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+            //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -583,7 +604,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+            //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -719,15 +740,14 @@ namespace rehome.Controllers
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
                 //項目がNULLか物販以外なら作業完了日、物販なら納品日
-                paoRep.Write("取引年月日", Quote.項目 == null || Quote.項目 != "物販" ? 
-                    "作業完了日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日) 
-                    : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
+                paoRep.Write("取引年月日", string.Format("{0:yyyy年M月d日}", Quote.取引年月日)); 
+                    
 
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+             //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -949,7 +969,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+               // paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -1234,7 +1254,7 @@ namespace rehome.Controllers
             paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
             paoRep.Write("住所", Houzin.住所 ?? " ");
             paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-            paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+         //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
 
             paoRep.PageEnd();

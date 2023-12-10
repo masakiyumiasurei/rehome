@@ -41,7 +41,7 @@ namespace rehome.Services
                 string WhereStr = " where 1=1 ";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_担当.*, FROM T_担当 " +
+                var template = builder.AddTemplate("SELECT T_担当.* FROM T_担当 " +
                     "  /**where**/ /**orderby**/ ");
 
                 if (conditions != null)

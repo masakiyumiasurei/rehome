@@ -47,11 +47,37 @@ namespace rehome.Models.DB
         public static IList<SelectListItem> 項目items()
         {
             var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "移設", Value = "移設" });
-            tmplist.Add(new SelectListItem() { Text = "工事", Value = "工事" });
-            tmplist.Add(new SelectListItem() { Text = "物販", Value = "物販" });
+            tmplist.Add(new SelectListItem() { Text = "一般", Value = "一般" });
+            tmplist.Add(new SelectListItem() { Text = "JS", Value = "JS" });
+            tmplist.Add(new SelectListItem() { Text = "網戸", Value = "網戸" });
+            tmplist.Add(new SelectListItem() { Text = "インプラス", Value = "インプラス" });
+            tmplist.Add(new SelectListItem() { Text = "住改", Value = "住改" });
             return tmplist;
         }
+
+        public string? 種類 { get; set; }
+
+        public static IList<SelectListItem> 種類items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "内装", Value = "内装" });
+            tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
+            
+            return tmplist;
+        }
+
+        public string? 種類2 { get; set; }
+
+        public static IList<SelectListItem> 種類2items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "空屋", Value = "空屋" });
+            tmplist.Add(new SelectListItem() { Text = "分譲", Value = "分譲" });
+            tmplist.Add(new SelectListItem() { Text = "経常", Value = "経常" });
+            tmplist.Add(new SelectListItem() { Text = "小修理", Value = "小修理" });
+            return tmplist;
+        }
+
 
         public string? 見積区分 { get; set; }
         public static IList<SelectListItem> 見積区分items()
@@ -125,7 +151,7 @@ namespace rehome.Models.DB
         [Column(TypeName = "date")]
         public DateTime? 完了予定日 { get; set; }
 
-        [Required(ErrorMessage = "{0}を入力してください。")]
+        
         public string? 受注確度 { get; set; }
         public static IList<SelectListItem> 受注確度items()
         {

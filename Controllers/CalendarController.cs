@@ -33,12 +33,9 @@ namespace rehome.Controllers
             {
                 connection.Open();
                 IList<Event> events ;
-                events = _CalendarService.GetCalendar(start, end);
-
-                
+                events = _CalendarService.GetCalendar(start, end);                
 
                 return new JsonResult(events);
-
             }
         }
     

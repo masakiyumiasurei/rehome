@@ -36,44 +36,37 @@ function ReturnRecordJson(Table, WhereSql) {
         .responseJSON[0];//Ajax実行返り値の中のresponseJSONにJSONデータが格納されている　1レコードのみ返しているので[0]を指定する
 }
 
-function ReturnRecordJsonSqlAll(sql) {
-    var param = {
-        sql: sql
-    };
-    var url = '/ReturnRecordJson/ReturnRecordJsonSqlAll';
+//function ReturnRecordJsonSqlAll(sql) {
+//    var param = {
+//        sql: sql
+//    };
+//    var url = '/ReturnRecordJson/ReturnRecordJsonSqlAll';
 
-    // Promiseを返す
-    return new Promise(function (resolve, reject) {
-        jQuery.ajax({
-            method: "POST",
-            url: url,
-            data: param,
-            dataType: 'json',
-        })
-            .done(function (data) {
-                // 通信成功時の処理
-                var data_stringify = JSON.stringify(data);
-                console.log("data_stringify: " + data_stringify);
-
-                // responseJSONが存在するか確認してから処理
-                if (data && data.length > 0 && data[0].hasOwnProperty('responseJSON')) {
-                    resolve(data[0].responseJSON);
-                } else {
-                    console.log('data structure:', data); 
-                    reject('responseJSON is not available.');
-                }
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                // 通信失敗時の処理
-                console.log("ajax通信に失敗しました");
-                console.log("jqXHR: " + jqXHR.status);
-                console.log("textStatus: " + textStatus);
-                console.log("errorThrown: " + errorThrown.message);
-                console.log("URL: " + url);
-
-                reject(errorThrown);
-            });
-    });
-}
+//    // Promiseを返す
+//    return jQuery.ajax({
+//        method: "POST",
+//        url: url,
+//        data: param,
+//        dataType: 'json',
+        
+//    }).done(function (data) {
+//        // 通信成功時の処理
+//        var data_stringify = JSON.stringify(data);
+//        console.log("data_stringify : " + data_stringify);
+//        console.log("URL : " + url);
+//        console.log("data : " + data);
+//    }).fail(function (jqXHR, textStatus, errorThrown) {
+//        // 通信失敗時の処理
+//        console.log("ajax通信に失敗しました");
+//        console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+//        console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+//        console.log("errorThrown    : " + errorThrown.message); // 例外情報
+//        console.log("URL            : " + url);
+//        return null;
+//    }).always(function (data) {
+//        // 処理終了時
+//    })
+//        .responseJSON[0];
+//}
 
 

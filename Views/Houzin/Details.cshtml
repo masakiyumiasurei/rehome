@@ -32,20 +32,17 @@
     </div>
     <hr />
 
-
     <div class="form-group">
         <div class="col-xs-offset-1 col-xs-11">
             <div class="row">
                 @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
                 {
                     <div class="col-5 col-sm-2">
-                        <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
+                        <button type="submit" formaction="Details" formmethod="post"
+                            id="btnSubmit"  class="custom-btn btn-1">登録</button>
                     </div>
                 }
-
             </div>
-            
-
         </div>
     </div>
     <br>
