@@ -109,7 +109,10 @@ namespace rehome.Services
                         var sql = "";
                         if (model.Mode != ViewMode.New)//更新モード
                         {
-                            sql = "UPDATE  T_仕入先 Set 仕入先名=@仕入先名,郵便番号=@郵便番号,住所=@住所,肩書=@肩書,TEL=@TEL,FAX=@FAX where 仕入先ID = @仕入先ID";
+                            sql = "UPDATE  T_仕入先 Set 仕入先名=@仕入先名,郵便番号=@郵便番号,住所=@住所,肩書=@肩書,TEL=@TEL,FAX=@FAX," +
+                                "銀行名=@銀行名,支店名=@支店名,口座区分=@口座区分,口座番号=@口座番号," +
+                                "口座名義=@口座名義,インボイス番号=@インボイス番号,業種=@業種,支払日=@支払日,分類=@分類 "+
+                                " where 仕入先ID = @仕入先ID";
 
                             var update = connection.Execute(sql, model.Siire, tx);
                             tx.Commit();
@@ -117,8 +120,10 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO T_仕入先 (仕入先名,郵便番号,住所,肩書,TEL,FAX)" +
-                                " VALUES (@仕入先名,@郵便番号,@住所,@肩書,@TEL,@FAX)";
+                            sql = "INSERT INTO T_仕入先 (仕入先名,郵便番号,住所,肩書,TEL,FAX," +
+                                "銀行名,支店名,口座区分,口座番号,口座名義,インボイス番号,業種,支払日,分類) " +
+                                " VALUES (@仕入先名,@郵便番号,@住所,@肩書,@TEL,@FAX," +
+                                "@銀行名,@支店名,@口座区分,@口座番号,@口座名義,@インボイス番号,@業種,@支払日,@分類)";
 
                             var insert = connection.Execute(sql, model.Siire, tx);
                             tx.Commit();

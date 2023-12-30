@@ -1,0 +1,62 @@
+﻿
+ 
+@{
+    ViewData["Title"] = "インポート";
+}
+ 
+<h1>ファイル取込と出力</h1>
+<p>@TempData["import"]</p>
+@using (Html.BeginForm("ImportFile", "Import", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="input_file" id="fileInput" />
+    <input type="submit" value="インポート" class="custom-btn btn-1" />   
+}
+<a href="/Import/ExportCSV" class="custom-btn btn-1"> CSV出力</a>
+@*<button onclick="uploadFile()">ファイルをアップロード</button>*@
+
+@section Scripts {
+<script type="text/javascript">
+
+        function uploadFile() {
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            console.log("uplode")
+            if (!file) {
+                alert('ファイルを選択してください。');
+                return;
+            }
+
+            var chunkSize = 1024 * 1024; // チャンクサイズを1MBに設定
+            var offset = 0;
+
+            while (offset < file.size) {
+                var chunk = file.slice(offset, offset + chunkSize);
+                offset += chunkSize;
+
+                var formData = new FormData();
+                formData.append('fileChunk', chunk);
+                formData.append('fileName', file.name);
+                formData.append('totalSize', file.size);
+
+                sendChunk(formData);
+            }
+        }
+
+        function sendChunk(formData) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Import/ImportFileChunk', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log('チャンクをアップロードしました。');
+                } else {
+                    console.error('チャンクのアップロードに失敗しました。');
+                }
+            };
+
+            xhr.send(formData);
+        }
+
+
+</script>
+}

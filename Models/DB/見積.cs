@@ -49,6 +49,7 @@ namespace rehome.Models.DB
             var tmplist = new List<SelectListItem>();
             tmplist.Add(new SelectListItem() { Text = "一般", Value = "一般" });
             tmplist.Add(new SelectListItem() { Text = "JS", Value = "JS" });
+            tmplist.Add(new SelectListItem() { Text = "JS(外注)", Value = "JS(外注)" });
             tmplist.Add(new SelectListItem() { Text = "網戸", Value = "網戸" });
             tmplist.Add(new SelectListItem() { Text = "インプラス", Value = "インプラス" });
             tmplist.Add(new SelectListItem() { Text = "住改", Value = "住改" });
@@ -60,6 +61,7 @@ namespace rehome.Models.DB
         public static IList<SelectListItem> 種類items()
         {
             var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "建築", Value = "建築" });
             tmplist.Add(new SelectListItem() { Text = "内装", Value = "内装" });
             tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
             
@@ -232,6 +234,8 @@ namespace rehome.Models.DB
         public int? 入金合計 { get; set; }
 
         public string? 注文摘要 { get; set; }
+
+        public string? 納付状況 { get; set; }
 
         public List<見積明細>? 見積明細リスト { get; set; }
 

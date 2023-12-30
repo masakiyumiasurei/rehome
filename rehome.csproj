@@ -24,8 +24,10 @@
     <None Remove="Reports\完了報告書.prepd" />
     <None Remove="Reports\注文書.prepd" />
     <None Remove="Reports\見積明細書.prepd" />
+    <None Remove="Reports\見積明細書_.prepd" />
     <None Remove="Reports\見積書.prepd" />
     <None Remove="Reports\請求書.prepd" />
+    <None Remove="Reports\請求書_.prepd" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,10 +45,16 @@
     <Content Include="Reports\注文書.prepd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Reports\見積明細書_.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Reports\見積明細書.prepd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\請求書.prepd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\請求書_.prepd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\見積書.prepd">
@@ -63,6 +71,7 @@
     <None Include="Views\Client\_ClientNissi.cshtml" />
     <None Include="Views\Client\_ClientSearch.cshtml" />
     <None Include="Views\Client\_ClientQuote.cshtml" />
+    <None Include="Views\Import\index.cshtml" />
     <None Include="Views\Nissi\Details.cshtml" />
     <None Include="Views\Nissi\Index.cshtml" />
     <None Include="Views\Nissi\Output.cshtml" />

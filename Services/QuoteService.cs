@@ -448,9 +448,9 @@ namespace rehome.Services
                                 if (MeisaiList[idx].削除FLG == false && (MeisaiList[idx].商品名 != null || (MeisaiList[idx].数量 != null && MeisaiList[idx].数量 != 0) || (MeisaiList[idx].金額 != null && MeisaiList[idx].金額 != 0) || (MeisaiList[idx].単価 != null && MeisaiList[idx].単価 != 0) || MeisaiList[idx].単位 != null))
                                 {
                                     var queryDetailInsert = "INSERT INTO T_見積明細 (見積ID,履歴番号,分類ID,分類名," +
-                                        "連番,商品名,数量,単位,単価,金額,見込原価,備考) " +
+                                        "連番,商品名,数量,単位,単価,金額,見込原価,備考,非計上FLG,寸法) " +
                                         "                                    VALUES (@見積ID,@履歴番号,@分類ID,@分類名," +
-                                        "@連番,@商品名,@数量,@単位,@単価,@金額,@見込原価,@備考)";
+                                        "@連番,@商品名,@数量,@単位,@単価,@金額,@見込原価,@備考,@非計上FLG,@寸法)";
 
                                     MeisaiList[idx].見積ID = model.Quote.見積ID;
                                     MeisaiList[idx].履歴番号 = model.Quote.履歴番号;

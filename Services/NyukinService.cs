@@ -45,8 +45,12 @@ namespace rehome.Services
                 string WhereStr = "";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_見積.* , T.入金合計, T.最終入金日 " +
-                    "FROM T_見積 LEFT JOIN (SELECT 見積ID,履歴番号,SUM(入金額) AS 入金合計 ,max(入金日) as 最終入金日 " +
+                var template = builder.AddTemplate("SELECT T_見積.* , isnull(T.入金合計,0) as 入金合計, T.最終入金日, " +
+                    "case when 見積金額-isnull(入金合計,0)>0 then '未納' " +
+                    " else '' end as 納付状況 " +
+                    "FROM T_見積 " +
+                    "LEFT JOIN (SELECT 見積ID,履歴番号,isnull(SUM(入金額),0) + isnull(SUM(振込手数料),0) + isnull(SUM(前受金),0) AS 入金合計 ," +
+                    "max(入金日) as 最終入金日 " +
                     "FROM T_入金 GROUP BY 見積ID,履歴番号) AS T " +
                     "ON T_見積.見積ID = T.見積ID and T_見積.履歴番号 = T.履歴番号 " +
                     " /**where**/ /**orderby**/");

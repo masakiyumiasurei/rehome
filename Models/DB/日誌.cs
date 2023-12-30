@@ -17,6 +17,8 @@ namespace rehome.Models.DB
         [StringLength(2000)]
         public string? 内容 { get; set; }
 
+        public string? カレンダー表示 { get; set; }
+
         public string? 日誌区分 { get; set; }
 
         public string? 担当名 { get; set; }

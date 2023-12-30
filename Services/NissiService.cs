@@ -22,19 +22,9 @@ namespace rehome.Services
         int RegistNissi(NissiDetailModel model);
                 
         void DeleteNissi(int NissiID);
-
-      //  NissiKobetuDetailModel GetNissiKobetu(int? NissiID);
-       // int RegistNissiKobetu(NissiKobetuDetailModel model);
-
-     //   void RegistNissiKobetuSodan(NissiKobetuDetailModel model);
-      //  void RegistNissiKobetuTantou(NissiKobetuDetailModel model);
+     
         void DeleteNissiKobetu(int NissiID);
-
-       // NissiTokubetuDetailModel GetNissiTokubetu(int? NissiID);
-       // int RegistNissiTokubetu(NissiTokubetuDetailModel model);
-
-       // void RegistNissiTokubetuSodan(NissiTokubetuDetailModel model);
-       // void RegistNissiTokubetuTantou(NissiTokubetuDetailModel model);
+       
         void DeleteNissiTokubetu(int NissiID);
     }
 
@@ -207,7 +197,7 @@ namespace rehome.Services
                         {
                             sql = "UPDATE  RT_日誌 Set 顧客ID=@顧客ID,日誌区分=@日誌区分," +
                                   "対応日=@対応日,登録日=@登録日,内容=@内容," +
-                                  "担当ID=@担当ID " +
+                                  "担当ID=@担当ID,カレンダー表示=@カレンダー表示 " +
                                   " WHERE 日誌ID = @日誌ID";
 
                             var update = connection.Execute(sql, model.Nissi, tx);
@@ -216,8 +206,8 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO RT_日誌 (顧客ID,日誌区分,対応日,登録日,内容,担当ID)" +
-                                " VALUES (@顧客ID,@日誌区分,@対応日,@登録日,@内容,@担当ID)";
+                            sql = "INSERT INTO RT_日誌 (顧客ID,日誌区分,対応日,登録日,内容,担当ID,カレンダー表示)" +
+                                " VALUES (@顧客ID,@日誌区分,@対応日,@登録日,@内容,@担当ID,@カレンダー表示)";
 
                             var insert = connection.Execute(sql, model.Nissi, tx);
                             tx.Commit();

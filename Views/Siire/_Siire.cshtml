@@ -1,76 +1,88 @@
 ﻿@using rehome.Enums;
 @using rehome.Models.DB;
 @model SiireDetailModel
+
+
+@Html.HiddenFor(m => m.Siire.仕入先ID)
+
 <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">仕入先名</label>
+        @Html.TextBoxFor(m => m.Siire.仕入先名, new { @class = "form-control form-control-sm" })
+    </div>
 
-    @Html.HiddenFor(m => m.Siire.仕入先ID)
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">郵便番号</label>
+        @Html.TextBoxFor(m => m.Siire.郵便番号,
+        new { @class = "form-control form-control-sm" , onKeyUp="AjaxZip3.zip2addr(this,'','Siire.住所','Siire.住所');" ,@id="zipcode" })
+    </div>
 
-            <div class="row">
-             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">仕入先名</label>
-                    @Html.TextBoxFor(m => m.Siire.仕入先名, new { @class = "form-control" })
-              </div>
-              </div></div>
-
-
-               <div class="row">
-               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">郵便番号</label>
-                    @Html.TextBoxFor(m => m.Siire.郵便番号, 
-                        new { @class = "form-control" , onKeyUp="AjaxZip3.zip2addr(this,'','Siire.住所','Siire.住所');" ,@id="zipcode" })
-                </div></div></div>
-
-            <div class="row">
-             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">住所</label>
-                    @Html.TextBoxFor(m => m.Siire.住所, new { @class = "form-control" ,@id="address"})
-            </div></div>
-            </div>
-
-
-             <div class="row">
-             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">肩書</label>
-                    @Html.TextBoxFor(m => m.Siire.肩書, new { @class = "form-control" })
-
-                </div>
-               </div></div>
-
-                <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">TEL</label>
-                    @Html.TextBoxFor(m => m.Siire.TEL, new { @class = "form-control", @type="tel"})
-            </div></div>
-            </div>
-
-
-             <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">FAX</label>
-                    @Html.TextBoxFor(m => m.Siire.FAX, new { @class = "form-control", @type="tel"})
-            </div></div>
-            </div>
-
-               </div>
-
-
-
-
-
-           
-
-  
-
-
-
-
-              
-    <div>@Html.HiddenFor(a => a.Mode)</div>
-     @Html.HiddenFor(a => a.BackUrl)
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <label for="name" >住所</label>
+        @Html.TextBoxFor(m => m.Siire.住所, new { @class = "form-control form-control-sm" ,@id="address"})
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+        <label for="name" >肩書</label>
+        @Html.TextBoxFor(m => m.Siire.肩書, new { @class = "form-control form-control-sm" })
+
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">       
+            <label for="name" >TEL</label>
+        @Html.TextBoxFor(m => m.Siire.TEL, new { @class = "form-control form-control-sm", @type="tel"})
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name" >FAX</label>
+        @Html.TextBoxFor(m => m.Siire.FAX, new { @class = "form-control form-control-sm", @type="tel"})
+    </div>
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">業種</label>
+        @Html.DropDownListFor(m => m.Siire.業種,new SelectList(Enum.GetValues(typeof(業種))), "", new { @class = "form-control form-control-sm"})
+    </div>
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">分類</label>
+        @Html.DropDownListFor(m => m.Siire.分類,new SelectList(Enum.GetValues(typeof(仕入分類))), "", new { @class = "form-control form-control-sm"})
+    </div>
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+    <label for="name">支払日</label>    
+        @Html.DropDownListFor(m => m.Siire.支払日, 仕入先.支払日items(), "", new { @class = "form-control form-control-sm" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">銀行名</label>
+        @Html.TextBoxFor(m => m.Siire.銀行名, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">支店名</label>
+        @Html.TextBoxFor(m => m.Siire.支店名, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+        <label for="name">口座区分</label>
+        @Html.TextBoxFor(m => m.Siire.口座区分, new { @class = "form-control form-control-sm" })
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">口座番号</label>
+        @Html.TextBoxFor(m => m.Siire.口座番号, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">口座名義</label>
+        @Html.TextBoxFor(m => m.Siire.口座名義, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+        <label for="name">インボイス番号</label>
+        @Html.TextBoxFor(m => m.Siire.インボイス番号, new { @class = "form-control form-control-sm" })
+    </div>
+</div>
+
+<div>@Html.HiddenFor(a => a.Mode)</div>
+@Html.HiddenFor(a => a.BackUrl)

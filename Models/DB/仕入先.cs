@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using rehome.Enums;
 
 namespace rehome.Models.DB
 {
@@ -24,5 +24,22 @@ namespace rehome.Models.DB
         public string? TEL { get; set; }
 
         public string? FAX { get; set; }
+        public string? 銀行名 { get; set; }
+        public string? 支店名 { get; set; }
+        public string? 口座区分 { get; set; }
+        public string? 口座番号 { get; set; }
+        public string? 口座名義 { get; set; }
+        public string? インボイス番号 { get; set; }
+        public 業種? 業種 { get; set; }
+        public string? 支払日 { get; set; }
+
+        public static IList<SelectListItem> 支払日items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "25日", Value = "25日" });
+            tmplist.Add(new SelectListItem() { Text = "末締", Value = "末締" });
+            return tmplist;
+        }
+        public 仕入分類 ? 分類 { get; set; }
     }
 }

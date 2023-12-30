@@ -49,14 +49,19 @@ namespace rehome.Controllers
         /// 編集画面表示時のアクション
         /// </summary>
         [HttpGet]
-        public IActionResult Details(int 仕入先ID)
+        public IActionResult Details(int 仕入先ID, string? BackUrl)
         {
             ViewBag.OperationMessage = TempData["Siire"];
 
             var viewModel = new SiireDetailModel();
             viewModel.Mode = ViewMode.Edit;
-            viewModel.Siire = _SiireService.GetSiire(仕入先ID); 
-            if (Request.Headers["Referer"].Any())
+            viewModel.Siire = _SiireService.GetSiire(仕入先ID);
+
+            if (BackUrl != null)
+            {
+                viewModel.BackUrl = BackUrl;
+            }
+            else if (Request.Headers["Referer"].Any())
             {
                 viewModel.BackUrl = Request.Headers["Referer"].ToString();
             }
@@ -82,7 +87,7 @@ namespace rehome.Controllers
                 TempData["Siire"] = String.Format("仕入先情報を登録しました");
                 ModelState.Clear();
                 viewModel.BackUrl = model.BackUrl;
-                return RedirectToAction("Details", "Siire", new { 仕入先ID = viewModel.Siire.仕入先ID });
+                return RedirectToAction("Details", "Siire", new { 仕入先ID = viewModel.Siire.仕入先ID,BackUrl= viewModel.BackUrl });
             }
             catch (Exception ex)
             {

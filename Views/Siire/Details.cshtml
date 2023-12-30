@@ -40,13 +40,15 @@
             <div class="row">
                 @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
                 {
-                    <div class="col-5 col-sm-2">
+                    <div class="col-1 col-sm-1">
                         <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
                     </div>
-                
+                    <div class="col-1 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
+                    </div>
                 @if (Model.Mode == ViewMode.Edit){
 
-                    <div class="col-5 col-sm-2">
+                    <div class="col-1 col-sm-1">
                         <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2">削除</button>
                     </div>
                 }
@@ -75,11 +77,6 @@
 
 @section Scripts{
     <script>
-
-
-
-        
-
         $(function() {
 
              $('#btnSubmit').on('click', function() {
@@ -95,7 +92,6 @@
                 }
             });
         });
-
         
     </script>
 

@@ -35,15 +35,14 @@ namespace rehome.Services
             {
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("select  顧客名 as Title, " +
+                var template = builder.AddTemplate("select  顧客名 + ' ' + カレンダー表示 as Title, " +
                                             "対応日 as Start , " +
                                             "対応日 as [End], " +
                                             " '/Client/Detail?顧客ID=' + convert(nvarchar,顧客ID)  as url " +
                                             "from " +
-                                             "(SELECT 対応日,RT_日誌.顧客ID,顧客名 FROM RT_日誌  " +
+                                             "(SELECT 対応日,RT_日誌.顧客ID,顧客名,カレンダー表示 FROM RT_日誌  " +
                                              "left join RT_顧客 B on RT_日誌.顧客ID = B.顧客ID　/**where**/ " +
-                                             "group by 顧客名, 対応日, RT_日誌.顧客ID) " +
-                                             " as T ");
+                                             ") as T ");
                                              
                 builder.Where("対応日 between @start and @end", new { start = start, end= end });
 

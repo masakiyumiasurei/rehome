@@ -46,6 +46,7 @@
                 <th>請求額</th>
                 <th>入金合計</th>
                 <th>最終入金日</th>
+                <th class="column5">納付状況</th>
 
             </tr>
         </thead>
@@ -78,11 +79,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.請求日)
                     </td>
-
                     <td>
+                        <span name="Mitumori[@i]">
                         @Html.DisplayFor(modelItem => item.見積金額)
+                        </span>
                     </td>
-
                     <td>
                         <span name="Nyukin[@i]">
                         @Html.DisplayFor(modelItem => item.入金合計)
@@ -90,8 +91,12 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.最終入金日)
-                    </td>                   
-
+                    </td>
+                    <td>
+                        <span style="color: red;" name="Nouhu[@i]">
+                            @Html.DisplayFor(modelItem => item.納付状況)
+                        </span>
+                    </td>
                 </tr>
 
                 i++;
@@ -117,19 +122,35 @@
                     // 成功時の処理
                     alert('入金消込情報を登録しました。');
 
-                    var sql = "SELECT SUM(入金額) AS 入金合計 " +
+                    var sql = "SELECT isnull(SUM(入金額),0) + isnull(SUM(振込手数料),0) + isnull(SUM(前受金),0) AS 入金合計 " +
                         "FROM T_入金 where 見積ID=" + data.見積ID + " and 履歴番号=" + data.履歴番号;
                     console.log('データ', data);
 
                     //合計金額を返す
                     ReturnRecordJsonSqlAll(sql)
                         .then(function (result) {
-                            console.log('結果', result);
+                            
                             console.log('入金合計', result[0].入金合計);
 
                             var rowNumber = $('#set_rownumber').val(); //入力する行番号をセット
                             
                             $('[name="Nyukin[' + rowNumber + ']"]').text(result[0].入金合計);
+
+                            const nyukinValue = parseInt($('[name="Nyukin[' + rowNumber + ']"]').text().replace(/,/g, ''), 10);
+                            const mitumoriValue = parseInt($('[name="Mitumori[' + rowNumber + ']"]').text().replace(/,/g, ''), 10);
+
+                            console.log(mitumoriValue);
+                            console.log(nyukinValue);
+
+                            if (mitumoriValue > nyukinValue  ) {
+                                //未納
+                                $('[name="Nouhu[' + rowNumber + ']"]').text('未納');
+
+                             }
+                             else
+                             {
+                                $('[name="Nouhu[' + rowNumber + ']"]').text('');
+                            }
                         })
                         .catch(function (error) {
                             console.error('エラー', error);

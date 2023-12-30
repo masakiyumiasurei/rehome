@@ -46,5 +46,9 @@ namespace rehome.Models.DB
         public decimal? 見込原価 { get; set; }
 
         public string? 備考 { get; set; }
+
+        public bool 非計上FLG { get; set; }
+
+        public decimal? 寸法 { get; set; }
     }
 }

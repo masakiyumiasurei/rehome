@@ -5,95 +5,96 @@
 @using rehome.Enums;
 
 <link rel="stylesheet" href="~/css/tab.css" />
-          
+
 @using (Html.BeginForm("Create", "Quote", FormMethod.Post))
 {
-   @* <h2>見積登録</h2>*@
-<div>
-	<p>@ViewBag.OperationMessage</p>
-</div>
+    @* <h2>見積登録</h2>*@
+    <div>
+        <p>@ViewBag.OperationMessage</p>
+    </div>
     <div class="text-danger">
         @Html.ValidationSummary(false)
     </div>
 
     <div class="form-group">
 
-        @if(Model.Quote.single)
+        @if (Model.Quote.single)
         {
-            
+
             @await Html.PartialAsync("_QuoteSingle_cost")
         }
         else
         {
-            @await Html.PartialAsync("_QuoteTab_cost") 
+            @await Html.PartialAsync("_QuoteTab_cost")
             @await Html.PartialAsync("_QuoteTab_sort")
-            
+
         }
 
         <div class="col-xs-offset-1 col-xs-12">
             <div class="row">
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                    <input type="submit" formaction="Create" formmethod="post" id="submit"  class="custom-btn btn-1 btn-size" value="登録" />
+                    <input type="submit" formaction="Create" formmethod="post" id="submit" class="custom-btn btn-1 btn-size" value="登録" />
                 </div>
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
                 </div>
-                @if (Model.Mode == ViewMode.Edit){
+                @if (Model.Mode == ViewMode.Edit)
+                {
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <button type="submit" formaction="ReEstimate" formmethod="post" id="btnReEstimate" class="custom-btn btn-2 btn-size" >再見積</button>
+                        <button type="submit" formaction="ReEstimate" formmethod="post" id="btnReEstimate" class="custom-btn btn-2 btn-size">再見積</button>
                     </div>
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <button type="submit" formaction="Copy" formmethod="post" id="btnCopy" class="custom-btn btn-2 btn-size" >複製</button>
+                        <button type="submit" formaction="Copy" formmethod="post" id="btnCopy" class="custom-btn btn-2 btn-size">複製</button>
                     </div>
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn  btn-size btn-red btn-2">削除</button>
                     </div>
-                    
-                    
+
+
                     @if (Model.Quote.single)
                     {
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size" >1枚印刷</a>
+                            <a href="@Url.Action("見積書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size">1枚印刷</a>
                         </div>
                     }
                     else
                     {
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_鑑印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size" >鑑印刷</a>
+                            <a href="@Url.Action("見積書_鑑印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size">鑑印刷</a>
                         </div>
 
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_複数印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="btn custom-btn btn-2 btn-size" >複数印刷</a>
+                            <a href="@Url.Action("見積書_複数印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="btn custom-btn btn-2 btn-size">複数印刷</a>
                         </div>
                     }
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"  class="btn custom-btn btn-2 btn-size" >仕入注文</a>
+                        <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" class="btn custom-btn btn-2 btn-size">仕入注文</a>
                         @*<button type="submit" formaction="Chumon" formmethod="get" id="btnChumon" class="custom-btn btn-2 btn-size" >仕入注文</button>*@
                     </div>
                     @*<div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <a href="@Url.Action("作業完了報告書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
-                        target="_blank" class="custom-btn btn-2 btn-size-min-inner">作業完了報告書</a>
-                    </div>*@
+            <a href="@Url.Action("作業完了報告書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+            target="_blank" class="custom-btn btn-2 btn-size-min-inner">作業完了報告書</a>
+            </div>*@
                     @if (Model.Quote.single)
                     {
-                    <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <a href="@Url.Action("請求書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" 
-                        target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick(event)">請求書</a>
-                    </div>
+                        <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                            <a href="@Url.Action("請求書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+                               target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick(event)">請求書</a>
+                        </div>
                     }
                     else
                     {
-                    <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                        <a href="@Url.Action("請求書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+                        <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                            <a href="@Url.Action("請求書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
                                target="_blank" class="custom-btn btn-2 btn-size" onclick="SeikyuButtonClick(event)">請求書</a>
-                    </div>
+                        </div>
                     }
                 }
             </div>
         </div>
     </div>
     <hr />
- 
+
     @if (Model.Quote == null)
     {
         <div class="text-danger">見積情報が見つかりませんでした</div>
@@ -102,7 +103,7 @@
     {
         <details open>
             <summary>
-               見積内容
+                見積内容
             </summary>
             @await Html.PartialAsync("_QuoteHeader")
         </details>
@@ -115,46 +116,48 @@
                 <div class="col-2">
                     <input type="button" value="表示順変更" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_sort();" />
                 </div>
-                <br><br>
+                <br>
+
+                <br>
             }
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                 @Html.HiddenFor(a => a.Quote.single)
 
-                @if(Model.Quote.single)
+                @if (Model.Quote.single)
                 {
                     @await Html.PartialAsync("_QuoteSingle")
 
                 }
                 else
                 {
-                     <section class="typeA" id="QuoteTab">           
-       
+                    <section class="typeA" id="QuoteTab">
+
                         @await Html.PartialAsync("_QuoteTab_master")
 
-                        @if(Model.Mode == ViewMode.Edit)
+                        @if (Model.Mode == ViewMode.Edit)
                         {
-                          @await Html.PartialAsync("_QuoteTab_free")  
+                            @await Html.PartialAsync("_QuoteTab_free")
                         }
 
-                        <button type="button" class="tabLabel" id="add_tab" onclick="addTab();" >＋</button>
+                        <button type="button" class="tabLabel" id="add_tab" onclick="addTab();">＋</button>
                     </section>
                 }
-                               
+
             </div>
         </div>
-    } 
+    }
 }
 
 
 
 @section Scripts{
     <script>
-        
-        $(function() {  
+
+        $(function () {
             //削除
-            $('#btnDelete').on('click', function() {
+            $('#btnDelete').on('click', function () {
                 var result = window.confirm('見積情報を削除しますか？');
                 if (result == false) {
                     event.preventDefault();
@@ -166,24 +169,24 @@
         $('*[name^="body["]').sortable({
             handle: 'i.handle',
             axis: 'y',
-            update: function(event, ui) {
-                $('*[name^="body["]').each(function() {
+            update: function (event, ui) {
+                $('*[name^="body["]').each(function () {
                     var $body = $(this);
                     var $rows = $body.find('tr');
-                    $rows.each(function(index) {
-                        $(this).find('input[type="hidden"]:eq(3)').val(index + 1);
+                    $rows.each(function (index) {
+                        $(this).find('input[type="hidden"]:eq(4)').val(index + 1);
                     });
                 });
             }
         });
 
-         $('#Tab_sortable').sortable({
+        $('#Tab_sortable').sortable({
             axis: 'y',
-            update: function(event, ui) {
-                $('#Tab_sortable').each(function() {
+            update: function (event, ui) {
+                $('#Tab_sortable').each(function () {
                     var $body = $(this);
                     var $rows = $body.find('li');
-                    $rows.each(function(index) {
+                    $rows.each(function (index) {
                         $(this).find('input[type="hidden"]:eq(1)').val(index + 1);
                     });
                 });
@@ -208,28 +211,29 @@
         }
 
 
-        function QuoteTab_sort(){
+        function QuoteTab_sort() {
             $('#QuoteTab_sort').modal('show');
         }
 
         //タブ追加
-        function addTab(){
+        function addTab() {
             var add_html = '<input name="Quote.見積分類表示順リスト[' + quote_tab + '].分類ID" type="hidden" value="' + tabCount + '">'
-                +'<input name="Quote.見積分類表示順リスト[' + quote_tab + '].表示順" type="hidden" value="' + (quote_tab + 1) + '">'
-                +'<input class="tabRadio" id="TAB-A[' + tabCount + ']" type="radio" name="TAB-A" checked="checked">'
-                +'<label class="tabLabel" for="TAB-A[' + tabCount + ']">'
-                +'<input name="free_tab[' + tabCount + ']" onclick="selectTab(' + tabCount + ');" onchange="changeName(this);" />'
-                +'</label><div class="content">'
-                +'<input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(' + tabCount + ');">'
-                +'<input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(' + tabCount + ');">'
-                +'<table><thead><tr><th style="opacity:0"></th>'
-                +'<th class="column3">検索</th><th>商品名</th><th class="column5">数量</th><th class="column5">単位</th>'
-                + '<th class="column10">単価</th><th class="column10">金額</th><th class="column10">見込原価</th><th class="column10">備考</th></tr></thead>'
-                +'<tbody name="body[' + tabCount + ']" id="body[' + tabCount + ']"></tbody></table></div>'
+                + '<input name="Quote.見積分類表示順リスト[' + quote_tab + '].表示順" type="hidden" value="' + (quote_tab + 1) + '">'
+                + '<input class="tabRadio" id="TAB-A[' + tabCount + ']" type="radio" name="TAB-A" checked="checked">'
+                + '<label class="tabLabel" for="TAB-A[' + tabCount + ']">'
+                + '<input name="free_tab[' + tabCount + ']" onclick="selectTab(' + tabCount + ');" onchange="changeName(this);" />'
+                + '</label><div class="content">'
+                + '<input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(' + tabCount + ');">'
+                + '<input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(' + tabCount + ');">'
+                + '<table><thead><tr><th style="opacity:0"></th>'
+                + '<th class="column3">検索</th><th>商品名</th><th class="column5">数量</th><th class="column5">単位</th><th class="column10">寸法</th>'
+                + '<th class="column10">見込原価</th><th class="column10">単価</th><th class="column10">金額</th>'
+                + '<th class="column10">備考</th><th class ="column3">非計上</th></tr></thead>'
+                + '<tbody name="body[' + tabCount + ']" id="body[' + tabCount + ']"></tbody></table></div>'
 
             $('#add_tab').before(add_html);
 
-            tabCount++;                        
+            tabCount++;
         }
 
         //タブ選択
@@ -240,21 +244,21 @@
 
 
         //自由タブ　分類名変更を明細に反映
-        function changeName(elm){
+        function changeName(elm) {
             //分類IDを取得
             var name = $(elm).attr('name');
-            var id = name.substr(name.indexOf('[')+1 );
+            var id = name.substr(name.indexOf('[') + 1);
             id = id.substr(0, id.indexOf(']'));
-            
-            var newName = $('[name="' + name + '"]').val(); 
+
+            var newName = $('[name="' + name + '"]').val();
 
             $('[id="' + id + '"]').val(newName);
         }
- 
+
 
 
         //明細追加
-        function addRow(bunruiID){
+        function addRow(bunruiID) {
             console.log('start_addRow()');
             console.log('free_tab[' + bunruiID + '] : ' + $('[name="free_tab[' + bunruiID + ']"]').val())
 
@@ -262,27 +266,29 @@
 
             console.log('bunruiName : ' + bunruiName);
 
-            var bodyElement = document.getElementById("body[" + bunruiID + "]");            
+            var bodyElement = document.getElementById("body[" + bunruiID + "]");
             var renban = bodyElement.querySelectorAll('tr').length + 1;
 
-            var add_html = '<tr id="明細[' + rowCount + ']" class="min-line">' + 
-            '<input name="Quote.見積明細リスト[' + rowCount + '].分類ID" type="hidden" value="' + bunruiID + '">' +
-            '<input name="Quote.見積明細リスト[' + rowCount + '].分類名" type="hidden" value="' + bunruiName + '">' +
-            '<input name="Quote.見積明細リスト[' + rowCount + '].削除FLG" type="hidden" value="False">' +
+            var add_html = '<tr id="明細[' + rowCount + ']" class="min-line">' +
+                '<input name="Quote.見積明細リスト[' + rowCount + '].分類ID" type="hidden" value="' + bunruiID + '">' +
+                '<input name="Quote.見積明細リスト[' + rowCount + '].分類名" type="hidden" value="' + bunruiName + '">' +
+                '<input name="Quote.見積明細リスト[' + rowCount + '].削除FLG" type="hidden" value="False">' +
                 '<input name="Quote.見積明細リスト[' + rowCount + '].商品ID" type="hidden" onchange="getSyouhinName(this)" value="">' +
-            '<input name="Quote.見積明細リスト[' + rowCount + '].連番" type="hidden" value="' + renban + '">' +
-            '<td><i class="handle fas fa-arrows-alt-v fa-2x"></i></td>' +
-            '<td><button type="button" name="syohin_search[' + rowCount + ']" class="btn-sm btn-primary id="button" onclick="getSyouhinID(this);">' +
-            '<i class="fa-solid fa-magnifying-glass" ></i></button ></td>' +
-            '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].商品名" type="text" value=""></td>' +
-            '<td><input class="form-control form-control-sm"  name="Quote.見積明細リスト[' + rowCount + '].数量" onchange="calc();" type="number" value=""></td>' +
-            '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単位" type="text" value=""></td>' +
-            '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単価" onchange="calc();" type="number" value=""></td>' +
-            '<td><input class="form-control enable-false form-control-sm" tabindex="-1"  name="Quote.見積明細リスト[' + rowCount + '].金額" type="number" tabindex="-1" value="0"></td>' +
-            '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].見込原価" onchange="calc();" type="number" value=""></td>' +
-            '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].備考" type="text" value=""></td>' +
-            '<td><button type="button" name="delete[' + rowCount + ']" onclick="deleteRow(' + rowCount + ');" class="btn btn-secondary btn-sm align_center" style="margin: 0; "><i class="fa-solid fa-trash-can"></i></button></td>' +
-            '</tr>'
+                '<input name="Quote.見積明細リスト[' + rowCount + '].連番" type="hidden" value="' + renban + '">' +
+                '<td><i class="handle fas fa-arrows-alt-v fa-2x"></i></td>' +
+                '<td><button type="button" name="syohin_search[' + rowCount + ']" class="btn-sm btn-primary id="button" onclick="getSyouhinID(this);">' +
+                '<i class="fa-solid fa-magnifying-glass" ></i></button ></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].商品名" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm"  name="Quote.見積明細リスト[' + rowCount + '].数量" onchange="calc();" type="number" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単位" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].寸法" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].見込原価" onchange="calcTanka(' + rowCount + ');" type="number" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単価" onchange="calc();" type="number" value=""></td>' +
+                '<td><input class="form-control enable-false form-control-sm" tabindex="-1"  name="Quote.見積明細リスト[' + rowCount + '].金額" type="number" tabindex="-1" value="0"></td>' +                
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].備考" type="text" value=""></td>' +
+                '<td><input class="my-specific-check" name="Quote.見積明細リスト[' + rowCount + '].非計上FLG" type="checkbox" value="true"></td>' +
+                '<td><button type="button" name="delete[' + rowCount + ']" onclick="deleteRow(' + rowCount + ');" class="btn btn-secondary btn-sm align_center" style="margin: 0; "><i class="fa-solid fa-trash-can"></i></button></td>' +
+                '</tr>'
 
             $('[name="body[' + bunruiID + ']"]').append(add_html);
             rowCount++;
@@ -333,11 +339,11 @@
             var checkboxes = document.querySelectorAll('[id^="cost_bunrui"]');
             var amountMoney = 0;
 
-            checkboxes.forEach(function(checkbox) {
-                if(checkbox.checked){
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
                     var name = checkbox.id;
                     var bunruiID1 = name.substr(name.indexOf('['));
-                    bunruiID1 = bunruiID1.substr(1, bunruiID1.indexOf(']')-1);
+                    bunruiID1 = bunruiID1.substr(1, bunruiID1.indexOf(']') - 1);
                     console.log('bunruiID1 ' + bunruiID1);
 
                     for (var i = 0; i < rowCount; i++) {
@@ -362,9 +368,9 @@
                 }
             });
 
-           var bodyElement = document.getElementById("body[" + bunruiID + "]");
-           var renban = bodyElement.querySelectorAll('tr').length + 1;
-           
+            var bodyElement = document.getElementById("body[" + bunruiID + "]");
+            var renban = bodyElement.querySelectorAll('tr').length + 1;
+
             var add_html = '<tr id="明細[' + rowCount + ']" class="min-line">' +
                 '<input name="Quote.見積明細リスト[' + rowCount + '].分類ID" type="hidden" value="' + bunruiID + '">' +
                 '<input name="Quote.見積明細リスト[' + rowCount + '].分類名" type="hidden" value="' + bunruiName + '">' +
@@ -407,7 +413,7 @@
         //明細削除
         function deleteRow(idx) {
             console.log("before_del_flg: " + $('[name="Quote.見積明細リスト[' + idx + '].削除FLG"]').val());
-           
+
             $('[name="Quote.見積明細リスト[' + idx + '].削除FLG"]').val(true);
             console.log("after_del_flg: " + $('[name="Quote.見積明細リスト[' + idx + '].削除FLG"]').val());
             let node = document.getElementById("明細[" + idx + "]");
@@ -427,9 +433,23 @@
             calc();
         }
 
+        //見込原価から単価を算出
+        function calcTanka(rowCount){
+           
+            var mikomi = parseFloat($(`input[name='Quote.見積明細リスト[${rowCount}].見込原価']`).val());
+                        
+            if (isNaN(mikomi)) return;
+
+            mikomi = Math.floor(mikomi * 1.3);
+           
+            $("input[name='Quote.見積明細リスト[" + rowCount + "].単価']").val(mikomi);
+
+            //見込原価の変更なので全体計算も行う
+            calc();
+        }
 
         //金額計算
-        function calc(){
+        function calc() {
             console.log('start_calc()');
 
             var amount_money = 0;
@@ -443,13 +463,12 @@
                 var genka = Number($('[name="Quote.見積明細リスト[' + n + '].見込原価"]').val());
                 var del_flg = $('[name="Quote.見積明細リスト[' + n + '].削除FLG"]').val();
                 //全体総計計算
-                if( isNaN(kingaku) == false && del_flg == "False"){
+                if (isNaN(kingaku) == false && del_flg == "False") {
                     amount_money += kingaku;
                 }
-                if( isNaN(genka) == false && del_flg == "False"){
+                if (isNaN(genka) == false && del_flg == "False") {
                     amount_genka += genka;
                 }
-                
 
             }
             $('[name="Quote.見込原価"]').val(amount_genka);
@@ -462,24 +481,24 @@
             $('[name="Quote.見積金額"]').val(amount_money);
             $('[name="Quote.利益"]').val(rieki);
             $('[name="Quote.見込利益"]').val(rieki_mikomi);
-            $('[name="Quote.粗利率"]').val(rieki == 0 ? 0 + '%' : (rieki*100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
-            $('[name="Quote.見込粗利率"]').val(rieki_mikomi == 0 ? 0 + '%' : (rieki_mikomi*100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
+            $('[name="Quote.粗利率"]').val(rieki == 0 ? 0 + '%' : (rieki * 100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
+            $('[name="Quote.見込粗利率"]').val(rieki_mikomi == 0 ? 0 + '%' : (rieki_mikomi * 100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
         }
 
-    function free_dropdown(elm) {
-        console.log("free_dropdown");
-        var options = $(elm).data("options").split(',');
-        $(elm).autocomplete({
-            source: options,
-            minLength: 0,  
-            delay: 1,
-            autoFocus: false,
-            scroll: true,
-            position: { my: "right top", at: "right bottom", collision: "flip" }
+        function free_dropdown(elm) {
+            console.log("free_dropdown");
+            var options = $(elm).data("options").split(',');
+            $(elm).autocomplete({
+                source: options,
+                minLength: 0,
+                delay: 1,
+                autoFocus: false,
+                scroll: true,
+                position: { my: "right top", at: "right bottom", collision: "flip" }
 
-        });
-        $(elm).autocomplete("search", "");
-    }
+            });
+            $(elm).autocomplete("search", "");
+        }
 
         function getQuoteNumber() {
 
@@ -541,7 +560,7 @@
             //console.log("getSyouhinName");
             //console.log(elm);
             //選択行の行番号を取得
-           
+
             var name = $(elm).attr('name');
             var row = name.substr(name.indexOf('[') + 1);
             row = row.substr(0, row.indexOf(']'));
@@ -558,28 +577,28 @@
                 var result = ReturnRecordJson(table, wheresql);
 
                 //取得した商品情報を明細に表示
-               
+
                 $('[name="Quote.見積明細リスト[' + (row) + '].商品名"]').val(nz(result.商品名));
-                $('[name="Quote.見積明細リスト[' + (row) + '].見込原価"]').val(nz(result.仕入額));    
+                $('[name="Quote.見積明細リスト[' + (row) + '].見込原価"]').val(nz(result.仕入額));
                 $('[name="Quote.見積明細リスト[' + (row) + '].単価"]').val(nz(result.単価));
                 $('[name="Quote.見積明細リスト[' + (row) + '].単位"]').val(nz(result.単位));
 
                 //以前の情報が残っていたらクリアする
-                $('[name="Quote.見積明細リスト[' + (row) + '].数量"]').val(""); 
+                $('[name="Quote.見積明細リスト[' + (row) + '].数量"]').val("");
 
                 $('[name="Quote.見積明細リスト[' + (row) + '].単価"]').change();
-                $('[name="Quote.見積明細リスト[' + (row) + '].見込原価"]').change();                
+                $('[name="Quote.見積明細リスト[' + (row) + '].見込原価"]').change();
                 $('[name="Quote.見積明細リスト[' + (row) + '].数量"]').focus()
 
             }
         }
 
         function SeikyuButtonClick(event) {
-           // alert("見積ステータスを請求にして登録してないと、請求書は出せません。");
+            // alert("見積ステータスを請求にして登録してないと、請求書は出せません。");
             event.preventDefault();
             return jQuery.ajax({
                 method: "GET",
-                url:  '@Url.Action("GetQuoteStatus", "Quote")',
+                url: '@Url.Action("GetQuoteStatus", "Quote")',
                 dataType: 'json',
                 data: {
                     見積ID: '@Model.Quote.見積ID',
@@ -589,14 +608,14 @@
             }).done(function (result) {
                 // 通信成功時の処理
                 if (result === '請求') {
-                    
+
                     window.location.href = '@Url.Action("請求書_1枚印刷", "Quote", new { 見積ID = Model.Quote.見積ID, 履歴番号 = Model.Quote.履歴番号 })';
-                   // return true;
+                    // return true;
                 } else {
-                    // 
+                    //
                     alert("見積ステータスを請求にして登録する必要があります。請求書は出せません。");
-                   // return false;
-                }              
+                    // return false;
+                }
 
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 // 通信失敗時の処理
@@ -609,12 +628,12 @@
             }).always(function (result) {
                 // 処理終了時
             })
-               
+
         }
 
     </script>
 
 }
 
-    
-    
+
+

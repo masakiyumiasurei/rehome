@@ -41,6 +41,7 @@ builder.Services.AddTransient<INissiService, NissiService>();
 builder.Services.AddTransient<ICalendarService, CalendarService>();
 builder.Services.AddTransient<ISyouhinService, SyouhinService>();
 builder.Services.AddTransient<INyukinService, NyukinService>();
+builder.Services.AddTransient<IImportService, ImportService>();
 
 builder.Services.AddSession(options =>
 {
