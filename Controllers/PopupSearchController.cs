@@ -13,16 +13,16 @@ namespace rehome.Controllers
         private readonly string _connectionString;
         private readonly ILogger<PopupSearchController> _logger;
         private ISyouhinService _SyouhinService;
-
+        private ISiireService _SiireService;
 
         public PopupSearchController(ILogger<PopupSearchController> logger, IConfiguration configuration, 
-            ISyouhinService SyouhinService )
+            ISyouhinService SyouhinService, ISiireService SiireService)
         {
             _logger = logger;
             
             _connectionString = configuration.GetConnectionString("DefaultConnection");            
             _SyouhinService = SyouhinService;
-            
+            _SiireService = SiireService;
         }       
 
         [HttpGet]
@@ -51,30 +51,30 @@ namespace rehome.Controllers
             return PartialView("_PopupSearchSyouhinResult", viewModel);           
         }
 
-        //[HttpGet]
-        //public IActionResult Office()
-        //{
-        //    var viewModel = new PopupSearchOfficeModel();
-        //    //return PartialView("_PopupSearchSyouhin", viewModel);
-        //    return PartialView("_PopupSearchOffice", viewModel);
-            
-        //}
+        [HttpGet]
+        public IActionResult Siire()
+        {
+            var viewModel = new PopupSearchSiireModel();
+            //return PartialView("_PopupSearchSyouhin", viewModel);
+            return PartialView("_PopupSearchSiire", viewModel);
 
-        //[HttpPost]
-        //public ActionResult Office(string? PopupOfficeID, string? PopupOfficeName, string? PopupOfficerank)
-        //{
-        //    var viewModel = new PopupSearchOfficeModel();
-        //    int count = 0;
+        }
 
-        //    if (PopupOfficeID != null) { viewModel.SearchConditions.販売店ID = Int32.Parse(PopupOfficeID); count++; }
-        //    if (PopupOfficeName != null) { viewModel.SearchConditions.販売店名 = PopupOfficeName; count++; }
-        //    if (PopupOfficerank != null) { viewModel.SearchConditions.rank = PopupOfficerank; count++; }
-            
-        //    //if (count > 0) { viewModel.SearchOffices = _OfficeService.SearchOffices(viewModel.SearchConditions); }
+        [HttpPost]
+        public ActionResult Siire( string? PopupSiireName, 業種? Popup業種)
+        {
+            var viewModel = new PopupSearchSiireModel();
+            int count = 0;
 
-        //   viewModel.SearchOffices = _OfficeService.SearchOffices(viewModel.SearchConditions);
-        //    return PartialView("_PopupSearchOfficeResult", viewModel);
-        //}
+            //if (PopupOfficeID != null) { viewModel.SearchConditions.販売店ID = Int32.Parse(PopupOfficeID); count++; }
+            if (PopupSiireName != null) { viewModel.SearchConditions.仕入先名 = PopupSiireName; count++; }
+            if (Popup業種 != null) { viewModel.SearchConditions.業種 = Popup業種; count++; }
+
+            //if (count > 0) { viewModel.SearchOffices = _OfficeService.SearchOffices(viewModel.SearchConditions); }
+
+            viewModel.SearchSiires = _SiireService.SearchSiires(viewModel.SearchConditions);
+            return PartialView("_PopupSearchOfficeResult", viewModel);
+        }
 
     }
 }

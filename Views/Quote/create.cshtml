@@ -608,8 +608,10 @@
             }).done(function (result) {
                 // 通信成功時の処理
                 if (result === '請求') {
+                    console.log('請求書：履歴番号' + '@Model.Quote.履歴番号');
+                    window.location.href = event.target.href;
 
-                    window.location.href = '@Url.Action("請求書_1枚印刷", "Quote", new { 見積ID = Model.Quote.見積ID, 履歴番号 = Model.Quote.履歴番号 })';
+                   // window.location.href = '@Url.Action("請求書_1枚印刷", "Quote", new { 見積ID = Model.Quote.見積ID, 履歴番号 = Model.Quote.履歴番号 })';
                     // return true;
                 } else {
                     //

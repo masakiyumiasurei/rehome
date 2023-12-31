@@ -503,7 +503,6 @@ namespace rehome.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult 見積書_鑑印刷(int 見積ID, int 履歴番号)
         {
@@ -685,6 +684,151 @@ namespace rehome.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult 見積書_複数印刷(int 見積ID, int 履歴番号)
+        {
+
+            //pdfフォルダ内に保存してあるファイルを全削除
+            foreach (string pathFrom in System.IO.Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), @"pdf"), "*.pdf", System.IO.SearchOption.AllDirectories))
+            {
+                System.IO.File.Delete(pathFrom);
+            }
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+
+            //インスタンス化
+            IReport paoRep = ReportCreator.GetPdf();
+
+
+            paoRep.LoadDefFile("Reports/見積書.prepd");
+
+
+            見積書セット_鑑印刷(paoRep, 見積ID, 履歴番号);
+
+
+            paoRep.LoadDefFile("Reports/見積明細書.prepd");
+
+
+            見積書セット_明細印刷(paoRep, 見積ID, 履歴番号);
+
+
+            //PDFを一時保存
+            string pdfPath = Path.Combine(Directory.GetCurrentDirectory(), @"pdf/見積書" + DateTime.Now.ToString("yyMMddHHmm") + ".pdf");
+            paoRep.SavePDF(pdfPath);
+
+            //保存したPDFをfsに格納
+            var fs = new FileStream(pdfPath, FileMode.Open, FileAccess.Read);
+            var contentType = "application/pdf";
+
+            //ブラウザにPDFを表示
+            return new FileStreamResult(fs, contentType);
+
+            //PDFをダウンロード
+            //return File(fs, contentType, "見積書.pdf");
+        }
+
+
+        public void 見積書セット_明細印刷(IReport paoRep, int 見積ID, int 履歴番号)
+        {
+            var Quote = new 見積();
+            Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
+            var QuoteBunrui = _QuoteService.GetQuoteBunrui(見積ID, 履歴番号);
+
+            var BunruiCnt = 0;
+
+            foreach(var Bunrui in QuoteBunrui)
+            {
+                BunruiCnt++;
+
+                var QuoteMeisai = _QuoteService.GetQuoteBunruiMeisai(見積ID, 履歴番号, Bunrui.分類ID);
+
+                int 小計 = (int)(Bunrui.単価 ?? 0);
+
+                //明細が0行でも1ページは表示するため初期値は44にしておく
+                int RowCnt = 28;
+
+                if (QuoteMeisai != null)
+                {
+                    RowCnt = QuoteMeisai.Count();
+                }
+
+                //現在の行
+                int CurRow = 0;
+
+
+                //通し番号
+                int num = 1;
+
+
+                //描画すべき行がある限りページを増やす
+                while (RowCnt > 0)
+                {
+                    RowCnt -= 28;
+
+                    paoRep.PageStart();
+
+                    //ヘッダー
+                    paoRep.Write("分類名", BunruiCnt + "." + (Bunrui.分類名 ?? " "));
+
+                    //フッダー
+                    paoRep.Write("小計", string.Format("{0:#,0}", 小計));
+
+                    //ボディ
+
+                    //空の明細行を44行分用意する
+                    for (int i = 0; i < 28; i++)
+                    {
+                        paoRep.Write("番号", " ", i + 1);
+                        paoRep.Write("品名", " ", i + 1);
+                        paoRep.Write("寸法", " ", i + 1);
+                        paoRep.Write("数量", " ", i + 1);
+                        paoRep.Write("単位", " ", i + 1);
+                        paoRep.Write("単価", " ", i + 1);
+                        paoRep.Write("金額", " ", i + 1);
+                        paoRep.Write("備考", " ", i + 1);
+                    }
+
+
+                    if (QuoteMeisai != null)
+                    {
+
+                        for (var i = 0; i < 28; i++)
+                        {
+                            //描画すべき行がなくなれば、値引行等を追加してループを抜ける
+                            if (CurRow >= QuoteMeisai.Count())
+                            {
+                                break;
+                            }
+
+                            if (QuoteBunrui[CurRow].非計上FLG == true)
+                            {
+                                paoRep.Write("番号", num.ToString(), i + 1);
+                                paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);
+                            }
+                            else
+                            {
+                                paoRep.Write("番号", num.ToString(), i + 1);
+                                paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);
+                                paoRep.Write("寸法", string.Format("{0:#,0}", (QuoteMeisai[CurRow].寸法 ?? 0)), i + 1);
+                                paoRep.Write("数量", string.Format("{0:#,0}", (QuoteMeisai[CurRow].数量 ?? 0)), i + 1);
+                                paoRep.Write("単位", QuoteMeisai[CurRow].単位 ?? " ", i + 1);
+                                paoRep.Write("単価", string.Format("{0:#,0}", (QuoteMeisai[CurRow].単価 ?? 0)), i + 1);
+                                paoRep.Write("金額", string.Format("{0:#,0}", (QuoteMeisai[CurRow].金額 ?? 0)), i + 1);
+                                paoRep.Write("備考", QuoteMeisai[CurRow].備考 ?? " ", i + 1);
+                            }
+
+                            CurRow++;
+                            num++;
+
+                        }
+                    }
+                    paoRep.PageEnd();
+                }
+            }
+        }
+
+
         public void 請求書セット_鑑印刷(IReport paoRep, int 見積ID, int 履歴番号)
         {
             var Quote = new 見積();
@@ -692,11 +836,11 @@ namespace rehome.Controllers
             var QuoteBunrui = _QuoteService.GetQuoteBunrui(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-         //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+            //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
-            
+
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 18;
 
@@ -727,7 +871,7 @@ namespace rehome.Controllers
                 paoRep.PageStart();
 
                 //ヘッダー
-                paoRep.Write("見積番号", "No." + (Quote.見積番号 ?? " "));
+                //paoRep.Write("見積番号", "No." + (Quote.見積番号 ?? " "));
                 if (Quote.作成日 != null)
                 {
                     paoRep.Write("作成日", string.Format("{0:yyyy年M月d日}", Quote.作成日));
@@ -739,24 +883,24 @@ namespace rehome.Controllers
                 paoRep.Write("顧客名", Quote.顧客名 ?? " ");
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
-                paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額 )));
+                paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額)));
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
                 //項目がNULLか物販以外なら作業完了日、物販なら納品日
-                paoRep.Write("取引年月日", string.Format("{0:yyyy年M月d日}", Quote.取引年月日)); 
-                    
+            //    paoRep.Write("取引年月日", string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
+
 
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-             //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
-                paoRep.Write("消費税額", string.Format("{0:#,0}", 消費税額));                
-                paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額 )));
-                paoRep.Write("備考", Quote.備考 ?? " ");
+                paoRep.Write("消費税額", string.Format("{0:#,0}", 消費税額));
+                paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額)));
+               // paoRep.Write("備考", Quote.備考 ?? " ");
 
                 //ボディ
 
@@ -788,7 +932,7 @@ namespace rehome.Controllers
                             {
                                 paoRep.Write("番号", num.ToString(), i + 1);
                                 paoRep.Write("品名", Quote.値引名称 ?? " ", i + 1);
-                              //  paoRep.Write("内訳", "", i + 1);
+                                //  paoRep.Write("内訳", "", i + 1);
                                 paoRep.Write("数量", "1", i + 1);
                                 paoRep.Write("単位", "式", i + 1);
                                 paoRep.Write("単価", string.Format("{0:#,0}", -(Quote.値引額 ?? 0)), i + 1);
@@ -801,7 +945,7 @@ namespace rehome.Controllers
 
                         paoRep.Write("番号", num.ToString(), i + 1);
                         paoRep.Write("品名", QuoteBunrui[CurRow].分類名 ?? " ", i + 1);
-                     //   paoRep.Write("内訳", "", i + 1);
+                        //   paoRep.Write("内訳", "", i + 1);
                         paoRep.Write("数量", "1", i + 1);
                         paoRep.Write("単位", "式", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
@@ -821,7 +965,6 @@ namespace rehome.Controllers
                 paoRep.PageEnd();
             }
         }
-
 
         [HttpGet]
         public ActionResult 請求書印刷(int 見積ID, int 履歴番号)
@@ -885,7 +1028,7 @@ namespace rehome.Controllers
 
             paoRep.LoadDefFile("Reports/請求書.prepd");
 
-            請求書セット_1枚印刷(paoRep, 見積ID, 履歴番号);            
+            請求書セット_1枚印刷(paoRep, 見積ID, 履歴番号);
 
 
             //PDFを一時保存
@@ -910,11 +1053,11 @@ namespace rehome.Controllers
             Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
 
             法人 Houzin = _HouzinService.GetHouzin();
-         //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
+            //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             int 消費税額 = (int)(小計 * 0.1);
-            
+
 
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 25;
@@ -958,7 +1101,7 @@ namespace rehome.Controllers
                 paoRep.Write("顧客名", Quote.顧客名 ?? " ");
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
-               
+
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額)));
                 paoRep.Write("社名", Houzin.社名 ?? " ");
 
@@ -971,14 +1114,14 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-               // paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                // paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
                 paoRep.Write("消費税額", string.Format("{0:#,0}", 消費税額));
                 paoRep.Write("非課税名称", Quote.非課税名称 ?? " ");
-                
-                paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額 )));
+
+                paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額)));
                 paoRep.Write("備考", Quote.備考 ?? " ");
 
 
@@ -1039,7 +1182,7 @@ namespace rehome.Controllers
                             paoRep.Write("単価", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
                             paoRep.Write("金額", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
                             paoRep.Write("備考", "式", i + 1);
-                            
+
                         }
 
                         CurRow++;
@@ -1054,153 +1197,6 @@ namespace rehome.Controllers
                     }
                 }
                 paoRep.PageEnd();
-            }
-        }
-
-
-
-
-        [HttpGet]
-        public ActionResult 見積書_複数印刷(int 見積ID, int 履歴番号)
-        {
-
-            //pdfフォルダ内に保存してあるファイルを全削除
-            foreach (string pathFrom in System.IO.Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), @"pdf"), "*.pdf", System.IO.SearchOption.AllDirectories))
-            {
-                System.IO.File.Delete(pathFrom);
-            }
-
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
-
-            //インスタンス化
-            IReport paoRep = ReportCreator.GetPdf();
-
-
-            paoRep.LoadDefFile("Reports/見積書.prepd");
-
-
-            見積書セット_鑑印刷(paoRep, 見積ID, 履歴番号);
-
-
-            paoRep.LoadDefFile("Reports/見積明細書.prepd");
-
-
-            見積書セット_明細印刷(paoRep, 見積ID, 履歴番号);
-
-
-            //PDFを一時保存
-            string pdfPath = Path.Combine(Directory.GetCurrentDirectory(), @"pdf/見積書" + DateTime.Now.ToString("yyMMddHHmm") + ".pdf");
-            paoRep.SavePDF(pdfPath);
-
-            //保存したPDFをfsに格納
-            var fs = new FileStream(pdfPath, FileMode.Open, FileAccess.Read);
-            var contentType = "application/pdf";
-
-            //ブラウザにPDFを表示
-            return new FileStreamResult(fs, contentType);
-
-            //PDFをダウンロード
-            //return File(fs, contentType, "見積書.pdf");
-        }
-
-
-        public void 見積書セット_明細印刷(IReport paoRep, int 見積ID, int 履歴番号)
-        {
-            var Quote = new 見積();
-            Quote = _QuoteService.GetQuote(見積ID, 履歴番号);
-            var QuoteBunrui = _QuoteService.GetQuoteBunrui(見積ID, 履歴番号);
-
-            var BunruiCnt = 0;
-
-            foreach(var Bunrui in QuoteBunrui)
-            {
-                BunruiCnt++;
-
-                var QuoteMeisai = _QuoteService.GetQuoteBunruiMeisai(見積ID, 履歴番号, Bunrui.分類ID);
-
-                int 小計 = (int)(Bunrui.単価 ?? 0);
-
-                //明細が0行でも1ページは表示するため初期値は44にしておく
-                int RowCnt = 30;
-
-                if (QuoteMeisai != null)
-                {
-                    RowCnt = QuoteMeisai.Count();
-                }
-
-                //現在の行
-                int CurRow = 0;
-
-
-                //通し番号
-                int num = 1;
-
-
-                //描画すべき行がある限りページを増やす
-                while (RowCnt > 0)
-                {
-                    RowCnt -= 30;
-
-                    paoRep.PageStart();
-
-                    //ヘッダー
-                    paoRep.Write("分類名", BunruiCnt + "." + (Bunrui.分類名 ?? " "));
-
-                    //フッダー
-                    paoRep.Write("小計", string.Format("{0:#,0}", 小計));
-
-                    //ボディ
-
-                    //空の明細行を44行分用意する
-                    for (int i = 0; i < 30; i++)
-                    {
-                        paoRep.Write("番号", " ", i + 1);
-                        paoRep.Write("品名", " ", i + 1);
-                        paoRep.Write("寸法", " ", i + 1);
-                        paoRep.Write("数量", " ", i + 1);
-                        paoRep.Write("単位", " ", i + 1);
-                        paoRep.Write("単価", " ", i + 1);
-                        paoRep.Write("金額", " ", i + 1);
-                        paoRep.Write("備考", " ", i + 1);
-                    }
-
-
-                    if (QuoteMeisai != null)
-                    {
-
-                        for (var i = 0; i < 30; i++)
-                        {
-                            //描画すべき行がなくなれば、値引行等を追加してループを抜ける
-                            if (CurRow >= QuoteMeisai.Count())
-                            {
-                                break;
-                            }
-
-                            if (QuoteBunrui[CurRow].非計上FLG == true)
-                            {
-                                paoRep.Write("番号", num.ToString(), i + 1);
-                                paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);
-                            }
-                            else
-                            {
-                                paoRep.Write("番号", num.ToString(), i + 1);
-                                paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);
-                                paoRep.Write("寸法", string.Format("{0:#,0}", (QuoteMeisai[CurRow].寸法 ?? 0)), i + 1);
-                                paoRep.Write("数量", string.Format("{0:#,0}", (QuoteMeisai[CurRow].数量 ?? 0)), i + 1);
-                                paoRep.Write("単位", QuoteMeisai[CurRow].単位 ?? " ", i + 1);
-                                paoRep.Write("単価", string.Format("{0:#,0}", (QuoteMeisai[CurRow].単価 ?? 0)), i + 1);
-                                paoRep.Write("金額", string.Format("{0:#,0}", (QuoteMeisai[CurRow].金額 ?? 0)), i + 1);
-                                paoRep.Write("備考", QuoteMeisai[CurRow].備考 ?? " ", i + 1);
-                            }
-
-                            CurRow++;
-                            num++;
-
-                        }
-                    }
-                    paoRep.PageEnd();
-                }
             }
         }
 

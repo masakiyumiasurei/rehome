@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using rehome.Enums;
+using System.ComponentModel.DataAnnotations;
 namespace rehome.Models
 {
     public class SiireSearchConditions
@@ -14,6 +15,10 @@ namespace rehome.Models
         public string? TEL { get; set; }
 
         public string? FAX { get; set; }
+
+        public 業種? 業種 { get; set; }
+
+        public 仕入分類? 分類 { get; set; }
 
     }
 }

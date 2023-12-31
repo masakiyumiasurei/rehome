@@ -1,0 +1,25 @@
+﻿@model PayIndexModel
+@using rehome.Models.DB;
+
+<div class="row">
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box">
+        <label for="仕入先名" class="surround-label">仕入先名</label>
+        @Html.TextBoxFor(m=>m.PaySearchConditions.仕入先名, new {@class = "form-control"})
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_完了予定日">
+        <div class="surround-box">
+            <label for="日付" class="surround-label">支払日期間</label>
+            @Html.EditorFor(m => m.PaySearchConditions.日付start,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})
+            @Html.EditorFor(m => m.PaySearchConditions.日付end,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <button class="custom-btn btn-1" type="submit">検索</button>
+        <a href="/Siire/Clear" class="custom-btn btn-2" type="button">クリア</a>
+    </div>
+</div>

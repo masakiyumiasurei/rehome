@@ -15,7 +15,7 @@ namespace rehome.Models.DB
 
         public int 仕入先ID { get; set; }
 
-        
+        public string? 仕入先名 { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
@@ -30,6 +30,7 @@ namespace rehome.Models.DB
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 消費税 { get; set; }
+        
 
 
         [Column(TypeName = "money")]
@@ -54,7 +55,7 @@ namespace rehome.Models.DB
 
         public string? 備考 { get; set; }
 
-        
+        public int 担当ID { get; set; }
         public static IList<SelectListItem> 見積ステータスitems()
         {
             var tmplist = new List<SelectListItem>();

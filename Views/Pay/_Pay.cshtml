@@ -1,0 +1,89 @@
+﻿@using rehome.Enums;
+@using rehome.Models.DB;
+@model PayCreateModel
+
+
+@Html.HiddenFor(m => m.Pay.仕入ID)
+@Html.HiddenFor(a => a.Pay.仕入先ID,new{@onchange="getPayName()"})
+<div class="row">
+    <div class="col-12 col-sm-3">
+        <div class="d-flex align-items-center">
+            <button type="button" name="office_search" class="btn-sm btn-primary" id="button" onclick="getOffice();">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="ml-2" style="flex-grow: 1;">
+                <label>仕入先名</label>
+                @Html.TextBoxFor(a => a.Pay.仕入先名, new { @class = "form-control form-control-sm", tabindex="-1" })                
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">支払日</label>
+        @Html.TextBoxFor(m => m.Pay.日付, new { @class = "form-control form-control-sm",@type="date" })
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">金額</label>
+        @Html.TextBoxFor(m => m.Pay.金額, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">消費税</label>
+        @Html.TextBoxFor(m => m.Pay.消費税, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">交通費</label>
+        @Html.TextBoxFor(m => m.Pay.交通費, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">値引等</label>
+        @Html.TextBoxFor(m => m.Pay.値引等, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">相手負担</label>
+        @Html.TextBoxFor(m => m.Pay.相手負担, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">当社負担</label>
+        @Html.TextBoxFor(m => m.Pay.当社負担, new { @class = "form-control form-control-sm",@type="number" })
+    </div>
+    
+</div>
+@*<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">銀行名</label>
+        @Html.TextBoxFor(m => m.Siire.銀行名, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">支店名</label>
+        @Html.TextBoxFor(m => m.Siire.支店名, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+        <label for="name">口座区分</label>
+        @Html.TextBoxFor(m => m.Siire.口座区分, new { @class = "form-control form-control-sm" })
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">口座番号</label>
+        @Html.TextBoxFor(m => m.Siire.口座番号, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">口座名義</label>
+        @Html.TextBoxFor(m => m.Siire.口座名義, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+        <label for="name">インボイス番号</label>
+        @Html.TextBoxFor(m => m.Siire.インボイス番号, new { @class = "form-control form-control-sm" })
+    </div>
+</div>*@
+
+<div>@Html.HiddenFor(a => a.Mode)</div>
+@Html.HiddenFor(a => a.BackUrl)
