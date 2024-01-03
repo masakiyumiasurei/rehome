@@ -186,6 +186,7 @@ namespace rehome.Controllers
         public ActionResult HelpCreate(string BackUrl)
         {
             var model = new Help();
+           
             using var connection = new SqlConnection(_connectionString);
 
             ViewBag.OperationMessage = (string)TempData["Help"];
@@ -198,10 +199,10 @@ namespace rehome.Controllers
             {
                 model.BackUrl = Request.Headers["Referer"].ToString();
             }
-            
+
             model = _PayService.GetHelp();//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
 
-            return View("HelpCreate", model);
+            return View("HelpCreate", model);            
         }
 
         [HttpPost]

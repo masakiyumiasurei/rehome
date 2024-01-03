@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Pay\HelpCreate.cshtml" />
+    <Content Remove="Views\Pay\HelpOLD.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,7 +82,7 @@
     <None Include="Views\Nissi\_NissiIndexCustom.cshtml" />
     <None Include="Views\Nissi\_NissiSearch.cshtml" />
     <None Include="Views\Nissi\_NissiSearchCustom.cshtml" />
-    <None Include="Views\Pay\HelpCreate.cshtml" />
+    <None Include="Views\Pay\HelpOLD.cshtml" />
     <None Include="Views\PopupSearch\_PopupSearchSyouhin.cshtml" />
     <None Include="Views\PopupSearch\_PopupSearchSyouhinResult.cshtml" />
     <None Include="Views\Syouhin\Details.cshtml" />

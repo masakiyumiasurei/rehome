@@ -4,8 +4,8 @@
 
 <link rel="stylesheet" href="~/css/table.css" />
 
-@{
-    ViewData["Title"] = "Help";
+@{   
+      ViewData["Title"] = "Help";               
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -24,22 +24,22 @@ else
     @using (@Html.BeginForm("HelpCreate", "Pay", FormMethod.Post))
     {
         <input class="custom-btn btn-1 " type="submit" id="submit" formaction="HelpCreate" formmethod="post" value="登録" name="Edit" />
-
-        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
+        
+        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>        
         @Html.HiddenFor(model => model.BackUrl)
 
         <div class="text-danger">
             @Html.ValidationSummary(false)
         </div>
         <hr />
-
+        
         <div class="col-12 col-sm-10">
             <div class="input-container">
                 @Html.TextAreaFor(m => m.help, 10, 500, new { @class = " " ,placeholder=" "})
                 <label for="name" class="label">Help内容</label>
                 <div class="underline"></div>
             </div>
-        </div>
+        </div>      
     }
 }
 
