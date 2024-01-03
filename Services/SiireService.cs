@@ -7,6 +7,7 @@ using rehome.Models;
 using rehome.Models.DB;
 using X.PagedList;
 using rehome.Public;
+using Castle.Core.Internal;
 
 namespace rehome.Services
 {
@@ -70,6 +71,10 @@ namespace rehome.Services
                     if (!string.IsNullOrEmpty(conditions.FAX))
                     {
                         builder.Where("FAX like @FAX", new { FAX = $"%{conditions.FAX}%" });
+                    }
+                    if (!string.IsNullOrEmpty(conditions.業種.ToString()))
+                    {
+                        builder.Where("業種 = @業種", new { 業種 = conditions.業種 });
                     }
                 }
 

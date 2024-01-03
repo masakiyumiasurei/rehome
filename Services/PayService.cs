@@ -15,11 +15,14 @@ namespace rehome.Services
 
         仕入帳 GetPay(int 仕入ID);
 
+        Help GetHelp();
+
+        Help RegistHelp(Help model);
+
         仕入帳 RegistPay(PayCreateModel model);
 
-        void DeletePay(int 仕入ID);        
-
-        public void RegistQuoteTekiyo(int 見積ID, int 履歴番号, string 注文摘要);
+        void DeletePay(int 仕入ID); 
+        
  
     }
 
@@ -108,8 +111,25 @@ namespace rehome.Services
             }           
         }
 
-        
-        public void RegistQuoteTekiyo(int 見積ID, int 履歴番号, string 注文摘要)
+        public Help GetHelp()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var builder = new SqlBuilder();
+                var template = builder.AddTemplate("SELECT * " +
+                    "FROM T_Help"); 
+                //    " /**where**/ ");
+
+                //builder.Where();
+
+                var result = connection.Query<Help>(template.RawSql).FirstOrDefault();
+
+                return result;
+            }
+        }
+
+        public Help RegistHelp(Help model)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -119,19 +139,11 @@ namespace rehome.Services
                     try
                     {
                         var sql = "";
-                        sql = "update T_見積 set 注文摘要=@注文摘要 " +
-                            " WHERE 見積ID = @見積ID and 履歴番号 =@履歴番号";
-
-                        var result = connection.Execute(sql,
-                        new
-                        {
-                            見積ID = 見積ID,
-                            履歴番号 = 履歴番号,
-                            注文摘要 = 注文摘要
-                        }
-                            , tx);
+                        sql = "update T_Help set help=@help ";
+                            
+                        var result = connection.Execute(sql, new{ model} , tx);
                         tx.Commit();
-                        return;
+                        return GetHelp();
                     }
                     catch (Exception ex)
                     {
@@ -160,8 +172,8 @@ namespace rehome.Services
                         if (model.Mode == ViewMode.New)
                         {
                             //新規
-                            var queryInsert = "INSERT INTO T_仕入帳 (仕入ID,仕入先ID,金額,消費税,交通費,値引等,相手負担,当社負担,日付,time_stamp) " +
-                        "VALUES ( @仕入ID,@仕入先ID,@金額,@消費税,@交通費,@値引等,@相手負担,@当社負担,@日付,getdate())";
+                            var queryInsert = "INSERT INTO T_仕入帳 (仕入先ID,金額,消費税,交通費,値引等,相手負担,当社負担,日付,time_stamp) " +
+                        "VALUES (@仕入先ID,@金額,@消費税,@交通費,@値引等,@相手負担,@当社負担,@日付,getdate())";
 
                             var insert = connection.Execute(queryInsert, model.Pay, tx);
                             tx.Commit();
@@ -172,7 +184,7 @@ namespace rehome.Services
                         else 
                         {
                             //更新
-                            var queryUpdate = "UPDATE T_見積 SET 仕入ID=@仕入ID,仕入先ID=@仕入先ID,金額=@金額," +
+                            var queryUpdate = "UPDATE T_仕入帳 SET 仕入先ID=@仕入先ID,金額=@金額," +
                                 "消費税=@消費税,交通費=@交通費,値引等=@値引等,相手負担=@相手負担,当社負担=@当社負担,日付=@日付,time_stamp = getdate()" +
                                 " WHERE 仕入ID = @仕入ID";
 

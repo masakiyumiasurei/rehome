@@ -1,5 +1,6 @@
 ﻿@model SiireIndexModel
 @using rehome.Models.DB;
+@using rehome.Enums;
 
 <div class="row">
 
@@ -33,13 +34,15 @@
         <label for="FAX" class="surround-label">FAX</label>
         @Html.TextBoxFor(m=>m.SiireSearchConditions.FAX, new {@class = "form-control"})
     </div>
-
+    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box">
+        <label for="業種" class="surround-label">業種</label>
+        @Html.DropDownListFor(m => m.SiireSearchConditions.業種,new SelectList(Enum.GetValues(typeof(業種))), "", new { @class = "form-control"})
+    </div>
 </div>
 
-
-                <div class="row justify-content-md-center">
-                    <div class="col-md-4">
-                        <button class="custom-btn btn-1" type="submit">検索</button>
-                        <a href="/Siire/Clear" class="custom-btn btn-2" type="button">クリア</a>
-                    </div>
-                </div>
+<div class="row justify-content-md-center">
+    <div class="col-md-4">
+        <button class="custom-btn btn-1" type="submit">検索</button>
+        <a href="/Siire/Clear" class="custom-btn btn-2" type="button">クリア</a>
+    </div>
+</div>

@@ -14,5 +14,6 @@
         public const string Bunrui_SEARCH_CONDITIONS = "BunruiSearchConditions";
         public const string Office_SEARCH_CONDITIONS = "OfficeSearchConditions";
         public const string Nyukin_SEARCH_CONDITIONS = "NyukinSearchConditions";
+        public const string Pay_SEARCH_CONDITIONS = "PaySearchConditions";
     }
 }

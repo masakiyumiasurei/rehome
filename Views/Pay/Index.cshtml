@@ -24,7 +24,7 @@
 @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
 {
     <div style="text-align:right">
-        <a href="@Url.Action("New", "Pay")" class="custom-btn btn-1"><i class="fa fa-plus-square" aria-hidden="true"></i> 新規</a>
+        <a href="@Url.Action("Create", "Pay")" class="custom-btn btn-1"><i class="fa fa-plus-square" aria-hidden="true"></i> 新規</a>
     </div>
     <br>
 }
@@ -46,46 +46,49 @@
             </tr>
         </thead>
 
-        @foreach (var item in Model.Pays)
+        @if (Model.Pays != null)
         {
-            <tr>
-                <td>
-                    <div class="text-center">
-                        <a href="@Url.Action("Details", "Pay", new { 仕入ID = @item.仕入ID })" )" class="custom-btn btn-size-min btn-1"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                    </div>
-                </td>
+            @foreach (var item in Model.Pays)
+            {
+                <tr>
+                    <td>
+                        <div class="text-center">
+                            <a href="@Url.Action("Create", "Pay", new { 仕入ID = @item.仕入ID })"  class="custom-btn btn-size-min btn-1">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                        </div>
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.仕入先名)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.日付)
-                </td>
-                                
-                 <td>
-                    @Html.DisplayFor(modelItem => item.金額)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.仕入先名)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.日付)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.消費税)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.交通費)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.値引等)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.相手負担)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.当社負担)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.金額)
+                    </td>
 
-            </tr>
-        }
-        </table>  
+                    <td>
+                        @Html.DisplayFor(modelItem => item.消費税)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.交通費)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.値引等)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.相手負担)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.当社負担)
+                    </td>
 
+                </tr>
+            }
+        }    
+        </table>        
 </div>
 
 

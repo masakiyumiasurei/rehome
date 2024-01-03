@@ -161,11 +161,9 @@ namespace rehome.Controllers
             if (HttpContext.Session.GetObject<SiireSearchConditions>(SessionKeys.Siire_SEARCH_CONDITIONS) != null)
             {
                 viewModel.SiireSearchConditions = HttpContext.Session.GetObject<SiireSearchConditions>(SessionKeys.Siire_SEARCH_CONDITIONS);
-
             }
 
             HttpContext.Session.SetObject(SessionKeys.Siire_SEARCH_CONDITIONS, viewModel.SiireSearchConditions);
-
 
             viewModel.Siire = _SiireService.SearchSiires(viewModel.SiireSearchConditions);
 

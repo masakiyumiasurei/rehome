@@ -52,7 +52,7 @@ namespace rehome.Controllers
         {
             using var connection = new SqlConnection(_connectionString);
 
-            ViewBag.OperationMessage = (string)TempData["Quote"];
+            ViewBag.OperationMessage = (string)TempData["Pay"];
 
             var model = new PayCreateModel();
 
@@ -69,27 +69,24 @@ namespace rehome.Controllers
 
             if (仕入ID == null)//new処理
             {
-                
-
+                model.Pay = new 仕入帳();
                 model.Mode = ViewMode.New;
-                //開発中コメント
-                model.Pay.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+               
+                model.Pay.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);                   
+                
                 model.auth= bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
             }
             else
-            {//edit処理
-                
+            {//edit処理                
                 model.Mode = ViewMode.Edit;
                 model.Pay = _PayService.GetPay(仕入ID ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
  
-                model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-               
+                model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);               
             }
 
             model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 
-            return View(model);
-
+            return View("Create",model);
         }
 
         [HttpPost]
@@ -135,20 +132,42 @@ namespace rehome.Controllers
 
 
         }
-             
+
+        public IActionResult Search(PayIndexModel model, bool Clear)
+        {
+
+            ViewBag.OperationMessage = TempData["Pay_Index"];
+
+            var viewModel = new PayIndexModel();
+            if (Clear == true)
+            {
+                viewModel.PaySearchConditions = new PaySearchConditions();
+            }
+            else
+            {
+                viewModel.PaySearchConditions = model.PaySearchConditions;
+            }
+            ModelState.Clear();
+
+            HttpContext.Session.SetObject(SessionKeys.Pay_SEARCH_CONDITIONS, viewModel.PaySearchConditions);
+
+            viewModel.Pays = _PayService.SearchPay(viewModel.PaySearchConditions);
+
+            return View("Index", viewModel);
+        }
 
         public IActionResult Index(int? page)
-    {
+        {
             ViewBag.OperationMessage = (string)TempData["Quote_Index"];
 
             var viewModel = new PayIndexModel();
-            if (HttpContext.Session.GetObject<PaySearchConditions>(SessionKeys.QUOTE_SEARCH_CONDITIONS) != null)
+            if (HttpContext.Session.GetObject<PaySearchConditions>(SessionKeys.Pay_SEARCH_CONDITIONS) != null)
             {
-                viewModel.PaySearchConditions = HttpContext.Session.GetObject<PaySearchConditions>(SessionKeys.QUOTE_SEARCH_CONDITIONS);
+                viewModel.PaySearchConditions = HttpContext.Session.GetObject<PaySearchConditions>(SessionKeys.Pay_SEARCH_CONDITIONS);
                 //if (page == null) pageNumber = viewModel.QuoteSearchConditions.page;
             }
             //viewModel.QuoteSearchConditions.page = pageNumber;
-            HttpContext.Session.SetObject(SessionKeys.QUOTE_SEARCH_CONDITIONS, viewModel.PaySearchConditions);
+            HttpContext.Session.SetObject(SessionKeys.Pay_SEARCH_CONDITIONS, viewModel.PaySearchConditions);
 
             //開発中はコメント
             //viewModel.PaySearchConditions.LoginID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -162,6 +181,49 @@ namespace rehome.Controllers
             viewModel.PaySearchConditions = new PaySearchConditions();
             return RedirectToAction("Index", "Pay");
         }
+
+        [HttpGet]
+        public ActionResult HelpCreate(string BackUrl)
+        {
+            var model = new Help();
+            using var connection = new SqlConnection(_connectionString);
+
+            ViewBag.OperationMessage = (string)TempData["Help"];
+
+            if (BackUrl != null)
+            {
+                model.BackUrl = BackUrl;
+            }
+            else if (Request.Headers["Referer"].Any())
+            {
+                model.BackUrl = Request.Headers["Referer"].ToString();
+            }
+            
+            model = _PayService.GetHelp();//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
+
+            return View("HelpCreate", model);
+        }
+
+        [HttpPost]
+        public IActionResult HelpCreate(Help model)
+        {
+            var viewModel = new Help();
+            try
+            {
+                viewModel = _PayService.RegistHelp(model);
+                                
+                TempData["Pay"] = String.Format("仕入帳情報を登録しました");
+                ModelState.Clear();
+                viewModel.BackUrl = model.BackUrl;
+                return RedirectToAction("Create", "Pay", viewModel.BackUrl );
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
+                return View(model);
+            }
+        }
+
 
     }
 }

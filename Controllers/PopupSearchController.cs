@@ -55,25 +55,27 @@ namespace rehome.Controllers
         public IActionResult Siire()
         {
             var viewModel = new PopupSearchSiireModel();
-            //return PartialView("_PopupSearchSyouhin", viewModel);
-            return PartialView("_PopupSearchSiire", viewModel);
+
+            viewModel.SearchSiires = _SiireService.SearchSiires(viewModel.SearchConditions);
+          
+           return PartialView("_PopupSearchSiire", viewModel);
 
         }
 
         [HttpPost]
-        public ActionResult Siire( string? PopupSiireName, 業種? Popup業種)
+        public ActionResult Siire( string? PopupSiireName, 業種? PopupSiireGyoushu)
         {
             var viewModel = new PopupSearchSiireModel();
             int count = 0;
 
             //if (PopupOfficeID != null) { viewModel.SearchConditions.販売店ID = Int32.Parse(PopupOfficeID); count++; }
             if (PopupSiireName != null) { viewModel.SearchConditions.仕入先名 = PopupSiireName; count++; }
-            if (Popup業種 != null) { viewModel.SearchConditions.業種 = Popup業種; count++; }
+            if (PopupSiireGyoushu != null) { viewModel.SearchConditions.業種 = PopupSiireGyoushu; count++; }
 
             //if (count > 0) { viewModel.SearchOffices = _OfficeService.SearchOffices(viewModel.SearchConditions); }
 
             viewModel.SearchSiires = _SiireService.SearchSiires(viewModel.SearchConditions);
-            return PartialView("_PopupSearchOfficeResult", viewModel);
+            return PartialView("_PopupSearchSiireResult", viewModel);
         }
 
     }

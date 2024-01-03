@@ -2,17 +2,15 @@
 @using rehome.Models.DB;
 
 <div class="row">
-    <div class="col-lg-3 col-md-5 col-sm-6 col-xs-6 align-items-start surround-box">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start surround-box">
         <label for="仕入先名" class="surround-label">仕入先名</label>
         @Html.TextBoxFor(m=>m.PaySearchConditions.仕入先名, new {@class = "form-control"})
     </div>
 
-    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_完了予定日">
-        <div class="surround-box">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start surround-box">        
             <label for="日付" class="surround-label">支払日期間</label>
             @Html.EditorFor(m => m.PaySearchConditions.日付start,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})
-            @Html.EditorFor(m => m.PaySearchConditions.日付end,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})
-        </div>
+            @Html.EditorFor(m => m.PaySearchConditions.日付end,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})        
     </div>
 </div>
 

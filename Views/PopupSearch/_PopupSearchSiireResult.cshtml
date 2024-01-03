@@ -1,0 +1,43 @@
+﻿@model PopupSearchSiireModel
+
+    <table  class="table table-striped table-hover table-sm ">
+        <thead>
+            <tr>
+                <th class="column5">選択</th>
+                <th class="column5">仕入先ID</th>
+                <th >仕入先名</th>
+            <th class ="column10">業種</th>
+                
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model.SearchSiires != null)
+            {
+            @foreach (var item in Model.SearchSiires)
+                {
+                    <tr>
+                        @*PopupSearch.jsの関数を実行する*@
+                        <td> 
+                            <button type="button" class="custom-btn btn-size-min btn-1" id="PopupSelect"
+                                data-bs-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.仕入先ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.仕入先名)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.業種)
+                        </td>                        
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+@section Scripts{
+
+}

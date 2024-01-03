@@ -8,11 +8,10 @@ using Microsoft.EntityFrameworkCore;
 namespace rehome.Models.DB
 {
     public class Help
-    {
+    {        
+        public string? help { get; set; }   
         
-        public string? help { get; set; }
-        
-        
+        public string? BackUrl { get; set; }
 
     }
 }

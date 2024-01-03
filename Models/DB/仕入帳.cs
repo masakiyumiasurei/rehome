@@ -32,23 +32,20 @@ namespace rehome.Models.DB
         public decimal? 消費税 { get; set; }
         
 
-
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 交通費 { get; set; }
 
-        [Required(ErrorMessage = "{0}を入力してください。")]
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 値引等 { get; set; }
 
 
-        [Required(ErrorMessage = "{0}を入力してください。")]
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 相手負担 { get; set; }
 
-        [Required(ErrorMessage = "{0}を入力してください。")]
+        
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
         public decimal? 当社負担 { get; set; }

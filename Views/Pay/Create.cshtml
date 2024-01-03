@@ -24,7 +24,7 @@
     <p>@ViewBag.OperationMessage</p>
 </div>
 
-@using (@Html.BeginForm("Details", "Pay", FormMethod.Post, new { id = "PayEditForm" }))
+@using (@Html.BeginForm("Create", "Pay", FormMethod.Post, new { id = "PayEditForm" }))
 {
     @Html.HiddenFor(model => model.Mode)
     @Html.HiddenFor(model => model.BackUrl)
@@ -38,21 +38,21 @@
     <div class="form-group">
         <div class="col-xs-offset-1 col-xs-11">
             <div class="row">
-                @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
-                {
+                @*@if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.System).Value == "True")
+                {*@
                     <div class="col-1 col-sm-1">
-                        <button type="submit" formaction="Details" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
+                        <button type="submit" formaction="Create" formmethod="post" id="btnSubmit"  class="custom-btn btn-1">登録</button>
                     </div>
                     <div class="col-1 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
                     </div>
-                @if (Model.Mode == ViewMode.Edit){
-
+                @if (Model.Mode == ViewMode.Edit)
+                {
                     <div class="col-1 col-sm-1">
                         <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2">削除</button>
                     </div>
                 }
-                }
+                
             </div>
             
 
@@ -94,7 +94,7 @@
         });
 
         //仕入先検索画面を表示
-        function getOffice() {
+        function getSiire() {
 
             PopupSearch('Pay.仕入先ID', '/PopupSearch/Siire');
         }
@@ -104,13 +104,12 @@
             //選択行の行番号を取得
 
             var targetID = $('[name="Pay.仕入先ID"]').val();
-            console.log(SyouhinID);
-
+            
             var table = 'T_仕入先';
             var wheresql = '仕入先ID=' + targetID;
 
             var result = ReturnRecordJson(table, wheresql);
-            $('[name="Pay.仕入先ID"]').val(nz(result.仕入先名));
+            $('[name="Pay.仕入先名"]').val(nz(result.仕入先名));
             
         }
     </script>
