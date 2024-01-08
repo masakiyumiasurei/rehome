@@ -54,27 +54,26 @@
                     @if (Model.Quote.single)
                     {
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size">1枚印刷</a>
+                            <a href="@Url.Action("見積書_1枚印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+                            target="_blank" class="custom-btn btn-2 btn-size">1枚印刷</a>
                         </div>
                     }
                     else
                     {
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_鑑印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="custom-btn btn-2 btn-size">鑑印刷</a>
+                            <a href="@Url.Action("見積書_鑑印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+                            target="_blank" class="custom-btn btn-2 btn-size">鑑印刷</a>
                         </div>
 
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                            <a href="@Url.Action("見積書_複数印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" target="_blank" class="btn custom-btn btn-2 btn-size">複数印刷</a>
+                            <a href="@Url.Action("見積書_複数印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
+                            target="_blank" class="btn custom-btn btn-2 btn-size">複数印刷</a>
                         </div>
                     }
                     <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                         <a href="@Url.Action("Index", "Chumon",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})" class="btn custom-btn btn-2 btn-size">仕入注文</a>
                         @*<button type="submit" formaction="Chumon" formmethod="get" id="btnChumon" class="custom-btn btn-2 btn-size" >仕入注文</button>*@
                     </div>
-                    @*<div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-            <a href="@Url.Action("作業完了報告書印刷", "Quote",new{見積ID = Model.Quote.見積ID,履歴番号= Model.Quote.履歴番号})"
-            target="_blank" class="custom-btn btn-2 btn-size-min-inner">作業完了報告書</a>
-            </div>*@
                     @if (Model.Quote.single)
                     {
                         <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
@@ -460,7 +459,7 @@
                 //金額計算
                 var kingaku = (Number($('[name="Quote.見積明細リスト[' + n + '].単価"]').val())) * (Number($('[name="Quote.見積明細リスト[' + n + '].数量"]').val()));
                 $('[name="Quote.見積明細リスト[' + n + '].金額"]').val(kingaku);
-                var genka = Number($('[name="Quote.見積明細リスト[' + n + '].見込原価"]').val());
+                var genka = Number($('[name="Quote.見積明細リスト[' + n + '].見込原価"]').val()) * (Number($('[name="Quote.見積明細リスト[' + n + '].数量"]').val()));
                 var del_flg = $('[name="Quote.見積明細リスト[' + n + '].削除FLG"]').val();
                 //全体総計計算
                 if (isNaN(kingaku) == false && del_flg == "False") {
@@ -469,20 +468,21 @@
                 if (isNaN(genka) == false && del_flg == "False") {
                     amount_genka += genka;
                 }
+                console.log(amount_genka);
 
             }
             $('[name="Quote.見込原価"]').val(amount_genka);
             var genka_mikomi = Number($('[name="Quote.見込原価"]').val() || 0);
             var genka = Number($('[name="Quote.原価"]').val().replace(/,/g, '')) || 0;
-            var hikazei = Number($('[name="Quote.非課税額"]').val().replace(/,/g, '')) || 0;
+            //var hikazei = Number($('[name="Quote.非課税額"]').val().replace(/,/g, '')) || 0;
             var nebiki = Number($('[name="Quote.値引額"]').val().replace(/,/g, '')) || 0;
-            var rieki = (amount_money - genka + hikazei - nebiki);
-            var rieki_mikomi = (amount_money - genka_mikomi + hikazei - nebiki);
+            var rieki = (amount_money - genka  - nebiki);
+            var rieki_mikomi = (amount_money - genka_mikomi - nebiki);
             $('[name="Quote.見積金額"]').val(amount_money);
             $('[name="Quote.利益"]').val(rieki);
             $('[name="Quote.見込利益"]').val(rieki_mikomi);
-            $('[name="Quote.粗利率"]').val(rieki == 0 ? 0 + '%' : (rieki * 100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
-            $('[name="Quote.見込粗利率"]').val(rieki_mikomi == 0 ? 0 + '%' : (rieki_mikomi * 100 / (amount_money - nebiki + hikazei)).toFixed(1) + '%');
+            $('[name="Quote.粗利率"]').val(rieki == 0 ? 0 + '%' : (rieki * 100 / (amount_money - nebiki )).toFixed(1) + '%');
+            $('[name="Quote.見込粗利率"]').val(rieki_mikomi == 0 ? 0 + '%' : (rieki_mikomi * 100 / (amount_money - nebiki )).toFixed(1) + '%');
         }
 
         function free_dropdown(elm) {
@@ -595,7 +595,7 @@
 
         function SeikyuButtonClick(event) {
             // alert("見積ステータスを請求にして登録してないと、請求書は出せません。");
-            event.preventDefault();
+            
             return jQuery.ajax({
                 method: "GET",
                 url: '@Url.Action("GetQuoteStatus", "Quote")',
@@ -608,14 +608,13 @@
             }).done(function (result) {
                 // 通信成功時の処理
                 if (result === '請求') {
-                    console.log('請求書：履歴番号' + '@Model.Quote.履歴番号');
-                    window.location.href = event.target.href;
-
-                   // window.location.href = '@Url.Action("請求書_1枚印刷", "Quote", new { 見積ID = Model.Quote.見積ID, 履歴番号 = Model.Quote.履歴番号 })';
-                    // return true;
-                } else {
-                    //
-                    alert("見積ステータスを請求にして登録する必要があります。請求書は出せません。");
+                    console.log('請求書：履歴番号です' + '@Model.Quote.履歴番号');
+                    //window.location.href = event.target.href;
+                }
+                else {
+                    //URLを実行しない
+                    event.preventDefault();
+                    alert("見積ステータスを「請求」にして登録する必要があります。請求書は出せません。");
                     // return false;
                 }
 

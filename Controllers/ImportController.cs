@@ -21,14 +21,17 @@ namespace rehome.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IImportService _importService;
         private readonly ISyouhinService _SyouhinService;
+        private readonly IExportService _ExportService;
         private readonly string _connectionString;
         public ImportController(IImportService importService, IConfiguration configuration,
-            ISyouhinService SyouhinService,IWebHostEnvironment hostingEnvironment)
+            ISyouhinService SyouhinService,IWebHostEnvironment hostingEnvironment, IExportService exportService)
         {
             _hostingEnvironment = hostingEnvironment;
             _importService = importService;
             _SyouhinService = SyouhinService;
+            _ExportService = exportService;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _ExportService = exportService;
         }
 
         public IActionResult Index()
@@ -211,10 +214,75 @@ namespace rehome.Controllers
             };
 
             return response;
+        }
 
+        [HttpGet]　//仕入帳CSVのエクスポート
+        public ActionResult ExportSiireChoCSV(DateTime startdate,DateTime enddate)
+        {
+            IList<Export仕入帳> viewModel = new List<Export仕入帳>();
+            viewModel = _ExportService.ListSiireCho(startdate,enddate);
+
+            // CSVファイルの内容を文字列として構築します
+            StringBuilder csvContent = new StringBuilder();
+            csvContent.AppendLine("支払日,仕入先名,インボイス番号,分類,金額,消費税,交通費,値引等,合計,振出額," +
+                　　　　　　　　　"相手負担,当社負担,銀行名,支店名,口座区分,口座番号,口座名義"); // ヘッダ行
+
+            foreach (var product in viewModel)
+            {
+                //ToCsvStringはカンマを表示するため、モデルに作成しているメソッド
+                csvContent.AppendLine(product.ToCsvString());
+            }
+
+            // CSVファイルの内容を文字列として取得します
+            string csvFileName = "仕入帳.csv";
+            byte[] csvData = Encoding.GetEncoding("Shift-JIS").GetBytes(csvContent.ToString());
+
+            var response = new FileContentResult(csvData, "text/csv")
+            {
+                FileDownloadName = csvFileName
+            };
+
+            return response;
+        }
+
+        [HttpGet]　//売上表CSVのエクスポート
+        public ActionResult ExportUriageCSV(DateTime startdate, DateTime enddate)
+        {
+            IList<Export売上表> viewModel = new List<Export売上表>();
+            viewModel = _ExportService.ListUriage(startdate, enddate);
+
+            // CSVファイルの内容を文字列として構築します
+            StringBuilder csvContent = new StringBuilder();
+            csvContent.AppendLine("計上月,請求日,担当,種類,現場名,部屋番号,種類2,JS番号,件名,入金日," +
+                "入金額,振込手数料,振込名義,前受金,備考,項目,入金種別"); // ヘッダ行
+
+            foreach (var product in viewModel)
+            {
+                //ToCsvStringはカンマを表示するため、モデルに作成しているメソッド
+                csvContent.AppendLine(product.ToCsvString());
+            }
+
+            // CSVファイルの内容を文字列として取得します
+            string csvFileName = "売上表.csv";
+            byte[] csvData = Encoding.GetEncoding("Shift-JIS").GetBytes(csvContent.ToString());
+
+            var response = new FileContentResult(csvData, "text/csv")
+            {
+                FileDownloadName = csvFileName
+            };
+
+            return response;
         }
 
 
+
+        private void ProcessUploadedFile(string filePath)
+        {
+            // ファイルの内容を適切に処理する
+            // 例：データベースに保存する、別のサービスに送信する、などの処理を行う
+            // ここでは、ファイルを削除するだけとします
+            System.IO.File.Delete(filePath);
+        }
 
 
         [HttpPost]
@@ -252,112 +320,103 @@ namespace rehome.Controllers
             return Ok(); // 成功を示すレスポンスを返す
         }
 
-        private void ProcessUploadedFile(string filePath)
-        {
-            // ファイルの内容を適切に処理する
-            // 例：データベースに保存する、別のサービスに送信する、などの処理を行う
-            // ここでは、ファイルを削除するだけとします
-            System.IO.File.Delete(filePath);
-        }
-    
+        //[HttpPost]
+        //public async Task<IActionResult> ImportFile(IFormFile input_file)
+        //{
+        //    // ファイルがアップロードされていない場合はエラーを返す
+        //    if (input_file == null || input_file.Length == 0)
+        //    {
+        //        //return BadRequest("ファイルがアップロードされていません。");
+        //        //TempData["PaidVacation"] = "ファイルがありませんでした。";
+        //        return RedirectToAction("Index", "Quote");
+        //    }
+        //    try
+        //    {
+        //        // CSVファイルの内容をモデルにバインドする
+        //        using (var reader = new StreamReader(input_file.OpenReadStream(),
+        //        Encoding.GetEncoding("shift_jis")))
+        //        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        //        {
 
-                //[HttpPost]
-                //public async Task<IActionResult> ImportFile(IFormFile input_file)
-                //{
-                //    // ファイルがアップロードされていない場合はエラーを返す
-                //    if (input_file == null || input_file.Length == 0)
-                //    {
-                //        //return BadRequest("ファイルがアップロードされていません。");
-                //        //TempData["PaidVacation"] = "ファイルがありませんでした。";
-                //        return RedirectToAction("Index", "Quote");
-                //    }
-                //    try
-                //    {
-                //        // CSVファイルの内容をモデルにバインドする
-                //        using (var reader = new StreamReader(input_file.OpenReadStream(),
-                //        Encoding.GetEncoding("shift_jis")))
-                //        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                //        {
-
-                //          //  TempData["PaidVacation"] = "ファイルがアップロードされました。";
-                //           // string OperationMsg = (string)TempData["PaidVacation"];
-                //            var viewModel = new PaidVacationDetailModel();
-                //            csv.Context.RegisterClassMap<CSV勤怠有給残Map>();
-                //            viewModel.CSVPaidVacations = csv.GetRecords<CSV勤怠有給残>().ToList();
+        //          //  TempData["PaidVacation"] = "ファイルがアップロードされました。";
+        //           // string OperationMsg = (string)TempData["PaidVacation"];
+        //            var viewModel = new PaidVacationDetailModel();
+        //            csv.Context.RegisterClassMap<CSV勤怠有給残Map>();
+        //            viewModel.CSVPaidVacations = csv.GetRecords<CSV勤怠有給残>().ToList();
 
 
-                //            DateTime StartDay;
-                //            DateTime EndDay;
+        //            DateTime StartDay;
+        //            DateTime EndDay;
 
-                //            if (DateTime.Now.Month < 10)
-                //            {
-                //                StartDay = new DateTime(DateTime.Now.Year, 10, 1).AddYears(-1);
-                //                EndDay = new DateTime(DateTime.Now.Year, 9, 30);
-                //            }
-                //            else
-                //            {
-                //                StartDay = new DateTime(DateTime.Now.Year, 10, 1);
-                //                EndDay = new DateTime(DateTime.Now.Year, 9, 30).AddYears(1);
-                //            }
+        //            if (DateTime.Now.Month < 10)
+        //            {
+        //                StartDay = new DateTime(DateTime.Now.Year, 10, 1).AddYears(-1);
+        //                EndDay = new DateTime(DateTime.Now.Year, 9, 30);
+        //            }
+        //            else
+        //            {
+        //                StartDay = new DateTime(DateTime.Now.Year, 10, 1);
+        //                EndDay = new DateTime(DateTime.Now.Year, 9, 30).AddYears(1);
+        //            }
 
-                //            viewModel.期首日 = StartDay.ToString("yyyy年MM月dd日");
-                //            viewModel.期末日 = EndDay.ToString("yyyy年MM月dd日");
+        //            viewModel.期首日 = StartDay.ToString("yyyy年MM月dd日");
+        //            viewModel.期末日 = EndDay.ToString("yyyy年MM月dd日");
 
-                //            ViewBag.OperationMessage = OperationMsg;
-                //            return View("Details", viewModel);
-                //        }
-                //    }
-                //    catch (System.Exception ex)
-                //    {
-                //        TempData["PaidVacation"] = "アップロードファイルが不正です。";
-                //        ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
-                //        return RedirectToAction("Details", "PaidVacation");
-                //    }
-                //}
+        //            ViewBag.OperationMessage = OperationMsg;
+        //            return View("Details", viewModel);
+        //        }
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        TempData["PaidVacation"] = "アップロードファイルが不正です。";
+        //        ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
+        //        return RedirectToAction("Details", "PaidVacation");
+        //    }
+        //}
 
-                //[HttpPost]
-                ////[ValidateAntiForgeryToken]
-                //[AutoValidateAntiforgeryToken]
-                //public ActionResult RegistCSV(PaidVacationDetailModel model)
-                //{
-                //    if (!ModelState.IsValid)
-                //    {
-                //        return View(model);
-                //    }
-                //    string CautionMsg = "";
-                //    var viewModel = new PaidVacationDetailModel();
-                //    try
-                //    {
-                //        if (model.CSVPaidVacations != null)
-                //        {
-                //            foreach (var row in model.CSVPaidVacations)
-                //            {
-                //                //viewModel.PaidVacations = _PaidVacationService.RegistCSVPaidVacations(model);
-                //                //TempData["PaidVacation"] = String.Format("CSVから有給休暇残日数を更新しました");
-                //                CautionMsg += _PaidVacationService.RegistCSVPaidVacations(row);
-                //            }
-                //            //ModelState.Clear();
-                //            //return RedirectToAction("Details", "PaidVacation");
-                //            ViewBag.OperationMessage = "登録しました";
-                //            ViewBag.CautionMessage = CautionMsg;
-                //            return View("Details", model);
-                //        }
-                //        else
-                //        {
-                //            CautionMsg = "更新内容がありません";
-                //            ViewBag.CautionMessage = CautionMsg;
-                //            return View("Details", model);
-                //        }
-                //    }
-                //    catch (System.Exception ex)
-                //    {
-                //        ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
+        //[HttpPost]
+        ////[ValidateAntiForgeryToken]
+        //[AutoValidateAntiforgeryToken]
+        //public ActionResult RegistCSV(PaidVacationDetailModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    string CautionMsg = "";
+        //    var viewModel = new PaidVacationDetailModel();
+        //    try
+        //    {
+        //        if (model.CSVPaidVacations != null)
+        //        {
+        //            foreach (var row in model.CSVPaidVacations)
+        //            {
+        //                //viewModel.PaidVacations = _PaidVacationService.RegistCSVPaidVacations(model);
+        //                //TempData["PaidVacation"] = String.Format("CSVから有給休暇残日数を更新しました");
+        //                CautionMsg += _PaidVacationService.RegistCSVPaidVacations(row);
+        //            }
+        //            //ModelState.Clear();
+        //            //return RedirectToAction("Details", "PaidVacation");
+        //            ViewBag.OperationMessage = "登録しました";
+        //            ViewBag.CautionMessage = CautionMsg;
+        //            return View("Details", model);
+        //        }
+        //        else
+        //        {
+        //            CautionMsg = "更新内容がありません";
+        //            ViewBag.CautionMessage = CautionMsg;
+        //            return View("Details", model);
+        //        }
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
 
-                //        ViewBag.OperationMessage = String.Format("更新できませんでした");
-                //        return RedirectToAction("Details", "PaidVacation");
-                //        //return View(model);
-                //    }
-                //}
+        //        ViewBag.OperationMessage = String.Format("更新できませんでした");
+        //        return RedirectToAction("Details", "PaidVacation");
+        //        //return View(model);
+        //    }
+        //}
 
 
 

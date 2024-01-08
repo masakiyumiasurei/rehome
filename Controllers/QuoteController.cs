@@ -352,7 +352,6 @@ namespace rehome.Controllers
             //return File(fs, contentType, "見積書.pdf");
         }
 
-
         public void 見積書セット_1枚印刷(IReport paoRep, int 見積ID,int 履歴番号)
         {
             var Quote = new 見積();
@@ -1025,7 +1024,6 @@ namespace rehome.Controllers
             //インスタンス化
             IReport paoRep = ReportCreator.GetPdf();
 
-
             paoRep.LoadDefFile("Reports/請求書.prepd");
 
             請求書セット_1枚印刷(paoRep, 見積ID, 履歴番号);
@@ -1089,7 +1087,7 @@ namespace rehome.Controllers
                 paoRep.PageStart();
 
                 //ヘッダー
-                paoRep.Write("見積番号", "No." + (Quote.見積番号 ?? " "));
+               // paoRep.Write("見積番号", "No." + (Quote.見積番号 ?? " "));
                 if (Quote.作成日 != null)
                 {
                     paoRep.Write("作成日", string.Format("{0:yyyy年M月d日}", Quote.作成日));

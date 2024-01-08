@@ -4,58 +4,83 @@
     ViewData["Title"] = "インポート";
 }
  
-<h1>ファイル取込と出力</h1>
+<h1>CSVファイル取込と出力</h1>
 <p>@TempData["import"]</p>
 @using (Html.BeginForm("ImportFile", "Import", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="input_file" id="fileInput" />
-    <input type="submit" value="インポート" class="custom-btn btn-1" />   
+    <label>商品CSVの取込</label>
+        <input type="submit" value="インポート" class="custom-btn btn-1" />
+    
 }
-<a href="/Import/ExportCSV" class="custom-btn btn-1"> CSV出力</a>
+<label>各種CSVファイルの出力</label>
+<a href="/Import/ExportCSV" class="custom-btn btn-1"> 商品CSV</a>
 @*<button onclick="uploadFile()">ファイルをアップロード</button>*@
+
+
+@*<a href="@Url.Action("ExportSiireChoCSV", "Import")" class="custom-btn btn-1">仕入帳</a>
+*@
+
+@*<form action="@Url.Action("ExportSiireChoCSV", "Import")" method="post">*@
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" >
+    <div class="surround-box">
+        <label class="surround-label">抽出期間</label>
+        <input class="form-control form-control-sm text-box single-line" id="startdate" name="startdate" type="date" value="">
+        <input class="form-control form-control-sm text-box single-line" id="enddate" name="enddate" type="date" value="">
+    </div>
+</div>
+    <div>
+    <button type="button" id="exportSiireBtn" class="custom-btn btn-1">仕入帳</button>
+    <button type="button" id="exportUriageBtn" class="custom-btn btn-1">売上集金</button>
+    </div>
+
 
 @section Scripts {
 <script type="text/javascript">
 
-        function uploadFile() {
-            var fileInput = document.getElementById('fileInput');
-            var file = fileInput.files[0];
-            console.log("uplode")
-            if (!file) {
-                alert('ファイルを選択してください。');
-                return;
+        // 仕入帳ボタンがクリックされたときの処理
+        document.getElementById('exportSiireBtn').addEventListener('click', function () {
+            // テキストボックスの値を取得
+            var startDateValue = document.getElementById('startdate').value;
+            var endDateValue = document.getElementById('enddate').value;
+
+            // 日付が空でないかチェック
+            if (startDateValue.trim() === '' || endDateValue.trim() === '') {
+                // 日付が空の場合、エラーメッセージを表示
+                alert('抽出期間を入力してください。');
+                return; // 関数をここで終了させます
             }
 
-            var chunkSize = 1024 * 1024; // チャンクサイズを1MBに設定
-            var offset = 0;
+            // リダイレクトURLにパラメータとして追加
+            var url = "@Url.Action("ExportSiireChoCSV", "Import")";
+            url += "?startdate=" + encodeURIComponent(startDateValue);
+            url += "&enddate=" + encodeURIComponent(endDateValue);
 
-            while (offset < file.size) {
-                var chunk = file.slice(offset, offset + chunkSize);
-                offset += chunkSize;
+            // リダイレクト
+            window.location.href = url;
+        });
 
-                var formData = new FormData();
-                formData.append('fileChunk', chunk);
-                formData.append('fileName', file.name);
-                formData.append('totalSize', file.size);
+        // 売上表ボタンがクリックされたときの処理
+        document.getElementById('exportUriageBtn').addEventListener('click', function () {
+            // テキストボックスの値を取得
+            var startDateValue = document.getElementById('startdate').value;
+            var endDateValue = document.getElementById('enddate').value;
 
-                sendChunk(formData);
+            // 日付が空でないかチェック
+            if (startDateValue.trim() === '' || endDateValue.trim() === '') {
+                // 日付が空の場合、エラーメッセージを表示
+                alert('抽出期間を入力してください。');
+                return; // 関数をここで終了させます
             }
-        }
 
-        function sendChunk(formData) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Import/ImportFileChunk', true);
+            // リダイレクトURLにパラメータとして追加
+            var url = "@Url.Action("ExportUriageCSV", "Import")";
+            url += "?startdate=" + encodeURIComponent(startDateValue);
+            url += "&enddate=" + encodeURIComponent(endDateValue);
 
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    console.log('チャンクをアップロードしました。');
-                } else {
-                    console.error('チャンクのアップロードに失敗しました。');
-                }
-            };
-
-            xhr.send(formData);
-        }
+            // リダイレクト
+            window.location.href = url;
+        });
 
 
 </script>

@@ -141,7 +141,7 @@ namespace rehome.Services
                         var sql = "";
                         sql = "update T_Help set help=@help ";
                             
-                        var result = connection.Execute(sql, new{ model} , tx);
+                        var result = connection.Execute(sql,  model , tx);
                         tx.Commit();
                         return GetHelp();
                     }

@@ -12,7 +12,7 @@ namespace rehome.Models
 
         public bool auth { get; set; }
                
-
+        public Help help { get; set; }
         public IList<DropDownListModel>? 担当DropDownList { get; set; }
 
         

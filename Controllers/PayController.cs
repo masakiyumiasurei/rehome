@@ -79,11 +79,10 @@ namespace rehome.Controllers
             else
             {//edit処理                
                 model.Mode = ViewMode.Edit;
-                model.Pay = _PayService.GetPay(仕入ID ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
- 
+                model.Pay = _PayService.GetPay(仕入ID ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？               
                 model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);               
             }
-
+            model.help = _PayService.GetHelp();
             model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 
             return View("Create",model);
@@ -216,7 +215,7 @@ namespace rehome.Controllers
                 TempData["Pay"] = String.Format("仕入帳情報を登録しました");
                 ModelState.Clear();
                 viewModel.BackUrl = model.BackUrl;
-                return RedirectToAction("Create", "Pay", viewModel.BackUrl );
+                return RedirectToAction("HelpCreate", "Pay", viewModel.BackUrl );
             }
             catch (Exception ex)
             {

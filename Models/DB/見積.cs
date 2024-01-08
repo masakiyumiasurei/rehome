@@ -237,6 +237,10 @@ namespace rehome.Models.DB
 
         public string? 納付状況 { get; set; }
 
+        public string? JS番号 { get; set; }
+
+        public string? 部屋番号 { get; set; }
+
         public List<見積明細>? 見積明細リスト { get; set; }
 
         public List<見積分類表示順>? 見積分類表示順リスト { get; set; }

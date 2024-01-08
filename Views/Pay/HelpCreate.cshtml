@@ -11,8 +11,7 @@
 <h4>@ViewData["Title"]</h4>
 
 <div>
-    <p>@Html.Raw(ViewBag.OperationMessage)</p>
-    @*<p>@ViewBag.OperationMessage</p>*@
+    <p>@Html.Raw(ViewBag.OperationMessage)</p>   
 </div>
 
 @if (Model == null)
@@ -25,12 +24,12 @@ else
     {
         <input class="custom-btn btn-1 " type="submit" id="submit" formaction="HelpCreate" formmethod="post" value="登録" name="Edit" />
 
-        <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
-        @Html.HiddenFor(model => model.BackUrl)
+       @* <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>*@
+       @* @Html.HiddenFor(model => model.BackUrl)*@
 
-        <div class="text-danger">
+        @*<div class="text-danger">
             @Html.ValidationSummary(false)
-        </div>
+        </div>*@
         <hr />
 
         <div class="col-12 col-sm-10">

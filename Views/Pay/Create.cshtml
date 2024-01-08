@@ -54,8 +54,13 @@
                 }
                 
             </div>
+            <div>
+                <label for="help">注意書き</label>
+            </div>
+                <p class="display-for-content">
+                    @Html.DisplayFor(m => m.help.help, new { @class = "form-control display-for-content" })
+                </p>
             
-
         </div>
     </div>
     <br>

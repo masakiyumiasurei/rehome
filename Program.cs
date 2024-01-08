@@ -43,6 +43,7 @@ builder.Services.AddTransient<ISyouhinService, SyouhinService>();
 builder.Services.AddTransient<INyukinService, NyukinService>();
 builder.Services.AddTransient<IImportService, ImportService>();
 builder.Services.AddTransient<IPayService, PayService>();
+builder.Services.AddTransient<IExportService, ExportService>();
 
 builder.Services.AddSession(options =>
 {

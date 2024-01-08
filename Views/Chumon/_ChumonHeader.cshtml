@@ -48,10 +48,10 @@
                     <label>敬称</label>
             @Html.DropDownListFor(m => m.Quote.敬称, 見積.敬称items(), "", new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
                   </div>
-                  <div class="col-12 col-sm-2">
+                  @*<div class="col-12 col-sm-2">
                     <label>完了予定日</label>
             @Html.EditorFor(a => a.Quote.完了予定日, new {htmlAttributes =new { @class = "form-control enable-false form-control-sm",tabindex="-1"  ,@type = "date" }})
-                  </div>
+                  </div>*@
               </div>
 
                <div class="row">
@@ -65,7 +65,7 @@
                   </div>
 
                   <div class="col-12 col-sm-2">
-                    <label>金額計</label>
+                    <label>仕入金額計</label>
             @Html.TextBoxFor(a => a.金額計, new { @class = "form-control enable-false form-control-sm",tabindex="-1" })
                   </div>                   
 @*                  <div class="col-12 col-sm-2">
