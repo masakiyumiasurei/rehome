@@ -82,7 +82,7 @@ app.MapControllerRoute(
 
 name: "default",
 //pattern: "{controller=Client}/{action=Index}");
-pattern: "{controller=Nyukin}/{action=Index}");
+pattern: "{controller=Calendar}/{action=Calendar}");
 //name: "default",
 //pattern: "{controller=Quote}/{action=Clear}");
 app.MapRazorPages();

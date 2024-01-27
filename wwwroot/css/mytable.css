@@ -8,6 +8,9 @@
 .column20 {
     width: 20%; 
 }
+column15 {
+    width: 15%; /* セルの幅を小さめに指定 */
+}
 .column10 {
     width: 10%; /* セルの幅を小さめに指定 */
 }

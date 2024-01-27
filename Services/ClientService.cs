@@ -78,7 +78,7 @@ namespace rehome.Services
 
                     if (!string.IsNullOrEmpty(conditions.TEL))
                     {
-                        builder.Where("TEL like @TEL", new { TEL = $"%{conditions.TEL}%" });
+                        builder.Where("(電話番号1 like @TEL or 電話番号2 like @TEL)", new { TEL = $"%{conditions.TEL}%" });                        
                     }
 
                     builder.OrderBy("カナ");

@@ -800,7 +800,7 @@ namespace rehome.Controllers
                                 break;
                             }
 
-                            if (QuoteBunrui[CurRow].非計上FLG == true)
+                            if (QuoteMeisai[CurRow].非計上FLG == true)
                             {
                                 paoRep.Write("番号", num.ToString(), i + 1);
                                 paoRep.Write("品名", QuoteMeisai[CurRow].商品名 ?? " ", i + 1);

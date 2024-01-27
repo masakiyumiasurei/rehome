@@ -1,7 +1,7 @@
 ﻿
 
-    <div class="navigation">
-      <ul>
+<div class="navigation">
+    <ul>
         <li id="bar-Calendar" class="list">
             <a asp-area="" asp-controller="Calendar" asp-action="Calendar" onclick="Getnavkey('Calendar')">
                 <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
@@ -14,11 +14,11 @@
                 <span class="title">顧客</span>
             </a>
         </li>
-        <li id="bar-Quote"  class="list">
-          <a asp-area="" asp-controller="Quote" asp-action="Clear" onclick="Getnavkey('Quote')">
+        <li id="bar-Quote" class="list">
+            <a asp-area="" asp-controller="Quote" asp-action="Clear" onclick="Getnavkey('Quote')">
                 <span class="icon"><i class="fas fa-light fa-lg fa-file-invoice"></i></span>
-            <span class="title">見積</span>
-          </a>
+                <span class="title">見積</span>
+            </a>
         </li>
         <li id="bar-Nyukin" class="list">
             <a asp-area="" asp-controller="Nyukin" asp-action="Index" onclick="Getnavkey('Nyukin')">
@@ -40,29 +40,29 @@
         </li>
         <li id="bar-Nissi" class="list">
             <a asp-area="" asp-controller="Nissi" asp-action="Index" onclick="Getnavkey('Nissi')">
-                <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>                
+                <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
                 <span class="title">日誌</span>
             </a>
         </li>
-        @*<li id="bar-SalesStatus"  class="list">          
-            <a asp-area="" asp-controller="" asp-action="" onclick="Getnavkey('SalesStatus')">
-            <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
-            <span class="title">売上状況表</span>
-          </a>
+        @*<li id="bar-SalesStatus"  class="list">
+        <a asp-area="" asp-controller="" asp-action="" onclick="Getnavkey('SalesStatus')">
+        <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+        <span class="title">売上状況表</span>
+        </a>
         </li>*@
 
-        <li id="bar-Tantou"  class="list">
-          <a asp-area="" asp-controller="Tantou" asp-action="Index" onclick="Getnavkey('Tantou')">
+        <li id="bar-Tantou" class="list">
+            <a asp-area="" asp-controller="Tantou" asp-action="Index" onclick="Getnavkey('Tantou')">
                 <span class="icon"><i class="fa-solid fa-lg fa-user-circle"></i></span>
-            <span class="title">担当者マスタ</span>
-          </a>
+                <span class="title">担当者マスタ</span>
+            </a>
         </li>
 
-        <li id="bar-Siire"  class="list">
-         <a asp-area="" asp-controller="Siire" asp-action="Index" onclick="Getnavkey('Siire')">
+        <li id="bar-Siire" class="list">
+            <a asp-area="" asp-controller="Siire" asp-action="Index" onclick="Getnavkey('Siire')">
                 <span class="icon"><i class="fa-solid fa-lg fa-house-user"></i></span>
-            <span class="title">仕入先マスタ</span>
-          </a>
+                <span class="title">仕入先マスタ</span>
+            </a>
         </li>
         <li id="bar-Bunrui" class="list">
             <a asp-area="" asp-controller="Bunrui" asp-action="Index" onclick="Getnavkey('Bunrui')">
@@ -71,11 +71,11 @@
             </a>
         </li>
 
-        <li id="bar-Houzin"  class="list">
-          <a asp-area="" asp-controller="Houzin" asp-action="Details" onclick="Getnavkey('Houzin')">
-            <span class="icon"><i class="fa-solid fa-building"></i></span>
-            <span class="title">法人マスタ</span>
-          </a>
+        <li id="bar-Houzin" class="list">
+            <a asp-area="" asp-controller="Houzin" asp-action="Details" onclick="Getnavkey('Houzin')">
+                <span class="icon"><i class="fa-solid fa-building"></i></span>
+                <span class="title">法人マスタ</span>
+            </a>
         </li>
         <li id="bar-Help" class="list">
             <a asp-area="" asp-controller="Pay" asp-action="HelpCreate" onclick="Getnavkey('Help')">
@@ -90,46 +90,101 @@
             </a>
         </li>
         @*  <li id="bar-Office"  class="list">
-          <a asp-area="" asp-controller="Office" asp-action="Index" onclick="Getnavkey('Office')">
-            <span class="icon"
-              ><ion-icon name="storefront-outline"></ion-icon></span>
-            <span class="title">営業所マスタ</span>
-          </a>
+        <a asp-area="" asp-controller="Office" asp-action="Index" onclick="Getnavkey('Office')">
+        <span class="icon"
+        ><ion-icon name="storefront-outline"></ion-icon></span>
+        <span class="title">営業所マスタ</span>
+        </a>
         </li>*@
 
         <li class="list">
-          <a asp-area="" asp-controller="Login" asp-action="Logout" onclick="CheckOut()">
-            <span class="icon"
-              ><ion-icon name="log-out-outline"></ion-icon></span>
-            <span class="title">サインアウト</span>
-          </a>
+            <a asp-area="" asp-controller="Login" asp-action="Logout" onclick="CheckOut()">
+                <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                <span class="title">サインアウト</span>
+            </a>
         </li>
-      </ul>
-    </div>
+    </ul>
+</div>
 
 
+ 
+<script>   
 
-    <script>
     window.onload = function () {
-    var actv ;                
-    actv= localStorage.getItem("myKey");  
-    $('#bar-' + actv).addClass('active');      
-}        
-   function Getnavkey(str){
-            localStorage.setItem("myKey", str);
-        }
+        var actv;
+        actv = localStorage.getItem("myKey");
+        $('#bar-' + actv).addClass('active');
 
-    function CheckOut(){
-        var result = window.confirm('本当にログアウトしますか？');
-            if (result == false) {
-                event.preventDefault();
+        // cookieからフラグを取得
+        var isFirstRun = getCookie("isFirstRun");
+       // alert("最初GETの後：" + isFirstRun + "  actv:"+ actv);
+
+        if (actv && isFirstRun !== "false") {
+            
+            switch (actv) {
+                case 'Calendar':
+                    window.location.href = '/Calendar/Calendar';
+                    break;
+                case 'Client':
+                    window.location.href = '/Client/Index';
+                    break;
+                case 'Quote':
+                    window.location.href = '/Quote/Clear';
+                    break;
+                case 'Nyukin':
+                    window.location.href = '/Nyukin/Index';
+                    break;
+                case 'Pay':
+                    window.location.href = '/Pay/Index';
+                    break;
+                case 'Syouhin':
+                    window.location.href = '/Syouhin/Index';
+                    break;
+                case 'Nissi':
+                    window.location.href = '/Nissi/Index';
+                    break;
+                case 'Tantou':
+                    window.location.href = '/Tantou/Index';
+                    break;
+                case 'Siire':
+                    window.location.href = '/Siire/Index';
+                    break;
+                case 'Bunrui':
+                    window.location.href = '/Bunrui/Index';
+                    break;
+                case 'Houzin':
+                    window.location.href = '/Houzin/Details';
+                    break;
+                case 'Help':
+                    window.location.href = '/Pay/HelpCreate';
+                    break;
+                case 'Import':
+                    window.location.href = '/Import/Index';
+                    break;
+                // 他のケースも必要に応じて追加
             }
+
+            // cookieのフラグを更新
+            setCookie("isFirstRun", "false",1);
+            
+        }
     }
 
-    </script>
+    function Getnavkey(str) {
+        localStorage.setItem("myKey", str);
+    }
+
+    function CheckOut() {
+        var result = window.confirm('本当にログアウトしますか？');
+        if (result == false) {
+            event.preventDefault();
+        }
+    }
+
+</script>
 
 
-    
+
 
 
 

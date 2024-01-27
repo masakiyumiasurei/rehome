@@ -39,7 +39,7 @@ namespace rehome.Models.DB
 
         public string? 備考 { get; set; }
 
-        public bool 宛名印刷FLG { get; set; }
+        public bool 宛名印刷FLG { get; set; } = true;
 
         public string? 依頼者種別 { get; set; }
 
