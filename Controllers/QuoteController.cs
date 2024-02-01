@@ -1058,7 +1058,7 @@ namespace rehome.Controllers
 
 
             //明細が0行でも1ページは表示するため初期値は25にしておく
-            int RowCnt = 25;
+            int RowCnt = 18;
 
             if (Quote.見積明細リスト != null)
             {
@@ -1082,7 +1082,7 @@ namespace rehome.Controllers
             //描画すべき行がある限りページを増やす
             while (RowCnt > 0)
             {
-                RowCnt -= 25;
+                RowCnt -= 18;
 
                 paoRep.PageStart();
 
@@ -1104,9 +1104,9 @@ namespace rehome.Controllers
                 paoRep.Write("社名", Houzin.社名 ?? " ");
 
                 //項目がNULLか物販以外なら作業完了日、物販なら納品日
-                paoRep.Write("取引年月日", Quote.項目 == null || Quote.項目 != "物販" ?
-                    "作業完了日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日)
-                    : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
+                //paoRep.Write("取引年月日", Quote.項目 == null || Quote.項目 != "物販" ?
+                //    "作業完了日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日)
+                //    : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
 
                 paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
@@ -1117,7 +1117,7 @@ namespace rehome.Controllers
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
                 paoRep.Write("消費税額", string.Format("{0:#,0}", 消費税額));
-                paoRep.Write("非課税名称", Quote.非課税名称 ?? " ");
+               // paoRep.Write("非課税名称", Quote.非課税名称 ?? " ");
 
                 paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額)));
                 paoRep.Write("備考", Quote.備考 ?? " ");
@@ -1125,8 +1125,8 @@ namespace rehome.Controllers
 
                 //ボディ
 
-                //空の明細行を25行分用意する
-                for (int i = 0; i < 25; i++)
+                //空の明細行を18行分用意する
+                for (int i = 0; i < 18; i++)
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
