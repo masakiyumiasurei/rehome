@@ -413,7 +413,7 @@ namespace rehome.Controllers
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}",(小計 + 消費税額 )));
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
-                paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
+             //   paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
@@ -598,7 +598,7 @@ namespace rehome.Controllers
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額 )));
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
-                paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
+             //   paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
@@ -889,7 +889,7 @@ namespace rehome.Controllers
             //    paoRep.Write("取引年月日", string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
 
 
-                paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
+              //  paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
@@ -1108,7 +1108,7 @@ namespace rehome.Controllers
                 //    "作業完了日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日)
                 //    : "納品日：" + string.Format("{0:yyyy年M月d日}", Quote.取引年月日));
 
-                paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
+              //  paoRep.Write("代表名", "代表取締役　" + (Houzin.代表名 ?? " "));
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
