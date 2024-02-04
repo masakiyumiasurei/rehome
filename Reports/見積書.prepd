@@ -87,7 +87,7 @@
 <Text Name="Text13" X="216" Y="62" Width="32" Height="12" Text="見積金額
 （税込）" Align="Center" VAlign="Middle" FontAttr="Font2" />
 <Text Name="Text14" X="8" Y="50" Width="28" Height="6" Text="納　　期" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text15" X="8" Y="56" Width="28" Height="6" Text="場所" Align="Center" VAlign="Middle" FontAttr="Font1" />
+<Text Name="Text15" X="8" Y="56" Width="28" Height="6" Text="場    所" Align="Center" VAlign="Middle" FontAttr="Font1" />
 <Text Name="Text16" X="8" Y="62" Width="28" Height="6" Text="支払条件" Align="Center" VAlign="Middle" FontAttr="Font1" />
 <Text Name="Text17" X="6" Y="68" Width="32" Height="6" Text="本書有効期限" Align="Center" VAlign="Middle" FontAttr="Font1" />
 <Text Name="Text18" X="8" Y="38" Width="28" Height="6" Text="件　　名" Align="Center" VAlign="Bottom" FontAttr="Font1" />
@@ -121,8 +121,8 @@
 <Text Name="Text48" X="240" Y="80" Width="50" Height="6" Text="備考" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line42" />
 <Text Name="寸法" X="110" Y="86" Width="40" Height="6" Text="*寸法*" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line43" IntervalY="6" Repeat="25" />
 <Text Name="Text50" X="110" Y="80" Width="40" Height="6" Text="寸法" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line44" />
-<Image Name="Image1" X="254" Y="6" Width="18" Height="20" LineAttr="Line46" >
-iVBORw0KGgoAAAANSUhEUgAAAJIAAACUCAIAAAD3QOfEAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAeNxJREFUeF7tvWdXnNmSJtp/5H6cmZ4+roxUsnhPYpJMyCQNmXjvvf
+<Image Name="Image1" X="252" Y="6" Width="18" Height="20" LineAttr="Line46" >
+iVBORw0KGgoAAAANSUhEUgAAAJIAAACUCAIAAAD3QOfEAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvwAADr8BOAVTJAAAeNxJREFUeF7tvWdXnNmSJtp/5H6cmZ4+roxUsnhPYpJMyCQNmXjvvf
 deIBACORBOSEjIC3mBHPLe+6o6XW1O951Zc2fd+Xg/PDeenfmiRIBKVefMmem+N5aWFiRp3nz33hFPRDwR8Tf4/6b88AjfP8CPj92/riZ/vINn1/Hhs0/7+wd4dRm3z+HsQVybxdN5XDmMM1M4uAsn
 d+PYdlwbx90DuDqNCzOYP4Gb5zF3DId3oCIJeh80J6KvDL212N2Cw/24uBvnd+DcTry54n7/leR/12WTe/H+Gv7+jvtXlzy9gEdn8PwcHpzAlUncP4kf5vHuAp6ewpMLeDyHm6dwcRrvbuHDAm/i3E
 mc2Ydju1BgRlo8clKR7kB2AnoL0Z6BmgRsLcKuRuxsw656bK1EbzlKHahLQ1MGOvPQmY2uIjQXYns9xrZgZgAzOzA5iP5GDFRhpAG9FchLQW0K6hNRl4KmXLTl863acpFrQaYZNTnIt6EsHs02FJuQ

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <PrintDefine>
-<PrintSetting Name="レポート定義ファイル" Ver="9.2.0" >
+<PrintSetting Name="レポート定義ファイル" Ver="9.2.4" >
 <PrintAttrs>
 <FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
 <FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="10" />
