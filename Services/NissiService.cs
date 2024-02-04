@@ -53,7 +53,7 @@ namespace rehome.Services
             {
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT RT_日誌.*,T_担当.氏名 FROM RT_日誌 left join T_担当 " +
+                var template = builder.AddTemplate("SELECT RT_日誌.*,T_担当.氏名 as 担当名 FROM RT_日誌 left join T_担当 " +
                     "on RT_日誌.担当ID=T_担当.担当ID " +
                     "/**where**/ " +
                     "order by 対応日 desc");
@@ -171,8 +171,11 @@ namespace rehome.Services
                 NissiDetailModel model =new NissiDetailModel();
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT RT_日誌.*, RT_顧客.顧客名 FROM RT_日誌 " +
-                    "left join RT_顧客 on RT_日誌.顧客ID=RT_顧客.顧客ID /**where**/");
+                var template = builder.AddTemplate("SELECT RT_日誌.*, RT_顧客.顧客名,T_担当.氏名 " +
+                    " FROM RT_日誌 " +
+                    "left join RT_顧客 on RT_日誌.顧客ID=RT_顧客.顧客ID " +
+                    "left join T_担当 on RT_日誌.担当ID=T_担当.担当ID " +
+                    " /**where**/");
                 builder.Where("日誌ID = @日誌ID", new { 日誌ID = NissiID });
 
                 model.Nissi = connection.Query<日誌>(template.RawSql, template.Parameters).FirstOrDefault();

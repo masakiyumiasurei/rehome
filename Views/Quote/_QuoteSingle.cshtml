@@ -15,10 +15,11 @@
             <tr>
                 <th style="opacity:0"></th>
                 <th class="column3">検索</th>
-                <th>商品名</th>                
+                <th>商品名</th>
+                <th class="column15">寸法</th>
                 <th class="column5">数量</th>
                 <th class="column5">単位</th>
-                <th class="column15">寸法</th>
+                
                 <th class="column10">見込原価</th>
                 <th class="column10">単価</th>
                 <th class="column10">金額</th>                
@@ -51,16 +52,17 @@
                         </td>
                         <td>
                             @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].商品名 , new {@class="form-control form-control-sm"})
-                        </td>                        
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].寸法, new {@class="form-control form-control-sm", @type="number"})
+                        </td>
                         <td>
                             @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].数量 , new {@class="form-control form-control-sm", @type="number",onchange="calc();"})
                         </td>
                         <td>
                             @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].単位 , new {@class="form-control form-control-sm"})
                         </td>
-                        <td>
-                            @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].寸法, new {@class="form-control form-control-sm", @type="number"})
-                        </td>
+                        
                         <td>
                             @Html.TextBoxFor(a => a.Quote.見積明細リスト[j].見込原価, new {@class="form-control form-control-sm", @type="number",onchange=$"calcTanka({@j});"})
                         </td>

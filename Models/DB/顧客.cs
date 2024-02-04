@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using rehome.Enums;
 
@@ -77,5 +77,40 @@ namespace rehome.Models.DB
             return tmplist;
         }
 
+        public string? 法人名 { get; set; }
+
+        public string? 詳細備考 { get; set; }
+
+        public bool 依頼理由金額FLG { get; set; }
+        public bool 依頼理由信頼感FLG { get; set; }
+        public bool 依頼理由紹介業者FLG { get; set; }
+        public bool 依頼理由HPFLG { get; set; }
+
+        public string? 賃貸分譲区分 { get; set; }
+
+        public static IList<SelectListItem> 賃貸分譲items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "賃貸", Value = "賃貸" });
+            tmplist.Add(new SelectListItem() { Text = "分譲", Value = "分譲" });
+            return tmplist;
+        }
+
+        public static IList<SelectListItem> 依頼者種別items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "個人", Value = "個人" });
+            tmplist.Add(new SelectListItem() { Text = "法人", Value = "法人" });
+            tmplist.Add(new SelectListItem() { Text = "家主", Value = "家主" });
+            tmplist.Add(new SelectListItem() { Text = "不動産屋", Value = "不動産屋" });
+            tmplist.Add(new SelectListItem() { Text = "業者", Value = "業者"});
+            tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
+            return tmplist;
+        }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? 生年月日 { get; set; }
     }
 }

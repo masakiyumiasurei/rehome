@@ -56,8 +56,7 @@
             @await Html.PartialAsync("_Client")
         </details>
 
-        <br>
-
+        
         <div class="row">            
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -86,7 +85,7 @@
                     @*}*@
 
                     <input class="tabRadio" id="TAB-A01" type="radio" name="TAB-A" >
-                    <label class="tabLabel" for="TAB-A01">顧客詳細</label>
+                    <label class="tabLabel" for="TAB-A01">アンケート</label>
                     <div class="content">
                         <p>
                             @await Html.PartialAsync("_ClientEx")
@@ -102,6 +101,15 @@
 
 @section Scripts{
     <script>
+        $(document).ready(
+            function ()
+            {
+                $.fn.autoKana('#顧客名', '#カナ', {
+                    katakana: true  //true：カタカナ、false：ひらがな（デフォルト）
+                });
+            });
+        
+
         function create_quote() {
             var checkboxValue = document.querySelector('#single').checked;
             var kokyakuid = $('[name="Client.顧客ID"]').val();

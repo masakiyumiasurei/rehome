@@ -59,9 +59,13 @@ namespace rehome.Models.DB
         public static IList<SelectListItem> 業務区分items()
         {
             var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "サッシ", Value = "サッシ" });
-            tmplist.Add(new SelectListItem() { Text = "営業", Value = "営業" });
-            
+            tmplist.Add(new SelectListItem() { Text = "現調", Value = "現調" });
+            tmplist.Add(new SelectListItem() { Text = "工事", Value = "工事" });
+            tmplist.Add(new SelectListItem() { Text = "引取", Value = "引取" });
+            tmplist.Add(new SelectListItem() { Text = "納品", Value = "納品" });
+            tmplist.Add(new SelectListItem() { Text = "要連絡", Value = "要連絡" });
+            tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
+
             return tmplist;
         }
         public string? 備考 { get; set; }

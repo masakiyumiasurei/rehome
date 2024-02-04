@@ -7,8 +7,8 @@ namespace rehome.Models
     public class QuoteCreateModel
     {
         public ViewMode Mode { get; set; } = ViewMode.New;
-        public string BackUrl { get; set; }
-        public 見積 Quote { get; set; }
+        public string? BackUrl { get; set; }
+        public 見積? Quote { get; set; }
 
         public bool auth { get; set; }
 

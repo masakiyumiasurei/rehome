@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Rendering;　//これを定義しないとDropDownListForにIListを渡せない
 using rehome.Enums;
 
 namespace rehome.Models.DB
@@ -245,6 +245,12 @@ namespace rehome.Models.DB
 
         public List<見積分類表示順>? 見積分類表示順リスト { get; set; }
 
-        
+        public static IList<SelectListItem> 賃貸分譲items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "賃貸", Value = "賃貸" });
+            tmplist.Add(new SelectListItem() { Text = "分譲", Value = "分譲" });
+            return tmplist;
+        }
     }
 }

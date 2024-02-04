@@ -417,7 +417,8 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-            //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
+                //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -602,7 +603,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-            //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -893,6 +894,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
+                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
                 //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー
@@ -1112,6 +1114,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
+                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
                 // paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
 
                 //フッダー

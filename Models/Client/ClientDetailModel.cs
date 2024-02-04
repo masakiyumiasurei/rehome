@@ -9,7 +9,7 @@ namespace rehome.Models
     {
         public string? BackUrl { get; set; }
         public ViewMode Mode { get; set; } = ViewMode.View;
-        public 顧客 Client { get; set; }
+        public 顧客? Client { get; set; }
         
         public ClientSearchConditions AjaxSearchConditions { get; set; } = new ClientSearchConditions();
 

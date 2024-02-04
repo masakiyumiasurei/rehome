@@ -125,10 +125,13 @@ public 顧客 RegistClient(ClientDetailModel model)
                             //新規
                             var queryInsert = "INSERT INTO RT_顧客 (顧客名,郵便番号,住所1,住所2,建物種別,電話番号1,電話番号2,FAX,メールアドレス,紹介者,備考," +
                                             "宛名印刷FLG,依頼者種別,ブラックリストFLG,知った理由,依頼理由,工事検討,玄関flg,リビングflg,キッチンflg,トイレflg,洗面所flg," +
-                                            "風呂flg,居室flg,建具flg,窓flg,内装flg,外壁flg,屋根flg,その他,カナ) " +
+                                            "風呂flg,居室flg,建具flg,窓flg,内装flg,外壁flg,屋根flg,その他,カナ, " +
+                                            "法人名,詳細備考,依頼理由金額FLG,依頼理由信頼感FLG,依頼理由紹介業者FLG,依頼理由HPFLG,賃貸分譲区分,生年月日) " +
                                             " VALUES (@顧客名,@郵便番号,@住所1,@住所2,@建物種別,@電話番号1,@電話番号2,@FAX,@メールアドレス,@紹介者,@備考," +
-                                            "@宛名印刷FLG,@依頼者種別,@ブラックリストFLG,@知った理由,@依頼理由,@工事検討,@玄関flg,@リビングflg,@キッチンflg,@トイレflg,@洗面所flg," +
-                                            "@風呂flg,@居室flg,@建具flg,@窓flg,@内装flg,@外壁flg,@屋根flg,@その他,@カナ)";
+                                            "@宛名印刷FLG,@依頼者種別,@ブラックリストFLG,@知った理由,@依頼理由,@工事検討," +
+                                            "@玄関flg,@リビングflg,@キッチンflg,@トイレflg,@洗面所flg," +
+                                            "@風呂flg,@居室flg,@建具flg,@窓flg,@内装flg,@外壁flg,@屋根flg,@その他,@カナ,"+
+                                            "@法人名,@詳細備考,@依頼理由金額FLG,@依頼理由信頼感FLG,@依頼理由紹介業者FLG,@依頼理由HPFLG,@賃貸分譲区分,@生年月日)";
 
                             var insert = connection.Execute(queryInsert, model.Client, tx);
 
@@ -146,7 +149,10 @@ public 顧客 RegistClient(ClientDetailModel model)
                                               "知った理由=@知った理由,依頼理由=@依頼理由,工事検討=@工事検討,玄関flg=@玄関flg," +
                                               "リビングflg=@リビングflg,キッチンflg=@キッチンflg,トイレflg=@トイレflg,洗面所flg=@洗面所flg,風呂flg=@風呂flg," +
                                               "備考=@備考,居室flg=@居室flg,カナ=@カナ,建具flg=@建具flg,窓flg=@窓flg,内装flg=@内装flg,外壁flg=@外壁flg," +
-                                              "屋根flg=@屋根flg,その他=@その他 " +
+                                              "屋根flg=@屋根flg,その他=@その他, " +
+                                              "法人名=@法人名,詳細備考=@詳細備考,依頼理由金額FLG=@依頼理由金額FLG,依頼理由信頼感FLG=@依頼理由信頼感FLG," +
+                                              "依頼理由紹介業者FLG=@依頼理由紹介業者FLG,依頼理由HPFLG=@依頼理由HPFLG," +
+                                              "賃貸分譲区分=@賃貸分譲区分,生年月日=@生年月日 " +
                                               " WHERE 顧客ID = @顧客ID";
 
                             var result = connection.Execute(queryUpdate, model.Client, tx);

@@ -138,14 +138,14 @@ namespace rehome.Services
 
                     
 
-                    if (conditions.完了予定日start != null)
+                    if (conditions.dateStart != null)
                     {
-                        builder.Where("T_見積.完了予定日>= @完了予定日start", new { 完了予定日start = conditions.完了予定日start });
+                        builder.Where("T_見積.作成日>= @dateStart", new { dateStart = conditions.dateStart });
 
                     }
-                    if (conditions.完了予定日end != null)
+                    if (conditions.dateEnd != null)
                     {
-                        builder.Where("T_見積.完了予定日<= @完了予定日end", new { 完了予定日end = conditions.完了予定日end });
+                        builder.Where("T_見積.作成日<= @dateEnd", new { dateEnd = conditions.dateEnd });
     
                     }
 

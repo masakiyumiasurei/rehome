@@ -198,7 +198,7 @@
 
         //ページ遷移時の明細行数
         var rowCount = @Model.RowCount;
-
+        var quote_tab = @Model.分類DropDownList.Count()+ @Model.自由分類DropDownList.Count();
 
         function QuoteTab_cost(bunruiID) {
             $('#QuoteTab_cost').modal('show');
@@ -225,7 +225,7 @@
                 + '<input type="button" value="明細追加" class="custom-btn btn-2 btn-2-sm" onclick="addRow(' + tabCount + ');">'
                 + '<input type="button" value="諸経費追加" class="custom-btn btn-2 btn-2-sm" onclick="QuoteTab_cost(' + tabCount + ');">'
                 + '<table><thead><tr><th style="opacity:0"></th>'
-                + '<th class="column3">検索</th><th>商品名</th><th class="column5">数量</th><th class="column5">単位</th><th class="column15">寸法</th>'
+                + '<th class="column3">検索</th><th>商品名</th><th class="column15">寸法</th><th class="column5">数量</th><th class="column5">単位</th>'
                 + '<th class="column10">見込原価</th><th class="column10">単価</th><th class="column10">金額</th>'
                 + '<th class="column10">備考</th><th class ="column3">非計上</th></tr></thead>'
                 + '<tbody name="body[' + tabCount + ']" id="body[' + tabCount + ']"></tbody></table></div>'
@@ -233,6 +233,7 @@
             $('#add_tab').before(add_html);
 
             tabCount++;
+            quote_tab++;
         }
 
         //タブ選択
@@ -278,9 +279,9 @@
                 '<td><button type="button" name="syohin_search[' + rowCount + ']" class="btn-sm btn-primary id="button" onclick="getSyouhinID(this);">' +
                 '<i class="fa-solid fa-magnifying-glass" ></i></button ></td>' +
                 '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].商品名" type="text" value=""></td>' +
-                '<td><input class="form-control form-control-sm"  name="Quote.見積明細リスト[' + rowCount + '].数量" onchange="calc();" type="number" value=""></td>' +
-                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単位" type="text" value=""></td>' +
                 '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].寸法" type="text" value=""></td>' +
+                '<td><input class="form-control form-control-sm"  name="Quote.見積明細リスト[' + rowCount + '].数量" onchange="calc();" type="number" value=""></td>' +
+                '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単位" type="text" value=""></td>' +                
                 '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].見込原価" onchange="calcTanka(' + rowCount + ');" type="number" value=""></td>' +
                 '<td><input class="form-control form-control-sm" name="Quote.見積明細リスト[' + rowCount + '].単価" onchange="calc();" type="number" value=""></td>' +
                 '<td><input class="form-control enable-false form-control-sm" tabindex="-1"  name="Quote.見積明細リスト[' + rowCount + '].金額" type="number" tabindex="-1" value="0"></td>' +                

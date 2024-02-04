@@ -1,57 +1,39 @@
-﻿
-@model ClientDetailModel
+﻿@model ClientDetailModel
 @using rehome.Models.DB;
 
- @*<div class="container">*@        
+@*<div class="container">*@
 
-            @Html.HiddenFor(m => m.Client.顧客ID)
-            
-   <div class="row">
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2 ">
-            <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.顧客名, new { @class = "form-control form-control-sm " ,placeholder=" " })
+@Html.HiddenFor(m => m.Client.顧客ID)
+
+<div class="row">
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2 ">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.顧客名, new { @class = "form-control form-control-sm " ,placeholder=" " ,@id="顧客名"})
             <label for="name" class="col-xs-1 label">顧客名</label>
-                <div class="underline"></div>                    
-            </div>
-        </div>
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-              <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.カナ, new { @class = "form-control form-control-sm "  ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">カナ</label>
-                 <div class="underline"></div>  
-              </div>
-        </div>
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-             <div class="input-container">
-                  @Html.TextBoxFor(m => m.Client.郵便番号,
-            new { @class = "form-control form-control-sm " , onKeyUp="AjaxZip3.zip2addr(this,'','Client.住所1','Client.住所1');" ,@id="zipcode" ,onchange="getIryoken();" ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">郵便番号</label>
-                <div class="underline"></div>                    
-             </div>
-        </div>
-        <div class="col-12 col-lg-6 col-md-6 col-sm-6">
-            <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.住所1, new { @class = "form-control form-control-sm " ,@id="address" ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">住所1</label>
-                <div class="underline"></div>                    
-            </div>
+            <div class="underline"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-lg-4 col-md-4 col-sm-4">
-            <div class="input-container">
-            @Html.TextBoxFor(m => m.Client.住所2, new { @class = "form-control form-control-sm " ,@id="address" ,placeholder=" "})
-                <label for="name" class="col-xs-1 label">住所2</label>
-                <div class="underline"></div>
-            </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.カナ, new { @class = "form-control form-control-sm "  ,placeholder=" ",@id="カナ"})
+            <label for="name" class="col-xs-1 label">カナ</label>
+            <div class="underline"></div>
         </div>
-        <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-            <div class="input-container">
+    </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.法人名, new { @class = "form-control form-control-sm "  ,placeholder=" "})
+            <label for="name" class="col-xs-1 label">法人名</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
             @Html.TextBoxFor(m => m.Client.電話番号1, new { @class = "form-control form-control-sm ", @type="tel" ,placeholder=" "})
             <label for="name" class="col-xs-1 label">電話番号1</label>
-                 <div class="underline"></div>                    
-            </div>
+            <div class="underline"></div>
         </div>
+    </div>
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
             @Html.TextBoxFor(m => m.Client.電話番号2,new { @class = "form-control form-control-sm ", @type="tel" ,placeholder=" "})
@@ -59,38 +41,93 @@
             <div class="underline"></div>
         </div>
     </div>
-    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-            <div class="input-container">
-            @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "text"  }})
-                <label for="name" class="col-xs-1 label">メールアドレス</label>
-                <div class="underline"></div>
-            </div>
-        </div>
+</div>
+
+<div class="row">
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
-            @Html.EditorFor(m => m.Client.依頼者種別,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "text"  }})
+            @Html.TextBoxFor(m => m.Client.FAX,new { @class = "form-control form-control-sm ", @type="tel" ,placeholder=" "})
+            <label for="name" class="col-xs-1 label">FAX</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.EditorFor(m => m.Client.メールアドレス,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "text"  }})
+            <label for="name" class="col-xs-1 label">メールアドレス</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.DropDownListFor(m => m.Client.依頼者種別, 顧客.依頼者種別items(),  "選択してください",  new {@class = "orm-control form-control-sm"} )
             <label for="name" class="col-xs-1 label">依頼者種別</label>
             <div class="underline"></div>
         </div>
     </div>
-    </div>
-    <div class="row">
-    <div class="col-lg-8  col-sm-12">
-            <div class="input-container">
-            @Html.TextAreaFor(m => m.Client.備考, 3, 300, new { @class = "form-control form-control-sm ",placeholder=" " })
-                <label for="name" class="col-xs-2 label">備考</label>
-                    <div class="underline"></div>                           
-                </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.郵便番号,
+            new { @class = "form-control form-control-sm " , onKeyUp="AjaxZip3.zip2addr(this,'','Client.住所1','Client.住所1');" ,@id="zipcode" ,onchange="getIryoken();" ,placeholder=" "})
+            <label for="name" class="col-xs-1 label">郵便番号</label>
+            <div class="underline"></div>
         </div>
-    <div class="col-lg-1  col-md-1 col-sm-6 col-xs-6">
+    </div>
+
+    <div class="col-12 col-lg-6 col-md-6 col-sm-6">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.住所1, new { @class = "form-control form-control-sm " ,@id="address" ,placeholder=" "})
+            <label for="name" class="col-xs-1 label">住所1</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-4 col-md-4 col-sm-4">
+        <div class="input-container">
+            @Html.TextBoxFor(m => m.Client.住所2, new { @class = "form-control form-control-sm " ,@id="address" ,placeholder=" "})
+            <label for="name" class="col-xs-1 label">住所2</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6  col-sm-12">
+        <div class="input-container">
+            @Html.TextAreaFor(m => m.Client.備考, 2, 300, new { @class = "form-control form-control-sm ",placeholder=" " })
+            <label for="name" class="col-xs-2 label">備考</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
+            @Html.EditorFor(a => a.Client.生年月日, new {htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date" }})
+           @* @Html.TextBoxFor(m => m.Client.生年月日,new { @class = "form-control form-control-sm ", @type="date" ,placeholder=" "})*@
+            <label for="name" class="col-xs-1 label">生年月日</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 align-items-start ">
+        <div class="input-container">
+            @Html.DropDownListFor(m => m.Client.賃貸分譲区分, 顧客.賃貸分譲items(),  "選択してください",  new {@class = " "} )
+            <label for="賃貸分譲区分" class="label">賃貸分譲</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    <div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
         <label for="宛名印刷FLG" class="col-xs-2 label">宛名印刷</label>
         @Html.CheckBoxFor(a => a.Client.宛名印刷FLG, new {@class="my-specific-check", @type="checkbox"})
     </div>
-    <div class="col-lg-1  col-md-1 col-sm-6 col-xs-6">
+    <div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
         <label for="ブラックリストFLG" class="col-xs-2 label">ブラック</label>
         @Html.CheckBoxFor(a => a.Client.ブラックリストFLG, new {@class="my-specific-check", @type="checkbox"})
     </div>
-    </div>
-    <div>@Html.HiddenFor(a => a.Mode)</div>
-                   @Html.HiddenFor(a => a.BackUrl)
-       
+</div>
+<div>@Html.HiddenFor(a => a.Mode)</div>
+@Html.HiddenFor(a => a.BackUrl)

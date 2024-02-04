@@ -20,7 +20,13 @@ namespace rehome.Models.DB
 
          public string? FAX { get; set; }
 
-         public string? オフィス { get; set; } 
+         public string? オフィス { get; set; }
 
+        public string? 銀行名 { get; set; }
+        public string? 支店名 { get; set; }
+        public string? 口座区分 { get; set; }
+        public string? 口座番号 { get; set; }
+        public string? 口座名義 { get; set; }
+        public string? インボイス番号 { get; set; }
     }
 }

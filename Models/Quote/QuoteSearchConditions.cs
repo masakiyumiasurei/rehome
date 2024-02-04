@@ -20,6 +20,15 @@ namespace rehome.Models
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
+        public DateTime? dateStart { get; set; }
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
+        public DateTime? dateEnd { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [Column(TypeName = "date")]
         public DateTime? 完了予定日start { get; set; }
 
         [DataType(DataType.Date)]

@@ -60,26 +60,38 @@
     @Html.TextBoxFor(m => m.Houzin.FAX, new { @class = "form-control", @type="tel"})
     </div></div>
     </div>
-    
 
-
- @*   <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="tile-box">
-                <label for="name" class="col-xs-1 tile-label2">オフィス</label>
-                @Html.TextBoxFor(m => m.Houzin.オフィス, new { @class = "form-control" })
-            </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="name">銀行名</label>
+            @Html.TextBoxFor(m => m.Houzin.銀行名, new { @class = "form-control form-control-sm" })
         </div>
-    </div>*@
 
-    @*   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-    <div class="tile-box">
-    <label for="name" class="col-xs-1 tile-label2">期</label>
-    @Html.TextBoxFor(m => m.Setting.期, new { @class = "form-control",@type="number" ,@min="0"})
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="name">支店名</label>
+            @Html.TextBoxFor(m => m.Houzin.支店名, new { @class = "form-control form-control-sm" })
+        </div>
 
+        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+            <label for="name">口座区分</label>
+            @Html.TextBoxFor(m => m.Houzin.口座区分, new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="name">口座番号</label>
+            @Html.TextBoxFor(m => m.Houzin.口座番号, new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <label for="name">口座名義</label>
+            @Html.TextBoxFor(m => m.Houzin.口座名義, new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+            <label for="name">インボイス番号</label>
+            @Html.TextBoxFor(m => m.Houzin.インボイス番号, new { @class = "form-control form-control-sm" })
+        </div>
     </div>
-    </div></div>*@
+
 </div>
 
 
