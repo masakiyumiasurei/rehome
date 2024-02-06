@@ -22,12 +22,6 @@ namespace rehome.Services
         void DeleteClient(int ClientID);
         
 
-        //IList<顧客担当> GetClientTantou(int 顧客ID);
-
-        //IList<相談者> GetSodan(int 顧客ID);
-
-        //IList<Files> GetFiles(int 顧客ID);
-
 
 
     }
@@ -126,12 +120,14 @@ public 顧客 RegistClient(ClientDetailModel model)
                             var queryInsert = "INSERT INTO RT_顧客 (顧客名,郵便番号,住所1,住所2,建物種別,電話番号1,電話番号2,FAX,メールアドレス,紹介者,備考," +
                                             "宛名印刷FLG,依頼者種別,ブラックリストFLG,知った理由,依頼理由,工事検討,玄関flg,リビングflg,キッチンflg,トイレflg,洗面所flg," +
                                             "風呂flg,居室flg,建具flg,窓flg,内装flg,外壁flg,屋根flg,その他,カナ, " +
-                                            "法人名,詳細備考,依頼理由金額FLG,依頼理由信頼感FLG,依頼理由紹介業者FLG,依頼理由HPFLG,賃貸分譲区分,生年月日) " +
+                                            "法人名,詳細備考,依頼理由金額FLG,依頼理由信頼感FLG,依頼理由紹介業者FLG," +
+                                            "依頼理由HPFLG,賃貸分譲区分,生年月日,連絡方法) " +
                                             " VALUES (@顧客名,@郵便番号,@住所1,@住所2,@建物種別,@電話番号1,@電話番号2,@FAX,@メールアドレス,@紹介者,@備考," +
                                             "@宛名印刷FLG,@依頼者種別,@ブラックリストFLG,@知った理由,@依頼理由,@工事検討," +
                                             "@玄関flg,@リビングflg,@キッチンflg,@トイレflg,@洗面所flg," +
                                             "@風呂flg,@居室flg,@建具flg,@窓flg,@内装flg,@外壁flg,@屋根flg,@その他,@カナ,"+
-                                            "@法人名,@詳細備考,@依頼理由金額FLG,@依頼理由信頼感FLG,@依頼理由紹介業者FLG,@依頼理由HPFLG,@賃貸分譲区分,@生年月日)";
+                                            "@法人名,@詳細備考,@依頼理由金額FLG,@依頼理由信頼感FLG,@依頼理由紹介業者FLG," +
+                                            "@依頼理由HPFLG,@賃貸分譲区分,@生年月日,@連絡方法)";
 
                             var insert = connection.Execute(queryInsert, model.Client, tx);
 
@@ -152,7 +148,7 @@ public 顧客 RegistClient(ClientDetailModel model)
                                               "屋根flg=@屋根flg,その他=@その他, " +
                                               "法人名=@法人名,詳細備考=@詳細備考,依頼理由金額FLG=@依頼理由金額FLG,依頼理由信頼感FLG=@依頼理由信頼感FLG," +
                                               "依頼理由紹介業者FLG=@依頼理由紹介業者FLG,依頼理由HPFLG=@依頼理由HPFLG," +
-                                              "賃貸分譲区分=@賃貸分譲区分,生年月日=@生年月日 " +
+                                              "賃貸分譲区分=@賃貸分譲区分,生年月日=@生年月日 ,連絡方法=@連絡方法 " +
                                               " WHERE 顧客ID = @顧客ID";
 
                             var result = connection.Execute(queryUpdate, model.Client, tx);

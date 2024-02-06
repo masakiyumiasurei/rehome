@@ -112,5 +112,18 @@ namespace rehome.Models.DB
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime? 生年月日 { get; set; }
+
+        public string? 連絡方法 { get; set; }
+
+        public static IList<SelectListItem> 連絡方法items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "電話", Value = "電話" });
+            tmplist.Add(new SelectListItem() { Text = "メール", Value = "メール" });
+            tmplist.Add(new SelectListItem() { Text = "LINE", Value = "LINE" });
+            tmplist.Add(new SelectListItem() { Text = "FAX", Value = "FAX" });
+            tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
+            return tmplist;
+        }
     }
 }

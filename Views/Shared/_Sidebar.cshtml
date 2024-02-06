@@ -5,7 +5,7 @@
         <li id="bar-Calendar" class="list">
             <a asp-area="" asp-controller="Calendar" asp-action="Calendar" onclick="Getnavkey('Calendar')">
                 <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
-                <span class="title">ホーム</span>
+                <span class="title">予定表</span>
             </a>
         </li>
         <li id="bar-Client" class="list">
@@ -23,19 +23,19 @@
         <li id="bar-Nyukin" class="list">
             <a asp-area="" asp-controller="Nyukin" asp-action="Index" onclick="Getnavkey('Nyukin')">
                 <span class="icon"><i class="fa-solid fa-sack-dollar"></i></span>
-                <span class="title">入金</span>
+                <span class="title">売上</span>
             </a>
         </li>
         <li id="bar-Pay" class="list">
             <a asp-area="" asp-controller="Pay" asp-action="Index" onclick="Getnavkey('Pay')">
                 <span class="icon"><i class="fa-solid fa-comments-dollar"></i></span>
-                <span class="title">業者支払</span>
+                <span class="title">仕入帳登録</span>
             </a>
         </li>
-        <li id="bar-Syouhin" class="list">
-            <a asp-area="" asp-controller="Syouhin" asp-action="Index" onclick="Getnavkey('Syouhin')">
-                <span class="icon"><i class="fas fa-lg fa-cart-arrow-down"></i></span>
-                <span class="title">商品マスタ</span>
+        <li id="bar-Siire" class="list">
+            <a asp-area="" asp-controller="Siire" asp-action="Index" onclick="Getnavkey('Siire')">
+                <span class="icon"><i class="fa-solid fa-lg fa-house-user"></i></span>
+                <span class="title">業者マスタ</span>
             </a>
         </li>
         <li id="bar-Nissi" class="list">
@@ -44,24 +44,10 @@
                 <span class="title">日誌</span>
             </a>
         </li>
-        @*<li id="bar-SalesStatus"  class="list">
-        <a asp-area="" asp-controller="" asp-action="" onclick="Getnavkey('SalesStatus')">
-        <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
-        <span class="title">売上状況表</span>
-        </a>
-        </li>*@
-
-        <li id="bar-Tantou" class="list">
-            <a asp-area="" asp-controller="Tantou" asp-action="Index" onclick="Getnavkey('Tantou')">
-                <span class="icon"><i class="fa-solid fa-lg fa-user-circle"></i></span>
-                <span class="title">担当者マスタ</span>
-            </a>
-        </li>
-
-        <li id="bar-Siire" class="list">
-            <a asp-area="" asp-controller="Siire" asp-action="Index" onclick="Getnavkey('Siire')">
-                <span class="icon"><i class="fa-solid fa-lg fa-house-user"></i></span>
-                <span class="title">仕入先マスタ</span>
+        <li id="bar-Syouhin" class="list">
+            <a asp-area="" asp-controller="Syouhin" asp-action="Index" onclick="Getnavkey('Syouhin')">
+                <span class="icon"><i class="fas fa-lg fa-cart-arrow-down"></i></span>
+                <span class="title">単価登録</span>
             </a>
         </li>
         <li id="bar-Bunrui" class="list">
@@ -70,25 +56,41 @@
                 <span class="title">分類マスタ</span>
             </a>
         </li>
-
+        @*<li id="bar-SalesStatus"  class="list">
+        <a asp-area="" asp-controller="" asp-action="" onclick="Getnavkey('SalesStatus')">
+        <span class="icon"><i class="fa-solid fa-chart-simple"></i></span>
+        <span class="title">売上状況表</span>
+        </a>
+        </li>*@
         <li id="bar-Houzin" class="list">
             <a asp-area="" asp-controller="Houzin" asp-action="Details" onclick="Getnavkey('Houzin')">
                 <span class="icon"><i class="fa-solid fa-building"></i></span>
                 <span class="title">法人マスタ</span>
             </a>
         </li>
+        <li id="bar-Tantou" class="list">
+            <a asp-area="" asp-controller="Tantou" asp-action="Index" onclick="Getnavkey('Tantou')">
+                <span class="icon"><i class="fa-solid fa-lg fa-user-circle"></i></span>
+                <span class="title">担当者マスタ</span>
+            </a>
+        </li>
+        <li id="bar-Import" class="list">
+            <a asp-area="" asp-controller="Import" asp-action="Index" onclick="Getnavkey('Import')">
+                <span class="icon"><i class="fas fa-lg fa-file-csv"></i></span>
+                <span class="title">ダウンロード</span>
+            </a>
+        </li>
+        
+        
+
+       
         <li id="bar-Help" class="list">
             <a asp-area="" asp-controller="Pay" asp-action="HelpCreate" onclick="Getnavkey('Help')">
                 <span class="icon"><i class="fa-solid fa-square-h"></i></span>
                 <span class="title">ヘルプ</span>
             </a>
         </li>
-        <li id="bar-Import" class="list">
-            <a asp-area="" asp-controller="Import" asp-action="Index" onclick="Getnavkey('Import')">
-                <span class="icon"><i class="fas fa-lg fa-file-csv"></i></span>
-                <span class="title">インポート</span>
-            </a>
-        </li>
+        
         @*  <li id="bar-Office"  class="list">
         <a asp-area="" asp-controller="Office" asp-action="Index" onclick="Getnavkey('Office')">
         <span class="icon"

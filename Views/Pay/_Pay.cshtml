@@ -12,7 +12,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
             <div class="ml-2" style="flex-grow: 1;">
-                <label>仕入先名</label>
+                <label>業者名</label>
                 @Html.TextBoxFor(a => a.Pay.仕入先名, new { @class = "form-control form-control-sm enable-false", tabindex="-1" })
             </div>
         </div>
@@ -42,10 +42,21 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-        <label for="name">相手負担</label>
-        @Html.TextBoxFor(m => m.Pay.相手負担, new { @class = "form-control form-control-sm",@type="number" })
-    </div>
+    @if(Model.Pay.当社負担FLG)
+    {
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <label for="name">相手負担</label>
+            @Html.TextBoxFor(m => m.Pay.相手負担, new { @class = "form-control form-control-sm enable-false", @type = "number" })
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+            <label for="name">相手負担</label>
+            @Html.TextBoxFor(m => m.Pay.相手負担, new { @class = "form-control form-control-sm", @type = "number" })
+        </div>
+    }
+
     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
         <label for="name">当社負担</label>
         @Html.TextBoxFor(m => m.Pay.当社負担, new { @class = "form-control form-control-sm",@type="number" })

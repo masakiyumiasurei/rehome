@@ -29,7 +29,11 @@ column15 {
     transform: scale(2) !important;
 }
 
-
+#myTable tbody tr {
+    font-size: 16px;
+    line-height: 1.2;
+    padding: 3px;
+}
 /*.navigation {
     
     position: relative;*/

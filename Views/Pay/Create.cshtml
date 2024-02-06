@@ -113,9 +113,20 @@
             var table = 'T_仕入先';
             var wheresql = '仕入先ID=' + targetID;
 
-            var result = ReturnRecordJson(table, wheresql);
-            $('[name="Pay.仕入先名"]').val(nz(result.仕入先名));
-            
+             var result = ReturnRecordJson(table, wheresql);
+             $('[name="Pay.仕入先名"]').val(nz(result.仕入先名));
+            console.log(result.当社負担FLG)
+           
+                // result が正しく取得できた場合の処理
+            if (result.当社負担FLG) {
+                // 当社負担FLGがtrueの場合、inputを読み取り専用に設定
+                console.log(result.当社負担FLG)
+                $('[name="Pay.相手負担"]').prop('readonly', true);
+            }
+            else {
+                $('[name="Pay.相手負担"]').prop('readonly', false);
+            }
+               
         }
     </script>
 

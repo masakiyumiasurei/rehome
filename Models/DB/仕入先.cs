@@ -37,9 +37,19 @@ namespace rehome.Models.DB
         {
             var tmplist = new List<SelectListItem>();
             tmplist.Add(new SelectListItem() { Text = "25日", Value = "25日" });
-            tmplist.Add(new SelectListItem() { Text = "末締", Value = "末締" });
+            tmplist.Add(new SelectListItem() { Text = "末日", Value = "末日" });
+            return tmplist;
+        }
+
+        public static IList<SelectListItem> 口座区分items()
+        {
+            var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "普通", Value = "普通" });
+            tmplist.Add(new SelectListItem() { Text = "当座", Value = "当座" });
             return tmplist;
         }
         public 仕入分類 ? 分類 { get; set; }
+
+        public bool 当社負担FLG { get; set; }
     }
 }

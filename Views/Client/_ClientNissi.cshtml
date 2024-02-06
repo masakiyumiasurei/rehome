@@ -38,7 +38,7 @@
                     <th class="column5">対応日</th>
                     <th class="column5">日誌区分</th>
                     <th>内容</th>
-                    <th>担当名</th>
+                    <th class="column5">担当名</th>
                     
                 </tr>
             </thead>
@@ -57,7 +57,7 @@
                         @Html.DisplayFor(modelItem => item.日誌区分)
                     </td>
                     <td>
-                        <p class="omit_text" onclick="OmitTextSwitch()" style="width:100px;">@Html.DisplayFor(modelItem => item.内容)</p>
+                        <p class="omit_text" onclick="OmitTextSwitch()">@Html.DisplayFor(modelItem => item.内容)</p>
                     </td>
 
                     @*<td>

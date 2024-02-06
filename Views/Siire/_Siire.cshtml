@@ -18,11 +18,15 @@
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <label for="name" >住所</label>
+        <label for="address">住所</label>
         @Html.TextBoxFor(m => m.Siire.住所, new { @class = "form-control form-control-sm" ,@id="address"})
     </div>
-</div>
 
+<div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
+        <label for="当社負担FLG" class="col-xs-2 label">当社負担FLG</label>
+        @Html.CheckBoxFor(a => a.Siire.当社負担FLG, new { @class = "my-specific-check", @type = "checkbox", @id = "当社負担FLG" })
+</div>
+</div>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
@@ -63,11 +67,15 @@
         <label for="name">支店名</label>
         @Html.TextBoxFor(m => m.Siire.支店名, new { @class = "form-control form-control-sm" })
     </div>
-
-    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">口座区分</label>
+        @Html.DropDownListFor(m => m.Siire.口座区分, 仕入先.口座区分items(), "", new { @class = "form-control form-control-sm" })
+    </div>
+    @* <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
         <label for="name">口座区分</label>
         @Html.TextBoxFor(m => m.Siire.口座区分, new { @class = "form-control form-control-sm" })
-    </div>
+    </div> *@
+
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <label for="name">口座番号</label>
         @Html.TextBoxFor(m => m.Siire.口座番号, new { @class = "form-control form-control-sm" })

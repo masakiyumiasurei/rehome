@@ -63,6 +63,8 @@ namespace rehome.Models.DB
             tmplist.Add(new SelectListItem() { Text = "失注", Value = "失注" });            
             return tmplist;
         }
-        
+
+        public bool 当社負担FLG { get; set; }
+
     }
 }
