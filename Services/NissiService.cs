@@ -78,12 +78,13 @@ namespace rehome.Services
                 var builder = new SqlBuilder();
                 var Outer_builder = new SqlBuilder();
                 //var template = builder.AddTemplate(
-                var unionQuery = builder.AddTemplate(
-     "SELECT distinct 日誌ID,  日誌区分, 対応日, 内容,  B.顧客名,氏名 as 担当名 FROM " +
-     "FROM RT_日誌  left join RT_顧客 B on RT_日誌.顧客ID = b.顧客ID " +
-     "left join T_担当 on T_担当.担当ID = T_日誌.担当ID " +
-     " /**where**/ " +
-     "order by 対応日 desc");
+
+                var template = builder.AddTemplate(
+                 "SELECT distinct 日誌ID,  日誌区分, 対応日, 内容,  B.顧客名, 氏名 as 担当名 " +
+                 "FROM RT_日誌  left join RT_顧客 B on RT_日誌.顧客ID = b.顧客ID " +
+                 "left join T_担当 on T_担当.担当ID = RT_日誌.担当ID " +
+                 " /**where**/ " +
+                 "order by 対応日 desc");
                 
                 if (conditions != null)
                 {
@@ -123,32 +124,14 @@ namespace rehome.Services
                         //WhereStr += " and (顧客名 like '%" + conditions.顧客名 + "%')";
                         joukenflg = true;
                     }
-                    
+                    if (!string.IsNullOrEmpty(conditions.支援区分))
+                    {
+                        builder.Where("支援区分= @支援区分", new { 支援区分 = conditions.支援区分 });
+                        //WhereStr += " and 支援区分='" + conditions.支援区分 + "'";
+                    }
+
                 }
-
-                // ストアドプロシージャの実行
-                //var storedProcedure = "PrcAllNissi";
-                //var param = new DynamicParameters();
-                //param.Add("@WhereStr", WhereStr);
-                //var result = connection.Query<日誌>(storedProcedure, param, commandType: CommandType.StoredProcedure);
-
-                string sql = unionQuery.RawSql;
-
-                if (!string.IsNullOrEmpty(conditions.支援区分))
-                {
-                    //builder.Where("支援区分= @支援区分", new { 支援区分 = conditions.支援区分 });
-                    WhereStr += " and 支援区分='" + conditions.支援区分 + "'";
-                }
-                
-                var template = builder.AddTemplate(unionQuery.RawSql + " where 1=1 " + WhereStr + " order by 対応日 desc");
-
-
-                if (joukenflg == false && WhereStr=="")
-                {
-                    nissiIndexModel.mess = "検索条件を入れてください";
-                    return nissiIndexModel;
-                }
-
+               
                 nissiIndexModel.Nissis = connection.Query<日誌>(template.RawSql, template.Parameters).ToList();
 
 
@@ -200,7 +183,7 @@ namespace rehome.Services
                         {
                             sql = "UPDATE  RT_日誌 Set 顧客ID=@顧客ID,日誌区分=@日誌区分," +
                                   "対応日=@対応日,登録日=@登録日,内容=@内容," +
-                                  "担当ID=@担当ID,カレンダー表示=@カレンダー表示 " +
+                                  "担当ID=@担当ID,カレンダー表示=@カレンダー表示, 時刻=@時刻 " +
                                   " WHERE 日誌ID = @日誌ID";
 
                             var update = connection.Execute(sql, model.Nissi, tx);
@@ -209,8 +192,8 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO RT_日誌 (顧客ID,日誌区分,対応日,登録日,内容,担当ID,カレンダー表示)" +
-                                " VALUES (@顧客ID,@日誌区分,@対応日,@登録日,@内容,@担当ID,@カレンダー表示)";
+                            sql = "INSERT INTO RT_日誌 (顧客ID,日誌区分,対応日,登録日,内容,担当ID,カレンダー表示,時刻)" +
+                                " VALUES (@顧客ID,@日誌区分,@対応日,@登録日,@内容,@担当ID,@カレンダー表示,@時刻)";
 
                             var insert = connection.Execute(sql, model.Nissi, tx);
                             tx.Commit();

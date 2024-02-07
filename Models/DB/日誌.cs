@@ -73,6 +73,8 @@ namespace rehome.Models.DB
         [StringLength(50)]
         public string? 相談手段 { get; set; }
 
+        public TimeSpan? 時刻 { get; set; }
+
         //public static IList<SelectListItem> 相談手段items()
         //{
         //    var tmplist = new List<SelectListItem>();

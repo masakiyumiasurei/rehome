@@ -106,13 +106,22 @@ else
 
 
                 <div class="row">
+                    
                     <div class="col-lg-2 col-md-4 col-sm-12">
                         <div class="input-container">
                             @Html.EditorFor(m => m.Nissi.カレンダー表示,  new { htmlAttributes =new {  @type = "text" }})
                             <label for="name" class="col-xs-1 label">カレンダー表示される内容</label>
                             <div class="underline"></div>
                         </div>
-                    </div>           
+                    </div>
+                    <div class="col-lg-2 col-sm-12">
+                        <div class="input-container">
+                           @* @Html.TextBoxFor(m => m.Nissi.時刻, new { @type = "time" })*@
+                            @Html.EditorFor(m => m.Nissi.時刻,"{0:hh\\:mm}",  new { htmlAttributes =new { @type="time",@class="custom-time-input" }})
+                            <label for="name" class="col-xs-1 label">時刻</label>
+                            <div class="underline"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
