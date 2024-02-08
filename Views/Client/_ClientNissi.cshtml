@@ -9,7 +9,7 @@
             @if (Model.Mode == ViewMode.Edit)
             {
                 <div class="col-12 col-sm-4">
-                    <a href="@Url.Action("New", "Nissi",new{顧客ID = Model.Client.顧客ID})" class="custom-btn btn-1"><i class="fa fa-plus-square" aria-hidden="true"></i>日誌新規</a>
+                    <a href="@Url.Action("New", "Nissi",new{顧客ID = Model.Client.顧客ID})" class="custom-btn  btn-1"><i class="fa fa-plus-square" aria-hidden="true"></i>日誌新規</a>
                 </div>
             }
         </div>
@@ -38,7 +38,7 @@
                     <th class="column5">対応日</th>
                     <th class="column5">日誌区分</th>
                     <th>内容</th>
-                    <th class="column5">担当名</th>
+                    <th class="column7">担当名</th>
                     
                 </tr>
             </thead>

@@ -28,7 +28,7 @@ namespace rehome.Models.DB
 
         public string? 顧客名 { get; set; }
 
-        public string? 敬称 { get; set; }
+        public string? 敬称 { get; set; } = "様";
 
         public static IList<SelectListItem> 敬称items()
         {
@@ -73,10 +73,12 @@ namespace rehome.Models.DB
         public static IList<SelectListItem> 種類2items()
         {
             var tmplist = new List<SelectListItem>();
-            tmplist.Add(new SelectListItem() { Text = "空屋", Value = "空屋" });
+            tmplist.Add(new SelectListItem() { Text = "空家", Value = "空家" });
             tmplist.Add(new SelectListItem() { Text = "分譲", Value = "分譲" });
             tmplist.Add(new SelectListItem() { Text = "経常", Value = "経常" });
             tmplist.Add(new SelectListItem() { Text = "小修理", Value = "小修理" });
+            tmplist.Add(new SelectListItem() { Text = "長期", Value = "長期" });
+            tmplist.Add(new SelectListItem() { Text = "その他", Value = "その他" });
             return tmplist;
         }
 
@@ -101,11 +103,12 @@ namespace rehome.Models.DB
             return tmplist;
         }
 
-        public string? 有効期限 { get; set; }
+        public string? 有効期限 { get; set; } ="30日間";
 
         public static IList<SelectListItem> 有効期限items()
         {
             var tmplist = new List<SelectListItem>();
+            tmplist.Add(new SelectListItem() { Text = "30日間", Value = "30日間" });
             tmplist.Add(new SelectListItem() { Text = "60日間", Value = "60日間" });
             tmplist.Add(new SelectListItem() { Text = "90日間", Value = "90日間" });
             return tmplist;

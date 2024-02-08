@@ -15,7 +15,8 @@
         public static string 依頼理由items { get; set; } =
             "金額,信頼感,紹介業者,HPが解りやすい";
 
-        
+        public static string 支払条件items { get; set; } =
+            "工事完工後　　日以内にお振込みをお願いいたします。";
 
     }
 }

@@ -216,7 +216,13 @@ namespace rehome.Controllers
             return response;
         }
 
-        [HttpGet]　//仕入帳CSVのエクスポート
+        /// <summary>
+        /// 仕入帳CSVのエクスポート
+        /// </summary>
+        /// <param name="startdate">抽出期間開始</param>
+        /// <param name="enddate">抽出期間終了</param>
+        /// <returns></returns>
+        [HttpGet]　
         public ActionResult ExportSiireChoCSV(DateTime startdate,DateTime enddate)
         {
             IList<Export仕入帳> viewModel = new List<Export仕入帳>();
@@ -234,7 +240,7 @@ namespace rehome.Controllers
             }
 
             // CSVファイルの内容を文字列として取得します
-            string csvFileName = "仕入帳.csv";
+            string csvFileName = startdate.ToString("D") + "から" + enddate.ToString("D") + "仕入帳.csv";
             byte[] csvData = Encoding.GetEncoding("Shift-JIS").GetBytes(csvContent.ToString());
 
             var response = new FileContentResult(csvData, "text/csv")

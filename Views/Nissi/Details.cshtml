@@ -93,14 +93,15 @@ else
 
                         </div>
                     </div>
-
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start  " id="SearchCustom_Nissi_担当">
+                    <div class="col-lg-2 col-sm-12">
                         <div class="input-container">
-                            @Html.DropDownListFor(m => m.Nissi.担当ID,new SelectList(Model.担当DropDownList, "Value", "Display"),  new { @class = " "} )
-                            <label for="担当ID" class="label ">担当者</label>
+                            @* @Html.TextBoxFor(m => m.Nissi.時刻, new { @type = "time" })*@
+                            @Html.EditorFor(m => m.Nissi.時刻,"{0:hh\\:mm}",  new { htmlAttributes =new { @type="time",@class="custom-time-input" }})
+                            <label for="name" class="col-xs-1 label">時刻</label>
                             <div class="underline"></div>
                         </div>
                     </div>
+                    
 
                 </div>
 
@@ -114,11 +115,10 @@ else
                             <div class="underline"></div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-sm-12">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start  " id="SearchCustom_Nissi_担当">
                         <div class="input-container">
-                           @* @Html.TextBoxFor(m => m.Nissi.時刻, new { @type = "time" })*@
-                            @Html.EditorFor(m => m.Nissi.時刻,"{0:hh\\:mm}",  new { htmlAttributes =new { @type="time",@class="custom-time-input" }})
-                            <label for="name" class="col-xs-1 label">時刻</label>
+                            @Html.DropDownListFor(m => m.Nissi.担当ID,new SelectList(Model.担当DropDownList, "Value", "Display"),  new { @class = " "} )
+                            <label for="担当ID" class="label ">担当者</label>
                             <div class="underline"></div>
                         </div>
                     </div>

@@ -361,8 +361,11 @@ namespace rehome.Controllers
            // 営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
-            int 消費税額 = (int)(小計 * 0.1);
-          //  int 非課税額 = (int)(Quote.非課税額 ?? 0);
+
+            //消費税切り上げ
+            int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
+
+            //  int 非課税額 = (int)(Quote.非課税額 ?? 0);
 
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 18;
@@ -547,8 +550,8 @@ namespace rehome.Controllers
             法人 Houzin = _HouzinService.GetHouzin();
            
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
-            int 消費税額 = (int)(小計 * 0.1);
-            
+          // int 消費税額 = (int)(小計 * 0.1);
+            int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
 
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 18;
@@ -839,8 +842,8 @@ namespace rehome.Controllers
             //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
-            int 消費税額 = (int)(小計 * 0.1);
-
+            // int 消費税額 = (int)(小計 * 0.1);
+            int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 18;
 
@@ -1056,8 +1059,8 @@ namespace rehome.Controllers
             //   営業所 Office = _OfficeService.GetOffice(Quote.営業所ID ?? -1);
 
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
-            int 消費税額 = (int)(小計 * 0.1);
-
+            // int 消費税額 = (int)(小計 * 0.1);
+            int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
 
             //明細が0行でも1ページは表示するため初期値は25にしておく
             int RowCnt = 18;

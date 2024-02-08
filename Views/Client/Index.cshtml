@@ -47,11 +47,11 @@
                     <th class="column5" >詳細</th>
                     <th>顧客名</th>
                     <th>カナ</th>
-                    @* <th>郵便番号</th> *@
+                    <th>法人名</th> 
                     <th>住所1</th>
                     <th>住所2</th>
-                    <th class="column10">TEL</th>
-                    <th class="column10">FAX</th>
+                    <th class="column7">TEL</th>
+                    <th class="column7">FAX</th>
                 </tr>
                 </thead>
 
@@ -68,9 +68,9 @@
                         <td>
                         @Html.DisplayFor(modelItem => item.カナ)
                         </td>
-                        @* <td>
-                        @Html.DisplayFor(modelItem => item.郵便番号)
-                        </td> *@
+                        <td>
+                        @Html.DisplayFor(modelItem => item.法人名)
+                        </td> 
                         <td>
                     @Html.DisplayFor(modelItem => item.住所1)
                         </td>
