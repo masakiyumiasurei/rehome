@@ -139,15 +139,12 @@ namespace rehome.Controllers
             var viewModel = new QuoteCreateModel();
             try
             {
-                //if(model.Quote.完了予定日 != null)
-                //{
-                //    model.Quote.期 = _QuoteService.GetPeriod((DateTime)model.Quote.完了予定日);
-                //}
+                
                 viewModel.Quote = _QuoteService.RegistQuote(model);
                 viewModel.RowCount = viewModel.Quote.見積明細リスト.Count();
                 viewModel.Mode = ViewMode.Edit;
                 TempData["Quote"] = String.Format("見積情報を登録しました");
-                ModelState.Clear();
+               //ModelState.Clear();
                 viewModel.BackUrl = model.BackUrl;
                 return RedirectToAction("Create", "Quote", new { 見積ID = viewModel.Quote.見積ID,
                     履歴番号 = viewModel.Quote.履歴番号, BackUrl= viewModel.BackUrl });
@@ -421,8 +418,7 @@ namespace rehome.Controllers
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
-                //    paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
-
+               
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
                 paoRep.Write("消費税額", string.Format("{0:#,0}", 消費税額));                
@@ -898,7 +894,8 @@ namespace rehome.Controllers
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
-                //   paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分);
+                paoRep.Write("口座情報", Houzin.口座番号 + Houzin.口座名義);
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -1118,7 +1115,8 @@ namespace rehome.Controllers
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
-                // paoRep.Write("オフィス", "オフィス " + (Houzin.オフィス ?? " "));
+                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分);
+                paoRep.Write("口座情報", Houzin.口座番号 + Houzin.口座名義);
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));

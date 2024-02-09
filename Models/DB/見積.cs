@@ -95,6 +95,7 @@ namespace rehome.Models.DB
 
         public string? 受渡場所 { get; set; }
 
+        [StringLength(50, ErrorMessage = "支払条件は最大50文字までです。")]
         public string? 支払条件 { get; set; }
         public static IList<SelectListItem> 支払条件items()
         {

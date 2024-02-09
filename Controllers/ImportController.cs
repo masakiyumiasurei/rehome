@@ -230,7 +230,7 @@ namespace rehome.Controllers
 
             // CSVファイルの内容を文字列として構築します
             StringBuilder csvContent = new StringBuilder();
-            csvContent.AppendLine("支払日,仕入先名,インボイス番号,分類,金額,消費税,交通費,値引等,合計,振出額," +
+            csvContent.AppendLine("支払日,インボイス番号,仕入先名,分類,金額,消費税,交通費,値引等,合計,振出額," +
                 　　　　　　　　　"相手負担,当社負担,銀行名,支店名,口座区分,口座番号,口座名義"); // ヘッダ行
 
             foreach (var product in viewModel)
@@ -238,9 +238,9 @@ namespace rehome.Controllers
                 //ToCsvStringはカンマを表示するため、モデルに作成しているメソッド
                 csvContent.AppendLine(product.ToCsvString());
             }
-
+            
             // CSVファイルの内容を文字列として取得します
-            string csvFileName = startdate.ToString("D") + "から" + enddate.ToString("D") + "仕入帳.csv";
+            string csvFileName = startdate.ToString("yyyyMMdd") + "～" + enddate.ToString("yyyyMMdd") + "_仕入帳.csv";
             byte[] csvData = Encoding.GetEncoding("Shift-JIS").GetBytes(csvContent.ToString());
 
             var response = new FileContentResult(csvData, "text/csv")
