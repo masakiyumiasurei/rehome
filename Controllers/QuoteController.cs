@@ -331,7 +331,7 @@ namespace rehome.Controllers
 
             paoRep.LoadDefFile("Reports/見積書.prepd");
 
-
+            
             見積書セット_1枚印刷(paoRep, 見積ID,履歴番号);
 
             //PDFを一時保存
