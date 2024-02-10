@@ -89,15 +89,7 @@ namespace rehome.Controllers
                 // 登録成功したら導入画面再表示
                 viewModel.Client = _ClientService.RegistClient(model);
                 model.Client.顧客ID = viewModel.Client.顧客ID;                
-
-                ////ファイル登録がある場合
-                //if (model.PostedFile != null)
-                //{
-                //    foreach (var file in model.PostedFile)
-                //    {
-                //        _FileUpdate.UpdFile(file, viewModel.Client.顧客ID);
-                //    }
-                //}
+                               
 
                 // 削除処理後は顧客一覧画面に戻る
                 //if (model.Mode == ViewMode.Delete) { return RedirectToAction("Details", "Client", new { id = model.Client.顧客ID }); }
@@ -157,9 +149,8 @@ namespace rehome.Controllers
             //viewModel.ClientSearchConditions.page = pageNumber;
             HttpContext.Session.SetObject(SessionKeys.CLIENT_SEARCH_CONDITIONS, viewModel.ClientSearchConditions);
 
-
             viewModel.Clients = _ClientService.SearchClients(viewModel.ClientSearchConditions);
- 
+            viewModel.Clientcount = _ClientService.GetclientCount();
 
             return View("Index", viewModel);
         }
@@ -184,8 +175,8 @@ namespace rehome.Controllers
             HttpContext.Session.SetObject(SessionKeys.CLIENT_SEARCH_CONDITIONS, viewModel.ClientSearchConditions);
 
             viewModel.Clients = _ClientService.SearchClients(viewModel.ClientSearchConditions);
-
-                return View("Index", viewModel);
+            viewModel.Clientcount = _ClientService.GetclientCount();
+            return View("Index", viewModel);
         }
 
         [HttpPost]

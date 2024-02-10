@@ -26,11 +26,13 @@ namespace rehome.Models.DB
 
         public string? 内訳単位2 { get; set; }
 
+        [RegularExpression(@"^\d+$", ErrorMessage = "数量は整数で入力してください。")]
         public int? 数量 { get; set; }
 
         public string? 単位 { get; set; }
         [Column(TypeName = "money")]
         [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        [RegularExpression(@"^\d+$", ErrorMessage = "単価は整数で入力してください。")]
         public decimal? 単価 { get; set; }
 
         [Column(TypeName = "money")]

@@ -3,7 +3,9 @@ using Microsoft.Data.SqlClient;
 using rehome.Enums;
 using rehome.Models;
 using rehome.Models.DB;
+using ServiceStack;
 using X.PagedList;
+using static Castle.MicroKernel.ModelBuilder.Descriptors.InterceptorDescriptor;
 
 namespace rehome.Services
 {
@@ -18,11 +20,8 @@ namespace rehome.Services
         //void RegistClientSodan(ClientDetailModel model);
 
         //void RegistClientTantou(ClientDetailModel model);
-
+        int GetclientCount();
         void DeleteClient(int ClientID);
-        
-
-
 
     }
 
@@ -75,7 +74,7 @@ namespace rehome.Services
                         builder.Where("(電話番号1 like @TEL or 電話番号2 like @TEL)", new { TEL = $"%{conditions.TEL}%" });                        
                     }
 
-                    builder.OrderBy("カナ");
+                    builder.OrderBy("顧客ID desc");
 
                 }
 
@@ -83,6 +82,26 @@ namespace rehome.Services
 
                 return result.ToList();
             }
+        }
+
+        /// <summary>
+        /// 請求済みの顧客の件数
+        /// </summary>
+        /// <returns></returns>
+        public int GetclientCount()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var builder = new SqlBuilder();
+                var template = builder.AddTemplate("SELECT COUNT(DISTINCT RT_顧客.顧客ID) AS Clientcount " +
+                                                "FROM RT_顧客 " +
+                                                "JOIN T_見積 ON RT_顧客.顧客ID = T_見積.顧客ID " +
+                                                "WHERE T_見積.見積ステータス = '請求'; ");
+                                
+                var result = connection.Query<int>(template.RawSql).FirstOrDefault();
+                return result;
+            }                        
         }
 
         public 顧客 GetClient(int? 顧客ID)

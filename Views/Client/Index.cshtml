@@ -10,22 +10,15 @@
 <div class="text-center">
     <h2>顧客一覧</h2>
     <button type="button" class="custom-btn btn-1" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
-
+    <div>
+        有効顧客の件数: @Model.Clientcount.GetValueOrDefault()
+    </div>
     <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
 
         <div id="Search-Area" name="hide" style="display: none;"><br>
             @using (Html.BeginForm("Search", "Client", FormMethod.Get, new { @class = "row g-3" }))
             {
-                @await Html.PartialAsync("_ClientSearch")
-
-               @* @if (Model.Clients != null)
-                {
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-4">
-                            <button class="custom-btn btn-2" type="submit" formaction="CsvDownload" formmethod="get"  >CSV出力</button>
-                        </div>
-                    </div>
-                }*@
+                @await Html.PartialAsync("_ClientSearch")                
 
             }
         </div>
