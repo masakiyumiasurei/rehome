@@ -3,7 +3,9 @@
 <PrintSetting Name="レポート定義ファイル" Ver="9.2.4" >
 <PrintAttrs>
 <FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
-<FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="15" />
+<FontAttr AttrName="Font2" Name="MS UI Gothic" Size="9.75" />
+<FontAttr AttrName="Font3" Name="ＭＳ 明朝" Size="15" />
+<FontAttr AttrName="Font4" Name="MS UI Gothic" Size="9.75" />
 <LineAttr AttrName="Line1" Width="0.3" />
 <LineAttr AttrName="Line2" Width="0.1" />
 <LineAttr AttrName="Line3" Width="0.1" />
@@ -38,23 +40,23 @@
 <Text Name="Text4" X="168" Y="14" Width="36" Height="6" Text="単 価" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line5" />
 <Text Name="Text5" X="204" Y="14" Width="36" Height="6" Text="金 額" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line6" />
 <Text Name="Text6" X="10" Y="14" Width="12" Height="6" Text="番号" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line7" />
-<Text Name="Text9" X="200" Y="194" Width="45" Height="6" Text="小 計" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line8" />
-<Square Name="Square8" X="245" Y="194" Width="45" Height="6" LineAttr="Line1" R="0" >
+<Text Name="Text9" X="200" Y="192.8" Width="45" Height="7.2" Text="小 計" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line8" />
+<Square Name="Square8" X="245" Y="192.8" Width="45" Height="7.2" LineAttr="Line1" R="0" >
 </Square>
-<Text Name="小計" X="244" Y="194" Width="45" Height="6" Text="*小計*" Align="Right" VAlign="Middle" FontAttr="Font1" />
-<Text Name="番号" X="10" Y="26" Width="12" Height="6" Text="*番号" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line10" IntervalY="6" Repeat="25" />
-<Text Name="数量" X="140" Y="26" Width="14" Height="6" Text="*数量*" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line11" IntervalY="6" Repeat="25" />
-<Text Name="単位" X="154" Y="26" Width="14" Height="6" Text="*単位*" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line12" IntervalY="6" Repeat="25" />
-<Text Name="単価" X="168" Y="26" Width="36" Height="6" Text="*単価*" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line13" IntervalY="6" Repeat="25" />
-<Text Name="金額" X="204" Y="26" Width="36" Height="6" Text="*金額*" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line14" IntervalY="6" Repeat="25" />
-<Text Name="品名" X="22" Y="26" Width="88" Height="6" Text="*品名*" Align="Left" VAlign="Middle" FontAttr="Font1" LineAttr="Line15" IntervalY="6" Repeat="25" />
-<Text Name="Text40" X="118" Y="4" Width="50" Height="10" Text="内　訳　書" Align="Center" VAlign="Middle" FontAttr="Font2" />
-<Text Name="備考" X="240" Y="26" Width="50" Height="6" Text="*備考*" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line17" IntervalY="6" Repeat="25" />
+<Text Name="小計" X="244" Y="192.8" Width="45" Height="7.2" Text="*小計*" Align="Right" VAlign="Middle" FontAttr="Font1" />
+<Text Name="番号" X="10" Y="27.2" Width="12" Height="7.2" Text="*番号" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line10" IntervalY="7.2" Repeat="25" />
+<Text Name="数量" X="140" Y="27.2" Width="14" Height="7.2" Text="*数量*" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line11" IntervalY="7.2" Repeat="25" />
+<Text Name="単位" X="154" Y="27.2" Width="14" Height="7.2" Text="*単位*" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line12" IntervalY="7.2" Repeat="25" />
+<Text Name="単価" X="168" Y="27.2" Width="36" Height="7.2" Text="*単価*" Align="Right" VAlign="Middle" FontAttr="Font2" LineAttr="Line13" IntervalY="7.2" Repeat="25" />
+<Text Name="金額" X="204" Y="27.2" Width="36" Height="7.2" Text="*金額*" Align="Right" VAlign="Middle" FontAttr="Font2" LineAttr="Line14" IntervalY="7.2" Repeat="25" />
+<Text Name="品名" X="22" Y="27.2" Width="88" Height="7.2" Text="*品名*" Align="Left" VAlign="Middle" FontAttr="Font2" LineAttr="Line15" IntervalY="7.2" Repeat="25" />
+<Text Name="Text40" X="118" Y="4" Width="50" Height="10" Text="内　訳　書" Align="Center" VAlign="Middle" FontAttr="Font3" />
+<Text Name="備考" X="240" Y="27.2" Width="50" Height="7.2" Text="*備考*" Align="Right" VAlign="Middle" FontAttr="Font2" LineAttr="Line17" IntervalY="7.2" Repeat="25" />
 <Text Name="Text48" X="240" Y="14" Width="50" Height="6" Text="備考" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line18" />
-<Text Name="寸法" X="110" Y="26" Width="30" Height="6" Text="*寸法*" Align="Right" VAlign="Middle" FontAttr="Font1" LineAttr="Line19" IntervalY="6" Repeat="25" />
+<Text Name="寸法" X="110" Y="27.2" Width="30" Height="7.2" Text="*寸法*" Align="Right" VAlign="Middle" FontAttr="Font2" LineAttr="Line19" IntervalY="7.2" Repeat="25" />
 <Text Name="Text50" X="110" Y="14" Width="30" Height="6" Text="寸法" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line20" />
-<Square Name="Square5" X="10" Y="194" Width="190" Height="6" LineAttr="Line1" R="0" >
+<Square Name="Square5" X="10" Y="192.8" Width="190" Height="7.2" LineAttr="Line1" R="0" >
 </Square>
-<Text Name="分類名" X="10" Y="20" Width="276" Height="6" Text="*分類名*" Align="Left" VAlign="Middle" FontAttr="Font1" />
+<Text Name="分類名" X="10" Y="20" Width="276" Height="7.2" Text="*分類名*" Align="Left" VAlign="Middle" FontAttr="Font4" />
 </PrintObjects>
 </PrintDefine>

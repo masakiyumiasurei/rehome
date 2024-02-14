@@ -5,10 +5,9 @@
 <FontAttr AttrName="Font1" Name="ＭＳ 明朝" Size="9" />
 <FontAttr AttrName="Font2" Name="ＭＳ 明朝" Size="9.75" />
 <FontAttr AttrName="Font3" Name="ＭＳ 明朝" Size="12" />
-<FontAttr AttrName="Font4" Name="MS UI Gothic" Size="11.25" />
+<FontAttr AttrName="Font4" Name="MS UI Gothic" Size="9" />
 <FontAttr AttrName="Font5" Name="ＭＳ 明朝" Size="15" />
-<FontAttr AttrName="Font6" Name="ＭＳ 明朝" Size="9.75" />
-<FontAttr AttrName="Font7" Name="ＭＳ 明朝" Size="10" />
+<FontAttr AttrName="Font6" Name="ＭＳ 明朝" Size="10" />
 <LineAttr AttrName="Line1" Width="0.3" />
 <LineAttr AttrName="Line2" Width="0.1" />
 <LineAttr AttrName="Line3" Width="0.1" />
@@ -30,45 +29,39 @@
 <LineAttr AttrName="Line19" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line20" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line21" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line22" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line23" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line24" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line25" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line22" Width="0.1" />
+<LineAttr AttrName="Line23" Width="0.1" />
+<LineAttr AttrName="Line24" Width="0.1" />
+<LineAttr AttrName="Line25" Width="0.1" />
 <LineAttr AttrName="Line26" Width="0.1" />
 <LineAttr AttrName="Line27" Width="0.1" />
-<LineAttr AttrName="Line28" Width="0.1" />
-<LineAttr AttrName="Line29" Width="0.1" />
-<LineAttr AttrName="Line30" Width="0.1" />
-<LineAttr AttrName="Line31" Width="0.1" />
+<LineAttr AttrName="Line28" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line29" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line30" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line31" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line32" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line33" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line34" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line35" Color="Transparent" Width="0" />
 <LineAttr AttrName="Line36" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line37" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line38" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line39" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line40" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line41" Width="0.1" />
-<LineAttr AttrName="Line42" Width="0.1" />
-<LineAttr AttrName="Line43" Width="0.1" />
-<LineAttr AttrName="Line44" Width="0.1" />
-<LineAttr AttrName="Line45" Color="Transparent" Width="0" />
-<LineAttr AttrName="Line46" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line37" Width="0.1" />
+<LineAttr AttrName="Line38" Width="0.1" />
+<LineAttr AttrName="Line39" Width="0.1" />
+<LineAttr AttrName="Line40" Width="0.1" />
+<LineAttr AttrName="Line41" Color="Transparent" Width="0" />
+<LineAttr AttrName="Line42" Color="Transparent" Width="0" />
 </PrintAttrs>
 <Paper Size="A4" Direction="True" />
 <Design FontAttr="Font1" LineAttr="Line1" GridWidth="2" DesignScale="100" GridFit="True" ObjLock="False" X="0" Y="0" Width="297" Height="210" DisplayRepeatObject="False" RepeatObjectColor="Silver" ImageSizeType="Clip" />
 </PrintSetting>
 <PrintObjects>
-<Square Name="Square1" X="10" Y="80" Width="280" Height="120" LineAttr="Line1" R="0" >
+<Square Name="Square1" X="10" Y="80" Width="280" Height="121.2" LineAttr="Line1" R="0" >
 </Square>
-<Line Name="Line2" StartX="8" StartY="74" EndX="108" EndY="74" LineAttr="Line1" />
 <Line Name="Line3" StartX="8" StartY="68" EndX="108" EndY="68" LineAttr="Line1" />
 <Line Name="Line4" StartX="8" StartY="62" EndX="108" EndY="62" LineAttr="Line1" />
-<Line Name="Line5" StartX="8" StartY="56" EndX="108" EndY="56" LineAttr="Line1" />
-<Square Name="Square3" X="250" Y="58" Width="40" Height="18" LineAttr="Line1" R="0" >
+<Square Name="Square3" X="154" Y="52" Width="40" Height="18" LineAttr="Line1" R="0" >
 </Square>
-<Square Name="Square4" X="214" Y="58" Width="36" Height="18" LineAttr="Line1" R="0" >
+<Square Name="Square4" X="118" Y="52" Width="36" Height="18" LineAttr="Line1" R="0" >
 </Square>
 <Line Name="Line10" StartX="122" StartY="44" EndX="8" EndY="44" LineAttr="Line1" />
 <Text Name="Text1" X="22" Y="80" Width="108" Height="6" Text=" 品 名" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line2" />
@@ -77,53 +70,49 @@
 <Text Name="Text4" X="190" Y="80" Width="22" Height="6" Text="単 価" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line5" />
 <Text Name="Text5" X="212" Y="80" Width="28" Height="6" Text="金 額" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line6" />
 <Text Name="Text6" X="10" Y="80" Width="12" Height="6" Text="番号" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line7" />
-<Text Name="Text9" X="10" Y="194" Width="45" Height="6" Text="小 計" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line8" />
-<Square Name="Square8" X="55" Y="194" Width="45" Height="6" LineAttr="Line1" R="0" >
+<Text Name="Text9" X="10" Y="194" Width="45" Height="7.2" Text="小 計" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line8" />
+<Square Name="Square8" X="55" Y="194" Width="45" Height="7.2" LineAttr="Line1" R="0" >
 </Square>
-<Square Name="Square9" X="145" Y="194" Width="45" Height="6" LineAttr="Line1" R="0" >
+<Square Name="Square9" X="145" Y="194" Width="45" Height="7.2" LineAttr="Line1" R="0" >
 </Square>
-<Square Name="Square11" X="240" Y="194" Width="50" Height="6" LineAttr="Line1" R="0" >
+<Square Name="Square11" X="240" Y="194" Width="50" Height="7.2" LineAttr="Line1" R="0" >
 </Square>
-<Text Name="Text10" X="100" Y="194" Width="45" Height="6" Text="消費税額等(10%)" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line9" />
-<Text Name="Text12" X="190" Y="194" Width="50" Height="6" Text="合 計" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line10" />
-<Text Name="Text13" X="216" Y="62" Width="32" Height="12" Text="見積金額
+<Text Name="Text10" X="100" Y="194" Width="45" Height="7.2" Text="消費税額等(10%)" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line9" />
+<Text Name="Text12" X="190" Y="194" Width="50" Height="7.2" Text="合 計" Align="Center" VAlign="Middle" FontAttr="Font2" LineAttr="Line10" />
+<Text Name="Text13" X="120" Y="56" Width="32" Height="12" Text="見積金額
 （税込）" Align="Center" VAlign="Middle" FontAttr="Font3" />
-<Text Name="Text14" X="8" Y="50" Width="28" Height="6" Text="納　　期" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text15" X="8" Y="56" Width="28" Height="6" Text="場    所" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text16" X="8" Y="62" Width="28" Height="6" Text="支払条件" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text17" X="6" Y="68" Width="32" Height="6" Text="本書有効期限" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="Text18" X="8" Y="38" Width="28" Height="6" Text="件　　名" Align="Center" VAlign="Bottom" FontAttr="Font1" />
-<Text Name="小計" X="55" Y="194" Width="45" Height="6" Text="*小計*" Align="Right" VAlign="Middle" FontAttr="Font2" />
-<Text Name="消費税額" X="145" Y="194" Width="45" Height="6" Text="*消費税額*" Align="Right" VAlign="Middle" FontAttr="Font2" />
-<Text Name="合計" X="240" Y="194" Width="50" Height="6" Text="*合計*" Align="Right" VAlign="Middle" FontAttr="Font2" />
-<Text Name="見積金額" X="252" Y="62" Width="36" Height="12" Text="*見積金額*" Align="Center" VAlign="Middle" FontAttr="Font3" />
-<Text Name="件名" X="32" Y="38" Width="90" Height="6" Text="*件名*" PdfAutoCrInsertText="True" Align="Left" VAlign="Bottom" FontAttr="Font1" />
-<Text Name="受渡場所" X="38" Y="56" Width="70" Height="6" Text="*受渡場所*" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="納期" X="38" Y="50" Width="70" Height="6" Text="*納期*" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="支払条件" X="38" Y="62" Width="70" Height="6" Text="*支払条件*" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="有効期限" X="38" Y="68" Width="70" Height="6" Text="*有効期限*" Align="Center" VAlign="Middle" FontAttr="Font1" />
-<Text Name="番号" X="10" Y="86" Width="12" Height="6" Text="*番号" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line26" IntervalY="6" Repeat="25" />
-<Text Name="数量" X="162" Y="86" Width="14" Height="6" Text="*数量*" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line27" IntervalY="6" Repeat="25" />
-<Text Name="単位" X="176" Y="86" Width="14" Height="6" Text="*単位*" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line28" IntervalY="6" Repeat="25" />
-<Text Name="単価" X="190" Y="86" Width="22" Height="6" Text="*単価*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line29" IntervalY="6" Repeat="25" />
-<Text Name="金額" X="212" Y="86" Width="28" Height="6" Text="*金額*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line30" IntervalY="6" Repeat="25" />
-<Text Name="品名" X="22" Y="86" Width="108" Height="6" Text="*品名*" Align="Left" VAlign="Middle" FontAttr="Font4" LineAttr="Line31" IntervalY="6" Repeat="25" />
+<Text Name="Text15" X="4" Y="56" Width="28" Height="6" Text="場    所" Align="Center" VAlign="Middle" FontAttr="Font2" />
+<Text Name="Text16" X="4" Y="62" Width="28" Height="6" Text="支払条件" Align="Center" VAlign="Middle" FontAttr="Font2" />
+<Text Name="Text18" X="8" Y="38" Width="28" Height="6" Text="件　　名" Align="Center" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="小計" X="55" Y="194" Width="45" Height="7.2" Text="*小計*" Align="Right" VAlign="Middle" FontAttr="Font2" />
+<Text Name="消費税額" X="145" Y="194" Width="45" Height="7.2" Text="*消費税額*" Align="Right" VAlign="Middle" FontAttr="Font2" />
+<Text Name="合計" X="240" Y="194" Width="50" Height="7.2" Text="*合計*" Align="Right" VAlign="Middle" FontAttr="Font2" />
+<Text Name="見積金額" X="156" Y="56" Width="36" Height="12" Text="*見積金額*" Align="Center" VAlign="Middle" FontAttr="Font3" />
+<Text Name="件名" X="32" Y="38" Width="90" Height="6" Text="*件名*" PdfAutoCrInsertText="True" Align="Left" VAlign="Bottom" FontAttr="Font2" />
+<Text Name="受渡場所" X="32" Y="56" Width="76" Height="6" Text="*受渡場所*" Align="Center" VAlign="Middle" FontAttr="Font2" />
+<Text Name="支払条件" X="32" Y="62" Width="76" Height="6" Text="*支払条件*" Align="Center" VAlign="Middle" FontAttr="Font2" />
+<Text Name="番号" X="10" Y="86" Width="12" Height="7.2" Text="*番号" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line22" IntervalY="7.2" Repeat="25" />
+<Text Name="数量" X="162" Y="86" Width="14" Height="7.2" Text="*数量*" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line23" IntervalY="7.2" Repeat="25" />
+<Text Name="単位" X="176" Y="86" Width="14" Height="7.2" Text="*単位*" Align="Center" VAlign="Middle" FontAttr="Font4" LineAttr="Line24" IntervalY="7.2" Repeat="25" />
+<Text Name="単価" X="190" Y="86" Width="22" Height="7.2" Text="*単価*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line25" IntervalY="7.2" Repeat="25" />
+<Text Name="金額" X="212" Y="86" Width="28" Height="7.2" Text="*金額*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line26" IntervalY="7.2" Repeat="25" />
+<Text Name="品名" X="22" Y="86" Width="108" Height="7.2" Text="*品名*" Align="Left" VAlign="Middle" FontAttr="Font4" LineAttr="Line27" IntervalY="7.2" Repeat="25" />
 <Line Name="Line11" StartX="124" StartY="26" EndX="10" EndY="26" LineAttr="Line1" />
 <Text Name="Text37" X="10" Y="28" Width="60" Height="8" Text="下記の通り御見積申し上げます。
-" Align="Left" VAlign="Middle" FontAttr="Font1" />
+" Align="Left" VAlign="Middle" FontAttr="Font2" />
 <Text Name="敬称" X="104" Y="16" Width="20" Height="10" Text="*敬称*" Align="Center" VAlign="Middle" FontAttr="Font3" />
 <Text Name="顧客名" X="10" Y="16" Width="94" Height="10" Text="*顧客名*" Align="Center" VAlign="Middle" FontAttr="Font3" />
 <Text Name="Text40" X="118" Y="4" Width="50" Height="10" Text="御 見 積 書" Align="Center" VAlign="Middle" FontAttr="Font5" />
 <Text Name="作成日" X="256" Y="4" Width="38" Height="6" Text="*作成日*" Align="Right" VAlign="Middle" FontAttr="Font1" />
-<Text Name="TEL" X="214" Y="36" Width="70" Height="6" Text="*TEL*" Align="Left" VAlign="Middle" FontAttr="Font6" />
-<Text Name="住所" X="214" Y="30" Width="70" Height="6" Text="*住所*" Align="Left" VAlign="Middle" FontAttr="Font6" />
-<Text Name="郵便番号" X="214" Y="24" Width="70" Height="6" Text="*郵便番号*" Align="Left" VAlign="Middle" FontAttr="Font6" />
-<Text Name="社名" X="214" Y="12" Width="70" Height="6" Text="*社名*" Align="Left" VAlign="Middle" FontAttr="Font7" />
-<Text Name="備考" X="240" Y="86" Width="50" Height="6" Text="*備考*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line41" IntervalY="6" Repeat="25" />
-<Text Name="Text48" X="240" Y="80" Width="50" Height="6" Text="備考" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line42" />
-<Text Name="寸法" X="130" Y="86" Width="32" Height="6" Text="*寸法*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line43" IntervalY="6" Repeat="25" />
-<Text Name="Text50" X="130" Y="80" Width="32" Height="6" Text="寸法" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line44" />
-<Image Name="Image1" X="252" Y="4" Width="18" Height="20" LineAttr="Line46" >
+<Text Name="TEL" X="214" Y="36" Width="70" Height="6" Text="*TEL*" Align="Left" VAlign="Middle" FontAttr="Font2" />
+<Text Name="住所" X="214" Y="30" Width="70" Height="6" Text="*住所*" Align="Left" VAlign="Middle" FontAttr="Font2" />
+<Text Name="郵便番号" X="214" Y="24" Width="70" Height="6" Text="*郵便番号*" Align="Left" VAlign="Middle" FontAttr="Font2" />
+<Text Name="社名" X="214" Y="12" Width="70" Height="6" Text="*社名*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="備考" X="240" Y="86" Width="50" Height="7.2" Text="*備考*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line37" IntervalY="7.2" Repeat="25" />
+<Text Name="Text48" X="240" Y="80" Width="50" Height="6" Text="備考" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line38" />
+<Text Name="寸法" X="130" Y="86" Width="32" Height="7.2" Text="*寸法*" Align="Right" VAlign="Middle" FontAttr="Font4" LineAttr="Line39" IntervalY="7.2" Repeat="25" />
+<Text Name="Text50" X="130" Y="80" Width="32" Height="6" Text="寸法" BackColor="Gainsboro" Align="Center" VAlign="Middle" FontAttr="Font1" LineAttr="Line40" />
+<Image Name="Image1" X="252" Y="4" Width="18" Height="20" LineAttr="Line42" >
 iVBORw0KGgoAAAANSUhEUgAAAJIAAACUCAIAAAD3QOfEAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAeNxJREFUeF7tvWdXnNmSJtp/5H6cmZ4+roxUsnhPYpJMyCQNmXjvvf
 deIBACORBOSEjIC3mBHPLe+6o6XW1O951Zc2fd+Xg/PDeenfmiRIBKVefMmem+N5aWFiRp3nz33hFPRDwR8Tf4/6b88AjfP8CPj92/riZ/vINn1/Hhs0/7+wd4dRm3z+HsQVybxdN5XDmMM1M4uAsn
 d+PYdlwbx90DuDqNCzOYP4Gb5zF3DId3oCIJeh80J6KvDL212N2Cw/24uBvnd+DcTry54n7/leR/12WTe/H+Gv7+jvtXlzy9gEdn8PwcHpzAlUncP4kf5vHuAp6ewpMLeDyHm6dwcRrvbuHDAm/i3E
@@ -401,6 +390,6 @@ hpXVRQ7CZip5JIropcVoOZlmCojdVHuXpmKLry0JnOcE69hb1HZ8ZoTk4M4/4s5sdw7zid0ANbcHQLpt
 L4LCCoOQvBERX7GJgpxgnT9yE9kWuKeVSSL9JkbY2zLRWUnWc2Q4yZb5dpY0yqGUNRMlESIbZTNT/LISYqvkXJaL8Uth+KogjG2OxfUWnSRAQc56xGaaNznxkYIPdLQILPntIFnvYB8By3AthqtYcu
 85fn6prL5sK8rtpQ7Z2ztsebIiM+Lzsrxy8AfB3EvU96+XN79kVMv3nwX6DxZYzvNGo1rfvIorX1wQ9MNKtNK/kPzCZfv/5X8HAf5fkyUclbNSBYkAAAAASUVORK5CYII=
 </Image>
-<Text Name="インボイス番号" X="214" Y="42" Width="70" Height="6" Text="*インボイス*" Align="Left" VAlign="Middle" FontAttr="Font6" />
+<Text Name="インボイス番号" X="214" Y="42" Width="70" Height="6" Text="*インボイス*" Align="Left" VAlign="Middle" FontAttr="Font2" />
 </PrintObjects>
 </PrintDefine>

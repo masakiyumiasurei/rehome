@@ -364,8 +364,9 @@ namespace rehome.Controllers
 
             //  int 非課税額 = (int)(Quote.非課税額 ?? 0);
 
-            //明細が0行でも1ページは表示するため初期値は25にしておく
-            int RowCnt = 18;
+            //明細が0行でも1ページは表示するための初期値
+            int constRowCnt = 15;
+            int RowCnt = constRowCnt;
 
             if(Quote.見積明細リスト != null)
             {
@@ -389,7 +390,7 @@ namespace rehome.Controllers
             //描画すべき行がある限りページを増やす
             while (RowCnt > 0)
             {
-                RowCnt -= 18;
+                RowCnt -= constRowCnt;
 
                 paoRep.PageStart();
 
@@ -406,10 +407,10 @@ namespace rehome.Controllers
                 paoRep.Write("顧客名", Quote.顧客名 ?? " ");
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
-                paoRep.Write("納期", Quote.納期 ?? " ");
+               // paoRep.Write("納期", Quote.納期 ?? " ");
                 paoRep.Write("受渡場所", Quote.受渡場所 ?? " ");
                 paoRep.Write("支払条件", Quote.支払条件 ?? " ");
-                paoRep.Write("有効期限", Quote.有効期限 ?? " ");
+               // paoRep.Write("有効期限", Quote.有効期限 ?? " ");
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}",(小計 + 消費税額 )));
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
@@ -425,8 +426,8 @@ namespace rehome.Controllers
                 paoRep.Write("合計", string.Format("{0:#,0}", (小計 + 消費税額 )));
                 //paoRep.Write("備考", Quote.備考 ?? " ");
 
-                //空の明細行を18行分用意する
-                for (int i = 0; i < 18; i++)
+                //空の明細行を固定行分用意する
+                for (int i = 0; i < constRowCnt; i++)
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
@@ -442,7 +443,7 @@ namespace rehome.Controllers
                 if (Quote.見積明細リスト != null)
                 {
 
-                    for (var i = 0; i < 18; i++)
+                    for (var i = 0; i < constRowCnt; i++)
                     {
                         //描画すべき行がなくなれば、値引行等を追加してループを抜ける
                         if (CurRow >= Quote.見積明細リスト.Count())
@@ -549,8 +550,9 @@ namespace rehome.Controllers
           // int 消費税額 = (int)(小計 * 0.1);
             int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
 
-            //明細が0行でも1ページは表示するため初期値は25にしておく
-            int RowCnt = 18;
+            //明細が0行でも1ページは表示するため初期値
+            int constRowCnt = 15;
+            int RowCnt = constRowCnt;
 
             if (QuoteBunrui != null)
             {
@@ -574,7 +576,7 @@ namespace rehome.Controllers
             //描画すべき行がある限りページを増やす
             while (RowCnt > 0)
             {
-                RowCnt -= 18;
+                RowCnt -= constRowCnt;
 
                 paoRep.PageStart();
 
@@ -591,10 +593,10 @@ namespace rehome.Controllers
                 paoRep.Write("顧客名", Quote.顧客名 ?? " ");
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
-                paoRep.Write("納期", Quote.納期 ?? " ");
+              //  paoRep.Write("納期", Quote.納期 ?? " ");
                 paoRep.Write("受渡場所", Quote.受渡場所 ?? " ");
                 paoRep.Write("支払条件", Quote.支払条件 ?? " ");
-                paoRep.Write("有効期限", Quote.有効期限 ?? " ");
+              //  paoRep.Write("有効期限", Quote.有効期限 ?? " ");
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額 )));
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
@@ -612,8 +614,8 @@ namespace rehome.Controllers
 
                 //ボディ
 
-                //空の明細行を18行分用意する
-                for (int i = 0; i < 18; i++)
+                //空の明細行を固定行分用意する
+                for (int i = 0; i < constRowCnt; i++)
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
@@ -629,7 +631,7 @@ namespace rehome.Controllers
                 if (QuoteBunrui != null)
                 {
 
-                    for (var i = 0; i < 18; i++)
+                    for (var i = 0; i < constRowCnt; i++)
                     {
                         //描画すべき行がなくなれば、値引行等を追加してループを抜ける
                         if (CurRow >= QuoteBunrui.Count())
@@ -665,7 +667,7 @@ namespace rehome.Controllers
                             paoRep.Write("単位", "式", i + 1);
                             paoRep.Write("単価", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
                             paoRep.Write("金額", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
-                            paoRep.Write("備考", "式", i + 1);
+                            paoRep.Write("備考", QuoteBunrui[CurRow].備考 ?? " ", i + 1);
                         }
 
                             CurRow++;
@@ -744,8 +746,9 @@ namespace rehome.Controllers
 
                 int 小計 = (int)(Bunrui.単価 ?? 0);
 
-                //明細が0行でも1ページは表示するため初期値は44にしておく
-                int RowCnt = 28;
+                //明細が0行でも1ページは表示するため初期値
+                int constRowCnt = 23;
+                int RowCnt = constRowCnt;
 
                 if (QuoteMeisai != null)
                 {
@@ -763,7 +766,7 @@ namespace rehome.Controllers
                 //描画すべき行がある限りページを増やす
                 while (RowCnt > 0)
                 {
-                    RowCnt -= 28;
+                    RowCnt -= constRowCnt;
 
                     paoRep.PageStart();
 
@@ -775,8 +778,8 @@ namespace rehome.Controllers
 
                     //ボディ
 
-                    //空の明細行を44行分用意する
-                    for (int i = 0; i < 28; i++)
+                    //空の明細行を固定行分用意する
+                    for (int i = 0; i < constRowCnt; i++)
                     {
                         paoRep.Write("番号", " ", i + 1);
                         paoRep.Write("品名", " ", i + 1);
@@ -792,7 +795,7 @@ namespace rehome.Controllers
                     if (QuoteMeisai != null)
                     {
 
-                        for (var i = 0; i < 28; i++)
+                        for (var i = 0; i < constRowCnt; i++)
                         {
                             //描画すべき行がなくなれば、値引行等を追加してループを抜ける
                             if (CurRow >= QuoteMeisai.Count())
@@ -840,8 +843,9 @@ namespace rehome.Controllers
             int 小計 = (int)((Quote.見積金額 ?? 0) - (Quote.値引額 ?? 0));
             // int 消費税額 = (int)(小計 * 0.1);
             int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
-            //明細が0行でも1ページは表示するため初期値は25にしておく
-            int RowCnt = 18;
+            //明細が0行でも1ページは表示するため初期値
+            int constRowCnt = 15;
+            int RowCnt = constRowCnt;
 
             if (QuoteBunrui != null)
             {
@@ -865,7 +869,7 @@ namespace rehome.Controllers
             //描画すべき行がある限りページを増やす
             while (RowCnt > 0)
             {
-                RowCnt -= 18;
+                RowCnt -= constRowCnt;
 
                 paoRep.PageStart();
 
@@ -883,6 +887,9 @@ namespace rehome.Controllers
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額)));
+                paoRep.Write("受渡場所", Quote.受渡場所 ?? " ");
+                paoRep.Write("支払条件", Quote.支払条件 ?? " ");
+
 
                 paoRep.Write("社名", Houzin.社名 ?? " ");
                 //項目がNULLか物販以外なら作業完了日、物販なら納品日
@@ -894,8 +901,8 @@ namespace rehome.Controllers
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
-                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分);
-                paoRep.Write("口座情報", Houzin.口座番号 + Houzin.口座名義);
+                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分 + " " + Houzin.口座番号);
+                paoRep.Write("口座情報", Houzin.口座名義);
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -905,8 +912,8 @@ namespace rehome.Controllers
 
                 //ボディ
 
-                //空の明細行を25行分用意する
-                for (int i = 0; i < 18; i++)
+                //空の明細行を固定行分用意する
+                for (int i = 0; i < constRowCnt; i++)
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
@@ -922,7 +929,7 @@ namespace rehome.Controllers
                 if (QuoteBunrui != null)
                 {
 
-                    for (var i = 0; i < 25; i++)
+                    for (var i = 0; i < constRowCnt; i++)
                     {
                         //描画すべき行がなくなれば、値引行等を追加してループを抜ける
                         if (CurRow >= QuoteBunrui.Count())
@@ -1059,8 +1066,9 @@ namespace rehome.Controllers
             // int 消費税額 = (int)(小計 * 0.1);
             int 消費税額 = (int)Math.Ceiling(小計 * 0.1);
 
-            //明細が0行でも1ページは表示するため初期値は25にしておく
-            int RowCnt = 18;
+            //明細が0行でも1ページは表示するため初期値
+            int constRowCnt = 15;
+            int RowCnt = constRowCnt;
 
             if (Quote.見積明細リスト != null)
             {
@@ -1084,7 +1092,7 @@ namespace rehome.Controllers
             //描画すべき行がある限りページを増やす
             while (RowCnt > 0)
             {
-                RowCnt -= 18;
+                RowCnt -= constRowCnt;
 
                 paoRep.PageStart();
 
@@ -1101,6 +1109,8 @@ namespace rehome.Controllers
                 paoRep.Write("顧客名", Quote.顧客名 ?? " ");
                 paoRep.Write("敬称", Quote.敬称 ?? " ");
                 paoRep.Write("件名", Quote.件名 ?? " ");
+                paoRep.Write("受渡場所", Quote.受渡場所 ?? " ");
+                paoRep.Write("支払条件", Quote.支払条件 ?? " ");
 
                 paoRep.Write("見積金額", "￥" + string.Format("{0:#,0}", (小計 + 消費税額)));
                 paoRep.Write("社名", Houzin.社名 ?? " ");
@@ -1115,8 +1125,8 @@ namespace rehome.Controllers
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
                 paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
-                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分);
-                paoRep.Write("口座情報", Houzin.口座番号 + Houzin.口座名義);
+                paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分 + " " + Houzin.口座番号);
+                paoRep.Write("口座情報", Houzin.口座名義);
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -1129,8 +1139,8 @@ namespace rehome.Controllers
 
                 //ボディ
 
-                //空の明細行を18行分用意する
-                for (int i = 0; i < 18; i++)
+                //空の明細行を固定行分用意する
+                for (int i = 0; i < constRowCnt; i++)
                 {
                     paoRep.Write("番号", " ", i + 1);
                     paoRep.Write("品名", " ", i + 1);
@@ -1146,7 +1156,7 @@ namespace rehome.Controllers
                 if (Quote.見積明細リスト != null)
                 {
 
-                    for (var i = 0; i < 18; i++)
+                    for (var i = 0; i < constRowCnt; i++)
                     {
                         //描画すべき行がなくなれば、値引行等を追加してループを抜ける
                         if (CurRow >= Quote.見積明細リスト.Count())
@@ -1183,7 +1193,7 @@ namespace rehome.Controllers
                             paoRep.Write("単位", Quote.見積明細リスト[CurRow].単位 ?? " ", i + 1);
                             paoRep.Write("単価", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
                             paoRep.Write("金額", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
-                            paoRep.Write("備考", "式", i + 1);
+                            paoRep.Write("備考", Quote.見積明細リスト[CurRow].備考 ?? " ", i + 1);
 
                         }
 
