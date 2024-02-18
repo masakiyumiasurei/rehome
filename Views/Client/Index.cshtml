@@ -18,8 +18,7 @@
         <div id="Search-Area" name="hide" style="display: none;"><br>
             @using (Html.BeginForm("Search", "Client", FormMethod.Get, new { @class = "row g-3" }))
             {
-                @await Html.PartialAsync("_ClientSearch")                
-
+                @await Html.PartialAsync("_ClientSearch") 
             }
         </div>
 </div>
