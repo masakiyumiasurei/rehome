@@ -418,7 +418,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
+                paoRep.Write("インボイス番号", "登録番号：" + (Houzin.インボイス番号 ?? " "));
                
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -604,7 +604,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
+                paoRep.Write("インボイス番号", "登録番号：" + (Houzin.インボイス番号 ?? " "));
 
                 //フッダー
                 paoRep.Write("小計", string.Format("{0:#,0}", 小計));
@@ -900,7 +900,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
+                paoRep.Write("インボイス番号", "登録番号：" + (Houzin.インボイス番号 ?? " "));
                 paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分 + " " + Houzin.口座番号);
                 paoRep.Write("口座情報", Houzin.口座名義);
 
@@ -1124,7 +1124,7 @@ namespace rehome.Controllers
                 paoRep.Write("郵便番号", "〒" + (Houzin.郵便番号 ?? " "));
                 paoRep.Write("住所", Houzin.住所 ?? " ");
                 paoRep.Write("TEL", "TEL " + (Houzin.TEL ?? " ") + "　FAX " + (Houzin.FAX ?? " "));
-                paoRep.Write("インボイス番号", "インボイス番号：" + (Houzin.インボイス番号 ?? " "));
+                paoRep.Write("インボイス番号", "登録番号：" + (Houzin.インボイス番号 ?? " "));
                 paoRep.Write("銀行情報", Houzin.銀行名 + " " + Houzin.支店名 + " " + Houzin.口座区分 + " " + Houzin.口座番号);
                 paoRep.Write("口座情報", Houzin.口座名義);
 
