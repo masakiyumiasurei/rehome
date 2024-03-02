@@ -239,7 +239,7 @@ namespace rehome.Controllers
 
             //開発中はコメント
             viewModel.QuoteSearchConditions.LoginID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            //viewModel.Quotes = _QuoteService.SearchQuotes(viewModel.QuoteSearchConditions);
+            viewModel.Quotes = _QuoteService.SearchQuotes(viewModel.QuoteSearchConditions);
            // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
 

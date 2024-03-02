@@ -13,13 +13,6 @@
 </div>*@
 
 
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_案件名">
-    <div class="surround-box">
-        <label for="支払条件" class="surround-label">案件名</label>
-        @Html.TextBoxFor(m=>m.QuoteSearchConditions.案件名, new {@class = "form-control form-control-sm",@onchange="Submit()" })
-    </div>
-</div>
-
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_顧客名">
     <div class="surround-box">
         <label for="支払条件" class="surround-label">顧客名</label>
@@ -27,12 +20,19 @@
     </div>
 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_受注確度">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_案件名">
+    <div class="surround-box">
+        <label for="支払条件" class="surround-label">案件名</label>
+        @Html.TextBoxFor(m => m.QuoteSearchConditions.案件名, new { @class = "form-control form-control-sm", @onchange = "Submit()" })
+    </div>
+</div>
+
+@* <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_受注確度">
     <div class="surround-box">
         <label for="支払区分" class="surround-label">受注確度</label>
         @Html.DropDownListFor(m => m.QuoteSearchConditions.受注確度, 見積.受注確度items(),  "選択してください",  new { @class = "form-control form-control-sm",@onchange="Submit()"} )
     </div>
-</div>
+</div> *@
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_項目">
     <div class="surround-box">
@@ -41,12 +41,12 @@
     </div>
 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_見積番号">
+@* <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_見積番号">
     <div class="surround-box">
         <label for="支払条件" class="surround-label">見積番号</label>
         @Html.TextBoxFor(m=>m.QuoteSearchConditions.見積番号, new {@class = "form-control form-control-sm",@onchange="Submit()" })
     </div>
-</div>
+</div> *@
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_完了予定日">
     <div class="surround-box">

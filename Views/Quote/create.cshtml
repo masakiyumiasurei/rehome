@@ -32,9 +32,7 @@
 
         <div class="col-xs-offset-1 col-xs-12">
             <div class="row">
-                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
-                    <input type="submit" formaction="Create" formmethod="post" id="submit" class="custom-btn btn-1 btn-size" value="登録" />
-                </div>
+                
                 <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
                     <a href="@Model.BackUrl" class="custom-btn btn-2 ">戻る</a>
                 </div>
@@ -89,6 +87,9 @@
                         </div>
                     }
                 }
+                <div class="col-5 col-xl-1 col-lg-2 col-md-2 col-sm-4">
+                    <input type="submit" formaction="Create" formmethod="post" id="submit" class="custom-btn btn-1 btn-size" value="登録" />
+                </div>
             </div>
         </div>
     </div>
@@ -615,7 +616,7 @@
                 else {
                     //URLを実行しない
                     event.preventDefault();
-                    alert("見積ステータスを「請求」にして登録する必要があります。請求書は出せません。");
+                    alert("見積ステータスを「請求」にして「登録」を押してから出力してください。");
                     // return false;
                 }
 

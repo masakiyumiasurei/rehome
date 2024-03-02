@@ -92,10 +92,7 @@ namespace rehome.Services
 
                 //builder.Where("T_見積.見積番号 like @見積番号", new { 見積番号 = $"%{conditions.見積番号}%" });
                 //完全一致に修正
-                if (!string.IsNullOrEmpty(conditions.見積番号))
-                {
-                    builder.Where("T_見積.見積番号 = @見積番号", new { 見積番号 = conditions.見積番号 });
-                }
+                
 
 
                 if (conditions != null)
@@ -123,12 +120,7 @@ namespace rehome.Services
 
 
                     }
-
-                    if (!string.IsNullOrEmpty(conditions.受注確度))
-                    {
-                        builder.Where("T_見積.受注確度 = @受注確度", new { 受注確度 = conditions.受注確度 });
-
-                    }
+                                        
 
                     if (!string.IsNullOrEmpty(conditions.項目))
                     {

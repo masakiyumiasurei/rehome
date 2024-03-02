@@ -222,7 +222,7 @@ namespace rehome.Controllers
                 viewModel.NyukinSearchConditions = HttpContext.Session.GetObject<NyukinSearchConditions>(SessionKeys.Nyukin_SEARCH_CONDITIONS);
             }
             HttpContext.Session.SetObject(SessionKeys.QUOTE_SEARCH_CONDITIONS, viewModel.NyukinSearchConditions);
-                   
+            viewModel.Quotes = _NyukinService.SearchNyukins(viewModel.NyukinSearchConditions);
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             return View("Index", viewModel);
         }
