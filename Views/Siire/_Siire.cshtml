@@ -7,8 +7,13 @@
 
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-        <label for="name">仕入先名</label>
+        <label for="name">会社名</label>
         @Html.TextBoxFor(m => m.Siire.仕入先名, new { @class = "form-control form-control-sm" })
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">カナ</label>
+        @Html.TextBoxFor(m => m.Siire.カナ, new { @class = "form-control form-control-sm" })
     </div>
 
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -29,10 +34,8 @@
 </div>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-
         <label for="name" >肩書</label>
         @Html.TextBoxFor(m => m.Siire.肩書, new { @class = "form-control form-control-sm" })
-
     </div>
 
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">       
@@ -90,6 +93,15 @@
         <label for="name">インボイス番号</label>
         @Html.TextBoxFor(m => m.Siire.インボイス番号, new { @class = "form-control form-control-sm" })
     </div>
+</div>
+<div class="row">
+<div class="col-lg-8  col-sm-12">
+    <div class="input-container">
+        @Html.TextAreaFor(m => m.Siire.備考, 2, 300, new { @class = "form-control form-control-sm ", placeholder = " " })
+        <label for="name" class="col-xs-2 label">備考</label>
+        <div class="underline"></div>
+    </div>
+</div>
 </div>
 
 <div>@Html.HiddenFor(a => a.Mode)</div>

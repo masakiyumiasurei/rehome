@@ -92,7 +92,15 @@
                 }
             });
         });
-        
+
+
+        $(document).ready(
+            function () {
+                $.fn.autoKana('#顧客名', '#カナ', {
+                    katakana: true  //true：カタカナ、false：ひらがな（デフォルト）
+                });
+            });
+
     </script>
 
 }

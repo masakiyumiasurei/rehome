@@ -33,6 +33,14 @@ namespace rehome.Models.DB
         public 業種? 業種 { get; set; }
         public string? 支払日 { get; set; }
 
+        public string? 備考 { get; set; }
+
+        public string? カナ { get; set; }
+
+        public string? 名前 { get; set; }
+
+        public string? 名前カナ { get; set; }
+
         public static IList<SelectListItem> 支払日items()
         {
             var tmplist = new List<SelectListItem>();

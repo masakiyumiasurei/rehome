@@ -48,15 +48,15 @@ namespace rehome.Services
                         builder.Where("仕入先名 like @仕入先名", new { 仕入先名 = $"%{conditions.仕入先名}%" });
                     }
 
-                    if (!string.IsNullOrEmpty(conditions.肩書))
-                    {
-                        builder.Where("肩書 like @肩書", new { 肩書 = $"%{conditions.肩書}%" });
-                    }
+                    //if (!string.IsNullOrEmpty(conditions.肩書))
+                    //{
+                    //    builder.Where("肩書 like @肩書", new { 肩書 = $"%{conditions.肩書}%" });
+                    //}
 
-                    if (!string.IsNullOrEmpty(conditions.郵便番号))
-                    {
-                        builder.Where("郵便番号 like @郵便番号", new { 郵便番号 = $"%{conditions.郵便番号}%" });
-                    }
+                    //if (!string.IsNullOrEmpty(conditions.郵便番号))
+                    //{
+                    //    builder.Where("郵便番号 like @郵便番号", new { 郵便番号 = $"%{conditions.郵便番号}%" });
+                    //}
 
                     if (!string.IsNullOrEmpty(conditions.住所))
                     {
@@ -68,10 +68,10 @@ namespace rehome.Services
                         builder.Where("TEL like @TEL", new { TEL = $"%{conditions.TEL}%" });
                     }
 
-                    if (!string.IsNullOrEmpty(conditions.FAX))
-                    {
-                        builder.Where("FAX like @FAX", new { FAX = $"%{conditions.FAX}%" });
-                    }
+                    //if (!string.IsNullOrEmpty(conditions.FAX))
+                    //{
+                    //    builder.Where("FAX like @FAX", new { FAX = $"%{conditions.FAX}%" });
+                    //}
                     if (!string.IsNullOrEmpty(conditions.業種.ToString()))
                     {
                         builder.Where("業種 = @業種", new { 業種 = conditions.業種 });
@@ -117,7 +117,8 @@ namespace rehome.Services
                             sql = "UPDATE  T_仕入先 Set 仕入先名=@仕入先名,郵便番号=@郵便番号,住所=@住所,肩書=@肩書,TEL=@TEL,FAX=@FAX," +
                                 "銀行名=@銀行名,支店名=@支店名,口座区分=@口座区分,口座番号=@口座番号," +
                                 "口座名義=@口座名義,インボイス番号=@インボイス番号,業種=@業種," +
-                                "支払日=@支払日,分類=@分類,当社負担FLG=@当社負担FLG " +
+                                "支払日=@支払日,分類=@分類,当社負担FLG=@当社負担FLG,備考=@備考 ,カナ=@カナ, " +
+                                "名前=@名前,名前カナ=@名前カナ " +
                                 " where 仕入先ID = @仕入先ID";
 
                             var update = connection.Execute(sql, model.Siire, tx);
@@ -126,10 +127,10 @@ namespace rehome.Services
                         }
                         else
                         { //新規モード
-                            sql = "INSERT INTO T_仕入先 (仕入先名,郵便番号,住所,肩書,TEL,FAX," +
-                                "銀行名,支店名,口座区分,口座番号,口座名義,インボイス番号,業種,支払日,分類,当社負担FLG) " +
-                                " VALUES (@仕入先名,@郵便番号,@住所,@肩書,@TEL,@FAX," +
-                                "@銀行名,@支店名,@口座区分,@口座番号,@口座名義,@インボイス番号,@業種,@支払日,@分類,@当社負担FLG)";
+                            sql = "INSERT INTO T_仕入先 (仕入先名,郵便番号,住所,肩書,TEL,FAX,カナ,名前,名前カナ," +
+                                "銀行名,支店名,口座区分,口座番号,口座名義,インボイス番号,業種,支払日,分類,当社負担FLG,備考) " +
+                                " VALUES (@仕入先名,@郵便番号,@住所,@肩書,@TEL,@FAX,@カナ,@名前,@名前カナ," +
+                                "@銀行名,@支店名,@口座区分,@口座番号,@口座名義,@インボイス番号,@業種,@支払日,@分類,@当社負担FLG,@備考)";
 
                             var insert = connection.Execute(sql, model.Siire, tx);
                             tx.Commit();
