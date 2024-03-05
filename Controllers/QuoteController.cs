@@ -957,9 +957,9 @@ namespace rehome.Controllers
                         paoRep.Write("数量", "1", i + 1);
                         paoRep.Write("単位", "式", i + 1);
                         paoRep.Write("単価", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
-                        paoRep.Write("金額", string.Format("{0:#,0}", (QuoteBunrui[CurRow].単価 ?? 0)), i + 1);
-
-                        CurRow++;
+                        paoRep.Write("金額", string.Format("{0:#,0}", (QuoteBunrui[CurRow].金額 ?? 0)), i + 1);
+                                                                      
+                    CurRow++;
                         num++;
 
                     }
@@ -1192,7 +1192,7 @@ namespace rehome.Controllers
                             paoRep.Write("数量", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].数量 ?? 0)), i + 1);
                             paoRep.Write("単位", Quote.見積明細リスト[CurRow].単位 ?? " ", i + 1);
                             paoRep.Write("単価", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
-                            paoRep.Write("金額", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].単価 ?? 0)), i + 1);
+                            paoRep.Write("金額", string.Format("{0:#,0}", (Quote.見積明細リスト[CurRow].金額 ?? 0)), i + 1);
                             paoRep.Write("備考", Quote.見積明細リスト[CurRow].備考 ?? " ", i + 1);
 
                         }

@@ -187,6 +187,7 @@ namespace rehome.Models.DB
 
         public bool single { get; set; } = false;
 
+        public bool 原価確認FLG { get; set; } = false;
 
         public string? 入金種別 { get; set; }
         public static IList<SelectListItem> 入金種別items()

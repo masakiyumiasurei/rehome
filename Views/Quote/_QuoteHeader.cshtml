@@ -102,7 +102,10 @@
             <label>建設業許可 種類</label>
             @Html.DropDownListFor(m => m.Quote.種類, 見積.種類items(), "", new { @class = "form-control form-control-sm" })
         </div>
-       
+        <div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
+            <label for="原価確認FLG" class="col-xs-2 label">原価確認FLG</label>
+            @Html.CheckBoxFor(a => a.Quote.原価確認FLG, new { @class = "my-specific-check", @type = "checkbox", @id = "原価確認FLG" })
+        </div>
 
     </div>
 

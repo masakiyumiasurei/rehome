@@ -14,7 +14,7 @@ namespace rehome.Models.DB
         [Required(ErrorMessage = "{0}を入力してください。")]
         public string? 仕入先名 { get; set; }
 
-        [RegularExpression(@"\d{3}-\d{4}", ErrorMessage = "正しい郵便番号ではありません。")]
+       // [RegularExpression(@"\d{3}-\d{4}", ErrorMessage = "正しい郵便番号ではありません。")]
         public string? 郵便番号 { get; set; }
 
         public string? 住所 { get; set; }

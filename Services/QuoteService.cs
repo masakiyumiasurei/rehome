@@ -141,6 +141,19 @@ namespace rehome.Services
     
                     }
 
+                    builder.Where("T_見積.原価確認FLG = 0");
+
+                    builder.Where("T_見積.見積ステータス <> '失注'");
+
+                    // T_入金からの合計値がT_見積の見積金額未満である、またはT_入金にレコードがない条件を追加する。
+                    //条件で分けたいと言われたら、ここを追加するか選択する
+                    builder.Where(@"NOT EXISTS (
+                                    SELECT 1
+                                    FROM T_入金
+                                    WHERE T_入金.見積ID = T_見積.見積ID
+                                    HAVING SUM(ISNULL(T_入金.入金額, 0)) + SUM(ISNULL(T_入金.前受金, 0)) >= T_見積.見積金額
+                                )");
+
                 }
 
                 var result = connection.Query<見積>(template.RawSql, template.Parameters);
@@ -325,12 +338,12 @@ namespace rehome.Services
                              "顧客名,敬称,件名,納期,項目,見積区分,受渡場所,支払条件,有効期限," +
                              "見積金額,見込原価,見込利益,作成日,請求日,受注確度," +
                              "time_stamp,非課税名称,非課税額,値引名称,値引額,備考,single,入金種別," +
-                             "入金日,入金締日,見積ステータス,取引年月日,種類,種類2,JS番号,部屋番号) " +
+                             "入金日,入金締日,見積ステータス,取引年月日,種類,種類2,JS番号,部屋番号,原価確認FLG) " +
                         "VALUES ( @見積ID,@履歴番号,@見積番号,@最新FLG,@担当ID,@顧客ID," +
                         "@顧客名,@敬称,@件名,@納期,@項目,@見積区分,@受渡場所,@支払条件,@有効期限," +
                         "@見積金額,@見込原価,@見込利益,@作成日,@請求日,@受注確度," +
                         "@time_stamp,@非課税名称,@非課税額,@値引名称,@値引額,@備考,@single,@入金種別," +
-                        "@入金日,@入金締日,@見積ステータス, @取引年月日, @種類, @種類2, @JS番号, @部屋番号)";
+                        "@入金日,@入金締日,@見積ステータス, @取引年月日, @種類, @種類2, @JS番号, @部屋番号,@原価確認FLG)";
 
                 connection.Open();
                 using (var tx = connection.BeginTransaction())
@@ -368,7 +381,7 @@ namespace rehome.Services
                                 "非課税名称=@非課税名称,非課税額=@非課税額,値引名称=@値引名称,値引額=@値引額," +
                                 "備考=@備考,single=@single,入金種別=@入金種別,入金日=@入金日,入金締日=@入金締日," +
                                 "見積ステータス=@見積ステータス,取引年月日=@取引年月日, " +
-                                "種類=@種類, 種類2=@種類2 , JS番号=@JS番号, 部屋番号=@部屋番号 " +
+                                "種類=@種類, 種類2=@種類2 , JS番号=@JS番号, 部屋番号=@部屋番号,原価確認FLG=@原価確認FLG " +
                                 " WHERE 見積ID = @見積ID and 履歴番号 =@履歴番号";
 
                             var result = connection.Execute(queryUpdate, model.Quote, tx);

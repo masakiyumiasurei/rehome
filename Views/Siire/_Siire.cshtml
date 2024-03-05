@@ -8,14 +8,29 @@
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <label for="name">会社名</label>
-        @Html.TextBoxFor(m => m.Siire.仕入先名, new { @class = "form-control form-control-sm" })
+        @Html.TextBoxFor(m => m.Siire.仕入先名, new { @class = "form-control form-control-sm" ,@id="仕入先名"})
     </div>
 
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <label for="name">カナ</label>
-        @Html.TextBoxFor(m => m.Siire.カナ, new { @class = "form-control form-control-sm" })
+        @Html.TextBoxFor(m => m.Siire.カナ, new { @class = "form-control form-control-sm" ,@id="カナ"})
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">名前</label>
+        @Html.TextBoxFor(m => m.Siire.名前, new { @class = "form-control form-control-sm",@id="名前" })
     </div>
 
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">名前カナ</label>
+        @Html.TextBoxFor(m => m.Siire.名前カナ, new { @class = "form-control form-control-sm",@id="名前カナ" })
+    </div>
+
+    <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+        <label for="name">肩書</label>
+        @Html.TextBoxFor(m => m.Siire.肩書, new { @class = "form-control form-control-sm" })
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <label for="name">郵便番号</label>
         @Html.TextBoxFor(m => m.Siire.郵便番号,
@@ -26,27 +41,18 @@
         <label for="address">住所</label>
         @Html.TextBoxFor(m => m.Siire.住所, new { @class = "form-control form-control-sm" ,@id="address"})
     </div>
-
-<div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
-        <label for="当社負担FLG" class="col-xs-2 label">当社負担FLG</label>
-        @Html.CheckBoxFor(a => a.Siire.当社負担FLG, new { @class = "my-specific-check", @type = "checkbox", @id = "当社負担FLG" })
-</div>
-</div>
-<div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <label for="name" >肩書</label>
-        @Html.TextBoxFor(m => m.Siire.肩書, new { @class = "form-control form-control-sm" })
-    </div>
-
-    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">       
-            <label for="name" >TEL</label>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">TEL</label>
         @Html.TextBoxFor(m => m.Siire.TEL, new { @class = "form-control form-control-sm", @type="tel"})
     </div>
 
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-        <label for="name" >FAX</label>
+        <label for="name">FAX</label>
         @Html.TextBoxFor(m => m.Siire.FAX, new { @class = "form-control form-control-sm", @type="tel"})
     </div>
+   
+</div>
+<div class="row">   
     <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
         <label for="name">業種</label>
         @Html.DropDownListFor(m => m.Siire.業種,new SelectList(Enum.GetValues(typeof(業種))), "", new { @class = "form-control form-control-sm"})
@@ -55,10 +61,11 @@
         <label for="name">分類</label>
         @Html.DropDownListFor(m => m.Siire.分類,new SelectList(Enum.GetValues(typeof(仕入分類))), "", new { @class = "form-control form-control-sm"})
     </div>
-    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
-    <label for="name">支払日</label>    
-        @Html.DropDownListFor(m => m.Siire.支払日, 仕入先.支払日items(), "", new { @class = "form-control form-control-sm" })
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+        <label for="name">インボイス番号</label>
+        @Html.TextBoxFor(m => m.Siire.インボイス番号, new { @class = "form-control form-control-sm" })
     </div>
+    
 </div>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -74,11 +81,7 @@
         <label for="name">口座区分</label>
         @Html.DropDownListFor(m => m.Siire.口座区分, 仕入先.口座区分items(), "", new { @class = "form-control form-control-sm" })
     </div>
-    @* <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
-        <label for="name">口座区分</label>
-        @Html.TextBoxFor(m => m.Siire.口座区分, new { @class = "form-control form-control-sm" })
-    </div> *@
-
+   
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <label for="name">口座番号</label>
         @Html.TextBoxFor(m => m.Siire.口座番号, new { @class = "form-control form-control-sm" })
@@ -88,20 +91,20 @@
         <label for="name">口座名義</label>
         @Html.TextBoxFor(m => m.Siire.口座名義, new { @class = "form-control form-control-sm" })
     </div>
-
-    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
-        <label for="name">インボイス番号</label>
-        @Html.TextBoxFor(m => m.Siire.インボイス番号, new { @class = "form-control form-control-sm" })
+    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
+        <label for="name">支払日</label>
+        @Html.DropDownListFor(m => m.Siire.支払日, 仕入先.支払日items(), "", new { @class = "form-control form-control-sm" })
+    </div>
+    <div class="col-lg-1  col-md-1 col-sm-4 col-xs-4">
+        <label for="当社負担FLG" class="col-xs-2 label">当社負担FLG</label>
+        @Html.CheckBoxFor(a => a.Siire.当社負担FLG, new { @class = "my-specific-check", @type = "checkbox", @id = "当社負担FLG" })
     </div>
 </div>
 <div class="row">
-<div class="col-lg-8  col-sm-12">
-    <div class="input-container">
-        @Html.TextAreaFor(m => m.Siire.備考, 2, 300, new { @class = "form-control form-control-sm ", placeholder = " " })
+    <div class="col-lg-8  col-sm-12">     
         <label for="name" class="col-xs-2 label">備考</label>
-        <div class="underline"></div>
+            @Html.TextAreaFor(m => m.Siire.備考, 3, 300, new { @class = "form-control form-control-sm ", placeholder = " " })   
     </div>
-</div>
 </div>
 
 <div>@Html.HiddenFor(a => a.Mode)</div>

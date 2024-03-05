@@ -29,6 +29,17 @@
     </div>
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
+            @Html.DropDownListFor(m => m.Client.依頼者種別, 顧客.依頼者種別items(),  "選択してください",  new {@class = "orm-control form-control-sm"} )
+            <label for="name" class="col-xs-1 label">依頼者種別</label>
+            <div class="underline"></div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
+        <div class="input-container">
             @Html.TextBoxFor(m => m.Client.電話番号1, new { @class = "form-control form-control-sm ", @type="tel" ,placeholder=" "})
             <label for="name" class="col-xs-1 label">電話番号1</label>
             <div class="underline"></div>
@@ -41,9 +52,6 @@
             <div class="underline"></div>
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
             @Html.TextBoxFor(m => m.Client.FAX,new { @class = "form-control form-control-sm ", @type="tel" ,placeholder=" "})
@@ -59,13 +67,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-lg-2 col-md-2 col-sm-2">
-        <div class="input-container">
-            @Html.DropDownListFor(m => m.Client.依頼者種別, 顧客.依頼者種別items(),  "選択してください",  new {@class = "orm-control form-control-sm"} )
-            <label for="name" class="col-xs-1 label">依頼者種別</label>
-            <div class="underline"></div>
-        </div>
-    </div>
+    
     <div class="col-12 col-lg-2 col-md-2 col-sm-2">
         <div class="input-container">
             @Html.DropDownListFor(m => m.Client.連絡方法, 顧客.連絡方法items(), "選択してください", new { @class = "orm-control form-control-sm" })
