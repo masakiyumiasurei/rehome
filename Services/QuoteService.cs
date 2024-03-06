@@ -53,7 +53,8 @@ namespace rehome.Services
                 string WhereStr = "";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_見積.*,COALESCE(T_見積.見込原価,0) as 見込原価,COALESCE(T.金額計,0) as 原価,COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as 売上, " +
+                var template = builder.AddTemplate("SELECT T_見積.*,T_担当.氏名," +
+                    "COALESCE(T_見積.見込原価,0) as 見込原価,COALESCE(T.金額計,0) as 原価,COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as 売上, " +
                     "COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0)-COALESCE(金額計,0) AS 利益, " +
                     "FORMAT(IIF(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) = 0,0 " +
                     ",cast(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0)-COALESCE(金額計,0) as decimal)/cast(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as decimal)),'0.0%') as 粗利率, " +
@@ -61,6 +62,7 @@ namespace rehome.Services
                     "FORMAT(IIF(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) = 0,0 " +
                     ",cast(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0)-COALESCE(見込原価,0) as decimal)/cast(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as decimal)),'0.0%') as 見込粗利率 " +
                     "FROM T_見積 LEFT JOIN (SELECT 見積ID,履歴番号,SUM(金額) AS 金額計 FROM T_注文 GROUP BY 見積ID,履歴番号) AS T ON T_見積.見積ID = T.見積ID and T_見積.履歴番号 = T.履歴番号 " +
+                    "left join T_担当 on T_見積.担当ID=T_担当.担当ID " +
                     " /**where**/ /**orderby**/");
                 
                 //開発中ログインID付与　注意！！

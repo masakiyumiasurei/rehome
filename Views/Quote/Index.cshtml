@@ -14,8 +14,8 @@
     <h2>見積一覧</h2>
     <button type="button" class="custom-btn btn-1" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
 
-    <b@*utton type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Quote/_QuoteSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>*@
-    <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
+    @*<button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('SearchCustom','Views/Quote/_QuoteSearchCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>検索条件設定</button>
+    <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">*@
 
         <div id="Search-Area" name="hide" style="display: none;"><br>
             @using (Html.BeginForm("Search", "Quote", FormMethod.Get, new { @class = "row g-3" }))
@@ -31,7 +31,7 @@
 
 <br>
 
-@*<button type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Quote/_QuoteIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>*@
+<button style="font-size: 0.8em;" type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Quote/_QuoteIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>
 <input type="hidden" value="IndexCustom" id="UserCustom_FunctionName">
 
 @*    <div class="container">*@
@@ -41,14 +41,16 @@
             <tr>
                 <th class="column5">詳細</th>
                 <th class="column5">履歴</th>
-                <th>案件名</th>
-                <th>ステータス</th>
-                <th>請求日</th>
-                <th>売上</th>
-                <th>見込原価</th>
-                <th>原価</th>
-                <th>見込利益</th>
-                <th>利益</th>
+                <th id="IndexCustom_Quote_案件名">案件名</th>
+                <th id="IndexCustom_Quote_顧客名">顧客名</th>
+                <th id="IndexCustom_Quote_担当者名">担当者名</th>
+                <th id="IndexCustom_Quote_ステータス">ステータス</th>
+                <th id="IndexCustom_Quote_請求日">請求日</th>
+                <th id="IndexCustom_Quote_売上">売上</th>
+                <th id="IndexCustom_Quote_見込原価">見込原価</th>
+                <th id="IndexCustom_Quote_原価">原価</th>
+                <th id="IndexCustom_Quote_見込利益">見込利益</th>
+                <th id="IndexCustom_Quote_利益">利益</th>
                 @*<th>見込粗利率</th>
                 <th>粗利率</th>*@
 
@@ -68,28 +70,34 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.履歴番号)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_案件名">
                         @Html.DisplayFor(modelItem => item.件名)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_顧客名">
+                        @Html.DisplayFor(modelItem => item.顧客名)
+                    </td>
+                    <td id="IndexCustom_Quote_担当者名">
+                        @Html.DisplayFor(modelItem => item.担当者名)
+                    </td>
+                    <td id="IndexCustom_Quote_ステータス">
                         @Html.DisplayFor(modelItem => item.見積ステータス)
-                    </td>                    
-                    <td>
+                    </td>
+                    <td id="IndexCustom_Quote_請求日">
                         @Html.DisplayFor(modelItem => item.請求日)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_売上">
                         @Html.DisplayFor(modelItem => item.売上)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_見込原価">
                         @Html.DisplayFor(modelItem => item.見込原価)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_原価">
                         @Html.DisplayFor(modelItem => item.原価)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_見込利益">
                         @Html.DisplayFor(modelItem => item.見込利益)
                     </td>
-                    <td>
+                    <td id="IndexCustom_Quote_利益">
                         @Html.DisplayFor(modelItem => item.利益)
                     </td>
                     @*<td>
