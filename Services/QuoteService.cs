@@ -53,7 +53,7 @@ namespace rehome.Services
                 string WhereStr = "";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_見積.*,T_担当.氏名," +
+                var template = builder.AddTemplate("SELECT T_見積.*,T_担当.氏名 as 担当者名," +
                     "COALESCE(T_見積.見込原価,0) as 見込原価,COALESCE(T.金額計,0) as 原価,COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as 売上, " +
                     "COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0)-COALESCE(金額計,0) AS 利益, " +
                     "FORMAT(IIF(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) = 0,0 " +
@@ -145,14 +145,14 @@ namespace rehome.Services
 
                     builder.Where("T_見積.原価確認FLG = 0");
 
-                    builder.Where("T_見積.見積ステータス <> '失注'");
+                    builder.Where("isnull(T_見積.見積ステータス,'') <> '失注'");
 
                     // T_入金からの合計値がT_見積の見積金額未満である、またはT_入金にレコードがない条件を追加する。
                     //条件で分けたいと言われたら、ここを追加するか選択する
                     builder.Where(@"NOT EXISTS (
                                     SELECT 1
                                     FROM T_入金
-                                    WHERE T_入金.見積ID = T_見積.見積ID
+                                    WHERE T_入金.見積ID = T_見積.見積ID and T_入金.履歴番号 = T_見積.履歴番号
                                     HAVING SUM(ISNULL(T_入金.入金額, 0)) + SUM(ISNULL(T_入金.前受金, 0)) >= T_見積.見積金額
                                 )");
 

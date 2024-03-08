@@ -94,76 +94,6 @@ namespace rehome.Controllers
             }
         }
 
-        //[HttpGet]
-        //public ActionResult Create(int? 見積ID, int? 履歴番号,  bool single, int? 顧客ID )
-        //{
-        //    using var connection = new SqlConnection(_connectionString);
-
-        //    ViewBag.OperationMessage = (string)TempData["Quote"];
-
-        //    var model = new QuoteCreateModel();
-        //    if (Request.Headers["Referer"].Any())
-        //    {
-        //        model.BackUrl = Request.Headers["Referer"].ToString();
-        //    }
-
-        //    if (見積ID == null)//new処理
-        //    {
-
-        //        model.Quote = new 見積();
-        //        model.Quote.single = single;
-        //        model.Quote.顧客ID = (int)顧客ID;
-        //        model.Mode = ViewMode.New;
-        //        //model.Quote.期 = _QuoteService.GetPeriod(DateTime.Now);
-        //        //開発中コメント
-        //        model.Quote.担当ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-        //       // model.Quote.営業所ID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GroupSid).Value);
-        //        model.auth= bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-        //        //model.Quote.見積番号 = _QuoteService.GetQuoteNumber((int)model.Quote.営業所ID, model.Quote.担当ID, DateTime.Now);
-        //        model.RowCount = 0;
-        //    }
-        //    else
-        //    {//edit処理
-
-        //        model.Mode = ViewMode.Edit;
-        //        model.Quote = _QuoteService.GetQuote(見積ID ?? -1, 履歴番号 ?? -1);//null許容でGetQuoteする処理が適正ではないので、Create呼ばれる際は絶対に値が入って呼ばれるようにする？
-
-        //        model.auth = bool.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value);
-
-
-        //        if (model.Quote != null)
-        //        {
-        //            model.RowCount = model.Quote.見積明細リスト.Count();
-        //        }
-        //        else
-        //        {
-        //            model.RowCount = 0;
-        //        }
-        //        //ChumonIndexModel genka = _ChumonService.CalcChumon(見積ID ?? -1, 履歴番号 ?? -1);
-        //        //if (genka.金額計 != null)
-        //        //{
-        //        //    model.Quote.原価 = genka.金額計;
-        //        //    model.Quote.利益 = (model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) - (model.Quote.原価 ?? 0);
-        //        //    if ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0) != 0)
-        //        //    {
-        //        //        model.Quote.粗利率 = (model.Quote.利益 == 0 || model.Quote.利益 == null ? 0 : (Math.Round((decimal)((model.Quote.利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
-        //        //        model.Quote.見込粗利率 = (model.Quote.見込利益 == 0 || model.Quote.見込利益 == null ? 0 : (Math.Round((decimal)((model.Quote.見込利益) * 100 / ((model.Quote.見積金額 ?? 0) - (model.Quote.値引額 ?? 0) + (model.Quote.非課税額 ?? 0))), 1, MidpointRounding.AwayFromZero))).ToString() + "%";
-        //        //    }
-        //        //    else
-        //        //    {
-        //        //        model.Quote.粗利率 = "0%";
-        //        //        model.Quote.見込粗利率 = "0%";
-        //        //    }
-        //        //}
-        //    }
-
-        //    model.自由分類DropDownList = _DropDownListService.Get自由分類DropDownLists(見積ID ?? -1, 履歴番号 ?? -1);
-        //    model.分類DropDownList = _DropDownListService.Get分類DropDownLists();
-        //    //model.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
-        //    model.担当DropDownList = _DropDownListService.Get担当DropDownLists();
-
-        //    return View(model);
-        //}
 
 
 
@@ -210,8 +140,8 @@ namespace rehome.Controllers
                 return RedirectToAction("Create", "Quote", new { 見積ID = model.Quote.見積ID, 履歴番号 = model.Quote.履歴番号 });
             }
         }
+              
 
- 
         public IActionResult Index(int? page)
     {
             ViewBag.OperationMessage = (string)TempData["Nyukin_Index"];
@@ -223,6 +153,7 @@ namespace rehome.Controllers
             }
             HttpContext.Session.SetObject(SessionKeys.QUOTE_SEARCH_CONDITIONS, viewModel.NyukinSearchConditions);
             viewModel.Quotes = _NyukinService.SearchNyukins(viewModel.NyukinSearchConditions);
+            viewModel.invoices = _NyukinService.GetTotal(viewModel.NyukinSearchConditions);
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             return View("Index", viewModel);
         }
@@ -248,7 +179,7 @@ namespace rehome.Controllers
 
            // viewModel.QuoteSearchConditions.LoginID = Int32.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             viewModel.Quotes = _NyukinService.SearchNyukins(viewModel.NyukinSearchConditions);
-           // viewModel.営業所DropDownList = _DropDownListService.Get営業所DropDownLists();
+            viewModel.invoices = _NyukinService.GetTotal(viewModel.NyukinSearchConditions);
             viewModel.担当DropDownList = _DropDownListService.Get担当DropDownLists();
             return View("Index", viewModel);
     }

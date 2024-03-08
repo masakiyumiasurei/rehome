@@ -229,12 +229,12 @@ namespace rehome.Models.DB
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime? 請求日 { get; set; }
-
+        public string 請求日Formatted => 請求日?.ToString("yyyy/MM/dd");
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime? 最終入金日 { get; set; }
-
+        public string 入金日Formatted => 入金日?.ToString("yyyy/MM/dd");
 
         public int? 入金合計 { get; set; }
 
