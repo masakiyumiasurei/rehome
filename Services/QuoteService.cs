@@ -145,14 +145,14 @@ namespace rehome.Services
 
                     builder.Where("T_見積.原価確認FLG = 0");
 
-                    builder.Where("T_見積.見積ステータス <> '失注'");
+                    builder.Where("isnull(T_見積.見積ステータス,'') <> '失注'");
 
                     // T_入金からの合計値がT_見積の見積金額未満である、またはT_入金にレコードがない条件を追加する。
                     //条件で分けたいと言われたら、ここを追加するか選択する
                     builder.Where(@"NOT EXISTS (
                                     SELECT 1
                                     FROM T_入金
-                                    WHERE T_入金.見積ID = T_見積.見積ID
+                                    WHERE T_入金.見積ID = T_見積.見積ID and T_入金.履歴番号 = T_見積.履歴番号
                                     HAVING SUM(ISNULL(T_入金.入金額, 0)) + SUM(ISNULL(T_入金.前受金, 0)) >= T_見積.見積金額
                                 )");
 

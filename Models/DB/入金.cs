@@ -19,7 +19,9 @@ namespace rehome.Models.DB
 
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
-        public DateTime? 入金日 { get; set; } 
+        public DateTime? 入金日 { get; set; }
+
+        public string 入金日Formatted => 入金日?.ToString("yyyy/MM/dd");
 
         [Required(ErrorMessage = "{0}を入力してください。")]
         [Column(TypeName = "money")]

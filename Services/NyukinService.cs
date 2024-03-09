@@ -10,6 +10,7 @@ using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using MigraDocCore.DocumentObjectModel;
 
 namespace rehome.Services
 {
@@ -25,6 +26,8 @@ namespace rehome.Services
 
         int CountNyukin(int 見積ID, int 履歴番号);
 
+        public IList<請求合計一覧> GetTotal(NyukinSearchConditions conditions);
+
     }
 
     public class NyukinService : ServiceBase, INyukinService
@@ -37,8 +40,38 @@ namespace rehome.Services
             _logger = logger;
         }
 
+        public IList<請求合計一覧> GetTotal(NyukinSearchConditions conditions)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string WhereStr = "";
+                connection.Open();
+                var builder = new SqlBuilder();
+                var template = builder.AddTemplate("select '総合計' as 項目 , sum(見積金額) as 合計額 FROM T_見積 /**where**/　" +
+                    "union all " +
+                    "SELECT 項目, sum(見積金額) as 合計額 FROM T_見積 /**where**/ group by 項目 "
+                    );
+                                
 
-        public IList<見積> SearchNyukins(NyukinSearchConditions conditions)
+                builder.Where("T_見積.見積ステータス = '請求' ");
+
+                if (conditions != null)
+                {
+
+                    if (conditions.請求日start != null)
+                    {
+                        builder.Where("T_見積.請求日>= @請求日start", new { 請求日start = conditions.請求日start });
+                    }
+                    if (conditions.請求日end != null)
+                    {
+                        builder.Where("T_見積.請求日<= @請求日end", new { 請求日end = conditions.請求日end });
+                    }
+                }
+                var result = connection.Query<請求合計一覧>(template.RawSql, template.Parameters);
+                return result.ToList();
+            }
+        }
+            public IList<見積> SearchNyukins(NyukinSearchConditions conditions)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -55,7 +88,7 @@ namespace rehome.Services
                     "ON T_見積.見積ID = T.見積ID and T_見積.履歴番号 = T.履歴番号 " +
                     " /**where**/ /**orderby**/");
 
-                builder.OrderBy("T_見積.見積ID DESC");
+                builder.OrderBy("T_見積.作成日 DESC");
 
                 builder.Where("T_見積.見積ステータス = '請求' ");
 

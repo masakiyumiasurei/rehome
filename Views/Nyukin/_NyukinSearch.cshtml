@@ -1,19 +1,19 @@
 ﻿@model NyukinIndexModel
 @using rehome.Models.DB;
 
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_案件名">
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_案件名">
     <div class="surround-box">
         <label for="案件名" class="surround-label">案件名</label>
         @Html.TextBoxFor(m=>m.NyukinSearchConditions.案件名, new {@class = "form-control form-control-sm",@onchange="Submit()" })
     </div>
 </div>
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_顧客名">
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_顧客名">
     <div class="surround-box">
         <label for="顧客名" class="surround-label">顧客名</label>
         @Html.TextBoxFor(m=>m.NyukinSearchConditions.顧客名, new {@class = "form-control form-control-sm",@onchange="Submit()" })
     </div>
 </div>
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_完了予定日">
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 align-items-start" id="SearchCustom_Quote_完了予定日">
     <div class="surround-box">
         <label for="日付" class="surround-label">請求日</label>
         @Html.EditorFor(m => m.NyukinSearchConditions.請求日start,  new { htmlAttributes =new { @class = "form-control form-control-sm"  ,@type = "date",@onchange="Submit()"}})

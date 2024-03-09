@@ -31,7 +31,8 @@
 
 <br>
 
-<button style="font-size: 0.8em;" type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Quote/_QuoteIndexCustom.cshtml');"><i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>
+<button style="font-size: 0.8em;" type="button" class="custom-btn btn-1" onclick="UserCustom_Popup('IndexCustom','Views/Quote/_QuoteIndexCustom.cshtml');">
+    <i class="fa-solid fa-screwdriver-wrench"></i>表示項目設定</button>
 <input type="hidden" value="IndexCustom" id="UserCustom_FunctionName">
 
 @*    <div class="container">*@
@@ -46,6 +47,7 @@
                 <th id="IndexCustom_Quote_案件名">工事件名</th>
                 <th id="IndexCustom_Quote_担当者名">担当者名</th>
                 <th id="IndexCustom_Quote_ステータス">ステータス</th>
+                <th id="IndexCustom_Quote_項目">項目</th>
                 <th id="IndexCustom_Quote_請求日">請求日</th>
                 <th id="IndexCustom_Quote_売上">売上</th>
                 <th id="IndexCustom_Quote_見込原価">見込原価</th>
@@ -83,8 +85,11 @@
                     <td id="IndexCustom_Quote_ステータス">
                         @Html.DisplayFor(modelItem => item.見積ステータス)
                     </td>
+                    <td id="IndexCustom_Quote_項目" class="right-align">
+                        @Html.DisplayFor(modelItem => item.項目)
+                    </td>
                     <td id="IndexCustom_Quote_請求日" class="right-align">
-                        @Html.DisplayFor(modelItem => item.請求日)
+                        @Html.DisplayFor(modelItem => item.請求日Formatted)
                     </td>
                     <td id="IndexCustom_Quote_売上" class="right-align">
                         @Html.DisplayFor(modelItem => item.売上)
