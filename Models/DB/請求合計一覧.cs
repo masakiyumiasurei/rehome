@@ -10,7 +10,10 @@ namespace rehome.Models.DB
     public class 請求合計一覧
     {        
         public string? 項目 { get; set; }
-        public int? 合計額 { get; set; }
+
+        [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:#,##0.#}", ApplyFormatInEditMode = true)]
+        public decimal? 合計額 { get; set; }
         
     }
 }

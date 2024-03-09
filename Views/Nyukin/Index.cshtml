@@ -14,20 +14,21 @@
     @* <h2>売上一覧</h2> *@
     <button type="button" class="custom-btn btn-1" onclick="SwitchSearch();" id="SwitchButton">検索条件▼</button>
     <input type="hidden" value="SearchCustom" id="UserCustom_FunctionName">
-
+   
     <div style="display: flex; justify-content: center; align-items: start; width: 100%;">
-        <div id="Search-Area" name="hide" style="display: none; flex-grow: 1; min-width: 50%;">
+        <div id="Search-Area" name="hide" style="display: none; flex-grow: 1; min-width: 80%;">
+        
             <br>
             @using (Html.BeginForm("Search", "Nyukin", FormMethod.Get, new { @class = "row g-3" }))
             {
                 @await Html.PartialAsync("_NyukinSearch")
             }
         </div>
-        <div style="flex-grow: 1; min-width: 50%;">
+        <div style="flex-grow: 1; min-width: 20%;">
             <table>
                 <tr>
-                    <th>項目</th>
-                    <th>見積金額合計</th>
+                    <th class="column5">項目</th>
+                    <th class="column10">見積金額合計</th>
                 </tr>
                 @if (Model.invoices != null)
                 {
@@ -35,7 +36,10 @@
                     {
                         <tr>
                             <td>@item.項目</td>
-                            <td>@item.合計額</td>
+                            @*<td>@item.合計額</td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.合計額)
+                            </td>
                         </tr>
                     }
                 }
