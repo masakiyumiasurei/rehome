@@ -53,7 +53,7 @@ namespace rehome.Services
                 string WhereStr = "";
                 connection.Open();
                 var builder = new SqlBuilder();
-                var template = builder.AddTemplate("SELECT T_見積.*,T_担当.氏名," +
+                var template = builder.AddTemplate("SELECT T_見積.*,T_担当.氏名 as 担当者名," +
                     "COALESCE(T_見積.見込原価,0) as 見込原価,COALESCE(T.金額計,0) as 原価,COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) as 売上, " +
                     "COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0)-COALESCE(金額計,0) AS 利益, " +
                     "FORMAT(IIF(COALESCE(見積金額,0)-COALESCE(値引額,0)+COALESCE(非課税額,0) = 0,0 " +

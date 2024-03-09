@@ -125,7 +125,7 @@ namespace rehome.Controllers
             {
                 ModelState.AddModelError("", $"問題が発生しました。[{ex.Message}]");
 
-                string str = model.Client.顧客名 + "には、相談者、日報などの登録があるため削除できません\n" ;
+                string str = model.Client.顧客名 + "には、見積、日報などの登録があるため削除できません\n" ;
                 TempData["error"] = str +(ex.Message).ToString();
                     return RedirectToAction("Detail", "Client", new { 顧客ID = model.Client.顧客ID });
                 

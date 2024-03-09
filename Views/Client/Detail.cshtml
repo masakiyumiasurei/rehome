@@ -27,9 +27,9 @@
                 @if (Model.Mode == ViewMode.Edit)
                 {
                     @*いったん削除ボタンは未使用にする。後日変わるかも？？*@
-                    @*                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 offset-xs-1">
-            <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn btn-2" >削除</button>
-            </div>*@
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 offset-xs-1">
+                        <button type="submit" formaction="Delete" formmethod="post" id="btnDelete" class="custom-btn  btn-size btn-red btn-2">削除</button>
+                </div>
                 }
             </div>
 
@@ -101,14 +101,22 @@
 
 @section Scripts{
     <script>
-        $(document).ready(
-            function ()
-            {
-                $.fn.autoKana('#顧客名', '#カナ', {
-                    katakana: true  //true：カタカナ、false：ひらがな（デフォルト）
-                });
+        $(document).ready(function () {
+            $.fn.autoKana('#顧客名', '#カナ', {
+                katakana: true  //カタカナに設定
             });
-        
+
+
+            // 削除チェック
+            $('#btnDelete').on('click', function (event) {
+                var result = window.confirm('顧客情報を削除しますか？');
+                if (!result) {  
+                    event.preventDefault();
+                }
+            });
+        });
+
+
 
         function create_quote() {
             var checkboxValue = document.querySelector('#single').checked;
@@ -417,42 +425,7 @@
 
 
 
-        $(function () {
-
-            //登録
-            $('#submit').on('click', function () {
-
-                var table = document.getElementById("TantouTable");
-                var tr = table.getElementsByTagName("tr");
-                var count = 0;
-                for (var row = 1; row < tr.length; row++) {
-
-                    var td = tr[row].getElementsByTagName("td")[0];
-                    if (td) {
-                        var selectElement = td.querySelector('select');
-                        var txtValue = selectElement.options[selectElement.selectedIndex].text;
-                        if (txtValue == "メイン") {
-                            count++;
-                        }
-                    }
-                }
-                if (count > 1) {
-                    alert("メイン担当者は複数登録できません。");
-                    event.preventDefault();
-                }
-
-            });
-
-            //削除
-            $('#btnDelete').on('click', function () {
-                var result = window.confirm('顧客情報を削除しますか？');
-                if (result == false) {
-                    event.preventDefault();
-                }
-            });
-
-
-        });
+        
     </script>
 
 }
